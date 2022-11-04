@@ -1,0 +1,73 @@
+require('dotenv').config();
+const mix = require('laravel-mix');
+const env = process.env.APP_ENV;
+
+// Если в .env параметр APP_ENV = local, файлы компилируются в public/build,
+// иначе в public/
+
+// пути для окружения dev и production - (env === 'dev' || env === 'production')
+let publicPath = 'public';
+let resourceRoot = './';
+let outputDir = 'public/';
+
+
+if (env === 'local') {
+    publicPath = 'public/build';
+    resourceRoot = '/build/';
+    outputDir = './';
+}
+
+mix
+    .setPublicPath(publicPath)
+    .setResourceRoot(resourceRoot)
+    .js('resources/js/app.js', outputDir + 'js')
+    .sass('resources/sass/app.scss', outputDir + 'css')
+    .vue({
+            extractStyles: false,
+            globalStyles: "resources/sass/vue_components.scss"
+        }
+    )
+    .version();
+
+if (env === 'local') {
+    // const domain = 'larka_new.loc'; // <= EDIT THIS
+    mix.browserSync({
+        // logLevel: "debug",
+        // open: false,
+        open: false,
+        // proxy: 'https://' + 'nginx',
+        proxy: 'https://' + 'nginx',
+        // proxy: 'nginx',
+        // host: '192.168.0.109',
+        // proxy: {
+        //     target: "nginx", // replace with your web server container
+        //     proxyReq: [
+        //         function(proxyReq) {
+        //             proxyReq.setHeader('HOST', 'larka_new.loc'); // replace with your site host
+        //         }
+        //     ]
+        // },
+        https: true,
+        // https: false,
+        watchOptions: {
+            usePolling: true,
+            interval: 500,
+            ignored: /node_modules/,
+        },
+        files: [
+            'app/**/*.php',
+            'resources/views/**/*.php',
+            'resources/js/app.js',
+            'resources/js/components/*.vue',
+            'packages/mixdinternet/frontend/src/**/*.php',
+            'public/js/**/*.js',
+            'public/build/js/**/*.js',
+            'public/css/**/*.css',
+            'public/build/css/**/*.css',
+        ],
+        notify: true,
+    });
+} else {
+    console.log('Env != local!!!! browserSync now working')
+}
+

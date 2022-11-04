@@ -1,11 +1,19 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\User\User;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration
+class CreateUsersTable extends Migration
 {
+    private $usersTableName;
+
+    public function __construct()
+    {
+        $this->usersTableName = User::getTableName();
+    }
+
     /**
      * Run the migrations.
      *
@@ -13,15 +21,29 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable($this->usersTableName)) {
+            Schema::create($this->usersTableName, function (Blueprint $table) {
+                $table->smallIncrements('id');
+                $table->string('name')->nullable();
+                $table->string('password')->nullable();
+                $table->string('email')->unique();
+                $table->timestamp('email_verified_at')->nullable();
+                $table->unsignedSmallInteger('role_id')->nullable();
+
+                $table->string('phone')->nullable();
+                $table->boolean('phone_auth')->default(false);
+                $table->boolean('phone_verified')->default(false);
+                $table->string('phone_verify_token')->nullable();
+                $table->timestamp('phone_verify_token_expire')->nullable();
+
+                $table->rememberToken();
+
+                $table->string('status', 16)->nullable();
+                $table->string('verify_token')->nullable()->unique();
+
+                $table->timestamps();
+            });
+        }
     }
 
     /**
@@ -31,6 +53,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists($this->usersTableName);
     }
-};
+}
