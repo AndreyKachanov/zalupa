@@ -8,10 +8,10 @@
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
-        "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "davejamesmiller/laravel-breadcrumbs": "^5.3",
-        "laravel/ui": "^3.4"
+        "laravel/ui": "^3.4",
+        "intervention/image": "^2.7"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

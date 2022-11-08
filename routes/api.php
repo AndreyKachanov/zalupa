@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\ApiController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+
+Route::get('items', [ApiController::class, 'items'])->name('api.items');
+Route::group(
+    [
+        'prefix'     => 'cart',
+        'as'         => 'api.cart.'
+    ],
+    function () {
+        Route::get('load', [ApiController::class, 'load'])->name('load');
+        Route::get('add', [ApiController::class, 'add'])->name('add');
+    }
+);
+
+
+
