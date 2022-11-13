@@ -20,9 +20,7 @@ class ItemResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'article_number' => $this->article_number,
-            'price1' => $this->price1,
-            'price2' => $this->price2,
-            'price3' => $this->price3,
+            'price' => $this->price,
             'link' => $this->link,
             'img' => Storage::disk('uploads')->url($this->img),
             'category' => $this->category_id

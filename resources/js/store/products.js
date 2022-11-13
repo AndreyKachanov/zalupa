@@ -48,7 +48,7 @@ export default {
     actions: {
         async load(store) {
             console.log(this.$router);
-           let items = await makeRequest('https://localhost:3000/api/items');
+           let items = await makeRequest('https://catalog.loc/api/items');
             console.log(items);
             store.commit('setItems', items.data);
         }

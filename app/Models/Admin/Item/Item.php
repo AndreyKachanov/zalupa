@@ -2,10 +2,11 @@
 
 namespace App\Models\Admin\Item;
 
+use App\Models\Admin\Cart\CartItem;
 use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Database\Factories\Administration\FlightFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Admin\Item\Item
@@ -38,6 +39,8 @@ use Database\Factories\Administration\FlightFactory;
  * @mixin \Eloquent
  * @property string|null $link
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereLink($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|CartItem[] $rCartItems
+ * @property-read int|null $r_cart_items_count
  */
 class Item extends Model
 {
@@ -51,5 +54,10 @@ class Item extends Model
     public function rCategory()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');
+    }
+
+    public function rCartItems(): HasMany
+    {
+        return $this->hasMany(CartItem::class, 'item_id', 'id');
     }
 }

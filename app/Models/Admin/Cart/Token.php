@@ -6,6 +6,24 @@ use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Admin\Cart\Token
+ *
+ * @property int $id
+ * @property string $token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Admin\Cart\CartItem[] $rCartItems
+ * @property-read int|null $r_cart_items_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Token newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Token newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Token query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Token extends Model
 {
     use EloquentGetTableNameTrait;
@@ -13,4 +31,12 @@ class Token extends Model
 
     protected $table = 'carts_tokens';
     protected $guarded = ['id'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rCartItems()
+    {
+        return $this->hasMany(CartItem::class, 'token_id', 'id')->select('item_id as id', 'cnt');
+    }
 }

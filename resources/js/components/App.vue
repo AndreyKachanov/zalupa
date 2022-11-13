@@ -42,8 +42,8 @@ export default {
     components: {
     },
     data: () => ({
-        cartCnt: 5,
-        cartTotal: 22000,
+        // cartCnt: 5,
+        // cartTotal: 22000,
         menu: [
             { route: 'products', title: 'Products' },
             { route: 'cart', title: 'Cart' },
@@ -51,7 +51,7 @@ export default {
         ]
     }),
     computed: {
-        // ...mapGetters('cart', { cartCnt: 'length', cartTotal: 'total' }),
+        ...mapGetters('cart', { cartCnt: 'length', cartTotal: 'total' }),
     },
     methods: {
     },

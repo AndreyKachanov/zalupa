@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>Products</h1>
-<!--        {{ cartAll }}-->
+        {{ cartAll }}
         <div class="row">
             <div class="col col-sm-4 mb-3 mt-3"
                 v-for="product in products"
@@ -11,10 +11,10 @@
                     <div class="card-body">
                         <h3>{{ product.title }}</h3>
                         <img class="img-fluid" :src="product.img" alt=""/>
-                        <div>{{ product.price1 }}</div>
-                        <div>{{ product.price2 }}</div>
-                        <div>{{ product.price3 }}</div>
+                        <div>{{ product.price }}</div>
                         <router-link :to="`/product/${product.id}`">Read more</router-link>
+                        {{ inCart(product.id) }}
+                        {{ product.id }}
                         <button v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">
                             Remove
                         </button>

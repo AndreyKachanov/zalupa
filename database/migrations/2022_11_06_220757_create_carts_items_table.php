@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Admin\Cart\Cart;
+use App\Models\Admin\Cart\CartItem;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,7 +12,7 @@ return new class extends Migration
 
     public function __construct()
     {
-        $this->tableName = Cart::getTableName();
+        $this->tableName = CartItem::getTableName();
     }
     /**
      * Run the migrations.
@@ -24,10 +24,11 @@ return new class extends Migration
         if (!Schema::hasTable($this->tableName)) {
             Schema::create($this->tableName, function (Blueprint $table) {
                 $table->smallIncrements('id');
-                $table->unsignedSmallInteger('token_id')->nullable();
-                $table->unsignedSmallInteger('item_id')->nullable();
-                $table->unsignedSmallInteger('cnt')->nullable()->comment('Количество товара');
+                $table->unsignedSmallInteger('token_id');
+                $table->unsignedSmallInteger('item_id');
+                $table->unsignedSmallInteger('cnt')->comment('Количество товара');
                 $table->timestamps();
+                $table->softDeletes();
             });
         }
     }

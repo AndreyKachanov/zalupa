@@ -56,8 +56,7 @@ export default {
         async add({ state, getters, commit }, id) {
             // если в корзине нет такого элемента
             if (!getters.has(id)) {
-                // let url = `http://faceprog.ru/reactcourseapi/cart/add.php?token=${state.token}&id=${id}`;
-                let url = `https://localhost:3000/api/cart/add/token=${state.token}&id=${id}`;
+                let url = `https://catalog.loc/api/cart/add?token=${state.token}&id=${id}`;
                 let res = await makeRequest(url);
                 if (res) {
                     commit('add', id);
@@ -68,7 +67,8 @@ export default {
         },
         async remove({ state, getters, commit }, id) {
             if (getters.has(id)) {
-                let url = `http://faceprog.ru/reactcourseapi/cart/remove.php?token=${state.token}&id=${id}`;
+                let url = `https://catalog.loc/api/cart/remove?token=${state.token}&id=${id}`;
+                // let url = `https://catalog.loc/api/cart/remove/${state.token}/${id}`;
                 let res = await makeRequest(url);
                 if (res) {
                     commit('remove', id);
@@ -85,7 +85,7 @@ export default {
         async load(store) {
             let oldToken = localStorage.getItem('CART_TOKEN');
             // let url = `http://faceprog.ru/reactcourseapi/cart/load.php?token=${oldToken}`;
-            let url = `https://localhost:3000/api/cart/load?token=${oldToken}`;
+            let url = `https://catalog.loc/api/cart/load?token=${oldToken}`;
             let { needUpdate, cart, token  } = await makeRequest(url);
             console.log(token);
             if (needUpdate) {

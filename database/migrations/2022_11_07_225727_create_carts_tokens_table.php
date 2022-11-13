@@ -25,6 +25,7 @@ return new class extends Migration
             Schema::create($this->tableName, function (Blueprint $table) {
                 $table->smallIncrements('id');
                 $table->string('token', 64)->unique();
+                $table->string('ip', 64)->nullable();
                 $table->timestamps();
             });
         }

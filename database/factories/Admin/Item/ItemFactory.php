@@ -21,9 +21,7 @@ class ItemFactory extends Factory
         return [
             'title' => $this->faker->jobTitle,
             'article_number' => $this->faker->postcode,
-            'price1' => '60',
-            'price2' => '50',
-            'price3' => '30',
+            'price' => rand(50, 100),
             'link' => '4a9f99dc105',
             // 'img' => 'items/' . $this->faker->image(Storage::disk('uploads')->path('items/'), 300, 350, 'cats', false),
             'img' => $this->faker->loremflickr(

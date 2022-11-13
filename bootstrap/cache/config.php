@@ -363,7 +363,7 @@
     array (
       0 => 'telescope*',
       1 => 'horizon*',
-      2 => 'cart/*',
+      2 => 'api/*',
     ),
     'storage' => 
     array (

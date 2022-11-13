@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Admin\Cart\Cart;
+use App\Models\Admin\Cart\CartItem;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,7 +11,7 @@ return new class extends Migration
 
     public function __construct()
     {
-        $this->tableName = Cart::getTableName();
+        $this->tableName = CartItem::getTableName();
     }
     /**
      * Run the migrations.
@@ -28,8 +28,8 @@ return new class extends Migration
             $table->foreign(['item_id'], 'fk_item')
                 ->references('id')
                 ->on('items')
-                ->onDelete('set null')
-                ->onUpdate('set null');
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
         });
     }
 

@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ApiController;
-use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,10 +26,10 @@ Route::group(
         'as'         => 'api.cart.'
     ],
     function () {
-        Route::get('load', [ApiController::class, 'load'])->name('load');
-        Route::get('add', [ApiController::class, 'add'])->name('add');
+        Route::get('load', [ApiController::class, 'cartLoad'])->name('load');
+        Route::get('add', [ApiController::class, 'addsItemsToCart'])->name('add');
+        //Route::get('remove/token/{token}/id/{item}', [ApiController::class, 'removeItemsFromCart'])->name('remove');
+        Route::get('remove', [ApiController::class, 'removeItemsFromCart'])->name('remove');
+        //Route::get('remove/{token:token}/{item}', [ApiController::class, 'removeItemsFromCart'])->name('remove');
     }
 );
-
-
-
