@@ -5,6 +5,8 @@ namespace App\Models\Admin\Cart;
 use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Http\Request;
 
 /**
  * App\Models\Admin\Cart\Token
@@ -23,6 +25,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Token whereToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Token whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string|null $ip
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereIp($value)
  */
 class Token extends Model
 {
@@ -37,6 +41,7 @@ class Token extends Model
      */
     public function rCartItems()
     {
+        //return $this->hasMany(Cart::class, 'token_id', 'id')->select('item_id as id', 'cnt');
         return $this->hasMany(CartItem::class, 'token_id', 'id')->select('item_id as id', 'cnt');
     }
 }

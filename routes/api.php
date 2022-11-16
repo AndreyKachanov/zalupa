@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApiController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //});
 
+$missing = fn(Request $request) => response('Not found1111', 404);
 
 Route::get('items', [ApiController::class, 'items'])->name('api.items');
 Route::group(
@@ -25,11 +27,18 @@ Route::group(
         'prefix'     => 'cart',
         'as'         => 'api.cart.'
     ],
-    function () {
-        Route::get('load', [ApiController::class, 'cartLoad'])->name('load');
-        Route::get('add', [ApiController::class, 'addsItemsToCart'])->name('add');
-        //Route::get('remove/token/{token}/id/{item}', [ApiController::class, 'removeItemsFromCart'])->name('remove');
-        Route::get('remove', [ApiController::class, 'removeItemsFromCart'])->name('remove');
-        //Route::get('remove/{token:token}/{item}', [ApiController::class, 'removeItemsFromCart'])->name('remove');
+    function () use ($missing) {
+        //Route::get('load/{token:token}', [ApiController::class, 'cartLoad'])->name('load')
+        //    ->middleware(['throttle:token'])->missing($missing);
+        Route::get('load', [ApiController::class, 'cartLoad'])->name('load')
+            ->middleware(['throttle:token'])->missing($missing);
+        Route::post('add/{token:token}/{item}', [ApiController::class, 'addsItemsToCart'])
+            ->name('add')
+            ->missing($missing);
+        Route::post('remove/{token:token}/{item}', [ApiController::class, 'removeItemsFromCart'])
+            ->name('remove')
+            ->missing($missing);
     }
 );
+
+Route::fallback(fn() => 'fallback route');

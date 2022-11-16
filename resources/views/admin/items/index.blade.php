@@ -59,8 +59,8 @@
                                 @isset($categories)
                                     @forelse ($categories as $key => $category)
                                         <option
-                                                {{ $category->id === (int)request('category_id') ? ' selected' : '' }}
-                                                value="{{ $category->id }}"
+                                            {{ $category->id === (int)request('category_id') ? ' selected' : '' }}
+                                            value="{{ $category->id }}"
                                         >
                                             {{ $category->title }}
                                         </option>
@@ -110,7 +110,7 @@
         </tbody>
     </table>
     <div class="pagination justify-content-center">
-{{--        {{ $items->links() }}--}}
+        {{--        {{ $items->links() }}--}}
         {{ $items->appends(request()->except('page'))->links() }}
     </div>
 @endsection

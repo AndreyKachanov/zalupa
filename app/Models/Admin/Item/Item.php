@@ -41,6 +41,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereLink($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|CartItem[] $rCartItems
  * @property-read int|null $r_cart_items_count
+ * @property string|null $price
+ * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrice($value)
  */
 class Item extends Model
 {

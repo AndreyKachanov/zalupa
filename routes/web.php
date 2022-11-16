@@ -3,7 +3,11 @@
 use App\Http\Controllers\Admin\HomeController as AdminHome;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Models\Admin\Item\Item;
+use App\Models\Admin\Item\Category;
+use App\Models\Admin\Cart\CartItem;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +48,8 @@ Route::group(
         Route::post('/users/{user}/verify', 'UsersController@verify')->name('users.verify');
     }
 );
+
+Route::get('/categories/{category}/items/{item}', function (Category $category, Item $item) {
+    dump($item);
+    dump($category);
+})->scopeBindings()->missing(fn(Request $request) => Redirect::route('home'));

@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Admin\Item\Item[] $items
+ * @property-read int|null $items_count
  */
 class Category extends Model
 {
@@ -37,7 +39,7 @@ class Category extends Model
     /**
      * @return HasMany
      */
-    public function rItems(): HasMany
+    public function items(): HasMany
     {
         return $this->hasMany(Item::class, 'category_id', 'id');
     }

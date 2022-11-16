@@ -29,6 +29,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read Item $rItem
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Illuminate\Database\Query\Builder|CartItem onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|CartItem withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|CartItem withoutTrashed()
  */
 class CartItem extends Model
 {
