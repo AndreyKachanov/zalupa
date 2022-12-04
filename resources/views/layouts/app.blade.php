@@ -1,3 +1,10 @@
+@php
+    $pageWithVue = in_array(Route::currentRouteName(), ['home', 'any']);
+    //$value = 'null';
+    //echo (!('null' === 'null' || (Str::length('null') === 32 && \App\Models\Admin\Cart\Token::firstWhere('token', 'null'))));
+
+@endphp
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -9,7 +16,7 @@
 
         <title>
             {{ config('app.name', 'Laravel') }}
-            @yield('title')
+{{--            @yield('title')--}}
         </title>
     {{--    @yield('meta')--}}
     <!-- Styles -->
@@ -68,16 +75,25 @@
                     </div>
                 </nav>
             </header>
-{{--            Если главная страница - подключается Vue, иначе используем вьюхи blade--}}
-            @php $isMainPage = Route::getCurrentRoute()->uri() == '/'; @endphp
-            <main @class(['app-content', 'py-3' => !$isMainPage]) {!! $isMainPage ? 'id="app-vue"' : '' !!}>
+            <main
+                @class(['app-content', 'py-3' => !$pageWithVue])
+                {!! !$pageWithVue ?: 'id="app-vue"' !!}
+            >
+                    @if($pageWithVue)
+{{--                        <app-component date="{{ date('d.m.Y') }}"></app-component>--}}
+                        <app-component/>
+                    @endif
+
                     <div class="container">
-                        @section('breadcrumbs', Breadcrumbs::render())
-                        @yield('breadcrumbs')
-                        @include('layouts.partials.flash')
-                        @yield('content')
+                        @if(!$pageWithVue)
+                            @section('breadcrumbs', Breadcrumbs::render())
+                            @yield('breadcrumbs')
+                            @include('layouts.partials.flash')
+                            @yield('content')
+                        @endif
                     </div>
             </main>
+
             <footer>
                 <div class="container">
                     <div class="border-top pt-3">

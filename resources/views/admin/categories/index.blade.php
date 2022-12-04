@@ -24,7 +24,7 @@
             <tr>
                 <td>{{ $category->id }}</td>
                 <td><a href="{{ route('admin.categories.show', $category) }}">{{ $category->title }}</a></td>
-                <td>{{ $category->rItems->count() }}</td>
+                <td>{{ $category->items->count() }}</td>
             </tr>
         @endforeach
 

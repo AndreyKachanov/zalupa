@@ -35,8 +35,12 @@
                 </tr>
             </tbody>
         </table>
-        <router-link :to="{ name: 'checkout' }" class="btn btn-success">Order now</router-link>
-        {{ products }}
+
+        <router-link  v-if="cartCnt" :to="{ name: 'checkout' }" class="btn btn-success">
+<!--            <span @click="setInvoiceNumber">Итого - {{  cartTotal }} ₽</span>-->
+            <span>Итого - {{ cartTotal }} ₽</span>
+        </router-link>
+<!--        {{ products }}-->
     </div>
 </template>
 
@@ -45,10 +49,11 @@ import {mapGetters, mapActions} from "vuex";
 export default {
     name: "Cart",
     computed: {
-        ...mapGetters('cart', { products: 'productsDetailed' })
+        ...mapGetters('cart', { products: 'productsDetailed', cartTotal: 'total', cartCnt: 'length' })
     },
     methods: {
-        ...mapActions('cart', ['setCnt', 'remove'])
+        // ...mapActions('cart', ['setCnt', 'remove', 'setInvoiceNumber']),
+        ...mapActions('cart', ['setCnt', 'remove']),
     }
 }
 </script>

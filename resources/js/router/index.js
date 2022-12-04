@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Cart from '../views/Cart';
-import Checkout from '../views/checkout/Base';
+import Checkout from '../views/Checkout';
 import ProductsList from '../views/ProductsList';
 import Product from "../views/Product";
 import CheckoutStep1 from '../views/checkout/Step1';
@@ -24,16 +24,17 @@ let routes = [
         name: 'checkout',
         path: '/order',
         component: Checkout,
-        children: [
-            {
-                path: '/',
-                component: CheckoutStep1
-            },
-            {
-                path: 'step-2',
-                component: CheckoutStep2
-            }
-        ]
+        meta: { hidden: true }
+        // children: [
+        //     {
+        //         path: '/',
+        //         component: CheckoutStep1
+        //     },
+        //     {
+        //         path: 'step-2',
+        //         component: CheckoutStep2
+        //     }
+        // ]
     },
 
     {

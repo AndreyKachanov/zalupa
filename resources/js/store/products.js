@@ -15,7 +15,7 @@ export default {
             let map = {};
             state.items.forEach((pr, i) => {
                 map[pr.id.toString()] = i;
-                console.log(1);
+                // console.log(1);
             });
             // console.log(map);
             return map;
@@ -47,9 +47,9 @@ export default {
     },
     actions: {
         async load(store) {
-            console.log(this.$router);
+            // console.log(this.$router);
            let items = await makeRequest('https://catalog.loc/api/items');
-            console.log(items);
+            // console.log(items);
             store.commit('setItems', items.data);
         }
     }

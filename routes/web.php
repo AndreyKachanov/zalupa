@@ -3,11 +3,7 @@
 use App\Http\Controllers\Admin\HomeController as AdminHome;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Models\Admin\Item\Item;
-use App\Models\Admin\Item\Category;
-use App\Models\Admin\Cart\CartItem;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +16,7 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
+Route::view('/test', 'test')->name('test');
 
 Auth::routes();
 
@@ -33,6 +26,7 @@ Route::get('/verify/{token}', [RegisterController::class, 'verify'])->name('regi
 
 //Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::view('/', 'layouts.app')->name('home');
+//Route::view('/', 'home')->name('home');
 Route::group(
     [
         'prefix'     => 'admin',
@@ -49,7 +43,7 @@ Route::group(
     }
 );
 
-Route::get('/categories/{category}/items/{item}', function (Category $category, Item $item) {
-    dump($item);
-    dump($category);
-})->scopeBindings()->missing(fn(Request $request) => Redirect::route('home'));
+//Маршрут под vue-router - чтобы после перезагрузки работали страницы
+Route::get('/{any}', fn() => view('layouts.app'))
+    ->whereIn('any', ['cart', 'order', 'product/[0-9]'])
+    ->name('any');

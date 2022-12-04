@@ -2,12 +2,13 @@
 
 namespace App\Http\Requests\Cart;
 
+use App\Models\Admin\Cart\Token;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Str;
 
-class CartItemsRequest extends FormRequest
+class GetInvoiceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,14 +28,21 @@ class CartItemsRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|numeric',
             'token' => [
                 'required',
                 'string',
                 function ($attribute, $value, $fail) {
-                    //dump($value);
-                    //токен имеет длину 32 символа
-                    if (Str::length($value) !== 32) {
+                    //токен должен быть null или 32 символа и в бд
+                    //!($value === 'null' || (Str::length($value) === 32 && Token::firstWhere('token', $value))) and $fail($attribute . ' not valid');
+
+                    //$value === 'null' || (Str::length($value) === 32 && Token::firstWhere('token', $value)) ?: $fail($attribute . ' not valid');
+
+                    //!($value === 'null' || (Str::length($value) === 32 && Token::firstWhere('token', $value)))
+                    //    ? $fail($attribute . ' not valid')
+                    //    : null;
+
+                    //токен должен быть null или 32 символа и в бд
+                    if ( !(Str::length($value) === 32 && Token::firstWhere('token', $value)) ) {
                         $fail($attribute . ' not valid');
                     }
                 }

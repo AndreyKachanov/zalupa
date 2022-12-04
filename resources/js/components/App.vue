@@ -29,7 +29,9 @@
                 </ul>
             </div>
             <div class="col col-sm-10">
-                <router-view></router-view>
+                <router-view
+                    v-if="($route.name !== 'cart' && $route.name !== 'checkout')">
+                </router-view>
             </div>
         </div>
     </div>
@@ -42,12 +44,10 @@ export default {
     components: {
     },
     data: () => ({
-        // cartCnt: 5,
-        // cartTotal: 22000,
         menu: [
-            { route: 'products', title: 'Products' },
-            { route: 'cart', title: 'Cart' },
-            { route: 'checkout', title: 'Checkout' }
+            { route: 'products', title: 'Продукты' },
+            { route: 'cart', title: 'Корзина' },
+            { route: 'checkout', title: 'Заказ' }
         ]
     }),
     computed: {

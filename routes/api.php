@@ -19,9 +19,12 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-$missing = fn(Request $request) => response('Not found1111', 404);
+$missing = fn(Request $request) => response('Missing route. Not found1111', 404);
 
 Route::get('items', [ApiController::class, 'items'])->name('api.items');
+Route::get('invoice/load', [ApiController::class, 'getInvoice'])->name('api.get-invoice')
+    ->missing($missing);
+
 Route::group(
     [
         'prefix'     => 'cart',
@@ -32,13 +35,18 @@ Route::group(
         //    ->middleware(['throttle:token'])->missing($missing);
         Route::get('load', [ApiController::class, 'cartLoad'])->name('load')
             ->middleware(['throttle:token'])->missing($missing);
-        Route::post('add/{token:token}/{item}', [ApiController::class, 'addsItemsToCart'])
+        Route::post('add/token/{token:token}/item/{item}/count/{cnt}', [ApiController::class, 'addsItemsToCart'])
             ->name('add')
             ->missing($missing);
         Route::post('remove/{token:token}/{item}', [ApiController::class, 'removeItemsFromCart'])
             ->name('remove')
             ->missing($missing);
+        Route::post('set-cnt/{token:token}/{item}/{cnt}', [ApiController::class, 'setCnt'])
+            ->name('set-cnt')
+            ->missing($missing);
     }
 );
+
+
 
 Route::fallback(fn() => 'fallback route');

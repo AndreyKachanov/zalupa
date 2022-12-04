@@ -27,6 +27,7 @@ use Illuminate\Http\Request;
  * @mixin \Eloquent
  * @property string|null $ip
  * @method static \Illuminate\Database\Eloquent\Builder|Token whereIp($value)
+ * @property-read \App\Models\Admin\Cart\Invoice|null $invoice
  */
 class Token extends Model
 {
@@ -43,5 +44,15 @@ class Token extends Model
     {
         //return $this->hasMany(Cart::class, 'token_id', 'id')->select('item_id as id', 'cnt');
         return $this->hasMany(CartItem::class, 'token_id', 'id')->select('item_id as id', 'cnt');
+    }
+
+    //public function invoices()
+    //{
+    //    return $this->hasMany(Invoice::class, 'token_id', 'id');
+    //}
+
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class, 'token_id', 'id');
     }
 }

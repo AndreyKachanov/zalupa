@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Cart;
 
+use App\Models\Admin\Cart\Token;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -39,14 +40,6 @@ class CartLoadRequest extends FormRequest
             ]
         ];
     }
-
-    //public function messages()
-    //{
-    //    return [
-    //        'token' => 'The :attribute field is required1',
-    //        'id' => 'The :attribute field is required1',
-    //    ];
-    //}
 
     public function failedValidation(Validator $validator)
     {
