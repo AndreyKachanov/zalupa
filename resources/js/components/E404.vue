@@ -2,7 +2,7 @@
     <div style="border: 1px solid red;">
         <h1>{{ title }}</h1>
         <hr>
-        Start from <router-link :to="{name: 'catalog'}">main page</router-link>
+        Start from <router-link :to="{name: 'products'}">main page</router-link>
     </div>
 </template>
 

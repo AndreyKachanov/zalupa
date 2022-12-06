@@ -25,16 +25,6 @@ let routes = [
         path: '/order',
         component: Checkout,
         meta: { hidden: true }
-        // children: [
-        //     {
-        //         path: '/',
-        //         component: CheckoutStep1
-        //     },
-        //     {
-        //         path: 'step-2',
-        //         component: CheckoutStep2
-        //     }
-        // ]
     },
 
     {

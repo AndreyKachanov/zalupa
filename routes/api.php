@@ -21,9 +21,9 @@ use Illuminate\Http\Request;
 
 $missing = fn(Request $request) => response('Missing route. Not found1111', 404);
 
+Route::post('test', fn(Request $request) => dd($request->all()))->name('api.test');
+
 Route::get('items', [ApiController::class, 'items'])->name('api.items');
-Route::get('invoice/load', [ApiController::class, 'getInvoice'])->name('api.get-invoice')
-    ->missing($missing);
 
 Route::group(
     [
@@ -44,6 +44,11 @@ Route::group(
         Route::post('set-cnt/{token:token}/{item}/{cnt}', [ApiController::class, 'setCnt'])
             ->name('set-cnt')
             ->missing($missing);
+        Route::get('invoice/load', [ApiController::class, 'getInvoice'])->name('get-invoice')
+            ->missing($missing);
+        Route::post('store', [ApiController::class, 'storeOrder'])->name('store-order')
+            ->missing($missing);
+        ;
     }
 );
 

@@ -1,16 +1,22 @@
 <template>
-    <div class="container">
+    <div v-if="hasProductsInCart" class="container">
+
+
         <div class="d-flex justify-content-center row">
             <div class="col-md-12">
                 <div class="p-3 bg-white rounded">
                     <div class="row">
                         <div class="col-md-8">
+                            <form action="" method="post">
+                                <input type="text" v-model="name" placeholder="Введите Ваше имя">
+                                <input type="text" v-model="contact" placeholder="Введите Ваш телефон или email">
+                            </form>
                             <h1 class="text-uppercase">Заказ</h1>
-<!--                            <div class="billed"><span class="font-weight-bold text-uppercase">#</span><span class="ml-1">{{ invoiceNumber }}</span></div>-->
                             <div class="billed"><span class="font-weight-bold text-uppercase">#</span><span class="ml-1">{{ billNumber }}</span></div>
                             <div class="billed"><span class="font-weight-bold text-uppercase">Дата:</span><span class="ml-1">{{currentDate()}}</span></div>
                         </div>
                     </div>
+
                     <div class="mt-3">
                         <div class="table-responsive">
                             <table class="table">
@@ -42,35 +48,52 @@
                     <div class="mt-3">
                         <div class="text-right mb-3">
                             <button class="btn btn-danger btn-sm mr-5" type="button">Отменить</button>
-                            <button class="btn btn-success btn-sm mr-5" type="button">Заказать</button>
+                            <button @click="sendOrder" class="btn btn-success btn-sm mr-5" type="button">Заказать</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <app-e404 v-else title="Page not found"></app-e404>
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+import AppE404 from '../components/E404';
+import {mapActions, mapGetters} from "vuex";
 
 export default {
-    // data: () => ({
-    //     billNumber: localStorage.getItem('CART_BILL_NUMBER'),
-    // }),
+    components: {
+        AppE404
+    },
+    data: () => ({
+        name: '',
+        contact: ''
+    }),
     computed: {
-        ...mapGetters('cart', { products: 'productsDetailed', cartTotal: 'total', billNumber: 'billNumber' })
+        ...mapGetters('cart', { products: 'productsDetailed', cartTotal: 'total', billNumber: 'billNumber', cartCnt: 'length' }),
+        hasProductsInCart() {
+            return this.cartCnt > 0;
+        }
     },
     methods: {
+        ...mapActions('cart', ['sendOrderToStore', 'sendOrderToStore']),
         currentDate() {
             const current = new Date();
             return `${current.getDate()}.${current.getMonth()+1}.${current.getFullYear()}.${current.getMinutes()}.${current.getSeconds()}.${current.getMilliseconds()}`;
+        },
+        sendOrder() {
+            // let name = this.name;
+            // let contact = this.contact;
+            this.sendOrderToStore({ name: this.name, contact: this.contact });
         }
+
     },
-    // created() {
-    //     console.log(this.billNumber);
-    //     console.log(this.currentDate());
-    // },
+    created() {
+        // console.log(this.$route);
+        // console.log(this.billNumber);
+        // console.log(this.currentDate());
+    },
 
 }
 </script>

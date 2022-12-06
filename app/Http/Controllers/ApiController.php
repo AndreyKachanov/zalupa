@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Cart\CartLoadRequest;
 use App\Http\Requests\Cart\GetInvoiceRequest;
+use App\Http\Requests\Cart\StoreOrderRequest;
 use App\Http\Resources\ItemResource;
 use App\Models\Admin\Cart\CartItem;
 use App\Models\Admin\Cart\Invoice;
@@ -15,6 +16,7 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 
@@ -138,5 +140,10 @@ class ApiController extends Controller
             throw new HttpResponseException(response($errorMsg, 500));
         }
         return response()->json(['bill_number' => $billNumber]);
+    }
+
+    public function storeOrder(StoreOrderRequest $request)
+    {
+        dd($request->all());
     }
 }

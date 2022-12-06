@@ -29,9 +29,7 @@
                 </ul>
             </div>
             <div class="col col-sm-10">
-                <router-view
-                    v-if="($route.name !== 'cart' && $route.name !== 'checkout')">
-                </router-view>
+                <router-view></router-view>
             </div>
         </div>
     </div>

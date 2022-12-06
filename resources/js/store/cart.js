@@ -1,4 +1,4 @@
-import { makeRequest, makeRequestPost } from "../api/server";
+import { makeRequest, makeRequestPost, makeRequestPostJson } from "../api/server";
 
 export default {
     namespaced: true,
@@ -233,9 +233,34 @@ export default {
         },
         async setBillNumber({ commit }, token) {
 
-            let url = `https://catalog.loc/api/invoice/load?token=${token}`;
+            let url = `https://catalog.loc/api/cart/invoice/load?token=${token}`;
             let { bill_number  } = await makeRequest(url);
             commit('setBillNumber', bill_number);
+        },
+        async test() {
+            let json = {
+                title: 'New Pirate Captain',
+                body: 'Arrrrrr-ent you excited?',
+                userId: 3
+            };
+            let url = `https://catalog.loc/api/cart/store`;
+
+            let res = await makeRequestPostJson(url, json);
+            console.log(res);
+        },
+        async sendOrderToStore({ state, getters, commit }, { name, contact }) {
+            // console.log(name);
+            // console.log(contact);
+            // console.log(getters.all);
+            let json = {
+                token: state.token,
+                name: name,
+                contact: contact,
+                products: getters.all
+            };
+            let url = `https://catalog.loc/api/cart/store`;
+            let res = await makeRequestPostJson(url, json);
+            console.log(res);
         }
 
         // async setInvoiceNumber({ state, getters, commit }) {

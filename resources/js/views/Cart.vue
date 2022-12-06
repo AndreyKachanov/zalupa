@@ -1,8 +1,9 @@
 <template>
+<!--    <div v-if="hasProductsInCart">-->
     <div>
         <h1>Cart</h1>
         <hr>
-        <table class="table table-bordered table-hover">
+        <table v-if="hasProductsInCart" class="table table-bordered table-hover">
             <thead>
                 <tr>
                     <th>Title</th>
@@ -35,6 +36,7 @@
                 </tr>
             </tbody>
         </table>
+        <p v-else>Cart is empty</p>
 
         <router-link  v-if="cartCnt" :to="{ name: 'checkout' }" class="btn btn-success">
 <!--            <span @click="setInvoiceNumber">Итого - {{  cartTotal }} ₽</span>-->
@@ -42,14 +44,22 @@
         </router-link>
 <!--        {{ products }}-->
     </div>
+<!--    <app-e404 v-else title="Page not found"></app-e404>-->
 </template>
 
 <script>
+import AppE404 from '../components/E404';
 import {mapGetters, mapActions} from "vuex";
 export default {
     name: "Cart",
+    components: {
+        AppE404
+    },
     computed: {
-        ...mapGetters('cart', { products: 'productsDetailed', cartTotal: 'total', cartCnt: 'length' })
+        ...mapGetters('cart', { products: 'productsDetailed', cartTotal: 'total', cartCnt: 'length' }),
+        hasProductsInCart() {
+            return this.cartCnt > 0;
+        }
     },
     methods: {
         // ...mapActions('cart', ['setCnt', 'remove', 'setInvoiceNumber']),
