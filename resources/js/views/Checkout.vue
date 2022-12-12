@@ -67,8 +67,8 @@ export default {
         AppE404
     },
     data: () => ({
-        name: '',
-        contact: ''
+        name: 'Andrey',
+        contact: '+79493579167'
     }),
     computed: {
         ...mapGetters('cart', { products: 'productsDetailed', cartTotal: 'total', billNumber: 'billNumber', cartCnt: 'length' }),

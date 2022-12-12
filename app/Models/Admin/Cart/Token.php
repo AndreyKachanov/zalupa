@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin\Cart;
 
+use App\Models\Admin\Cart\Order\Contact;
 use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -28,6 +29,8 @@ use Illuminate\Http\Request;
  * @property string|null $ip
  * @method static \Illuminate\Database\Eloquent\Builder|Token whereIp($value)
  * @property-read \App\Models\Admin\Cart\Invoice|null $invoice
+ * @property-read Contact $contact
+ * @property-read int|null $invoice_count
  */
 class Token extends Model
 {
@@ -54,5 +57,10 @@ class Token extends Model
     public function invoice()
     {
         return $this->hasOne(Invoice::class, 'token_id', 'id');
+    }
+
+    public function contact()
+    {
+        return $this->hasOne(Contact::class, 'token_id', 'id');
     }
 }

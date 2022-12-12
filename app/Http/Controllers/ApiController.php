@@ -8,6 +8,7 @@ use App\Http\Requests\Cart\StoreOrderRequest;
 use App\Http\Resources\ItemResource;
 use App\Models\Admin\Cart\CartItem;
 use App\Models\Admin\Cart\Invoice;
+use App\Models\Admin\Cart\Order\Contact;
 use App\Models\Admin\Cart\Token;
 use App\Models\Admin\Item\Item;
 use App\UseCases\ApiService;
@@ -16,9 +17,9 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
@@ -29,7 +30,6 @@ class ApiController extends Controller
     {
         $this->service = $service;
     }
-
 
     /**
      * @return AnonymousResourceCollection
@@ -129,6 +129,7 @@ class ApiController extends Controller
         try {
             $token = Token::firstWhere('token', $request->get('token'));
             //если у токена нет invoice, создаем новый, иначе возвращаем существующий
+            //dd($token->invoice);
             $billNumber = !$token->invoice
                 ? Invoice::create([
                     'bill_number' => $this->service->getInvoiceNumber(),
@@ -142,8 +143,30 @@ class ApiController extends Controller
         return response()->json(['bill_number' => $billNumber]);
     }
 
+    /**
+     * @param StoreOrderRequest $request
+     * @return Application|ResponseFactory|Response
+     * @throws \Throwable
+     */
     public function storeOrder(StoreOrderRequest $request)
     {
-        dd($request->all());
+        $token = Token::firstWhere('token', $request->token);
+        $items = array_map(fn($item) => ['item_id' => $item['id'], 'cnt' => $item['cnt']], $request->items);
+        DB::beginTransaction();
+        try {
+            $contact = new Contact();
+            $contact->name = $request->name;
+            $contact->contact = $request->contact;
+            //$contact->token_id = $token->id;
+            $contact->token()->associate($token);
+            $contact->save();
+            $contact->orders()->createMany($items);
+            DB::commit();
+        } catch (QueryException $e) {
+            DB::rollback();
+            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
+            throw new HttpResponseException(response($errorMsg, 500));
+        }
+        return response('true', 200);
     }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Admin\Cart\Invoice;
+use App\Models\Admin\Cart\Order\Order;
 
 return new class extends Migration
 {
@@ -11,7 +11,7 @@ return new class extends Migration
 
     public function __construct()
     {
-        $this->tableName = Invoice::getTableName();
+        $this->tableName = Order::getTableName();
     }
     /**
      * Run the migrations.
@@ -23,8 +23,9 @@ return new class extends Migration
         if (!Schema::hasTable($this->tableName)) {
             Schema::create($this->tableName, function (Blueprint $table) {
                 $table->smallIncrements('id');
-                $table->string('bill_number', 14)->unique();
-                $table->unsignedSmallInteger('token_id');
+                $table->unsignedSmallInteger('item_id');
+                $table->unsignedSmallInteger('cnt')->comment('Количество товара');
+                $table->unsignedSmallInteger('contact_id');
                 $table->timestamps();
             });
         }

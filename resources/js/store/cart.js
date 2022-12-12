@@ -209,7 +209,7 @@ export default {
         async load(store) {
             let oldToken = localStorage.getItem('CART_TOKEN');
             let url = `https://catalog.loc/api/cart/load?token=${oldToken}`;
-            let { needUpdate, cart, token  } = await makeRequest(url);
+            let { needUpdate, cart, token } = await makeRequest(url);
 
             if (needUpdate) {
                 localStorage.setItem('CART_TOKEN', token);
@@ -256,10 +256,16 @@ export default {
                 token: state.token,
                 name: name,
                 contact: contact,
-                products: getters.all
+                items: getters.all
             };
+
             let url = `https://catalog.loc/api/cart/store`;
             let res = await makeRequestPostJson(url, json);
+            if (res) {
+                console.log('Ваш заказ удачно отправлен!');
+                localStorage.removeItem('CART_TOKEN');
+                this.dispatch('cart/load');
+            }
             console.log(res);
         }
 
