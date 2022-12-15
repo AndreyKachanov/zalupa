@@ -44,12 +44,12 @@ Route::group(
         Route::post('set-cnt/{token:token}/{item}/{cnt}', [ApiController::class, 'setCnt'])
             ->name('set-cnt')
             ->missing($missing);
-        Route::get('invoice/load', [ApiController::class, 'getInvoice'])->name('get-invoice')
+        Route::get('invoice/load', [ApiController::class, 'getBillNumber'])->name('get-bill-number')
             ->missing($missing);
         Route::post('store', [ApiController::class, 'storeOrder'])->name('store-order')
             ->missing($missing);
-        Route::get('new_token', [ApiController::class, 'getNewToken'])->name('get-new-token')
-            ->missing($missing);
+        //Route::get('new_token', [ApiController::class, 'getNewToken'])->name('get-new-token')
+        //    ->missing($missing);
     }
 );
 

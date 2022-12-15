@@ -121,9 +121,6 @@ export default {
         async addNew({ state, getters, commit }, id) {
             // если в корзине нет такого элемента
             if (!getters.has(id)) {
-                // let url = `https://catalog.loc/api/cart/add?token=${state.token}&id=${id}`;
-                // let cnt;
-
                 let cnt = getters.hasTemp(id) ? state.productsTemp[state.productsTemp.findIndex(pr => pr.id === id)].cnt : 1 ;
                 // console.log(cnt);
                 let url = `https://catalog.loc/api/cart/add/token/${state.token}/item/${id}/count/${cnt}`;
@@ -131,31 +128,15 @@ export default {
                 if (res) {
                     commit('addNew', { id, cnt });
 
-                    console.log(state.billNumber);
-                    console.log(this);
-                    console.log(state.token);
+                    // console.log(state.billNumber);
+                    // console.log(this);
+                    // console.log(state.token);
 
                     if (state.billNumber === null) {
-
                         this.dispatch('cart/setBillNumber', state.token);
-
-                        // let url = `https://catalog.loc/api/invoice/load?token=${state.token}`;
-                        // let { bill_number  } = await makeRequest(url);
-                        // commit('setBillNumber', bill_number);
-
                     } else {
                         console.log('bill_number !== null');
                     }
-
-                    // let idx = state.productsTemp.findIndex(pr => pr.id === id);
-                    // if (idx !== -1) {
-                    //     // console.log( state.productsTemp[idx].cnt)
-                    //     let cnt = state.productsTemp[idx].cnt;
-                    //     commit('addNew', {id, cnt});
-                    // } else {
-                    //     commit('addNew', {id, cnt: 1});
-                    // }
-
                 }
             } else {
                 console.log('В корзине такой элемент уже есть');
@@ -229,36 +210,18 @@ export default {
             store.commit('setCart', { cart, token });
 
             if (cart.length > 0) {
-                // dispatch("setBillNumber", token);
                 console.log('cart.length > 0');
-
                 this.dispatch('cart/setBillNumber', token);
-                // let url = `https://catalog.loc/api/invoice/load?token=${token}`;
-                // let { bill_number  } = await makeRequest(url);
-                // store.commit('setBillNumber', bill_number);
-
             } else {
                 console.log('cart length < 0');
             }
 
         },
         async setBillNumber({ commit }, token) {
-
             let url = `https://catalog.loc/api/cart/invoice/load?token=${token}`;
             let { bill_number } = await makeRequest(url);
             commit('setBillNumber', bill_number);
         },
-        // async test() {
-        //     let json = {
-        //         title: 'New Pirate Captain',
-        //         body: 'Arrrrrr-ent you excited?',
-        //         userId: 3
-        //     };
-        //     let url = `https://catalog.loc/api/cart/store`;
-        //
-        //     let res = await makeRequestPostJson(url, json);
-        //     console.log(res);
-        // },
         async sendOrderToStore({ state, getters, commit }, { name, contact }) {
             let json = {
                 token: state.token,
@@ -267,6 +230,7 @@ export default {
                 items: getters.all
             };
             let url = `https://catalog.loc/api/cart/store`;
+            // let { new_token, new_bill_number } = await makeRequestPostJson(url, json);
             let { new_token } = await makeRequestPostJson(url, json);
             if (new_token) {
                 console.log('Ваш заказ удачно отправлен!');
@@ -275,13 +239,10 @@ export default {
                 commit('clearAllProduct');
                 commit('flagOrderSent', true);
                 commit('setNewToken', new_token);
+                commit('setBillNumber', null)
                 localStorage.setItem('CART_TOKEN', new_token);
-
-                // Если заказ удачно создан
-                // 1) обновить токен
-                // 2) удалить все товары с корзины
-                // 3) bill_number
-
+            } else {
+                console.log('sendOrderToStore - new_token != true');
             }
         }
     }

@@ -24,6 +24,11 @@ use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
+    public function __construct(ApiService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * @return AnonymousResourceCollection
      */
@@ -115,25 +120,19 @@ class ApiController extends Controller
         }
     }
 
-    public function getInvoice(CheckTokenRequest $request, ApiService $service)
+    public function getBillNumber(CheckTokenRequest $request)
     {
         //Если приходит запрос на этот роут, значит токен полюбому есть в бд
         //Если токен есть в таблице invoice - вернуть старый bill_number, иначе новый
         try {
             $token = Token::firstWhere('token', $request->get('token'));
             //если у токена нет invoice, создаем новый, иначе возвращаем существующий
-            //dd($token->invoice);
-            $billNumber = !$token->invoice
-                ? Invoice::create([
-                    'bill_number' => $service->getInvoiceNumber(),
-                    'token_id' => $token->id
-                ])->bill_number
-                : $token->invoice->bill_number;
+            $invoice = $this->getInvoice($token);
         } catch (QueryException $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new HttpResponseException(response($errorMsg, 500));
         }
-        return response()->json(['bill_number' => $billNumber]);
+        return response()->json(['bill_number' => $invoice->bill_number]);
     }
 
     /**
@@ -143,7 +142,7 @@ class ApiController extends Controller
      */
     public function storeOrder(StoreOrderRequest $request)
     {
-        $token = Token::firstWhere('token', $request->token);
+        $oldToken = Token::firstWhere('token', $request->token);
         $items = array_map(fn($item) => ['item_id' => $item['id'], 'cnt' => $item['cnt']], $request->items);
 
         DB::beginTransaction();
@@ -151,40 +150,58 @@ class ApiController extends Controller
             $contact = new Contact();
             $contact->name = $request->name;
             $contact->contact = $request->contact;
-            $contact->token()->associate($token);
+            $contact->token()->associate($oldToken);
             $contact->save();
             $contact->orders()->createMany($items);
-            $newToken = $this->generateNewToken($request);
             DB::commit();
+            $newToken = $this->generateNewToken($request);
+            //$invoice = $this->getInvoice($newToken);
         } catch (QueryException $e) {
             DB::rollback();
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new HttpResponseException(response($errorMsg, 500));
         }
-        return response()->json(['new_token' => $newToken->token]);
+        return response()->json([
+            'new_token' => $newToken->token,
+            //'new_bill_number' => $invoice->bill_number
+        ]);
     }
 
     /**
      * @param CheckTokenRequest $request
      * @return Application|ResponseFactory|Response
      */
-    public function getNewToken(CheckTokenRequest $request)
-    {
-        try {
-            $newToken = Token::create(['token' => generateToken(), 'ip' => $request->ip()]);
-        } catch (QueryException $e) {
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            throw new HttpResponseException(response($errorMsg, 500));
-        }
-        return response($newToken->token, 200);
-    }
+    //public function getNewToken(CheckTokenRequest $request)
+    //{
+    //    try {
+    //        $newToken = Token::create(['token' => generateToken(), 'ip' => $request->ip()]);
+    //    } catch (QueryException $e) {
+    //        $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
+    //        throw new HttpResponseException(response($errorMsg, 500));
+    //    }
+    //    return response($newToken->token, 200);
+    //}
 
     /**
      * @param Request $request
      * @return Token|\Illuminate\Database\Eloquent\Model
      */
-    private function generateNewToken(Request $request)
+    private function generateNewToken(Request $request): Token
     {
         return Token::create(['token' => generateToken(), 'ip' => $request->ip()]);
+    }
+
+    /**
+     * @param Token $token
+     * @return Invoice
+     */
+    private function getInvoice(Token $token): Invoice
+    {
+        return !$token->invoice
+            ? Invoice::create([
+                'bill_number' => $this->service->getInvoiceNumber(),
+                'token_id' => $token->id
+            ])
+            : $token->invoice;
     }
 }
