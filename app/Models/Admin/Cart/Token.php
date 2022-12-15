@@ -63,4 +63,6 @@ class Token extends Model
     {
         return $this->hasOne(Contact::class, 'token_id', 'id');
     }
+
+
 }

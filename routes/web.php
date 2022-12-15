@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\HomeController as AdminHome;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::view('/test', 'test')->name('test');
+Route::get('/test2', [TestController::class, 'index'])->name('test2');
+Route::get('/test3', [TestController::class, 'index2'])->name('test3');
+Route::get('/test4', [TestController::class, 'index3'])->name('test4');
 
 Auth::routes();
 

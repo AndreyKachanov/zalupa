@@ -48,7 +48,8 @@ Route::group(
             ->missing($missing);
         Route::post('store', [ApiController::class, 'storeOrder'])->name('store-order')
             ->missing($missing);
-        ;
+        Route::get('new_token', [ApiController::class, 'getNewToken'])->name('get-new-token')
+            ->missing($missing);
     }
 );
 

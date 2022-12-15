@@ -13,13 +13,15 @@ export default {
             // { id: 1, cnt: 5},
         ],
         token: null,
-        billNumber: null
+        billNumber: null,
+        flagOrderSent: false
     },
     getters: {
         all: state => state.products,
         productsTemp: state => state.productsTemp,
         length: state=> state.products.length,
-        billNumber: state=>  state.products.length > 0 ? state.billNumber : null,
+        billNumber: state=> state.products.length > 0 ? state.billNumber : null,
+        flagOrderSent: state=> state.flagOrderSent,
         // лежит товар в корзине или не лежит
         // параметрозованный геттер
         // has(state) {
@@ -91,6 +93,15 @@ export default {
         },
         setBillNumber(state, number) {
             state.billNumber = number;
+        },
+        flagOrderSent(state, flag) {
+            state.flagOrderSent = flag;
+        },
+        clearAllProduct(state) {
+            state.products = [];
+        },
+        setNewToken(state, token) {
+            state.token = token;
         }
     },
     actions: {
@@ -234,62 +245,44 @@ export default {
         async setBillNumber({ commit }, token) {
 
             let url = `https://catalog.loc/api/cart/invoice/load?token=${token}`;
-            let { bill_number  } = await makeRequest(url);
+            let { bill_number } = await makeRequest(url);
             commit('setBillNumber', bill_number);
         },
-        async test() {
-            let json = {
-                title: 'New Pirate Captain',
-                body: 'Arrrrrr-ent you excited?',
-                userId: 3
-            };
-            let url = `https://catalog.loc/api/cart/store`;
-
-            let res = await makeRequestPostJson(url, json);
-            console.log(res);
-        },
+        // async test() {
+        //     let json = {
+        //         title: 'New Pirate Captain',
+        //         body: 'Arrrrrr-ent you excited?',
+        //         userId: 3
+        //     };
+        //     let url = `https://catalog.loc/api/cart/store`;
+        //
+        //     let res = await makeRequestPostJson(url, json);
+        //     console.log(res);
+        // },
         async sendOrderToStore({ state, getters, commit }, { name, contact }) {
-            // console.log(name);
-            // console.log(contact);
-            // console.log(getters.all);
             let json = {
                 token: state.token,
                 name: name,
                 contact: contact,
                 items: getters.all
             };
-
             let url = `https://catalog.loc/api/cart/store`;
-            let res = await makeRequestPostJson(url, json);
-            if (res) {
+            let { new_token } = await makeRequestPostJson(url, json);
+            if (new_token) {
                 console.log('Ваш заказ удачно отправлен!');
-                localStorage.removeItem('CART_TOKEN');
-                this.dispatch('cart/load');
+                console.log('good newToken = true');
+                console.log('good newToken = ' + new_token);
+                commit('clearAllProduct');
+                commit('flagOrderSent', true);
+                commit('setNewToken', new_token);
+                localStorage.setItem('CART_TOKEN', new_token);
+
+                // Если заказ удачно создан
+                // 1) обновить токен
+                // 2) удалить все товары с корзины
+                // 3) bill_number
+
             }
-            console.log(res);
         }
-
-        // async setInvoiceNumber({ state, getters, commit }) {
-        //     if ( state.invoiceNumber === null ) {
-        //         // console.log('action setInvoiceNumber');
-        //         let token = state.token;
-        //         // console.log(token);
-        //         let url = `https://catalog.loc/api/invoice/load?token=${token}`;
-        //         let { bill_number } = await makeRequest(url);
-        //         // console.log(res.bill_number);
-        //         // localStorage.setItem('CART_BILL_NUMBER', bill_number);
-        //         commit('setInvoiceNumber', bill_number);
-        //     } else {
-        //         console.log('invoiceNumber not null!')
-        //     }
-        // },
-        // async loadBillNumber({ state, commit }) {
-        //     let token = state.token;
-        //     console.log('loadBillNumber token=' + token);
-        //     // let url = `https://catalog.loc/api/invoice/load?token=${token}`;
-        //     // let { bill_number  } = await makeRequest(url);
-        //     // commit('setInvoiceNumber', bill_number);
-        // },
-
     }
 }

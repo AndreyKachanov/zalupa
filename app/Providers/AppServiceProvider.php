@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\TestService;
+use App\Services\TestServiceToFacade;
+use App\UseCases\MessangerNotificatorInterface;
+use App\UseCases\TelegramNotificator;
 use Faker\Factory;
 use Faker\Generator;
 use Illuminate\Pagination\Paginator;
@@ -21,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
             $faker->addProvider(new FakerImageProvider($faker));
             return $faker;
         });
+
+        $this->app->bind(TestService::class, function () {
+            return new TestService(true);
+        });
+
+        $this->app->bind(MessangerNotificatorInterface::class, TelegramNotificator::class);
     }
 
     /**
@@ -31,5 +41,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //Paginator::useBootstrapFour();
+        //$this->app->singleton(TestServiceToFacade::class, function () {
+        //
+        //    return new TestServiceToFacade('token123');
+        //});
     }
 }

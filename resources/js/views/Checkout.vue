@@ -1,8 +1,9 @@
 <template>
-    <div v-if="hasProductsInCart" class="container">
-
-
-        <div class="d-flex justify-content-center row">
+    <div v-if="hasProductsInCart || flagOrderSent" class="container test123">
+        <div v-if="flagOrderSent && !hasProductsInCart">
+            <h1>Ваш заказ удачно отправлен. Ожидайте звонка менеджера.</h1>
+        </div>
+        <div v-else class="d-flex justify-content-center row">
             <div class="col-md-12">
                 <div class="p-3 bg-white rounded">
                     <div class="row">
@@ -71,7 +72,7 @@ export default {
         contact: '+79493579167'
     }),
     computed: {
-        ...mapGetters('cart', { products: 'productsDetailed', cartTotal: 'total', billNumber: 'billNumber', cartCnt: 'length' }),
+        ...mapGetters('cart', { products: 'productsDetailed', cartTotal: 'total', billNumber: 'billNumber', cartCnt: 'length', flagOrderSent: 'flagOrderSent'}),
         hasProductsInCart() {
             return this.cartCnt > 0;
         }
