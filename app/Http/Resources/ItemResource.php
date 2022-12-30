@@ -18,6 +18,7 @@ class ItemResource extends JsonResource
         //return parent::toArray($request);
         return [
             'id' => $this->id,
+            'slug' => $this->slug,
             'title' => $this->title,
             'article_number' => $this->article_number,
             'price' => $this->price,

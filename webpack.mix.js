@@ -26,8 +26,7 @@ mix
             extractStyles: false,
             globalStyles: "resources/sass/vue_components.scss"
         }
-    )
-    .version();
+    ).sourceMaps().version();
 
 if (env === 'local') {
     // const domain = 'larka_new.loc'; // <= EDIT THIS

@@ -24,6 +24,9 @@ $missing = fn(Request $request) => response('Missing route. Not found1111', 404)
 Route::post('test', fn(Request $request) => dd($request->all()))->name('api.test');
 
 Route::get('items', [ApiController::class, 'items'])->name('api.items');
+Route::get('items/category/{category:slug}', [ApiController::class, 'getItemsFromCategory'])->name('api.get-items-from-category');
+
+Route::get('get-categories', [ApiController::class, 'getCategories'])->name('api.get-categories');
 
 Route::group(
     [
@@ -52,6 +55,8 @@ Route::group(
         //    ->missing($missing);
     }
 );
+
+
 
 
 

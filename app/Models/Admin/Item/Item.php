@@ -7,6 +7,8 @@ use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Admin\Item\Item
@@ -43,15 +45,38 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $r_cart_items_count
  * @property string|null $price
  * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrice($value)
+ * @property string|null $slug
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Item findSimilarSlugs(string $attribute, array $config, string $slug)
+ * @method static \Illuminate\Database\Query\Builder|Item onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereSlug($value)
+ * @method static \Illuminate\Database\Query\Builder|Item withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Item withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
+ * @method static \Illuminate\Database\Query\Builder|Item withoutTrashed()
  */
 class Item extends Model
 {
     use EloquentGetTableNameTrait;
     use HasFactory;
+    use SoftDeletes;
+    use Sluggable;
 
     protected $table = 'items';
 
     protected $guarded = ['id'];
+
+    /**
+     * @return \string[][]
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title',
+            ]
+        ];
+    }
 
     public function rCategory()
     {

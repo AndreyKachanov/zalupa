@@ -17,6 +17,11 @@ use App\Http\Controllers\TestController;
 |
 */
 
+Route::get('test5', function () {
+    $json = '[{"id":"303","title":"\u0428\u0430\u0440 FlyNova Pro","article_number":"0303.1.9003","price1":"370","price2":"360","price3":"350","link":".","img":"items\/f48b9456a2dbd817426fe4d052efd4dd.jpg","category_id":"1","created_at":"2022-02-16 21:28:55","updated_at":"2022-10-01 16:43:09"}]';
+    dd(json_decode($json));
+});
+
 Route::view('/test', 'test')->name('test');
 Route::get('/test2', [TestController::class, 'index'])->name('test2');
 Route::get('/test3', [TestController::class, 'index2'])->name('test3');
@@ -42,6 +47,7 @@ Route::group(
         Route::get('/', [AdminHome::class, 'index'])->name('home');
         Route::resource('items', 'Items\ItemsController');
         Route::resource('categories', 'Items\CategoryController');
+        Route::resource('orders', 'Items\OrdersController');
         Route::resource('users', 'UsersController');
         Route::post('/users/{user}/verify', 'UsersController@verify')->name('users.verify');
     }
@@ -49,5 +55,5 @@ Route::group(
 
 //Маршрут под vue-router - чтобы после перезагрузки работали страницы
 Route::get('/{any}', fn() => view('layouts.app'))
-    ->whereIn('any', ['cart', 'order', 'product/[0-9]'])
+    ->whereIn('any', ['cart', 'order', 'product/[0-9]', 'category/1-populyarnye-tovary'])
     ->name('any');

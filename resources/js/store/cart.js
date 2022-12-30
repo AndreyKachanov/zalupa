@@ -210,10 +210,10 @@ export default {
             store.commit('setCart', { cart, token });
 
             if (cart.length > 0) {
-                console.log('cart.length > 0');
+                // console.log('cart.length > 0');
                 this.dispatch('cart/setBillNumber', token);
             } else {
-                console.log('cart length < 0');
+                // console.log('cart length < 0');
             }
 
         },

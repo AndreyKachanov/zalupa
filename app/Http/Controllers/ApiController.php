@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Admin\Items\CategoryController;
 use App\Http\Requests\Cart\CartLoadRequest;
 use App\Http\Requests\Cart\CheckTokenRequest;
 use App\Http\Requests\Cart\StoreOrderRequest;
 use App\Http\Resources\ItemResource;
+use App\Http\Resources\CategoriesResource;
 use App\Models\Admin\Cart\CartItem;
 use App\Models\Admin\Cart\Invoice;
 use App\Models\Admin\Cart\Order\Contact;
 use App\Models\Admin\Cart\Token;
+use App\Models\Admin\Item\Category;
 use App\Models\Admin\Item\Item;
 use App\UseCases\ApiService;
 use Illuminate\Contracts\Foundation\Application;
@@ -35,7 +38,9 @@ class ApiController extends Controller
     public function items()
     {
         try {
-            return ItemResource::collection(Item::all());
+            //return ItemResource::collection(Item::paginate(20));
+            return ItemResource::collection(Item::paginate(3));
+            //return Item::paginate(11);
         } catch (QueryException $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new HttpResponseException(response($errorMsg, 500));
@@ -168,19 +173,58 @@ class ApiController extends Controller
     }
 
     /**
-     * @param CheckTokenRequest $request
-     * @return Application|ResponseFactory|Response
+     * @return AnonymousResourceCollection
      */
-    //public function getNewToken(CheckTokenRequest $request)
-    //{
-    //    try {
-    //        $newToken = Token::create(['token' => generateToken(), 'ip' => $request->ip()]);
-    //    } catch (QueryException $e) {
-    //        $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-    //        throw new HttpResponseException(response($errorMsg, 500));
-    //    }
-    //    return response($newToken->token, 200);
-    //}
+    public function getCategories()
+    {
+        try {
+            //return ParentsCategoriesResource::collection(Category::whereParentId(null)->get());
+            return CategoriesResource::collection(Category::all());
+        } catch (QueryException $e) {
+            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
+            throw new HttpResponseException(response($errorMsg, 500));
+        }
+    }
+
+    //Selection items from the category + from subcategories.
+    public function getItemsFromParentCategoryAndSubcategories(Category $category)
+    {
+        //dd($category->children[0]->items);
+        try {
+            $items = Item::whereHas('rCategory', function ($query) use ($category) {
+                /** @var Category $query */
+                $query->whereParentId($category->id)
+                    ->orWhere('id', $category->id);
+            })->paginate(4);
+            //})->paginate(2);
+            //dd($items->pluck('category_id')->toArray());
+
+            return ItemResource::collection($items);
+
+            //return ItemResource::collection($category->children[0]->items);
+        } catch (QueryException $e) {
+            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
+            throw new HttpResponseException(response($errorMsg, 500));
+        }
+    }
+
+    /**
+     * //Selection items from the category
+     * @param Category $category
+     * @return AnonymousResourceCollection
+     */
+    public function getItemsFromCategory(Category $category)
+    {
+        //dd($request->page);
+        try {
+            return ItemResource::collection(Item::whereCategoryId($category->id)
+                ->paginate(config('app.pagination_default_value')));
+            //->paginate(config('app.pagination_default_value'), ['*'], 'page', 4));
+        } catch (QueryException $e) {
+            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
+            throw new HttpResponseException(response($errorMsg, 500));
+        }
+    }
 
     /**
      * @param Request $request

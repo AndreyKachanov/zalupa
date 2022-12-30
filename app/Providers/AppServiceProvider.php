@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //Paginator::useBootstrapFour();
+        Paginator::useBootstrapFour();
         //$this->app->singleton(TestServiceToFacade::class, function () {
         //
         //    return new TestServiceToFacade('token123');

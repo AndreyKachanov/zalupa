@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 /**
  * App\Models\Item\Category
@@ -27,16 +29,47 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Admin\Item\Item[] $items
  * @property-read int|null $items_count
+ * @property int|null $parent_id
+ * @property string|null $slug
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Admin\Item\Item|null $latestContact
+ * @property-read \App\Models\Admin\Item\Item|null $mostPrice
+ * @property-read \App\Models\Admin\Item\Item|null $mostPriceArticleNumber
+ * @property-read \App\Models\Admin\Item\Item|null $oldestContact
+ * @method static \Illuminate\Database\Eloquent\Builder|Category findSimilarSlugs(string $attribute, array $config, string $slug)
+ * @method static \Illuminate\Database\Query\Builder|Category onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereParentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereSlug($value)
+ * @method static \Illuminate\Database\Query\Builder|Category withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Category withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
+ * @method static \Illuminate\Database\Query\Builder|Category withoutTrashed()
+ * @property-read \Illuminate\Database\Eloquent\Collection|Category[] $children
+ * @property-read int|null $children_count
+ * @property-read Category|null $parent
  */
 class Category extends Model
 {
     use EloquentGetTableNameTrait;
     use HasFactory;
+    use SoftDeletes;
+    use Sluggable;
 
     protected $table = 'items_categories';
 
     protected $guarded = ['id'];
 
+    /**
+     * @return \string[][]
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title',
+            ]
+        ];
+    }
     /**
      * @return HasMany
      */
@@ -67,5 +100,21 @@ class Category extends Model
         ], function ($query) {
             $query->whereArticleNumber('22363');
         });
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function parent()
+    {
+        return $this->belongsTo(self::class, 'parent_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent_id');
     }
 }

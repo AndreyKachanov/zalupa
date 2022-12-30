@@ -10,22 +10,37 @@ import router from './router/index';
 let locationPath = window.location.pathname;
 // добавить в массив product/[0-9]
 
-if (['/', '/cart', '/order'].indexOf(locationPath) > -1) {
+if (['/', '/cart', '/order', '/category/1-populyarnye-tovary'].indexOf(locationPath) > -1) {
     const app = createApp({});
 
     app.component('app-component', App)
 
     app.use(store);
     app.use(router);
-    console.log(router);
-    console.log(store.getters["cart/all"]);
+
+    router.beforeEach((to, from, next) => {
+        if (to.name === 'category') {
+
+            let slug = to.params.slug
+            let cacheUrls = store.getters["categories/cacheUrls"];
+            if (!cacheUrls.includes(slug)) {
+                // store.dispatch('products/getProductsFromParentCategoryAndSubcategories', slug);
+
+                store.dispatch('products/getProductsFromCategory', slug);
+                store.dispatch('categories/setCacheUrls', slug);
+            }
+        }
+        next();
+    })
 
 
+    store.dispatch('categories/loadCategories');
     store.dispatch('cart/load');
-    // store.dispatch('cart/loadBillNumber');
-    store.dispatch('products/load').then(() => {
-        app.mount('#app-vue');
-    });
+
+    app.mount('#app-vue');
+    // store.dispatch('products/load').then(() => {
+    //     app.mount('#app-vue');
+    // });
 
 }
 

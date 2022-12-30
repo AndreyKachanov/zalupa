@@ -25,6 +25,9 @@ class CreateItemsCategoriesTable extends Migration
             Schema::create($this->itemCategoryTableName, function (Blueprint $table) {
                 $table->smallIncrements('id');
                 $table->string('title')->nullable();
+                $table->unsignedSmallInteger('parent_id')->nullable();
+                $table->string('slug', 1200)->nullable();
+                $table->softDeletes();
                 $table->timestamps();
             });
         }

@@ -105,6 +105,12 @@ Breadcrumbs::register('admin.items.edit', function (Crumbs $crumbs, Item $item) 
     $crumbs->push('Edit', route('admin.items.edit', $item));
 });
 
+//Orders
+Breadcrumbs::register('admin.orders.index', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Orders', route('admin.orders.index'));
+});
+
 ////Admin Parser
 //Breadcrumbs::register('admin.parser.index', function (Crumbs $crumbs) {
 //    $crumbs->parent('admin.home');

@@ -3,17 +3,21 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Cart from '../views/Cart';
 import Checkout from '../views/Checkout';
 import ProductsList from '../views/ProductsList';
+import ProductsListMain from "../views/ProductsListMain";
+import ParentCategoryProductsList from '../views/ParentCategoryProductsList'
 import Product from "../views/Product";
+import Test from "../views/Test";
 import CheckoutStep1 from '../views/checkout/Step1';
 import CheckoutStep2 from '../views/checkout/Step2';
 import E404 from '../views/E404';
+import ProductsListMainParentCategory from "../views/ProductsListMainParentCategory";
 
 // массив, который описывает пути доступные на нашем сайте
 let routes = [
     {
         name: 'products',
         path: '/',
-        component: ProductsList
+        component: ProductsListMain
     },
     {
         name: 'cart',
@@ -26,12 +30,21 @@ let routes = [
         component: Checkout,
         meta: { hidden: true }
     },
-
+    {
+        name: 'category',
+        path: '/category/:slug',
+        component: ProductsListMainParentCategory
+    },
     {
         name: 'products-item',
-        path: '/product/:id',
+        path: '/:slug',
         component: Product
     },
+    // {
+    //     name: 'test',
+    //     path: '/test',
+    //     component: Test
+    // },
     {
         name: 'E404',
         path: '/:pathMatch(.*)',

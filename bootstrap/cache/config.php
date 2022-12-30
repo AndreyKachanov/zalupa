@@ -3,6 +3,7 @@
   array (
     'name' => 'Laravel',
     'author' => 'Andreii Kachanov',
+    'pagination_default_value' => 1,
     'env' => 'local',
     'debug' => true,
     'url' => 'https://catalog.loc',
@@ -474,6 +475,12 @@
         'root' => '/var/www/catalog.loc/storage/app',
         'throw' => false,
       ),
+      'database' => 
+      array (
+        'driver' => 'local',
+        'root' => '/var/www/catalog.loc/database',
+        'throw' => false,
+      ),
       'public' => 
       array (
         'driver' => 'local',
@@ -862,6 +869,23 @@
       1 => 'Spatie\\LaravelIgnition\\Recorders\\JobRecorder\\JobRecorder',
       2 => 'Spatie\\LaravelIgnition\\Recorders\\LogRecorder\\LogRecorder',
       3 => 'Spatie\\LaravelIgnition\\Recorders\\QueryRecorder\\QueryRecorder',
+    ),
+  ),
+  'sluggable' => 
+  array (
+    'source' => NULL,
+    'maxLength' => NULL,
+    'maxLengthKeepWords' => true,
+    'method' => NULL,
+    'separator' => '-',
+    'unique' => true,
+    'uniqueSuffix' => NULL,
+    'firstUniqueSuffix' => 2,
+    'includeTrashed' => false,
+    'reserved' => NULL,
+    'onUpdate' => false,
+    'slugEngineOptions' => 
+    array (
     ),
   ),
   'ide-helper' => 
