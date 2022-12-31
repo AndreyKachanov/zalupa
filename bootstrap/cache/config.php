@@ -5,7 +5,7 @@
     'author' => 'Andreii Kachanov',
     'pagination_default_value' => 1,
     'env' => 'local',
-    'debug' => false,
+    'debug' => true,
     'url' => 'https://catalog.loc',
     'asset_url' => NULL,
     'timezone' => 'Europe/Moscow',
@@ -493,7 +493,7 @@
       array (
         'driver' => 'local',
         'root' => '/var/www/catalog.loc/public/uploads',
-        'url' => 'https://catalog.loc/uploads',
+        'url' => '/uploads',
         'visibility' => 'public',
       ),
       's3' => 
