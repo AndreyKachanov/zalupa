@@ -17,16 +17,19 @@ if (env === 'local') {
     outputDir = './';
 }
 
+console.log('inProduction', mix.inProduction());
+
 mix
     .setPublicPath(publicPath)
     .setResourceRoot(resourceRoot)
     .js('resources/js/app.js', outputDir + 'js')
+    .sourceMaps(false, 'source-map')
     .sass('resources/sass/app.scss', outputDir + 'css')
     .vue({
             extractStyles: false,
             globalStyles: "resources/sass/vue_components.scss"
         }
-    ).sourceMaps().version();
+    ).version();
 
 if (env === 'local') {
     // const domain = 'larka_new.loc'; // <= EDIT THIS
@@ -54,11 +57,9 @@ if (env === 'local') {
             ignored: /node_modules/,
         },
         files: [
-            'app/**/*.php',
             'resources/views/**/*.php',
             'resources/js/app.js',
             'resources/js/components/*.vue',
-            'packages/mixdinternet/frontend/src/**/*.php',
             'public/js/**/*.js',
             'public/build/js/**/*.js',
             'public/css/**/*.css',

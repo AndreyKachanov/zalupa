@@ -108,8 +108,8 @@ export default {
         async add({ state, getters, commit }, id) {
             // если в корзине нет такого элемента
             if (!getters.has(id)) {
-                // let url = `https://larochka.pp.ua:4040/api/cart/add?token=${state.token}&id=${id}`;
-                let url = `https://larochka.pp.ua:4040/api/cart/add/${state.token}/${id}`;
+                // let url = `/api/cart/add?token=${state.token}&id=${id}`;
+                let url = `/api/cart/add/${state.token}/${id}`;
                 let res = await makeRequestPost(url);
                 if (res) {
                     commit('add', id);
@@ -123,7 +123,7 @@ export default {
             if (!getters.has(id)) {
                 let cnt = getters.hasTemp(id) ? state.productsTemp[state.productsTemp.findIndex(pr => pr.id === id)].cnt : 1 ;
                 // console.log(cnt);
-                let url = `https://larochka.pp.ua:4040/api/cart/add/token/${state.token}/item/${id}/count/${cnt}`;
+                let url = `/api/cart/add/token/${state.token}/item/${id}/count/${cnt}`;
                 let res = await makeRequestPost(url);
                 if (res) {
                     commit('addNew', { id, cnt });
@@ -144,8 +144,8 @@ export default {
         },
         async remove({ state, getters, commit }, id) {
             if (getters.has(id)) {
-                // let url = `https://larochka.pp.ua:4040/api/cart/remove?token=${state.token}&id=${id}`;
-                let url = `https://larochka.pp.ua:4040/api/cart/remove/${state.token}/${id}`;
+                // let url = `/api/cart/remove?token=${state.token}&id=${id}`;
+                let url = `/api/cart/remove/${state.token}/${id}`;
                 let res = await makeRequestPost(url);
                 if (res) {
                     commit('remove', id);
@@ -162,7 +162,7 @@ export default {
                 console.log(state.token);
                 console.log(id);
                 console.log(cnt);
-                let url = `https://larochka.pp.ua:4040/api/cart/set-cnt/${state.token}/${id}/${cnt}`;
+                let url = `/api/cart/set-cnt/${state.token}/${id}/${cnt}`;
                 let res = await makeRequestPost(url);
                 if (res) {
                     console.log('Кол-во товара удачно обновлено на сервере');
@@ -200,7 +200,7 @@ export default {
         },
         async load(store) {
             let oldToken = localStorage.getItem('CART_TOKEN');
-            let url = `https://larochka.pp.ua:4040/api/cart/load?token=${oldToken}`;
+            let url = `/api/cart/load?token=${oldToken}`;
             let { needUpdate, cart, token } = await makeRequest(url);
 
             if (needUpdate) {
@@ -218,7 +218,7 @@ export default {
 
         },
         async setBillNumber({ commit }, token) {
-            let url = `https://larochka.pp.ua:4040/api/cart/invoice/load?token=${token}`;
+            let url = `/api/cart/invoice/load?token=${token}`;
             let { bill_number } = await makeRequest(url);
             commit('setBillNumber', bill_number);
         },
@@ -229,7 +229,7 @@ export default {
                 contact: contact,
                 items: getters.all
             };
-            let url = `https://larochka.pp.ua:4040/api/cart/store`;
+            let url = `/api/cart/store`;
             // let { new_token, new_bill_number } = await makeRequestPostJson(url, json);
             let { new_token } = await makeRequestPostJson(url, json);
             if (new_token) {

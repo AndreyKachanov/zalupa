@@ -95,7 +95,7 @@ export default {
         },
         // test(state) {
         //     state.items.push({
-        //         article_number: "0303.1.9003", category: 1, id: 20, img:"https://larochka.pp.ua:4040/uploads/items/f48b9456a2dbd817426fe4d052efd4dd.jpg", link: ".", price: "370.00", title: "Шар FlyNova Pro"
+        //         article_number: "0303.1.9003", category: 1, id: 20, img:"/uploads/items/f48b9456a2dbd817426fe4d052efd4dd.jpg", link: ".", price: "370.00", title: "Шар FlyNova Pro"
         //     });
         // },
         setMetaInfo(state, metaInfo) {
@@ -122,19 +122,19 @@ export default {
     actions: {
         async load(store) {
             // console.log(this.$router);
-           let items = await makeRequest('https://larochka.pp.ua:4040/api/items');
+           let items = await makeRequest('/api/items');
             // console.log(items);
             store.commit('setItems', items.data);
         },
         async getProductsFromParentCategoryAndSubcategories({ commit }, slug) {
-            let url = `https://larochka.pp.ua:4040/api/items/category/${slug}`;
+            let url = `/api/items/category/${slug}`;
             let items  = await makeRequest(url);
             // console.log(items.data);
             commit('setItemsTest', items.data);
         },
         async getProductsFromCategory({ commit }, slug, page = 1) {
 
-            let url = `https://larochka.pp.ua:4040/api/items/category/${slug}?page=${page}`;
+            let url = `/api/items/category/${slug}?page=${page}`;
             let items  = await makeRequest(url);
             // console.log('>>>1', items);
             commit('setItemsTest', items.data);
@@ -147,7 +147,7 @@ export default {
             let page = state.showMoreArr[slug] + 1
             // console.log('page=', state.showMoreArr[slug]);
             // console.log('showMore slug =', slug);
-            let url = `https://larochka.pp.ua:4040/api/items/category/${slug}?page=${page}`;
+            let url = `/api/items/category/${slug}?page=${page}`;
             let items  = await makeRequest(url)
             commit('setItemsTest', items.data);
             let metaInfo =  items.meta;

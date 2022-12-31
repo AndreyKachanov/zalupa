@@ -34,7 +34,7 @@ export default {
     actions: {
         async loadCategories(store) {
             // console.log(this.$router);
-           let parents = await makeRequest('https://larochka.pp.ua:4040/api/get-categories');
+           let parents = await makeRequest('/api/get-categories');
             // console.log(items);
             store.commit('setParents', parents.data);
         },
