@@ -2,9 +2,7 @@
 
 namespace Database\Factories\Admin\Item;
 
-use App\Models\Admin\Item\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -19,8 +17,6 @@ class ItemFactory extends Factory
      */
     public function definition()
     {
-        //$categories = Category::where('parent_id', '!=', null)->pluck('id')->toArray();
-        //dump('test');
         return [
             'title' => $this->faker->jobTitle,
             'article_number' => $this->faker->postcode,
@@ -31,9 +27,8 @@ class ItemFactory extends Factory
                 'items',
                 300,
                 350,
-                'cats'
+                'soft_toy'
             ),
-            //'category_id' => 1
         ];
     }
 }

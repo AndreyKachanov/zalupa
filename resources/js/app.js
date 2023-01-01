@@ -19,7 +19,6 @@ if (['/', '/cart', '/order', '/category/1-populyarnye-tovary'].indexOf(locationP
     app.use(router);
 
     router.beforeEach((to, from, next) => {
-        console.log(window.location.origin, 'asdfasdfsdfsdfsdfsdfsdfa4545454sdf');
         if (to.name === 'category') {
 
             let slug = to.params.slug

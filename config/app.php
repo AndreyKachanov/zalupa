@@ -17,7 +17,7 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
     'author' => env('APP_AUTHOR', 'Andreii Kachanov'),
-    'pagination_default_value' => 10,
+    'pagination_default_value' => 3,
 
     /*
     |--------------------------------------------------------------------------
