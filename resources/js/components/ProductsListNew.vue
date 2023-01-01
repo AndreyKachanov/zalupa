@@ -1,7 +1,5 @@
 <template>
     <div class="row">
-<!--        {{ showMoreArr }}-->
-<!--        {{ cacheUrls }}-->
         <div class="col col-sm-4 mb-3 mt-3"
             v-for="product in products"
              :key="product.id"
@@ -23,17 +21,16 @@
             </div>
         </div>
     </div>
-
-    <br>
-    <pre>
-        {{ hasNewItemsForButtonPagination }}
-    </pre>
-    <button
-        v-if="hasNewItemsForButtonPagination"
-        @click="showMore(this.slug)"
-    >Показать еще
-    </button>
-    <p v-else>hasNewItemsForPagination Новый товаров для пагинации нет</p>
+    <div class="row">
+        <div class="col text-center">
+            <button
+                class="btn btn-success mt-2 mb-3"
+                v-if="hasNewItemsForButtonPagination"
+                @click="getProductsFromCategory(this.slug)"
+            >Показать еще
+            </button>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -57,21 +54,26 @@ export default {
         ...mapGetters('cart', { cartAll: 'all', inCart: 'has', productsTemp: 'productsTemp', getCountFromCart: 'getCountFromCart' }),
         ...mapGetters('products', {
             hasNewItemsForPagination: 'hasNewItemsForPagination',
-            metaInfro: 'metaInfo',
-            showMoreArr: 'showMoreArr'
         }),
         slug() {
             return this.$route.params.slug;
         },
         hasNewItemsForButtonPagination() {
-            console.log('>>>1', this.hasNewItemsForPagination(this.slug));
+            // console.log('>>>1', this.hasNewItemsForPagination(this.slug));
             return this.hasNewItemsForPagination(this.slug);
         }
     },
     methods: {
-        ...mapActions('cart', { addToCartNew: 'addNew', addToCart: 'add', removeFromCart: 'remove', setCnt: 'setCnt', setTempCnt: 'setTempCnt' }),
+        ...mapActions('cart', {
+            addToCartNew: 'addNew',
+            addToCart: 'add',
+            removeFromCart: 'remove',
+            setCnt: 'setCnt',
+            setTempCnt: 'setTempCnt'
+        }),
         ...mapActions('products', {
-            showMore: 'showMore'
+            getProductsFromCategory: 'getProductsFromCategory',
+            showMore: 'showMore',
         }),
         setNewCnt(id, cnt) {
             // console.log(arguments)
@@ -91,9 +93,6 @@ export default {
                 }
             }
         },
-        // showMore() {
-        //     console.log(this.$route);
-        // }
     }
 }
 </script>
