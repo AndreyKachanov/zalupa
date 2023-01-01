@@ -70,7 +70,7 @@ class ItemsSeeder extends Seeder
             //    ->create();
 
             //по 10 итемов привязать к дочерним категориям
-            $countSub = 100;
+            $countSub = 10;
             $subCategories = Category::whereNotNull('parent_id')->get();
             $categoryItemIds = [];
             foreach ($subCategories as $category) {
