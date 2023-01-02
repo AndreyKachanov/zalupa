@@ -7,37 +7,6 @@
                 Route Name <strong>{{ this.$route.name }}</strong>
             </div>
         </div>
-<!--    <div>-->
-<!--        <h1>Products</h1>-->
-<!--        <router-link to="/test">Test</router-link>-->
-<!--        {{ cartAll }}-->
-<!--        <br>-->
-<!--        {{ productsTemp }}-->
-<!--        <div class="row">-->
-<!--            <div class="col col-sm-4 mb-3 mt-3"-->
-<!--                v-for="product in products"-->
-<!--                 :key="product.id"-->
-<!--            >-->
-<!--                <div class="card">-->
-<!--                    <div class="card-body">-->
-<!--                        <h3>{{ product.title }}</h3>-->
-<!--                        <img class="img-fluid" :src="product.img" alt=""/>-->
-<!--                        <div>{{ product.price }}</div>-->
-<!--                        <router-link :to="`/${product.slug}`">Read more</router-link>-->
-<!--                        <count-items :count-from-cart="getCountFromCart(product.id)"  @set-cnt="setNewCnt(product.id, $event)"></count-items>-->
-<!--                        <button v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">-->
-<!--                            Remove-->
-<!--                        </button>-->
-<!--                        <button v-else class="btn btn-success" @click="addToCartNew(product.id)">-->
-<!--                            Add to cart-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--            </div>-->
-<!--            <button @click="showMore">Показать еще</button>-->
-<!--        </div>-->
-<!--    </div>-->
 </template>
 
 <script>

@@ -4,19 +4,22 @@
             v-for="product in products"
              :key="product.id"
         >
-            <div class="card">
+            <div class="card h-100">
                 <div class="card-body">
                     <h3>{{ product.title }}</h3>
                     <img class="img-fluid" :src="product.img" alt=""/>
-                    <div>{{ product.price }}</div>
-                    <router-link :to="`/${product.slug}`">Read more</router-link>
-                    <count-items :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>
-                    <button v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">
-                        Remove
-                    </button>
-                    <button v-else class="btn btn-success" @click="addToCartNew(product.id)">
-                        Add to cart
-                    </button>
+                    <div>{{ product.price }} &#8381</div>
+<!--                    <router-link :to="`/${product.slug}`">Read more</router-link>-->
+                    <div style="margin-top: 15px; display: flex; justify-content: space-around;min-width:91px">
+                        <count-items :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>
+                        <button v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">
+                            Убрать
+                        </button>
+                        <button v-else class="btn btn-success" @click="addToCartNew(product.id)">
+                            В корзину
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -98,7 +101,7 @@ export default {
 </script>
 
 <style scoped>
-    .row {
-        padding-left: 15px;
-    }
+    /*.row {*/
+    /*    padding-left: 15px;*/
+    /*}*/
 </style>

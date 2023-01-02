@@ -4,6 +4,7 @@ export default {
     namespaced: true,
     state: {
         // items: tmpGetPr()
+        // items: [{'id':1}, {'id':2}],
         items: [],
         showMoreArr: {},
         mataInfo: {}
@@ -40,10 +41,6 @@ export default {
         // item: (state, getters) => id => state.items[getters.itemsMap[id]],
         item(state, getters) {
           return function (id) {
-              // console.log('----');
-              // console.log(getters.itemsMap[100]);
-              // console.log('----');
-              // console.log(2);
               return state.items[getters.itemsMap[id]]
           }
         },
@@ -77,6 +74,7 @@ export default {
     },
     mutations: {
         setItems(state, items) {
+            // console.log('>>>', items);
             state.items = items;
         },
         setItemsTest(state, newItems) {
@@ -101,10 +99,15 @@ export default {
     },
     actions: {
         async load(store) {
-            // console.log(this.$router);
            let items = await makeRequest('/api/items');
-            // console.log(items);
+           // console.log('products arr>>>', items.data);
+           // console.log('>>>', rootGetters['products/all']);
             store.commit('setItems', items.data);
+        },
+        async loadByIds(store, itemIds) {
+            console.log(itemIds);
+           let items = await makeRequest('/api/items');
+           //  store.commit('setItems', items.data);
         },
         // async getProductsFromParentCategoryAndSubcategories({ commit }, slug) {
         //     let url = `/api/items/category/${slug}`;
@@ -119,7 +122,6 @@ export default {
             commit('setItemsTest', items.data);
             let metaInfo =  items.meta;
             commit('setShowMoreArrItem', { slug, metaInfo });
-
         }
     }
 }

@@ -3,13 +3,13 @@
         <top-menu v-if="hasSubCategories" :categories="subCategories(idCurrentCategory)"></top-menu>
 <!--        <div v-else>Not sub categories</div>-->
 
-        <h1>Products</h1>
+<!--        <h1>Products</h1>-->
 <!--        <pre>{{ items }}</pre>-->
 <!--            {{ cacheUrls }}-->
-        <div>
+<!--        <div>-->
 <!--            Route Name <strong>{{ this.$route.name }}</strong>-->
 <!--            Current date {{ currentDate() }}-->
-        </div>
+<!--        </div>-->
 
         <products-list-new :products="itemsOnlyCategory"></products-list-new>
 

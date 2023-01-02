@@ -1,16 +1,15 @@
 <template>
-<!--    <div v-if="hasProductsInCart">-->
     <div>
-        <h1>Cart</h1>
+<!--        <h1>Корзина</h1>-->
         <hr>
         <table v-if="hasProductsInCart" class="table table-bordered table-hover">
             <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Price</th>
-                    <th>Cnt</th>
-                    <th>Total</th>
-                    <th>Actions</th>
+                    <th>Название</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Сумма</th>
+                    <th>Действия</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,11 +20,11 @@
                     <td>{{ product.price * product.cnt }}</td>
                     <td>
                         <button
-                            class="btn btn-warning"
+                            class="btn btn-warning mr-2"
                             @click="setCnt({ id: product.id, cnt: product.cnt - 1 })"
                         >-</button>
                         <button
-                            class="btn btn-success"
+                            class="btn btn-success mr-2"
                             @click="setCnt({ id: product.id, cnt: product.cnt + 1 })"
                         >+</button>
                         <button
@@ -36,13 +35,11 @@
                 </tr>
             </tbody>
         </table>
-        <p v-else>Cart is empty</p>
+        <p v-else>Корзина пустая</p>
 
         <router-link  v-if="cartCnt" :to="{ name: 'checkout' }" class="btn btn-success">
-<!--            <span @click="setInvoiceNumber">Итого - {{  cartTotal }} ₽</span>-->
             <span>Итого - {{ cartTotal }} ₽</span>
         </router-link>
-<!--        {{ products }}-->
     </div>
 <!--    <app-e404 v-else title="Page not found"></app-e404>-->
 </template>
@@ -56,7 +53,12 @@ export default {
         AppE404
     },
     computed: {
-        ...mapGetters('cart', { products: 'productsDetailed', cartTotal: 'total', cartCnt: 'length' }),
+        ...mapGetters('cart', {
+            products: 'productsDetailed',
+            cartTotal: 'total',
+            cartCnt: 'length',
+            all: 'all'
+        }),
         hasProductsInCart() {
             return this.cartCnt > 0;
         }

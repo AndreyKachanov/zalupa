@@ -1,6 +1,5 @@
 <template>
-    <div style="border: 1px solid red;">
-        <p>Router Links Parent Categories Menu</p>
+    <div>
         <ul class="list-group">
             <router-link
                 v-for="category in categories"

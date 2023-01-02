@@ -20,18 +20,15 @@ if (['/', '/cart', '/order', '/category/1-populyarnye-tovary'].indexOf(locationP
 
     router.beforeEach((to, from, next) => {
         if (to.name === 'category') {
-
             let slug = to.params.slug
             let cacheUrls = store.getters["categories/cacheUrls"];
             if (!cacheUrls.includes(slug)) {
-                // store.dispatch('products/getProductsFromParentCategoryAndSubcategories', slug);
-
                 store.dispatch('products/getProductsFromCategory', slug);
                 store.dispatch('categories/setCacheUrls', slug);
             }
         }
         next();
-    })
+    });
 
 
     store.dispatch('categories/loadCategories');

@@ -50,9 +50,11 @@ export default {
         // выбранные товары
         // с помощью rootGetters обращается в модуль products и достаём с помощью гетера item по id инфу о товаре
         // далее склеиваем массивы
-        productsDetailed(state, getters, rootState, rootGetters) {
+         productsDetailed(state, getters, rootState, rootGetters) {
             return state.products.map(pr => {
+              // let info = rootGetters['products/item'](pr.id);
               let info = rootGetters['products/item'](pr.id);
+              // console.log('>>>2', { ...pr, ...info });
               return { ...pr, ...info };
             });
 
@@ -198,19 +200,23 @@ export default {
                 // console.log('индекса нет');
             }
         },
-        async load(store) {
+        async load({commit}) {
             let oldToken = localStorage.getItem('CART_TOKEN');
             let url = `/api/cart/load?token=${oldToken}`;
-            let { needUpdate, cart, token } = await makeRequest(url);
+            let { needUpdate, cart, token, products } = await makeRequest(url);
 
             if (needUpdate) {
                 localStorage.setItem('CART_TOKEN', token);
             }
 
-            store.commit('setCart', { cart, token });
+            commit('setCart', { cart, token });
+            // console.log(rootGetters['products/all']);
 
             if (cart.length > 0) {
-                // console.log('cart.length > 0');
+                // console.log(cart);
+                // let itemIds = cart.map(item => item.id);
+                commit('products/setItems', products, { root: true })
+                // this.dispatch('products/loadByIds', itemIds);
                 this.dispatch('cart/setBillNumber', token);
             } else {
                 // console.log('cart length < 0');
