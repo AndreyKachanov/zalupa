@@ -3,7 +3,7 @@
   array (
     'name' => 'Laravel',
     'author' => 'Andreii Kachanov',
-    'pagination_default_value' => 3,
+    'pagination_default_value' => 15,
     'env' => 'local',
     'debug' => true,
     'url' => 'https://catalog.loc',

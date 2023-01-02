@@ -30,6 +30,7 @@
         "popper.js": "^1.16.1",
         "sass-resources-loader": "^2.2.5",
         "vue-router": "^4.0.13",
-        "vuex": "^4.0.2"
+        "vuex": "^4.0.2",
+        "font-awesome": "^4.7.0"
     }
 }

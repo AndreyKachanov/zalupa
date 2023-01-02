@@ -33,13 +33,18 @@
                         >x</button>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="5">
+                        <router-link  v-if="cartCnt" :to="{ name: 'checkout' }" class="btn btn-success">
+                            <span>Итого - {{ cartTotal }} ₽</span>
+                        </router-link>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <p v-else>Корзина пустая</p>
 
-        <router-link  v-if="cartCnt" :to="{ name: 'checkout' }" class="btn btn-success">
-            <span>Итого - {{ cartTotal }} ₽</span>
-        </router-link>
+
     </div>
 <!--    <app-e404 v-else title="Page not found"></app-e404>-->
 </template>

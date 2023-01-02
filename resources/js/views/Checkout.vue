@@ -2,6 +2,9 @@
     <div v-if="hasProductsInCart || flagOrderSent" class="container test123">
         <div v-if="flagOrderSent && !hasProductsInCart">
             <h1>Ваш заказ удачно отправлен. Ожидайте звонка менеджера.</h1>
+            <router-link
+                :to="{ name: 'products' }"
+            >На главную</router-link>
         </div>
         <div v-else class="d-flex justify-content-center row">
             <div class="col-md-12">
@@ -9,11 +12,12 @@
                     <div class="row">
                         <div class="col-md-8">
                             <form action="" method="post">
-                                <input type="text" v-model="name" placeholder="Введите Ваше имя">
-                                <input type="text" v-model="contact" placeholder="Введите Ваш телефон или email">
+                                <h2>Введите контакты для связи с Вами:</h2>
+                                <input type="text" v-model="name" placeholder="Введите Ваше имя" required class="input-group mb-2">
+                                <input type="text" v-model="contact" placeholder="Введите Ваш телефон или email" required class="input-group">
                             </form>
                             <h1 class="text-uppercase">Заказ</h1>
-                            <div class="billed"><span class="font-weight-bold text-uppercase">#</span><span class="ml-1">{{ billNumber }}</span></div>
+                            <div class="billed"><span class="font-weight-bold text-uppercase">№ заказа:</span><span class="ml-1">{{ billNumber }}</span></div>
                             <div class="billed"><span class="font-weight-bold text-uppercase">Дата:</span><span class="ml-1">{{currentDate()}}</span></div>
                         </div>
                     </div>
@@ -68,8 +72,8 @@ export default {
         AppE404
     },
     data: () => ({
-        name: 'Andrey',
-        contact: '+79493579167'
+        name: '',
+        contact: ''
     }),
     computed: {
         ...mapGetters('cart', { products: 'productsDetailed', cartTotal: 'total', billNumber: 'billNumber', cartCnt: 'length', flagOrderSent: 'flagOrderSent'}),
@@ -81,7 +85,7 @@ export default {
         ...mapActions('cart', ['sendOrderToStore', 'sendOrderToStore']),
         currentDate() {
             const current = new Date();
-            return `${current.getDate()}.${current.getMonth()+1}.${current.getFullYear()}.${current.getMinutes()}.${current.getSeconds()}.${current.getMilliseconds()}`;
+            return `${current.getDate()}.${current.getMonth()+1}.${current.getFullYear()}`;
         },
         sendOrder() {
             // let name = this.name;
