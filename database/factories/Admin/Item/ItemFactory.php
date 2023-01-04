@@ -21,7 +21,6 @@ class ItemFactory extends Factory
             'title' => $this->faker->jobTitle,
             'article_number' => $this->faker->postcode,
             'price' => rand(50, 100),
-            'link' => '4a9f99dc105',
             'img' => $this->faker->loremflickr(
                 Storage::disk('uploads'),
                 'items',
@@ -29,6 +28,9 @@ class ItemFactory extends Factory
                 350,
                 'soft_toy'
             ),
+            'is_new' => false,
+            'is_hit' => false,
+            'is_bestseller' => false
         ];
     }
 }

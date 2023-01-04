@@ -28,8 +28,10 @@ class CreateItemsTable extends Migration
                 $table->string('slug', 1200)->nullable();
                 $table->string('article_number')->nullable();
                 $table->decimal('price', $precision = 8, $scale = 2)->nullable();
-                $table->string('link')->nullable();
                 $table->string('img')->nullable();
+                $table->boolean('is_new')->default(false);
+                $table->boolean('is_hit')->default(false);
+                $table->boolean('is_bestseller')->default(false);
                 $table->unsignedSmallInteger('category_id')->nullable();
                 $table->softDeletes();
                 $table->timestamps();

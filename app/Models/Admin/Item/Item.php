@@ -54,6 +54,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Item withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Item withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
  * @method static \Illuminate\Database\Query\Builder|Item withoutTrashed()
+ * @property int $is_new
+ * @property int $is_hit
+ * @property int $is_bestseller
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereIsBestseller($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereIsHit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereIsNew($value)
  */
 class Item extends Model
 {
@@ -77,6 +83,12 @@ class Item extends Model
             ]
         ];
     }
+
+    protected $casts = [
+        'is_new' => 'boolean',
+        'is_hit' => 'boolean',
+        'is_bestseller' => 'boolean',
+    ];
 
     public function rCategory()
     {

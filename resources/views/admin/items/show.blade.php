@@ -1,5 +1,5 @@
 @php
-    /** @var \App\Entity\Item $item */
+    /** @var \App\Models\Admin\Item\Item $item */
 
 @endphp
 
@@ -24,28 +24,25 @@
     <table class="table table-bordered table-striped">
         <tbody>
             <tr>
-                <th>ID</th><td>{{ $item->id }}</td>
+                <th>Название</th><td>{{ $item->title }}</td>
             </tr>
             <tr>
-                <th>Title</th><td>{{ $item->title }}</td>
+                <th>Артикул</th><td>{{ $item->article_number }}</td>
             </tr>
             <tr>
-                <th>Article number</th><td>{{ $item->article_number }}</td>
+                <th>Цена</th><td>{{ $item->price }} &#8381</td>
             </tr>
             <tr>
-                <th>Price 1</th><td>{{ $item->price1 }}</td>
+                <th>Новый</th><td>{{ $item->is_new }}</td>
             </tr>
             <tr>
-                <th>Price 2</th><td>{{ $item->price2 }}</td>
+                <th>Хит</th><td>{{ $item->is_hit }}</td>
             </tr>
             <tr>
-                <th>Price 3</th><td>{{ $item->price3 }}</td>
+                <th>Бестселлер</th><td>{{ $item->is_bestseller }}</td>
             </tr>
             <tr>
-                <th>Link</th><td>{{ $item->link }}</td>
-            </tr>
-            <tr>
-                <th>Category</th><td>{{ $item->rCategory->title ?? 'Без категории' }}</td>
+                <th>Категория</th><td>{{ $item->rCategory->title ?? 'Без категории' }}</td>
             </tr>
         <tbody>
         </tbody>

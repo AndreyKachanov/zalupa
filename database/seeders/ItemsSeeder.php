@@ -42,8 +42,10 @@ class ItemsSeeder extends Seeder
                     'title' =>  $item->title,
                     'article_number' => $item->article_number,
                     'price' => (float)$item->price1,
-                    'link' => $item->link,
                     'img' => $item->img,
+                    'is_new' => false,
+                    'is_hit' => false,
+                    'is_bestseller' => false,
                     'category_id' => $item->category_id
                 ]);
             }
@@ -70,7 +72,7 @@ class ItemsSeeder extends Seeder
             //    ->create();
 
             //по 10 итемов привязать к дочерним категориям
-            $countSub = 10;
+            $countSub = 2;
             $subCategories = Category::whereNotNull('parent_id')->get();
             $categoryItemIds = [];
             foreach ($subCategories as $category) {
@@ -82,6 +84,16 @@ class ItemsSeeder extends Seeder
                 ->count(count($categoryItemIds))
                 ->state(new Sequence(fn($sequence) => ['category_id' => $categoryItemIds[$sequence->index]]))
                 ->create();
+
+            //Update article_number
+            $items = Item::whereIn('category_id', Category::whereNotNull('parent_id')->pluck('id')->toArray())->get();
+            foreach ($items as $key => $item) {
+                echo $key;
+                $new = $item->id . '.' . $item->article_number;
+                //dump('old - ' . $item->article_number, 'new - ' . $new);
+                $item->update(['article_number' => $new]);
+            }
+
         } catch (Exception $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new Exception($errorMsg);

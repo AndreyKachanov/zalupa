@@ -31,34 +31,33 @@
         </div>
 
         <div class="form-group">
-            <label for="price1" class="col-form-label">Price 1</label>
-            <input id="price1" class="form-control{{ $errors->has('price1') ? ' is-invalid' : '' }}" name="price1" value="{{ old('price1') }}" required>
-            @if ($errors->has('price1'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('price1') }}</strong></span>
+            <label for="price" class="col-form-label">Цена</label>
+            <input id="price" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="{{ old('price') }}" required>
+            @if ($errors->has('price'))
+                <span class="invalid-feedback"><strong>{{ $errors->first('price') }}</strong></span>
             @endif
         </div>
 
-        <div class="form-group">
-            <label for="price2" class="col-form-label">Price 2</label>
-            <input id="price2" class="form-control{{ $errors->has('price2') ? ' is-invalid' : '' }}" name="price2" value="{{ old('price2') }}" required>
-            @if ($errors->has('price2'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('price2') }}</strong></span>
+        <div class="form-check">
+            <label class="checkbox-inline" for="is_new" style="padding-left: 5px">
+                <input type="checkbox" style="margin-right: 5px" name="is_new" id="is_new" {{ old('is_new') ? 'checked' : '' }}>Новый товар
+            </label>
+            @if ($errors->has('is_new'))
+                <span class="invalid-feedback"><strong>{{ $errors->first('is_new') }}</strong></span>
             @endif
-        </div>
 
-        <div class="form-group">
-            <label for="price3" class="col-form-label">Price 3</label>
-            <input id="price3" class="form-control{{ $errors->has('price3') ? ' is-invalid' : '' }}" name="price3" value="{{ old('price3') }}" required>
-            @if ($errors->has('price3'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('price3') }}</strong></span>
+            <label class="checkbox-inline" for="is_hit" style="padding-left: 5px">
+                <input type="checkbox" style="margin-right: 5px" name="is_hit" id="is_hit" {{ old('is_hit') ? 'checked' : '' }}>Хит
+            </label>
+            @if ($errors->has('is_hit'))
+                <span class="invalid-feedback"><strong>{{ $errors->first('is_hit') }}</strong></span>
             @endif
-        </div>
 
-        <div class="form-group">
-            <label for="link" class="col-form-label">Link</label>
-            <input id="link" class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" name="link" value="{{ old('link') }}" required>
-            @if ($errors->has('link'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('link') }}</strong></span>
+            <label class="checkbox-inline" for="is_bestseller" style="padding-left: 5px">
+                <input type="checkbox" style="margin-right: 5px" name="is_bestseller" id="is_bestseller" {{ old('is_bestseller') ? 'checked' : '' }}>Бестселлер
+            </label>
+            @if ($errors->has('is_bestseller'))
+                <span class="invalid-feedback"><strong>{{ $errors->first('is_bestseller') }}</strong></span>
             @endif
         </div>
 

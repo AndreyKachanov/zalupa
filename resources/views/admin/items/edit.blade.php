@@ -1,6 +1,6 @@
 @php
-    /** @var \App\Entity\Item $item */
-    /** @var \App\Entity\ItemCategory $category */
+    /** @var \App\Models\Admin\Item\Item $item */
+    /** @var \App\Models\Admin\Item\Category $category */
 
     /** @var \Illuminate\Database\Eloquent\Collection $categories */
 @endphp
@@ -8,18 +8,12 @@
 
 @section('content')
     @include('admin.items._nav')
-
-{{--    {{ old('category_id', $item->category_id) }}--}}
-{{--    {{ old('category_id') }}--}}
-{{--    {{ $categories[1]->title }}--}}
-{{--    {{ dump($categories[1]->id === (int)old('category_id')) }}--}}
-
     <form method="POST" action="{{ route('admin.items.update', $item) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
         <div class="form-group">
-            <label for="title" class="col-form-label">Title</label>
+            <label for="title" class="col-form-label">Название</label>
             <input id="title" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ old('title', $item->title) }}" required>
             @if ($errors->has('title'))
                 <span class="invalid-feedback"><strong>{{ $errors->first('title') }}</strong></span>
@@ -27,7 +21,7 @@
         </div>
 
         <div class="form-group">
-            <label for="article_number" class="col-form-label">Article number</label>
+            <label for="article_number" class="col-form-label">Артикул</label>
             <input id="article_number" class="form-control{{ $errors->has('article_number') ? ' is-invalid' : '' }}" name="article_number" value="{{ old('article_number', $item->article_number) }}" required>
             @if ($errors->has('article_number'))
                 <span class="invalid-feedback"><strong>{{ $errors->first('article_number') }}</strong></span>
@@ -35,39 +29,38 @@
         </div>
 
         <div class="form-group">
-            <label for="price1" class="col-form-label">Price 1</label>
-            <input id="price1" class="form-control{{ $errors->has('price1') ? ' is-invalid' : '' }}" name="price1" value="{{ old('price1', $item->price1) }}" required>
-            @if ($errors->has('price1'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('price1') }}</strong></span>
+            <label for="price" class="col-form-label">Цена</label>
+            <input id="price" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="{{ old('price', $item->price) }}" required>
+            @if ($errors->has('price'))
+                <span class="invalid-feedback"><strong>{{ $errors->first('price') }}</strong></span>
+            @endif
+        </div>
+
+        <div class="form-check">
+            <label class="checkbox-inline" for="is_new" style="padding-left: 5px">
+                <input type="checkbox" style="margin-right: 5px" name="is_new" id="is_new" {{ $item->is_new ? 'checked' : '' }}>Новый товар
+            </label>
+            @if ($errors->has('is_new'))
+                <span class="invalid-feedback"><strong>{{ $errors->first('is_new') }}</strong></span>
+            @endif
+
+            <label class="checkbox-inline" for="is_hit" style="padding-left: 5px">
+                <input type="checkbox" style="margin-right: 5px" name="is_hit" id="is_hit" {{ $item->is_hit ? 'checked' : '' }}>Хит
+            </label>
+            @if ($errors->has('is_hit'))
+                <span class="invalid-feedback"><strong>{{ $errors->first('is_hit') }}</strong></span>
+            @endif
+
+            <label class="checkbox-inline" for="is_bestseller" style="padding-left: 5px">
+                <input type="checkbox" style="margin-right: 5px" name="is_bestseller" id="is_bestseller" {{  $item->is_bestseller ? 'checked' : '' }}>Бестселлер
+            </label>
+            @if ($errors->has('is_bestseller'))
+                <span class="invalid-feedback"><strong>{{ $errors->first('is_bestseller') }}</strong></span>
             @endif
         </div>
 
         <div class="form-group">
-            <label for="price2" class="col-form-label">Price 2</label>
-            <input id="price2" class="form-control{{ $errors->has('price2') ? ' is-invalid' : '' }}" name="price2" value="{{ old('price2', $item->price2) }}" >
-            @if ($errors->has('price2'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('price2') }}</strong></span>
-            @endif
-        </div>
-
-        <div class="form-group">
-            <label for="price3" class="col-form-label">Price 3</label>
-            <input id="price3" class="form-control{{ $errors->has('price3') ? ' is-invalid' : '' }}" name="price3" value="{{ old('price3', $item->price3) }}" required>
-            @if ($errors->has('price3'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('price3') }}</strong></span>
-            @endif
-        </div>
-
-        <div class="form-group">
-            <label for="link" class="col-form-label">Link</label>
-            <input id="link" class="form-control{{ $errors->has('link') ? ' is-invalid' : '' }}" name="link" value="{{ old('link', $item->link) }}" required>
-            @if ($errors->has('link'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('link') }}</strong></span>
-            @endif
-        </div>
-
-        <div class="form-group">
-            <label for="category" class="col-form-label">Category</label>
+            <label for="category" class="col-form-label">Категория</label>
             <select id="category" class="form-control{{ $errors->has('category') ? ' is-invalid' : '' }}" name="category_id">
                 @foreach ($categories as $category)
                     <option

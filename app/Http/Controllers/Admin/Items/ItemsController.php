@@ -26,35 +26,43 @@ class ItemsController extends Controller
      */
     public function index(Request $request)
     {
+        //dump($request->all());
+        if (isset($request->find)) {
+            $request->validate([
+                //'search_checkbox' => 'required',
+                'search_input' => 'required'
+            ]);
+        }
+        //dump(isset($request->find));
+        //dump($request->all());
+        //dump($request->find);
+
+
+        //dd(Category::where('title','LIKE', "%{$request->search}%")->pluck('id')->toArray());
+        //$request->flash();
+
+        $request->flashOnly([
+            'checkbox_title',
+            'checkbox_article_number',
+            'checkbox_category',
+            'search_input'
+        ]);
         $query = Item::orderByDesc('created_at');
 
-//        if ($request->has('search_by_item')) {
-        if (!empty($value = $request->get('title'))) {
-            $query->where('title', 'LIKE', "%{$value}%");
+        if (isset($request->checkbox_title)) {
+            $query->where('title', 'LIKE', "%{$request->search_input}%");
         }
 
-        if (!empty($value = $request->get('article_number'))) {
-            $query->where('article_number', 'LIKE', "%{$value}%");
+        if (isset($request->checkbox_article_number)) {
+            $query->where('article_number', 'LIKE', "%{$request->search_input}%");
         }
 
-        if (!empty($value = $request->get('price1'))) {
-            $query->where('price1', $value);
+        if (isset($request->checkbox_category)) {
+            $ids = Category::where('title', 'LIKE', "%{$request->search_input}%")->pluck('id')->toArray();
+            $query->whereIn('category_id', $ids);
         }
 
-        if (!empty($value = $request->get('price2'))) {
-            $query->where('price2', $value);
-        }
-
-        if (!empty($value = $request->get('price3'))) {
-            $query->where('price3', $value);
-        }
-
-        if (!empty($value = $request->get('category_id'))) {
-            $query->where('category_id', $value);
-        }
-//        }
-
-        $items = $query->paginate(100);
+        $items = $query->paginate(20);
         $categories = Category::all();
         return view('admin.items.index', compact('items', 'categories'));
     }
@@ -81,13 +89,14 @@ class ItemsController extends Controller
         $item = new Item();
         $item->title = $request->title;
         $item->article_number = $request->article_number;
-        $item->price1 = $request->price1;
-        $item->price2 = $request->price2;
-        $item->price3 = $request->price3;
-        $item->link = $request->link;
+        $item->price = $request->price;
+        $item->is_new = isset($request->is_new);
+        $item->is_hit = isset($request->is_hit);
+        $item->is_bestseller = isset($request->is_bestseller);
         $item->img = $this->service->saveImageWithResize($filePath);
         $item->category_id = $request->category_id;
         $item->save();
+        $item->update(['article_number' => $item->id . '.' . $item->article_number]);
         return redirect()->route('admin.items.show', $item);
     }
 
@@ -124,10 +133,10 @@ class ItemsController extends Controller
 
         $item->title = $request->title;
         $item->article_number = $request->article_number;
-        $item->price1 = $request->price1;
-        $item->price2 = $request->price2;
-        $item->price3 = $request->price3;
-        $item->link = $request->link;
+        $item->price = $request->price;
+        $item->is_new = isset($request->is_new);
+        $item->is_hit = isset($request->is_hit);
+        $item->is_bestseller = isset($request->is_bestseller);
         $item->category_id = $request->category_id;
         $item->save();
         return redirect()->route('admin.items.show', compact('item'));
