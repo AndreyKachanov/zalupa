@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\Admin\Items\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,15 @@ Route::group(
         'middleware' => ['auth', 'can:admin-panel']
     ],
     function () {
+        Route::group(['prefix' => 'subcategories', 'as' => 'subcategories.'], function () {
+            Route::get('/', [CategoryController::class, 'indexSubCategories'])->name('index');
+            Route::post('/', [CategoryController::class, 'storeSubCategory'])->name('store');
+            Route::get('create', [CategoryController::class, 'createSubCategory'])->name('create');
+            Route::get('{category}', [CategoryController::class, 'showSubCategory'])->name('show');
+            Route::get('{category}/edit', [CategoryController::class, 'editSubCategory'])->name('edit');
+            Route::match(['put', 'patch'],'{category}', [CategoryController::class, 'updateSubCategory'])->name('update');
+            Route::delete('{category}', [CategoryController::class, 'destroySubCategory'])->name('destroy');
+        });
         Route::get('/', [AdminHome::class, 'index'])->name('home');
         Route::resource('items', 'Items\ItemsController');
         Route::resource('categories', 'Items\CategoryController');

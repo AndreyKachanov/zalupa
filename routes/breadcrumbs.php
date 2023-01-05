@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Admin\Item\Category;
 use App\Models\Admin\Item\Item;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 
@@ -67,7 +68,7 @@ Breadcrumbs::register('admin.users.edit', function (Crumbs $crumbs, User $user) 
 //Admin Categories
 Breadcrumbs::register('admin.categories.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
-    $crumbs->push('Categories', route('admin.categories.index'));
+    $crumbs->push('Категории', route('admin.categories.index'));
 });
 
 Breadcrumbs::register('admin.categories.create', function (Crumbs $crumbs) {
@@ -85,6 +86,26 @@ Breadcrumbs::register('admin.categories.edit', function (Crumbs $crumbs, Categor
     $crumbs->push('Edit', route('admin.categories.edit', $category));
 });
 
+//Admin SubCategories
+Breadcrumbs::register('admin.subcategories.index', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Подкатегории', route('admin.subcategories.index'));
+});
+
+Breadcrumbs::register('admin.subcategories.create', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.subcategories.index');
+    $crumbs->push('Создать', route('admin.subcategories.create'));
+});
+
+Breadcrumbs::register('admin.subcategories.show', function (Crumbs $crumbs, Category $category) {
+    $crumbs->parent('admin.subcategories.index');
+    $crumbs->push($category->title, route('admin.subcategories.show', $category));
+});
+
+Breadcrumbs::register('admin.subcategories.edit', function (Crumbs $crumbs, Category $category) {
+    $crumbs->parent('admin.subcategories.index');
+    $crumbs->push('Edit', route('admin.subcategories.edit', $category));
+});
 //Admin Items
 Breadcrumbs::register('admin.items.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
