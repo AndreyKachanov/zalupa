@@ -8,6 +8,6 @@ class ApiService
 {
     public function getInvoiceNumber(): string
     {
-        return 'pre-2022-' . str_pad(Invoice::max('id') + 1, 5, '0', STR_PAD_LEFT);
+        return date('Y') . '-' . str_pad(Invoice::max('id') + 1, 5, '0', STR_PAD_LEFT);
     }
 }

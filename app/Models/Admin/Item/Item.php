@@ -87,7 +87,7 @@ class Item extends Model
     protected $casts = [
         'is_new' => 'boolean',
         'is_hit' => 'boolean',
-        'is_bestseller' => 'boolean',
+        'is_bestseller' => 'boolean'
     ];
 
     public function rCategory()

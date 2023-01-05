@@ -27,5 +27,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionRolesTableSeeder::class);
         $this->call(ItemsCategorySeeder::class);
         $this->call(ItemsSeeder::class);
+        $this->call(TokensSeeder::class);
+        $this->call(OrderContactsSeeder::class);
+        $this->call(OrdersSeeder::class);
     }
 }

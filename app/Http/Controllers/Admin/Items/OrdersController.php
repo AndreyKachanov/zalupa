@@ -8,11 +8,10 @@ use App\Models\Admin\Cart\Order\Order;
 
 class OrdersController extends Controller
 {
-
     public function index()
     {
-        $contacts = Contact::paginate(15);
+        $contacts = Contact::orderByDesc('created_at')->paginate(10);
+        //dd(Contact::find(1));
         return view('admin.orders.index', compact('contacts'));
     }
-
 }

@@ -26,6 +26,7 @@ return new class extends Migration
                 $table->unsignedSmallInteger('item_id');
                 $table->unsignedSmallInteger('cnt')->comment('Количество товара');
                 $table->unsignedSmallInteger('contact_id');
+                $table->softDeletes();
                 $table->timestamps();
             });
         }

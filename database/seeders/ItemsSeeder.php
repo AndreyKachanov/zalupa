@@ -88,7 +88,7 @@ class ItemsSeeder extends Seeder
             //Update article_number
             $items = Item::whereIn('category_id', Category::whereNotNull('parent_id')->pluck('id')->toArray())->get();
             foreach ($items as $key => $item) {
-                echo $key;
+                //echo $key;
                 $new = $item->id . '.' . $item->article_number;
                 //dump('old - ' . $item->article_number, 'new - ' . $new);
                 $item->update(['article_number' => $new]);
