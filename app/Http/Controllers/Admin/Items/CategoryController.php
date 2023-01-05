@@ -39,7 +39,6 @@ class CategoryController extends Controller
     public function createSubCategory()
     {
         $selectCategory = Category::select(['id', 'title'])->whereParentId(null)
-            //->whereNull('deleted_at')
             ->orderBy('title')
             ->get();
 
@@ -101,7 +100,18 @@ class CategoryController extends Controller
 
     public function editSubCategory(Category $category)
     {
-        return view('admin.subcategories.edit', compact('category'));
+        //dd($category);
+        $selectCategory = Category::select(['id', 'title'])->whereParentId(null)
+            ->orderBy('title')
+            ->get();
+
+        $categoriesToView = [];
+
+        foreach ($selectCategory as $cat) {
+            $categoriesToView[$cat->id] = mb_substr($cat->title, 0, 60);
+        }
+
+        return view('admin.subcategories.edit', compact('category', 'categoriesToView'));
     }
 
 

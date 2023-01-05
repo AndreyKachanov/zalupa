@@ -1,5 +1,6 @@
 @php
     /** @var \App\Models\Admin\Item\Category $category */
+//dd($category);
 @endphp
 
 @extends('layouts.app')
@@ -10,6 +11,11 @@
     <form method="POST" action="{{ route('admin.subcategories.update', $category) }}">
         @csrf
         @method('PUT')
+
+        <div class="form-group">
+            {{ Form::label('parent_id', 'Родительская категория*', ['class' => 'control-label']) }}
+            {{ Form::select('parent_id', $categoriesToView, $category->parent_id, ['class' => 'form-control' ]) }}
+        </div>
 
         <div class="form-group">
             <label for="title" class="col-form-label">Title</label>
