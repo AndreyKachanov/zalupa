@@ -130,7 +130,7 @@ class CategoryController extends Controller
 
     public function updateSubCategory(UpdateCategoryRequest $request, Category $category)
     {
-        $category->update($request->only(['title']));
+        $category->update($request->only(['title', 'parent_id']));
         return redirect()->route('admin.subcategories.index');
     }
 
