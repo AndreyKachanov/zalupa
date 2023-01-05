@@ -6,7 +6,7 @@ use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 
 // Main page
 Breadcrumbs::register('home', function (Crumbs $crumbs) {
-    $crumbs->push('Home', route('home'));
+    $crumbs->push('Главная', route('home'));
 });
 
  //Authentication
@@ -39,7 +39,7 @@ Breadcrumbs::register('password.reset', function (Crumbs $crumbs) {
 // Admin
 Breadcrumbs::register('admin.home', function (Crumbs $crumbs) {
     $crumbs->parent('home');
-    $crumbs->push('Admin', route('admin.home'));
+    $crumbs->push('Админка', route('admin.home'));
 });
 
 //
