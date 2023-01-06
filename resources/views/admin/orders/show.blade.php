@@ -19,16 +19,26 @@
             <thead>
             <tr>
                 <th>Название</th>
+                <th>Цена</th>
                 <th>Кол-во</th>
+                <th>Сумма</th>
             </tr>
             </thead>
             <tbody>
             @foreach ($order->orders as $ord)
                 <tr>
                     <td>{{ $ord->item->title }}</td>
+                    <td>{{ $ord->item->price }}</td>
                     <td>{{ $ord->cnt }}</td>
+                    <td>{{ $ord->item->price * $ord->cnt }}</td>
                 </tr>
             @endforeach
+            <tr>
+                <td>Всего</td>
+                <td style="text-align:right;" colspan="3">
+                    {{ $order->orders->sum(fn($item) => $item->item->price) }}
+                </td>
+            </tr>
             <tbody>
             </tbody>
         </table>
