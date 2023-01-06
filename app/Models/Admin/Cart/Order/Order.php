@@ -29,6 +29,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read Item $item
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Database\Factories\Admin\Cart\Order\OrderFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Query\Builder|Order onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Order withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Order withoutTrashed()
  */
 class Order extends Model
 {

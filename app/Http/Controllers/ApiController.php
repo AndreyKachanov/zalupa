@@ -158,6 +158,7 @@ class ApiController extends Controller
             $contact = new Contact();
             $contact->name = $request->name;
             $contact->contact = $request->contact;
+            $contact->email = $request->email;
             $contact->token()->associate($oldToken);
             $contact->save();
             $contact->orders()->createMany($items);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\Admin\Items\CategoryController;
+use App\Http\Controllers\Admin\Items\OrdersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +58,8 @@ Route::group(
         Route::get('/', [AdminHome::class, 'index'])->name('home');
         Route::resource('items', 'Items\ItemsController');
         Route::resource('categories', 'Items\CategoryController');
-        Route::resource('orders', 'Items\OrdersController');
+        //Route::resource('orders', 'Items\OrdersController');
+        Route::resource('orders', OrdersController::class);
         Route::resource('users', 'UsersController');
         Route::post('/users/{user}/verify', 'UsersController@verify')->name('users.verify');
     }

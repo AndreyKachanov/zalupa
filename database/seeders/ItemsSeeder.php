@@ -71,7 +71,7 @@ class ItemsSeeder extends Seeder
             //    ->state(new Sequence(fn($sequence) => ['category_id' => $parentItemIds[$sequence->index]]))
             //    ->create();
 
-            //по 10 итемов привязать к дочерним категориям
+            //по 2 итемов привязать к дочерним категориям
             $countSub = 2;
             $subCategories = Category::whereNotNull('parent_id')->get();
             $categoryItemIds = [];
@@ -87,10 +87,8 @@ class ItemsSeeder extends Seeder
 
             //Update article_number
             $items = Item::whereIn('category_id', Category::whereNotNull('parent_id')->pluck('id')->toArray())->get();
-            foreach ($items as $key => $item) {
-                //echo $key;
+            foreach ($items as $item) {
                 $new = $item->id . '.' . $item->article_number;
-                //dump('old - ' . $item->article_number, 'new - ' . $new);
                 $item->update(['article_number' => $new]);
             }
 

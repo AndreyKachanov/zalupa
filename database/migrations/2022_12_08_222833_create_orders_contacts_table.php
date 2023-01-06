@@ -27,6 +27,7 @@ return new class extends Migration
                 $table->smallIncrements('id');
                 $table->string('name');
                 $table->string('contact');
+                $table->string('email');
                 $table->unsignedSmallInteger('token_id')->unique();
                 $table->timestamps();
             });

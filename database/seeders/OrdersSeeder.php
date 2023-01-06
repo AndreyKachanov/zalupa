@@ -11,6 +11,7 @@ use Illuminate\Database\Seeder;
 
 class OrdersSeeder extends Seeder
 {
+
     /**
      * @return void
      * @throws Exception

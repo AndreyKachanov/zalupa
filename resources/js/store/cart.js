@@ -228,11 +228,12 @@ export default {
             let { bill_number } = await makeRequest(url);
             commit('setBillNumber', bill_number);
         },
-        async sendOrderToStore({ state, getters, commit }, { name, contact }) {
+        async sendOrderToStore({ state, getters, commit }, { name, contact, email }) {
             let json = {
                 token: state.token,
                 name: name,
                 contact: contact,
+                email: email,
                 items: getters.all
             };
             let url = `/api/cart/store`;

@@ -9,41 +9,33 @@
 @section('content')
     @include('admin.orders._nav')
 
-{{--    <p><a href="{{ route('admin.categories.create') }}" class="btn btn-success">Add Category</a></p>--}}
+    {{--    <p><a href="{{ route('admin.categories.create') }}" class="btn btn-success">Add Category</a></p>--}}
 
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>Дата заказа</th>
             <th>№ заказа</th>
+            <th>Кол-во</th>
+            <th>Сумма заказа</th>
             <th>Имя</th>
-            <th>Контакты</th>
-            <th>Заказ</th>
+            <th>№ телефона</th>
+            <th>Email</th>
         </tr>
         </thead>
         <tbody>
 
         @foreach ($contacts as $contact)
             <tr>
-                <td>{{ $contact->created_at->format('d.m.Y H:m') }}</td>
+                <td>
+                    <a href="{{ route('admin.orders.show', $contact) }}">{{ $contact->created_at->format('d.m.Y H:m') }}</a>
+                </td>
                 <td>{{ $contact->token->invoice->bill_number ?? '2023-0001' }}</td>
-
+                <td>{{ $contact->orders->count() }}</td>
+                <td>{{ $contact->orders->sum(fn($item) => $item->item->price) }}</td>
                 <td>{{ $contact->name }}</td>
                 <td>{{ $contact->contact }}</td>
-                <td>
-                    <table class="table table-bordered">
-{{--                        <th>Название</th>--}}
-{{--                        <th>Кол-во</th>--}}
-                        @foreach ( $contact->orders as $order)
-                            <tr>
-                                <td>{{ $order->item->title }}</td>
-                                <td>{{ $order->cnt }}</td>
-                            </tr>
-                        @endforeach
-                    </table>
-                </td>
-{{--                <td><a href="{{ route('admin.categories.show', $category) }}">{{ $category->title }}</a></td>--}}
-{{--                <td>{{ $category->items->count() }}</td>--}}
+                <td>{{ $contact->email }}</td>
             </tr>
         @endforeach
 

@@ -2,6 +2,8 @@
 
 use App\Models\Admin\Item\Category;
 use App\Models\Admin\Item\Item;
+use App\Models\Admin\Cart\Order\Contact;
+use App\Models\User\User;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 
 // Main page
@@ -127,10 +129,15 @@ Breadcrumbs::register('admin.items.edit', function (Crumbs $crumbs, Item $item) 
     $crumbs->push('Edit', route('admin.items.edit', $item));
 });
 
-//Orders
+//Orders-Contacts
 Breadcrumbs::register('admin.orders.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
-    $crumbs->push('Orders', route('admin.orders.index'));
+    $crumbs->push('Заказы', route('admin.orders.index'));
+});
+
+Breadcrumbs::register('admin.orders.show', function (Crumbs $crumbs, Contact $order) {
+    $crumbs->parent('admin.orders.index');
+    $crumbs->push($order->name, route('admin.orders.show', $order));
 });
 
 ////Admin Parser

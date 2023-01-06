@@ -31,6 +31,7 @@ use Illuminate\Http\Request;
  * @property-read \App\Models\Admin\Cart\Invoice|null $invoice
  * @property-read Contact $contact
  * @property-read int|null $invoice_count
+ * @method static \Database\Factories\Admin\Cart\TokenFactory factory(...$parameters)
  */
 class Token extends Model
 {

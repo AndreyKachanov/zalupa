@@ -30,6 +30,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereTokenId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $email
+ * @method static \Database\Factories\Admin\Cart\Order\ContactFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereEmail($value)
  */
 class Contact extends Model
 {

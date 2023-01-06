@@ -4,14 +4,17 @@ namespace App\Http\Controllers\Admin\Items;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Cart\Order\Contact;
-use App\Models\Admin\Cart\Order\Order;
 
 class OrdersController extends Controller
 {
     public function index()
     {
-        $contacts = Contact::orderByDesc('created_at')->paginate(10);
-        //dd(Contact::find(1));
+        $contacts = Contact::orderByDesc('created_at')->paginate(15);
         return view('admin.orders.index', compact('contacts'));
+    }
+
+    public function show(Contact $order)
+    {
+        return view('admin.orders.show', compact('order'));
     }
 }
