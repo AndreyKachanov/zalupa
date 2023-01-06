@@ -2,7 +2,6 @@
     /** @var \App\Models\Admin\Cart\Order\Contact $contact */
     /** @var \App\Models\Admin\Cart\Order\Order $order */
     /** @var \Illuminate\Pagination\LengthAwarePaginator $contacts */
-    $allPrice = 0;
 @endphp
 
 @extends('layouts.app')
