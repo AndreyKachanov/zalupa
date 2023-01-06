@@ -106,7 +106,6 @@ class ItemsController extends Controller
      */
     public function show(Item $item)
     {
-        dd($item);
         return view('admin.items.show', compact('item'));
     }
 

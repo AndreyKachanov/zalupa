@@ -14,8 +14,8 @@
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
-            <th>Дата заказа</th>
             <th>№ заказа</th>
+            <th>Дата заказа</th>
             <th>Кол-во</th>
             <th>Сумма заказа</th>
             <th>Имя</th>
@@ -28,9 +28,13 @@
         @foreach ($contacts as $contact)
             <tr>
                 <td>
-                    <a href="{{ route('admin.orders.show', $contact) }}">{{ $contact->created_at->format('d.m.Y H:m') }}</a>
+                    <a href="{{ route('admin.orders.show', $contact) }}">
+                        {{ $contact->token->invoice->bill_number }}
+                    </a>
                 </td>
-                <td>{{ $contact->token->invoice->bill_number ?? '2023-0001' }}</td>
+                <td>
+                    {{ $contact->created_at->format('d.m.Y H:m') }}
+                </td>
                 <td>{{ $contact->orders->sum(fn($item) => $item->cnt) }}</td>
                 <td>{{ $contact->orders->sum(fn($item) => $item->item->price * $item->cnt) }}</td>
                 <td>{{ $contact->name }}</td>

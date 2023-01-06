@@ -14,10 +14,11 @@
                 <button class="btn btn-danger">Delete</button>
             </form>
         </div>
-        <table class="table table-bordered table-striped">
+        <table class="table table-bordered table-striped table-image">
             <thead>
             <tr>
-                <th>Название</th>
+                <th style="text-align: right">Продукт</th>
+                <th>Артикул</th>
                 <th>Цена</th>
                 <th>Кол-во</th>
                 <th>Сумма</th>
@@ -27,7 +28,16 @@
             <?php $allPrice = 0; ?>
             @foreach ($order->orders as $ord)
                 <tr>
-                    <td>{{ $ord->item->title }}</td>
+                    <td>
+                        <img
+                            src="{{ Storage::disk('uploads')->url($ord->item->img) }}"
+                            class="img-fluid img-thumbnail"
+                            style="max-width: 15%; margin-right: 15px;"
+                            alt="{{ $ord->item->title }}"
+                        >
+                        {{ $ord->item->title }}
+                    </td>
+                    <td>{{ $ord->item->article_number }}</td>
                     <td>{{ $ord->item->price }}</td>
                     <td>{{ $ord->cnt }}</td>
 
@@ -36,7 +46,7 @@
             @endforeach
             <tr>
                 <td>Всего:</td>
-                <td style="text-align:right;" colspan="3">
+                <td style="text-align:right;" colspan="5">
                     {{ $order->orders->sum(fn($item) => $item->item->price * $item->cnt) }}
                 </td>
             </tr>

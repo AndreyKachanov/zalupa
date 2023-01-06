@@ -206,3 +206,9 @@ table#table-transition-example .flip-list-move {
   font-weight: bold;
   text-decoration: underline;
 }
+
+.table-image {
+    td, th {
+        vertical-align: middle;
+    }
+}
