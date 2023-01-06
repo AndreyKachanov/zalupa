@@ -2,6 +2,7 @@
     /** @var \App\Models\Admin\Cart\Order\Contact $contact */
     /** @var \App\Models\Admin\Cart\Order\Order $order */
     /** @var \Illuminate\Pagination\LengthAwarePaginator $contacts */
+    $allPrice = 0;
 @endphp
 
 @extends('layouts.app')
@@ -31,8 +32,8 @@
                     <a href="{{ route('admin.orders.show', $contact) }}">{{ $contact->created_at->format('d.m.Y H:m') }}</a>
                 </td>
                 <td>{{ $contact->token->invoice->bill_number ?? '2023-0001' }}</td>
-                <td>{{ $contact->orders->count() }}</td>
-                <td>{{ $contact->orders->sum(fn($item) => $item->item->price) }}</td>
+                <td>{{ $contact->orders->sum(fn($item) => $item->cnt) }}</td>
+                <td>{{ $contact->orders->sum(fn($item) => $item->item->price * $item->cnt) }}</td>
                 <td>{{ $contact->name }}</td>
                 <td>{{ $contact->contact }}</td>
                 <td>{{ $contact->email }}</td>

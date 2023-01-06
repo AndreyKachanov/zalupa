@@ -1,7 +1,7 @@
 @php
     /** @var \App\Models\Admin\Cart\Order\Contact $order */
     /** @var \App\Models\Admin\Cart\Order\Order $ord */
-
+    $allPrice = 0;
 @endphp
 
 @extends('layouts.app')
@@ -25,18 +25,21 @@
             </tr>
             </thead>
             <tbody>
+            <?php $allPrice = 0; ?>
             @foreach ($order->orders as $ord)
                 <tr>
                     <td>{{ $ord->item->title }}</td>
                     <td>{{ $ord->item->price }}</td>
                     <td>{{ $ord->cnt }}</td>
-                    <td>{{ $ord->item->price * $ord->cnt }}</td>
+
+                    <td>{{ $cnt = $ord->item->price * $ord->cnt }}</td>
+                    <?php  $allPrice += $cnt ?>
                 </tr>
             @endforeach
             <tr>
-                <td>Всего</td>
+                <td>Всего:</td>
                 <td style="text-align:right;" colspan="3">
-                    {{ $order->orders->sum(fn($item) => $item->item->price) }}
+                    {{ $allPrice }}
                 </td>
             </tr>
             <tbody>
