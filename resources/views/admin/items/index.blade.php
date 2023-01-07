@@ -83,7 +83,7 @@
             <tr>
                 <td><a href="{{ route('admin.items.show', $item) }}">{{ $item->title }}</a></td>
                 <td>{{ $item->article_number }}</td>
-                <td>{{ $item->price }}</td>
+                <td>{{ $item->price }} ₽</td>
                 <td>{{ $item->is_new }}</td>
                 <td>{{ $item->is_hit }}</td>
                 <td>{{ $item->is_bestseller }}</td>

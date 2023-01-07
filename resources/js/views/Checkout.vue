@@ -13,9 +13,12 @@
                         <div class="col-md-8">
                             <form action="" method="post">
                                 <h2>Введите контакты для связи с Вами:</h2>
-                                <input type="text" v-model="name" placeholder="Введите Ваше имя" required class="input-group mb-2">
+                                <input type="text" v-model="name" placeholder="Введите Ваше имя" required class="input-group mb-2 form-group">
                                 <input type="text" v-model="contact" placeholder="Введите номер телефона" required class="input-group">
-                                <input type="text" v-model="email" placeholder="Введите  email" required class="input-group">
+                                <input type="text" v-model="city" placeholder="Введите город" required class="input-group">
+                                <input type="text" v-model="street" placeholder="Введите улицу" required class="input-group">
+                                <input type="text" v-model="house_number" placeholder="Введите номер дома" required class="input-group">
+                                <input type="text" v-model="transport_company" placeholder="Введите название транспортной компании" required class="input-group">
                             </form>
                             <h1 class="text-uppercase">Заказ</h1>
                             <div class="billed"><span class="font-weight-bold text-uppercase">№ заказа:</span><span class="ml-1">{{ billNumber }}</span></div>
@@ -75,7 +78,11 @@ export default {
     data: () => ({
         name: 'Grishka',
         contact: '+79496593257',
-        email: 'asdf@mail.ru'
+        city: 'Шахтарськ',
+        street: 'ул. Назаре',
+        house_number: '11а',
+        transport_company: 'Нова Пошта'
+
     }),
     computed: {
         ...mapGetters('cart', { products: 'productsDetailed', cartTotal: 'total', billNumber: 'billNumber', cartCnt: 'length', flagOrderSent: 'flagOrderSent'}),
@@ -92,7 +99,14 @@ export default {
         sendOrder() {
             // let name = this.name;
             // let contact = this.contact;
-            this.sendOrderToStore({ name: this.name, contact: this.contact, email: this.email});
+            this.sendOrderToStore({
+                name: this.name,
+                contact: this.contact,
+                city: this.city,
+                street: this.street,
+                house_number: this.house_number,
+                transport_company: this.transport_company
+            });
         }
 
     },

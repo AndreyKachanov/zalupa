@@ -50,7 +50,7 @@ return [
         'uploads' => [
             'driver' => 'local',
             'root' => public_path() . '/uploads',
-            'url' => '/uploads',
+            'url' => env('APP_URL') . '/uploads',
             'visibility' => 'public',
         ],
         's3' => [

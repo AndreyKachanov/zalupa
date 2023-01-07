@@ -20,7 +20,7 @@
             <th>Сумма заказа</th>
             <th>Имя</th>
             <th>№ телефона</th>
-            <th>Email</th>
+            <th>Ip адрес</th>
         </tr>
         </thead>
         <tbody>
@@ -36,10 +36,10 @@
                     {{ $contact->created_at->format('d.m.Y H:m') }}
                 </td>
                 <td>{{ $contact->orders->sum(fn($item) => $item->cnt) }}</td>
-                <td>{{ $contact->orders->sum(fn($item) => $item->item->price * $item->cnt) }}</td>
+                <td>{{ $contact->orders->sum(fn($item) => $item->item->price * $item->cnt) }} ₽</td>
                 <td>{{ $contact->name }}</td>
                 <td>{{ $contact->contact }}</td>
-                <td>{{ $contact->email }}</td>
+                <td>{{ $contact->token->ip }}</td>
             </tr>
         @endforeach
 

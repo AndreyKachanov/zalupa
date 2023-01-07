@@ -15,6 +15,8 @@ use App\Models\Admin\Cart\Token;
 use App\Models\Admin\Item\Category;
 use App\Models\Admin\Item\Item;
 use App\UseCases\ApiService;
+use App\UseCases\Auth\RegisterService;
+use App\UseCases\SendOrderService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\QueryException;
@@ -27,9 +29,10 @@ use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
-    public function __construct(ApiService $service)
+    public function __construct(ApiService $service, SendOrderService $sendOrderService)
     {
         $this->service = $service;
+        $this->sendOrderService = $sendOrderService;
     }
 
     /**
@@ -158,11 +161,17 @@ class ApiController extends Controller
             $contact = new Contact();
             $contact->name = $request->name;
             $contact->contact = $request->contact;
-            $contact->email = $request->email;
+            $contact->city = $request->city;
+            $contact->street = $request->street;
+            $contact->house_number = $request->house_number;
+            $contact->transport_company = $request->transport_company;
             $contact->token()->associate($oldToken);
             $contact->save();
             $contact->orders()->createMany($items);
             DB::commit();
+
+            $this->sendOrderService->send($contact);
+
             $newToken = $this->generateNewToken($request);
             //$invoice = $this->getInvoice($newToken);
         } catch (QueryException $e) {

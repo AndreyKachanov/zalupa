@@ -27,7 +27,10 @@ return new class extends Migration
                 $table->smallIncrements('id');
                 $table->string('name');
                 $table->string('contact');
-                $table->string('email');
+                $table->string('city');
+                $table->string('street');
+                $table->string('house_number');
+                $table->string('transport_company');
                 $table->unsignedSmallInteger('token_id')->unique();
                 $table->timestamps();
             });

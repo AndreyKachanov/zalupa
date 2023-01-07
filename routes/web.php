@@ -62,6 +62,8 @@ Route::group(
         Route::resource('orders', OrdersController::class);
         Route::resource('users', 'UsersController');
         Route::post('/users/{user}/verify', 'UsersController@verify')->name('users.verify');
+
+        //Route::get('settings')
     }
 );
 

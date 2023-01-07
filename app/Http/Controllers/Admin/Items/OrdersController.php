@@ -9,7 +9,7 @@ class OrdersController extends Controller
 {
     public function index()
     {
-        $contacts = Contact::orderByDesc('created_at')->paginate(15);
+        $contacts = Contact::orderByDesc('created_at')->paginate(50);
         return view('admin.orders.index', compact('contacts'));
     }
 

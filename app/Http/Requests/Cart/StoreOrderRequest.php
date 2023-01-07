@@ -40,9 +40,24 @@ class StoreOrderRequest extends FormRequest
                 'string',
                 'max:255'
             ],
-            'email' => [
+            'city' => [
                 'required',
-                'email',
+                'string',
+                'max:255'
+            ],
+            'street' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'house_number' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'transport_company' => [
+                'required',
+                'string',
                 'max:255'
             ],
             'token' => [

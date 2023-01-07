@@ -24,7 +24,10 @@ class ContactFactory extends Factory
             'updated_at' => $dt,
             'name' => $this->faker->name,
             'contact' => $this->faker->phoneNumber,
-            'email' => $this->faker->email,
+            'city' => $this->faker->city,
+            'street' => $this->faker->streetAddress,
+            'house_number' => $this->faker->buildingNumber,
+            'transport_company' => 'Укрпошта'
             //'token_id' => Token::factory()
         ];
     }

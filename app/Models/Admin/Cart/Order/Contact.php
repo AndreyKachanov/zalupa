@@ -33,6 +33,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $email
  * @method static \Database\Factories\Admin\Cart\Order\ContactFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereEmail($value)
+ * @property string $city
+ * @property string $street
+ * @property string $house_number
+ * @property string $transport_company
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereHouseNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereStreet($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereTransportCompany($value)
  */
 class Contact extends Model
 {
