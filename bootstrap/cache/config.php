@@ -620,11 +620,11 @@
       'smtp' => 
       array (
         'transport' => 'smtp',
-        'host' => 'mail.10013.ru',
-        'port' => '25',
+        'host' => 'smtp.mailtrap.io',
+        'port' => '2525',
         'encryption' => NULL,
-        'username' => 'admin@10013.ru',
-        'password' => 'C7f5J4s7',
+        'username' => '9e1e4e60049381',
+        'password' => '479a3b548f5e40',
         'timeout' => NULL,
         'local_domain' => NULL,
         'auth_mode' => NULL,

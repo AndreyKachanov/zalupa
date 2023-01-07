@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\Admin\Items\CategoryController;
 use App\Http\Controllers\Admin\Items\OrdersController;
+use App\Http\Controllers\Admin\Items\SettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,7 +64,9 @@ Route::group(
         Route::resource('users', 'UsersController');
         Route::post('/users/{user}/verify', 'UsersController@verify')->name('users.verify');
 
-        //Route::get('settings')
+        Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
+        Route::get('settings/price', [SettingsController::class, 'setPrice'])->name('settings.price');
+        Route::post('settings/storePrice', [SettingsController::class, 'storePrice'])->name('settings.price');
     }
 );
 

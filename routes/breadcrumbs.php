@@ -140,6 +140,12 @@ Breadcrumbs::register('admin.orders.show', function (Crumbs $crumbs, Contact $or
     $crumbs->push($order->token->invoice->bill_number, route('admin.orders.show', $order));
 });
 
+//Settings
+Breadcrumbs::register('admin.settings.index', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Настройки', route('admin.settings.index'));
+});
+
 ////Admin Parser
 //Breadcrumbs::register('admin.parser.index', function (Crumbs $crumbs) {
 //    $crumbs->parent('admin.home');
