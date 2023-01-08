@@ -170,7 +170,13 @@ class ApiController extends Controller
             $contact->orders()->createMany($items);
             DB::commit();
 
-            $this->sendOrderService->send($contact);
+            try {
+                $this->sendOrderService->send($contact);
+            } catch (\Exception $e) {
+                $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
+                dd($errorMsg);
+            }
+
 
             $newToken = $this->generateNewToken($request);
             //$invoice = $this->getInvoice($newToken);

@@ -18,11 +18,6 @@ class SendOrderService
 
     public function send(Contact $contact)
     {
-        try {
-            $this->mailer->to(['andreii.kachanov@gmail.com', '777@8220.ru'])->send(new SendOrder($contact));
-        } catch (\Exception $e) {
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            dd($errorMsg);
-        }
+        $this->mailer->to(['andreii.kachanov@gmail.com', '777@8220.ru'])->send(new SendOrder($contact));
     }
 }
