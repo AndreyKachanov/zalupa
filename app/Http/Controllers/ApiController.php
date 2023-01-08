@@ -26,6 +26,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 class ApiController extends Controller
 {
@@ -170,13 +171,6 @@ class ApiController extends Controller
             $contact->orders()->createMany($items);
             DB::commit();
 
-            try {
-                $this->sendOrderService->send($contact);
-            } catch (\Exception $e) {
-                $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-                dd($errorMsg);
-            }
-
 
             $newToken = $this->generateNewToken($request);
             //$invoice = $this->getInvoice($newToken);
@@ -185,6 +179,9 @@ class ApiController extends Controller
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new HttpResponseException(response($errorMsg, 500));
         }
+
+        $this->sendOrderService->send($contact);
+
         return response()->json([
             'new_token' => $newToken->token,
             //'new_bill_number' => $invoice->bill_number

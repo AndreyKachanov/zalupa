@@ -6,6 +6,8 @@ use App\Mail\SendOrder;
 use App\Models\Admin\Cart\Order\Contact;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer as MailerInterface;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 class SendOrderService
 {
@@ -18,6 +20,11 @@ class SendOrderService
 
     public function send(Contact $contact)
     {
-        $this->mailer->to(['andreii.kachanov@gmail.com', '777@8220.ru'])->send(new SendOrder($contact));
+        try {
+            $this->mailer->to(['andreii.kachanov@gmail.com', '777@8220.ru'])->send(new SendOrder($contact));
+        } catch (TransportExceptionInterface $e) {
+            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
+            throw new HttpResponseException(response($errorMsg, 500));
+        }
     }
 }
