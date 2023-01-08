@@ -30,7 +30,7 @@
 
         <div class="form-group">
             <label for="price" class="col-form-label">Цена</label>
-            <input id="price" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="{{ old('price', $item->price) }}" required>
+            <input id="price" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="{{ old('price', $item->getRawOriginal('price')) }}" required>
             @if ($errors->has('price'))
                 <span class="invalid-feedback"><strong>{{ $errors->first('price') }}</strong></span>
             @endif

@@ -30,7 +30,10 @@
                 <th>Артикул</th><td>{{ $item->article_number }}</td>
             </tr>
             <tr>
-                <th>Цена</th><td>{{ $item->price }} &#8381</td>
+                <th>Цена оригинал</th><td>{{ $item->getRawOriginal('price') }} &#8381</td>
+            </tr>
+            <tr>
+                <th>Цена c {{ \App\Models\Admin\Setting::firstWhere('prop_key', 'price_increase')->prop_value }} % </th><td>{{ $item->price }} &#8381</td>
             </tr>
             <tr>
                 <th>Новый</th><td>{{ $item->is_new }}</td>

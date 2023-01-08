@@ -3,12 +3,14 @@
 namespace App\Models\Admin\Item;
 
 use App\Models\Admin\Cart\CartItem;
+use App\Models\Admin\Setting;
 use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
  * App\Models\Admin\Item\Item
@@ -98,5 +100,12 @@ class Item extends Model
     public function rCartItems(): HasMany
     {
         return $this->hasMany(CartItem::class, 'item_id', 'id');
+    }
+
+    protected function price(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => ($value / 100) * (int)Setting::firstWhere('prop_key', 'price_increase')->prop_value + $value
+        );
     }
 }

@@ -70,7 +70,8 @@
         <tr>
             <th>Название</th>
             <th>Артикул</th>
-            <th>Цена</th>
+            <th>Цена оригинал</th>
+            <th>Цена с <strong>{{ \App\Models\Admin\Setting::firstWhere('prop_key', 'price_increase')->prop_value }} %</strong></th>
             <th>Новый</th>
             <th>Хит</th>
             <th>Бестселлер</th>
@@ -83,6 +84,7 @@
             <tr>
                 <td><a href="{{ route('admin.items.show', $item) }}">{{ $item->title }}</a></td>
                 <td>{{ $item->article_number }}</td>
+                <td>{{ $item->getRawOriginal('price') }} ₽</td>
                 <td>{{ $item->price }} ₽</td>
                 <td>{{ $item->is_new }}</td>
                 <td>{{ $item->is_hit }}</td>

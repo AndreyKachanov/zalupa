@@ -53,8 +53,14 @@ Route::group(
             Route::get('create', [CategoryController::class, 'createSubCategory'])->name('create');
             Route::get('{category}', [CategoryController::class, 'showSubCategory'])->name('show');
             Route::get('{category}/edit', [CategoryController::class, 'editSubCategory'])->name('edit');
-            Route::match(['put', 'patch'],'{category}', [CategoryController::class, 'updateSubCategory'])->name('update');
+            Route::match(['put', 'patch'], '{category}', [CategoryController::class, 'updateSubCategory'])
+                ->name('update');
             Route::delete('{category}', [CategoryController::class, 'destroySubCategory'])->name('destroy');
+        });
+        Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
+            Route::get('/', [SettingsController::class, 'index'])->name('index');
+            Route::get('edit-price', [SettingsController::class, 'editPrice'])->name('edit-price');
+            Route::post('/', [SettingsController::class, 'storePrice'])->name('store-price');
         });
         Route::get('/', [AdminHome::class, 'index'])->name('home');
         Route::resource('items', 'Items\ItemsController');
@@ -64,9 +70,9 @@ Route::group(
         Route::resource('users', 'UsersController');
         Route::post('/users/{user}/verify', 'UsersController@verify')->name('users.verify');
 
-        Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
-        Route::get('settings/price', [SettingsController::class, 'setPrice'])->name('settings.price');
-        Route::post('settings/storePrice', [SettingsController::class, 'storePrice'])->name('settings.price');
+        //Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
+        //Route::get('settings/price', [SettingsController::class, 'setPrice'])->name('settings.price');
+        //Route::post('settings/storePrice', [SettingsController::class, 'storePrice'])->name('settings.price');
     }
 );
 

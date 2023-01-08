@@ -146,6 +146,11 @@ Breadcrumbs::register('admin.settings.index', function (Crumbs $crumbs) {
     $crumbs->push('Настройки', route('admin.settings.index'));
 });
 
+Breadcrumbs::register('admin.settings.edit-price', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.settings.index');
+    $crumbs->push('Редактирование цены', route('admin.settings.edit-price'));
+});
+
 ////Admin Parser
 //Breadcrumbs::register('admin.parser.index', function (Crumbs $crumbs) {
 //    $crumbs->parent('admin.home');
