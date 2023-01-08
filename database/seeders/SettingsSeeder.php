@@ -23,7 +23,7 @@ class SettingsSeeder extends Seeder
         try {
             Setting::create([
                 'prop_key' => 'price_increase',
-                'prop_value' => '1'
+                'prop_value' => '0'
             ]);
         } catch (Exception $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
