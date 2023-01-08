@@ -24,7 +24,7 @@ class StorePriceRequest extends FormRequest
     public function rules()
     {
         return [
-            'price_increase' => 'required|integer|min:1|max:99'
+            'price_increase' => 'required|integer|min:0|max:100'
         ];
     }
 }
