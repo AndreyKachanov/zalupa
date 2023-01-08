@@ -7,6 +7,7 @@
     'env' => 'local',
     'debug' => true,
     'url' => 'https://catalog.loc',
+    'site_short' => 'catalog.loc',
     'asset_url' => NULL,
     'timezone' => 'Europe/Moscow',
     'locale' => 'en',
@@ -668,7 +669,7 @@
     ),
     'from' => 
     array (
-      'address' => 'from@example.com',
+      'address' => 'no-reply@catalog.loc',
       'name' => 'Laravel',
     ),
     'markdown' => 

@@ -22,10 +22,8 @@ class SendOrder extends Mailable
 
     public function build()
     {
-        //$siteShortName = config('app.name');
-        $siteShortName = parse_url(config('app.url'))['host'];
-        return $this->view('emails.send_orders', [
-            'contact' => $this->contact
-        ])->from('admin@10013.ru')->subject("Заказ с сайта $siteShortName");
+        return $this->view('emails.send_orders', ['contact' => $this->contact])
+            ->from(config('mail.from.address'))
+            ->subject("Заказ с сайта " . config('app.site_short'));
     }
 }
