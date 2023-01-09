@@ -1,5 +1,5 @@
 @php
-    /** @var \App\Entity\ItemCategory $category */
+    /** @var \App\Models\Admin\Item\Category $category */
 @endphp
 
 @extends('layouts.app')

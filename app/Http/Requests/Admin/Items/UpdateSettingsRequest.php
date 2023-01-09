@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin\Items;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePriceRequest extends FormRequest
+class UpdateSettingsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,10 @@ class StorePriceRequest extends FormRequest
     public function rules()
     {
         return [
-            'price_increase' => 'required|integer|min:0|max:100'
+            'price_increase' => 'required|integer|min:0|max:1000',
+            'phone_number' => 'required|string|max:255',
+            'instagram' => 'required|string|max:255',
+            'whatsapp' => 'required|string|max:255'
         ];
     }
 }

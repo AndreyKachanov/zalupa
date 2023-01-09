@@ -71,7 +71,7 @@
             <th>Название</th>
             <th>Артикул</th>
             <th>Цена оригинал</th>
-            <th>Цена с <strong>{{ \App\Models\Admin\Setting::firstWhere('prop_key', 'price_increase')->prop_value }} %</strong></th>
+            <th>Цена (<strong>{{ \App\Models\Admin\Setting::firstWhere('prop_key', 'price_increase')->prop_value }} %</strong></th>
             <th>Новый</th>
             <th>Хит</th>
             <th>Бестселлер</th>

@@ -59,8 +59,10 @@ Route::group(
         });
         Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
             Route::get('/', [SettingsController::class, 'index'])->name('index');
-            Route::get('edit-price', [SettingsController::class, 'editPrice'])->name('edit-price');
-            Route::post('/', [SettingsController::class, 'storePrice'])->name('store-price');
+            //Route::get('edit-price', [SettingsController::class, 'editPrice'])->name('edit-price');
+            Route::post('/', [SettingsController::class, 'update'])->name('update');
+            //Route::match(['put', 'patch'], '{setting}', [SettingsController::class, 'update'])
+            //    ->name('update');
         });
         Route::get('/', [AdminHome::class, 'index'])->name('home');
         Route::resource('items', 'Items\ItemsController');
