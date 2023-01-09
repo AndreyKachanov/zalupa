@@ -7,6 +7,7 @@ use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Admin\Cart\Order\Contact
@@ -46,6 +47,7 @@ class Contact extends Model
 {
     use EloquentGetTableNameTrait;
     use HasFactory;
+    use SoftDeletes;
 
     protected $table = 'orders_contacts';
     protected $guarded = ['id'];

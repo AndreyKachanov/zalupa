@@ -32,6 +32,7 @@ return new class extends Migration
                 $table->string('house_number');
                 $table->string('transport_company');
                 $table->unsignedSmallInteger('token_id')->unique();
+                $table->softDeletes();
                 $table->timestamps();
             });
         }

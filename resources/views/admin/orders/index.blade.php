@@ -36,6 +36,7 @@
                     {{ $contact->created_at->format('d.m.Y H:m') }}
                 </td>
                 <td>{{ $contact->orders->sum(fn($item) => $item->cnt) }}</td>
+{{--                <td>{{ $contact->orders->sum(fn($item) => $item->item->price * $item->cnt) }} ₽</td>--}}
                 <td>{{ $contact->orders->sum(fn($item) => $item->item->price * $item->cnt) }} ₽</td>
                 <td>{{ $contact->name }}</td>
                 <td>{{ $contact->contact }}</td>

@@ -10,6 +10,7 @@ class OrdersController extends Controller
     public function index()
     {
         $contacts = Contact::orderByDesc('created_at')->paginate(50);
+        //dd($contacts);
         return view('admin.orders.index', compact('contacts'));
     }
 
