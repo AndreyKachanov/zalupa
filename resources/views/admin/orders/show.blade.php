@@ -61,7 +61,7 @@
                                 style="max-width: 15%; margin-right: 15px;"
                                 alt="{{ $ord->item->title }}"
                             >
-                            {{ $ord->item->title }} (удален {{ $ord->item->deleted_at->format('d.m.Y H:m') }})
+                            {{ $ord->item->title }} @isset($ord->item->deleted_at) - <strong>удален {{ $ord->item->deleted_at->format('d.m.Y H:m') }}@endisset </strong>
                         </td>
                         <td>{{ $ord->item->article_number }}</td>
                         <td>{{ $ord->item->price }} ₽</td>
