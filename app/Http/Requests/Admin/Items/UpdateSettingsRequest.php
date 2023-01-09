@@ -27,7 +27,12 @@ class UpdateSettingsRequest extends FormRequest
             'price_increase' => 'required|integer|min:0|max:1000',
             'phone_number' => 'required|string|max:255',
             'instagram' => 'required|string|max:255',
-            'whatsapp' => 'required|string|max:255'
+            'whatsapp' => 'required|string|max:255',
+            'site' => 'required|string|max:255',
+            'viber' => 'required|string|max:255',
+            'tiktok' => 'required|string|max:255',
+            'youtube' => 'required|string|max:255',
+            'custom_text' => 'required|string|max:255'
         ];
     }
 }

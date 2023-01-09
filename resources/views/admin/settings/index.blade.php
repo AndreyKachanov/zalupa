@@ -65,6 +65,71 @@
                                 >
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="site" class="col-sm-2 col-form-label text-md-right">Site: </label>
+                            <div class="col-md-6">
+                                <input
+                                    type="text"
+                                    id="site"
+                                    class="form-control{{ $errors->has('site') ? ' is-invalid' : '' }}"
+                                    name="site"
+                                    value="{{ old('site', $site) }}"
+                                    required
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="viber" class="col-sm-2 col-form-label text-md-right">Viber: </label>
+                            <div class="col-md-6">
+                                <input
+                                    type="text"
+                                    id="viber"
+                                    class="form-control{{ $errors->has('viber') ? ' is-invalid' : '' }}"
+                                    name="viber"
+                                    value="{{ old('viber', $viber) }}"
+                                    required
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="tiktok" class="col-sm-2 col-form-label text-md-right">Tiktok: </label>
+                            <div class="col-md-6">
+                                <input
+                                    type="text"
+                                    id="tiktok"
+                                    class="form-control{{ $errors->has('tiktok') ? ' is-invalid' : '' }}"
+                                    name="tiktok"
+                                    value="{{ old('tiktok', $tiktok) }}"
+                                    required
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="youtube" class="col-sm-2 col-form-label text-md-right">Youtube: </label>
+                            <div class="col-md-6">
+                                <input
+                                    type="text"
+                                    id="youtube"
+                                    class="form-control{{ $errors->has('youtube') ? ' is-invalid' : '' }}"
+                                    name="youtube"
+                                    value="{{ old('youtube', $youtube) }}"
+                                    required
+                                >
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="customText" class="col-sm-2 col-form-label text-md-right">Общий текст: </label>
+                            <div class="col-md-6">
+                                <input
+                                    type="text"
+                                    id="customText"
+                                    class="form-control{{ $errors->has('custom_text') ? ' is-invalid' : '' }}"
+                                    name="custom_text"
+                                    value="{{ old('custom_text', $customText) }}"
+                                    required
+                                >
+                            </div>
+                        </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-2">
                                 <button type="submit" class="btn btn-primary">Сохранить</button>

@@ -50,6 +50,14 @@ class Token extends Model
         return $this->hasMany(CartItem::class, 'token_id', 'id')->select('item_id as id', 'cnt');
     }
 
+    //public function test()
+    //{
+    //    return $this->hasOne(CartItem::class, 'token_id', 'id')->ofMany([''],function ($query) {
+    //        dd($query);
+    //        $query->whereArticleNumber('22363');
+    //    });
+    //}
+
     //public function invoices()
     //{
     //    return $this->hasMany(Invoice::class, 'token_id', 'id');

@@ -14,8 +14,23 @@ class SettingsController extends Controller
         $phoneNumber = Setting::firstWhere('prop_key', 'phone_number')->prop_value;
         $instagram = Setting::firstWhere('prop_key', 'instagram')->prop_value;
         $whatsapp = Setting::firstWhere('prop_key', 'whatsapp')->prop_value;
+        $site = Setting::firstWhere('prop_key', 'site')->prop_value;
+        $viber = Setting::firstWhere('prop_key', 'viber')->prop_value;
+        $tiktok = Setting::firstWhere('prop_key', 'tiktok')->prop_value;
+        $youtube = Setting::firstWhere('prop_key', 'youtube')->prop_value;
+        $customText = Setting::firstWhere('prop_key', 'custom_text')->prop_value;
         return view('admin.settings.index',
-            compact('priceIncrease', 'phoneNumber', 'instagram', 'whatsapp')
+            compact(
+                'priceIncrease',
+                'phoneNumber',
+                'instagram',
+                'whatsapp',
+                'site',
+                'viber',
+                'tiktok',
+                'youtube',
+                'customText'
+            )
         );
     }
 
@@ -25,7 +40,17 @@ class SettingsController extends Controller
      */
     public function update(UpdateSettingsRequest $request)
     {
-        $inputs = $request->only(['price_increase', 'phone_number', 'instagram', 'whatsapp']);
+        $inputs = $request->only([
+            'price_increase',
+            'phone_number',
+            'instagram',
+            'whatsapp',
+            'site',
+            'viber',
+            'tiktok',
+            'youtube',
+            'custom_text'
+        ]);
         foreach ($inputs as $key => $input) {
             Setting::wherePropKey($key)->update(['prop_value' => $input]);
         }

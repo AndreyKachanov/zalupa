@@ -54,7 +54,7 @@ export default {
             return state.products.map(pr => {
               // let info = rootGetters['products/item'](pr.id);
               let info = rootGetters['products/item'](pr.id);
-              // console.log('>>>2', { ...pr, ...info });
+              console.log('>>>2', { ...info });
               return { ...pr, ...info };
             });
 

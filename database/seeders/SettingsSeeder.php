@@ -13,6 +13,7 @@ class SettingsSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
+     * @throws Exception
      */
     public function run()
     {
@@ -36,6 +37,26 @@ class SettingsSeeder extends Seeder
             Setting::create([
                 'prop_key' => 'whatsapp',
                 'prop_value' => '+79495468124'
+            ]);
+            Setting::create([
+                'prop_key' => 'site',
+                'prop_value' => 'https://yandex.ru/'
+            ]);
+            Setting::create([
+                'prop_key' => 'viber',
+                'prop_value' => '+79495468124'
+            ]);
+            Setting::create([
+                'prop_key' => 'tiktok',
+                'prop_value' => '+79495468124'
+            ]);
+            Setting::create([
+                'prop_key' => 'youtube',
+                'prop_value' => 'https://www.youtube.com/watch?v=x4xCSVl833I&ab_channel=%D0%9E%D0%BB%D0%B5%D0%B3%D0%9F%D0%B0%D1%80%D0%B0%D1%81%D1%82%D0%B0%D0%B5%D0%B2'
+            ]);
+            Setting::create([
+                'prop_key' => 'custom_text',
+                'prop_value' => 'Обмен брака'
             ]);
         } catch (Exception $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());

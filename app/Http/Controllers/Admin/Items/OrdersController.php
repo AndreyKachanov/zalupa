@@ -9,7 +9,7 @@ class OrdersController extends Controller
 {
     public function index()
     {
-        $contacts = Contact::with(['orders.item'])->orderByDesc('created_at')->paginate(50);
+        $contacts = Contact::with(['orders.item', 'token.invoice'])->orderByDesc('created_at')->paginate(50);
         //dd($contacts);
         return view('admin.orders.index', compact('contacts'));
     }

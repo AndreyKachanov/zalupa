@@ -67,9 +67,9 @@ class ApiController extends Controller
                 }
                 $json = [
                     'needUpdate' => !$issetToken,
-                    'cart'       => $issetToken ? Token::firstWhere('token', $oldToken)->rCartItems->toArray() : [],
+                    'cart'       => $issetToken ?Token::firstWhere('token', $oldToken)->rCartItems()->whereHas('rItem')->get()->toArray() : [],
                     'products' => $issetToken
-                        ? ItemResource::collection(Item::withTrashed()->find(Token::firstWhere('token', $oldToken)->rCartItems->modelKeys()))
+                        ? ItemResource::collection(Item::find(Token::firstWhere('token', $oldToken)->rCartItems->modelKeys()))
                         : [],
                     'token'      => $issetToken ? $oldToken : $newToken->token
                 ];
