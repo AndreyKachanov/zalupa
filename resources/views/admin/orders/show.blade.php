@@ -64,7 +64,7 @@
                             {{ $ord->item->title }} @isset($ord->item->deleted_at) - <strong style="color: red">удален {{ $ord->item->deleted_at->format('d.m.Y H:m') }}@endisset </strong>
                         </td>
                         <td>{{ $ord->item->article_number }}</td>
-                        <td><strong style="color: red">{{ $ord->item->price }} ₽</strong></td>
+                        <td>{{ $ord->item->price }} ₽</td>
                         <td>{{ $ord->cnt }}</td>
 
                         <td>{{ $ord->item->price * $ord->cnt }} ₽</td>
