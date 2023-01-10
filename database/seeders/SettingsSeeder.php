@@ -23,38 +23,47 @@ class SettingsSeeder extends Seeder
 
         try {
             Setting::create([
+                'title' => 'Увеличить цену на %',
                 'prop_key' => 'price_increase',
                 'prop_value' => '0'
             ]);
             Setting::create([
+                'title' => 'Номер телефона',
                 'prop_key' => 'phone_number',
                 'prop_value' => '+79495468124'
             ]);
             Setting::create([
+                'title' => 'Instagram',
                 'prop_key' => 'instagram',
                 'prop_value' => '+79495468124'
             ]);
             Setting::create([
+                'title' => 'Whatsapp',
                 'prop_key' => 'whatsapp',
                 'prop_value' => '+79495468124'
             ]);
             Setting::create([
+                'title' => 'Сайт',
                 'prop_key' => 'site',
                 'prop_value' => 'https://yandex.ru/'
             ]);
             Setting::create([
+                'title' => 'Viber',
                 'prop_key' => 'viber',
                 'prop_value' => '+79495468124'
             ]);
             Setting::create([
+                'title' => 'Tiktok',
                 'prop_key' => 'tiktok',
                 'prop_value' => '+79495468124'
             ]);
             Setting::create([
+                'title' => 'Youtube',
                 'prop_key' => 'youtube',
                 'prop_value' => 'https://www.youtube.com/watch?v=x4xCSVl833I&ab_channel=%D0%9E%D0%BB%D0%B5%D0%B3%D0%9F%D0%B0%D1%80%D0%B0%D1%81%D1%82%D0%B0%D0%B5%D0%B2'
             ]);
             Setting::create([
+                'title' => 'Текстовое поле',
                 'prop_key' => 'custom_text',
                 'prop_value' => 'Обмен брака'
             ]);

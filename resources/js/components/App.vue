@@ -46,27 +46,41 @@
         <nav class="mobile-bottom-nav">
             <div class="mobile-bottom-nav__item mobile-bottom-nav__item--active">
                 <div class="mobile-bottom-nav__item-content">
-                    <i class="material-icons">home</i>
-                    one
+<!--                    <a href="#">-->
+<!--                        <i class="fa fa-home fa-2x" aria-hidden="true"></i>-->
+<!--                        Главная-->
+<!--                    </a>-->
+                    <router-link :to="{ name: 'products' }">
+                        <i class="fa fa-home fa-2x" aria-hidden="true"></i>
+                        Главная
+                    </router-link>
                 </div>
             </div>
+<!--            <div class="mobile-bottom-nav__item">-->
+<!--                <div class="mobile-bottom-nav__item-content">-->
+<!--                    <i class="material-icons">mail</i>-->
+<!--                    Категории-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="mobile-bottom-nav__item">
                 <div class="mobile-bottom-nav__item-content">
-                    <i class="material-icons">mail</i>
-                    two
-                </div>
-            </div>
-            <div class="mobile-bottom-nav__item">
-                <div class="mobile-bottom-nav__item-content">
-                    <i class="material-icons">person</i>
-                    three
+                    <router-link :to="{ name: 'cart' }">
+                        <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+                        Корзина
+                    </router-link>
+<!--                    <a href="#">-->
+<!--                        <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>-->
+<!--                        Корзина-->
+<!--                    </a>-->
                 </div>
             </div>
 
             <div class="mobile-bottom-nav__item">
                 <div class="mobile-bottom-nav__item-content">
-                    <i class="material-icons">phone</i>
-                    four
+                    <a href="#">
+                        <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
+                        Контакты
+                    </a>
                 </div>
             </div>
         </nav>
@@ -97,13 +111,22 @@ export default {
 </script>
 
 <style lang="scss">
-$fa-font-path : "~@fortawesome/fontawesome-free-webfonts/webfonts";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
+    $fa-font-path : "~@fortawesome/fontawesome-free-webfonts/webfonts";
+    @import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
+    @import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
+    @import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
+    @import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
 
-.mobile-bottom-nav{
+.mobile-bottom-nav {
+
+    //@include media-breakpoint-down(xs) {
+    //    border: 5px solid red !important;
+    //}
+
+    @include media-breakpoint-up(md) {
+        display: none;
+    }
+
     position:fixed;
     bottom:0;
     left:0;
@@ -137,6 +160,15 @@ $fa-font-path : "~@fortawesome/fontawesome-free-webfonts/webfonts";
     &__item-content{
         display:flex;
         flex-direction:column;
+
+        a {
+            //border: 1px solid red;
+            display: flex;
+            flex-direction: column;
+            &:hover {
+                text-decoration: none;
+            }
+        }
     }
 }
 </style>

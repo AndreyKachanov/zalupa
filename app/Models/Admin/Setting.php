@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Setting wherePropValue($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $title
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereTitle($value)
  */
 class Setting extends Model
 {

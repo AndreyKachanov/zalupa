@@ -26,6 +26,20 @@ body {
   min-height: 100vh;
   min-width: 270px;
   flex-direction: column;
+
+    //footer {
+    //    display: none;
+    //    @media (min-width: 768px) {
+    //        display: block;
+    //    }
+    //}
+}
+
+.hide-class {
+    display: none;
+    @media (min-width: 768px) {
+        display: block;
+    }
 }
 
 .app-content {
@@ -33,7 +47,7 @@ body {
     background-color: #ffffff;
 
   @include media-breakpoint-down(sm) {
-      background-color: #edeef0;;
+      background-color: #edeef0;
   }
 }
 

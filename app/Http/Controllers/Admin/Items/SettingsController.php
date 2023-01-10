@@ -5,54 +5,35 @@ namespace App\Http\Controllers\Admin\Items;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Items\UpdateSettingsRequest;
 use App\Models\Admin\Setting;
+use Illuminate\Database\QueryException;
+use Exception;
 
 class SettingsController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function index()
     {
-        $priceIncrease = (int)Setting::firstWhere('prop_key', 'price_increase')->prop_value;
-        $phoneNumber = Setting::firstWhere('prop_key', 'phone_number')->prop_value;
-        $instagram = Setting::firstWhere('prop_key', 'instagram')->prop_value;
-        $whatsapp = Setting::firstWhere('prop_key', 'whatsapp')->prop_value;
-        $site = Setting::firstWhere('prop_key', 'site')->prop_value;
-        $viber = Setting::firstWhere('prop_key', 'viber')->prop_value;
-        $tiktok = Setting::firstWhere('prop_key', 'tiktok')->prop_value;
-        $youtube = Setting::firstWhere('prop_key', 'youtube')->prop_value;
-        $customText = Setting::firstWhere('prop_key', 'custom_text')->prop_value;
-        return view('admin.settings.index',
-            compact(
-                'priceIncrease',
-                'phoneNumber',
-                'instagram',
-                'whatsapp',
-                'site',
-                'viber',
-                'tiktok',
-                'youtube',
-                'customText'
-            )
-        );
+        $settings = Setting::all();
+        return view('admin.settings.index', compact('settings'));
     }
 
     /**
      * @param UpdateSettingsRequest $request
      * @return \Illuminate\Http\RedirectResponse
+     * @throws Exception
      */
     public function update(UpdateSettingsRequest $request)
     {
-        $inputs = $request->only([
-            'price_increase',
-            'phone_number',
-            'instagram',
-            'whatsapp',
-            'site',
-            'viber',
-            'tiktok',
-            'youtube',
-            'custom_text'
-        ]);
-        foreach ($inputs as $key => $input) {
-            Setting::wherePropKey($key)->update(['prop_value' => $input]);
+        $inputs = $request->except('_token');
+        try {
+            foreach ($inputs as $key => $input) {
+                Setting::wherePropKey($key)->update(['prop_value' => $input]);
+            }
+        } catch (QueryException $e) {
+            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
+            throw new Exception(response($errorMsg));
         }
         return redirect()->route('admin.settings.index');
     }

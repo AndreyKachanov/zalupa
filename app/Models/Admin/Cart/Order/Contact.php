@@ -42,6 +42,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereHouseNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereStreet($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereTransportCompany($value)
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Illuminate\Database\Query\Builder|Contact onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|Contact withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|Contact withoutTrashed()
  */
 class Contact extends Model
 {

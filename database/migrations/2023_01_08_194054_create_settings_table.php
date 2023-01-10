@@ -23,7 +23,8 @@ return new class extends Migration
         if (!Schema::hasTable($this->tableName)) {
             Schema::create($this->tableName, function (Blueprint $table) {
                 $table->id();
-                $table->string('prop_key');
+                $table->string('title');
+                $table->string('prop_key')->unique();
                 $table->string('prop_value');
                 $table->timestamps();
             });
