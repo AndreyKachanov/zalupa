@@ -8,12 +8,14 @@ use App\Http\Requests\Cart\CheckTokenRequest;
 use App\Http\Requests\Cart\StoreOrderRequest;
 use App\Http\Resources\ItemResource;
 use App\Http\Resources\CategoriesResource;
+use App\Http\Resources\SettingsResource;
 use App\Models\Admin\Cart\CartItem;
 use App\Models\Admin\Cart\Invoice;
 use App\Models\Admin\Cart\Order\Contact;
 use App\Models\Admin\Cart\Token;
 use App\Models\Admin\Item\Category;
 use App\Models\Admin\Item\Item;
+use App\Models\Admin\Setting;
 use App\UseCases\ApiService;
 use App\UseCases\Auth\RegisterService;
 use App\UseCases\SendOrderService;
@@ -67,7 +69,7 @@ class ApiController extends Controller
                 }
                 $json = [
                     'needUpdate' => !$issetToken,
-                    'cart'       => $issetToken ?Token::firstWhere('token', $oldToken)->rCartItems()->whereHas('rItem')->get()->toArray() : [],
+                    'cart'       => $issetToken ? Token::firstWhere('token', $oldToken)->rCartItems()->whereHas('rItem')->get()->toArray() : [],
                     'products' => $issetToken
                         ? ItemResource::collection(Item::find(Token::firstWhere('token', $oldToken)->rCartItems->modelKeys()))
                         : [],
@@ -196,6 +198,16 @@ class ApiController extends Controller
         try {
             //return ParentsCategoriesResource::collection(Category::whereParentId(null)->get());
             return CategoriesResource::collection(Category::all());
+        } catch (QueryException $e) {
+            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
+            throw new HttpResponseException(response($errorMsg, 500));
+        }
+    }
+
+    public function getSettings()
+    {
+        try {
+            return SettingsResource::collection(Setting::all()->except(Setting::firstWhere('prop_key', 'price_increase')->id));
         } catch (QueryException $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new HttpResponseException(response($errorMsg, 500));

@@ -27,6 +27,7 @@ Route::get('items', [ApiController::class, 'items'])->name('api.items');
 Route::get('items/category/{category:slug}', [ApiController::class, 'getItemsFromCategory'])->name('api.get-items-from-category');
 
 Route::get('get-categories', [ApiController::class, 'getCategories'])->name('api.get-categories');
+Route::get('get-settings', [ApiController::class, 'getSettings'])->name('api.get-settings');
 
 Route::group(
     [

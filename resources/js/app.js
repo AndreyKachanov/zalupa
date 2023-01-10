@@ -33,6 +33,7 @@ if (['/', '/cart', '/contacts', '/order', '/category/1-populyarnye-tovary'].inde
 
     store.dispatch('categories/loadCategories');
     store.dispatch('cart/load');
+    store.dispatch('settings/loadSettings');
 
     app.mount('#app-vue');
     // store.dispatch('products/load').then(() => {

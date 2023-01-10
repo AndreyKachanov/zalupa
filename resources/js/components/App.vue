@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col col-sm-9">
-<!--                <h1>Site</h1>-->
+
             </div>
             <div class="col col-sm-3">
                 <div class="alert alert-default d-flex">
@@ -23,20 +23,6 @@
     </div>
     <div class="container">
         <div class="row">
-<!--            <div class="col col-sm-2 menu">-->
-<!--                <ul class="list-group">-->
-<!--                    <router-link-->
-<!--                        v-for="item in menu"-->
-<!--                        :key="item.route"-->
-<!--                        :to="{ name: item.route }"-->
-<!--                        v-slot="{ route, isExactActive, navigate }"-->
-<!--                        :custom="true">-->
-<!--                        <li class="list-group-item" :class="isExactActive ? 'active' : ''">-->
-<!--                            <a :href="route.fullPath" @click="navigate">{{ item.title }}</a>-->
-<!--                        </li>-->
-<!--                    </router-link>-->
-<!--                </ul>-->
-<!--            </div>-->
             <div class="col col-sm-12">
                 <router-view></router-view>
             </div>
@@ -46,33 +32,22 @@
         <nav class="mobile-bottom-nav">
             <div class="mobile-bottom-nav__item mobile-bottom-nav__item--active">
                 <div class="mobile-bottom-nav__item-content">
-<!--                    <a href="#">-->
-<!--                        <i class="fa fa-home fa-2x" aria-hidden="true"></i>-->
-<!--                        Главная-->
-<!--                    </a>-->
                     <router-link :to="{ name: 'products' }">
                         <i class="fa fa-home fa-2x" aria-hidden="true"></i>
                         Главная
                     </router-link>
                 </div>
             </div>
-<!--            <div class="mobile-bottom-nav__item">-->
-<!--                <div class="mobile-bottom-nav__item-content">-->
-<!--                    <i class="material-icons">mail</i>-->
-<!--                    Категории-->
-<!--                </div>-->
-<!--            </div>-->
-            <div class="mobile-bottom-nav__item">
+
+            <div class="mobile-bottom-nav__item cart-block">
                 <div class="mobile-bottom-nav__item-content">
                     <router-link :to="{ name: 'cart' }">
-                        <span style="font-weight: bold; color: red">{{ cartCnt }}</span>
-                        <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
-                        Корзина
+
+                        <i class="fa fa-shopping-cart fa-2x" aria-hidden="true">
+                            <span v-if="this.cartCnt > 0" class="cnt">{{ cartCnt }}</span>
+                        </i>
+                        <span>Корзина</span>
                     </router-link>
-<!--                    <a href="#">-->
-<!--                        <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>-->
-<!--                        Корзина-->
-<!--                    </a>-->
                 </div>
             </div>
 
@@ -82,10 +57,6 @@
                         <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
                         Контакты
                     </router-link>
-<!--                    <a href="#">-->
-<!--                        <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>-->
-<!--                        Контакты-->
-<!--                    </a>-->
                 </div>
             </div>
         </nav>
@@ -123,13 +94,39 @@ export default {
     @import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
 
 .mobile-bottom-nav {
-
-    //@include media-breakpoint-down(xs) {
-    //    border: 5px solid red !important;
-    //}
+    span.cnt {
+        //font-family: TTNormsRegular, sans-serif;
+        font-size: 13px;
+        font-weight: 100;
+        position: absolute;
+        border: 1px solid #ccc;
+        padding: 1px 5px;
+        border-radius: 50%;
+        background: #000;
+        color: #ffffff;
+        //left: 120px;
+        top: -10px;
+        text-align: center;
+        //min-width: 24px;
+        max-width: 24px;
+    }
 
     @include media-breakpoint-up(md) {
         display: none;
+    }
+
+    .cart-block {
+        //.mobile-bottom-nav__item-content {
+        //    display: block;
+        //}
+        a {
+            i {
+                position: relative;
+            }
+            //border: 1px solid red;
+
+        }
+
     }
 
     position:fixed;
@@ -141,11 +138,8 @@ export default {
     //give nav it's own compsite layer
     will-change:transform;
     transform: translateZ(0);
-
     display:flex;
-
-    height:50px;
-
+    height: 65px;
     box-shadow: 0 -2px 5px -2px #333;
     background-color:#fff;
 
@@ -167,7 +161,6 @@ export default {
         flex-direction:column;
 
         a {
-            //border: 1px solid red;
             display: flex;
             flex-direction: column;
             &:hover {
