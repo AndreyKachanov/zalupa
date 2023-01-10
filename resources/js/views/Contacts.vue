@@ -44,14 +44,12 @@
             </tbody>
         </table>
     </div>
-<!--    <app-e404 v-else title="Page not found"></app-e404>-->
 </template>
 
 <script>
-import AppE404 from '../components/E404';
 import {mapGetters, mapActions} from "vuex";
 export default {
-    name: "Cart",
+    name: "Contacts",
     components: {
     },
     computed: {

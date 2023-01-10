@@ -1,5 +1,7 @@
 @php
     $pageWithVue = in_array(Route::currentRouteName(), ['home', 'any']);
+    //dd($pageWithVue);
+    //dump(Route::currentRouteName(), ['home', 'any']);
     //$value = 'null';
     //echo (!('null' === 'null' || (Str::length('null') === 32 && \App\Models\Admin\Cart\Token::firstWhere('token', 'null'))));
 
