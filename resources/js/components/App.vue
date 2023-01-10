@@ -65,6 +65,7 @@
             <div class="mobile-bottom-nav__item">
                 <div class="mobile-bottom-nav__item-content">
                     <router-link :to="{ name: 'cart' }">
+                        <span style="font-weight: bold; color: red">{{ cartCnt }}</span>
                         <i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
                         Корзина
                     </router-link>

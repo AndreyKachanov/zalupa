@@ -1,7 +1,6 @@
 <template>
     <div>
         <h1>Контактная информация:</h1>
-        <hr>
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
