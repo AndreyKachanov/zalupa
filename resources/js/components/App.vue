@@ -77,10 +77,14 @@
 
             <div class="mobile-bottom-nav__item">
                 <div class="mobile-bottom-nav__item-content">
-                    <a href="#">
+                    <router-link :to="{ name: 'contacts' }">
                         <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
                         Контакты
-                    </a>
+                    </router-link>
+<!--                    <a href="#">-->
+<!--                        <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>-->
+<!--                        Контакты-->
+<!--                    </a>-->
                 </div>
             </div>
         </nav>
