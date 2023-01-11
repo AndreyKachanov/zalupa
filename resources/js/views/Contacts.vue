@@ -39,6 +39,8 @@ export default {
         // hasProductsInCart() {
         //     return this.cartCnt > 0;
         // }
+
+        
     },
     methods: {
     }
