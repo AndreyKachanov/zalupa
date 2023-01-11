@@ -24,6 +24,7 @@ mix
     .setResourceRoot(resourceRoot)
     .js('resources/js/app.js', outputDir + 'js')
     .sourceMaps(false, 'source-map')
+    .copy('node_modules/@fortawesome/fontawesome-free/webfonts', publicPath + '/fonts')
     .sass('resources/sass/app.scss', outputDir + 'css')
     .vue({
             extractStyles: false,
