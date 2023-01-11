@@ -6,14 +6,14 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-$fa-font-path : "~@fortawesome/fontawesome-free-webfonts/webfonts";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
+//$fa-font-path : "~@fortawesome/fontawesome-free-webfonts/webfonts";
+//@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
+//@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
+//@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
+//@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
 
 
-//@import "~font-awesome/scss/font-awesome.scss";
+@import "~font-awesome/scss/font-awesome.scss";
 //@import "~summernote/dist/summernote-bs4.css";
 
 #app {
