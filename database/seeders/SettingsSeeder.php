@@ -35,7 +35,7 @@ class SettingsSeeder extends Seeder
                 'prop_value' => '+79495468124',
                 'is_url' => false,
                 'is_icon' => true,
-                'fa_icon' => 'fa fa-phone-square fa-2x'
+                'fa_icon' => 'fa fa-phone fa-2x'
             ]);
             Setting::create([
                 'title' => 'Instagram',
@@ -43,7 +43,7 @@ class SettingsSeeder extends Seeder
                 'prop_value' => '+79495468124',
                 'is_url' => false,
                 'is_icon' => true,
-                'fa_icon' => 'fab fa-instagram fa-2x'
+                'fa_icon' => 'fa fa-instagram fa-2x'
             ]);
             Setting::create([
                 'title' => 'Whatsapp',
@@ -51,7 +51,7 @@ class SettingsSeeder extends Seeder
                 'prop_value' => '+79495468124',
                 'is_url' => false,
                 'is_icon' => true,
-                'fa_icon' => 'fab fa-whatsapp fa-2x'
+                'fa_icon' => 'fa fa-whatsapp fa-2x'
             ]);
             Setting::create([
                 'title' => 'Сайт',
@@ -67,7 +67,7 @@ class SettingsSeeder extends Seeder
                 'prop_value' => '+79495468124',
                 'is_url' => false,
                 'is_icon' => true,
-                'fa_icon' => 'fab fa-viber fa-2x'
+                'fa_icon' => 'fa fa-vimeo fa-2x'
             ]);
             Setting::create([
                 'title' => 'Tiktok',
@@ -75,7 +75,7 @@ class SettingsSeeder extends Seeder
                 'prop_value' => '+79495468124',
                 'is_url' => false,
                 'is_icon' => true,
-                'fa_icon' => 'fa fa-umbrella fa-2x'
+                'fa_icon' => 'fa fa-train fa-2x'
             ]);
             Setting::create([
                 'title' => 'Youtube',
@@ -83,7 +83,7 @@ class SettingsSeeder extends Seeder
                 'prop_value' => 'https://www.youtube.com/@Leningrad_top',
                 'is_url' => true,
                 'is_icon' => true,
-                'fa_icon' => 'fab fa-youtube fa-2x'
+                'fa_icon' => 'fa fa-youtube fa-2x'
             ]);
             Setting::create([
                 'title' => 'Текстовое поле',
