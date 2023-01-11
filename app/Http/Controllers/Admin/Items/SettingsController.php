@@ -16,6 +16,7 @@ class SettingsController extends Controller
     public function index()
     {
         $settings = Setting::all();
+        //dd($settings);
         return view('admin.settings.index', compact('settings'));
     }
 

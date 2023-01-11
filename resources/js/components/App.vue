@@ -28,39 +28,37 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <nav class="mobile-bottom-nav">
-            <div class="mobile-bottom-nav__item mobile-bottom-nav__item--active">
-                <div class="mobile-bottom-nav__item-content">
-                    <router-link :to="{ name: 'products' }">
-                        <i class="fa fa-home fa-2x" aria-hidden="true"></i>
-                        Главная
-                    </router-link>
-                </div>
+    <nav class="mobile-bottom-nav">
+        <div class="mobile-bottom-nav__item mobile-bottom-nav__item--active">
+            <div class="mobile-bottom-nav__item-content">
+                <router-link :to="{ name: 'products' }">
+                    <i class="fa fa-home fa-2x" aria-hidden="true"></i>
+                    Главная
+                </router-link>
             </div>
+        </div>
 
-            <div class="mobile-bottom-nav__item cart-block">
-                <div class="mobile-bottom-nav__item-content">
-                    <router-link :to="{ name: 'cart' }">
+        <div class="mobile-bottom-nav__item cart-block">
+            <div class="mobile-bottom-nav__item-content">
+                <router-link :to="{ name: 'cart' }">
 
-                        <i class="fa fa-shopping-cart fa-2x" aria-hidden="true">
-                            <span v-if="this.cartCnt > 0" class="cnt">{{ cartCnt }}</span>
-                        </i>
-                        <span>Корзина</span>
-                    </router-link>
-                </div>
+                    <i class="fa fa-shopping-cart fa-2x" aria-hidden="true">
+                        <span v-if="this.cartCnt > 0" class="cnt">{{ cartCnt }}</span>
+                    </i>
+                    <span>Корзина</span>
+                </router-link>
             </div>
+        </div>
 
-            <div class="mobile-bottom-nav__item">
-                <div class="mobile-bottom-nav__item-content">
-                    <router-link :to="{ name: 'contacts' }">
-                        <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
-                        Контакты
-                    </router-link>
-                </div>
+        <div class="mobile-bottom-nav__item">
+            <div class="mobile-bottom-nav__item-content">
+                <router-link :to="{ name: 'contacts' }">
+                    <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
+                    Контакты
+                </router-link>
             </div>
-        </nav>
-    </div>
+        </div>
+    </nav>
 </template>
 
 <script>
@@ -87,16 +85,16 @@ export default {
 </script>
 
 <style lang="scss">
-    $fa-font-path : "~@fortawesome/fontawesome-free-webfonts/webfonts";
-    @import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
-    @import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
-    @import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
-    @import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
+    //$fa-font-path : "~@fortawesome/fontawesome-free-webfonts/webfonts";
+    //@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
+    //@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
+    //@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
+    //@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
 
 .mobile-bottom-nav {
     span.cnt {
-        //font-family: TTNormsRegular, sans-serif;
-        font-size: 13px;
+        font-family: TTNormsRegular, sans-serif;
+        font-size: 15px;
         font-weight: 100;
         position: absolute;
         border: 1px solid #ccc;
@@ -104,11 +102,10 @@ export default {
         border-radius: 50%;
         background: #000;
         color: #ffffff;
-        //left: 120px;
         top: -10px;
         text-align: center;
         //min-width: 24px;
-        max-width: 24px;
+        //max-width: 24px;
     }
 
     @include media-breakpoint-up(md) {

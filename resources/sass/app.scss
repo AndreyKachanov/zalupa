@@ -6,6 +6,12 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+$fa-font-path : "~@fortawesome/fontawesome-free-webfonts/webfonts";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
+
 
 //@import "~font-awesome/scss/font-awesome.scss";
 //@import "~summernote/dist/summernote-bs4.css";
@@ -43,12 +49,16 @@ body {
 }
 
 .app-content {
-  flex: 1;
+    padding-bottom: 65px;
+    @media (min-width: 768px) {
+        padding-bottom: 0;
+    }
+    flex: 1;
     background-color: #ffffff;
 
-  @include media-breakpoint-down(sm) {
-      background-color: #edeef0;
-  }
+  //@include media-breakpoint-down(sm) {
+  //    background-color: #edeef0;
+  //}
 }
 
 .table th, .table td {

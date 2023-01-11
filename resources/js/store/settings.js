@@ -17,9 +17,7 @@ export default {
     },
     actions: {
         async loadSettings(store) {
-            // console.log(this.$router);
            let settings = await makeRequest('/api/get-settings');
-            // console.log(items);
             store.commit('setSettings', settings.data);
         }
     }

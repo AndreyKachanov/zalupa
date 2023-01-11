@@ -24,6 +24,12 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  * @property string $title
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereTitle($value)
+ * @property int $is_icon
+ * @property string|null $fa_icon
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereFaIcon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereIsIcon($value)
+ * @property int $is_url
+ * @method static \Illuminate\Database\Eloquent\Builder|Setting whereIsUrl($value)
  */
 class Setting extends Model
 {
