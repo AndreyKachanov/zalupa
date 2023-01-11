@@ -35,12 +35,13 @@ export default {
     computed: {
         ...mapGetters('settings', {
             settings: 'allSettings'
+            
         }),
         // hasProductsInCart() {
         //     return this.cartCnt > 0;
         // }
 
-        
+
     },
     methods: {
     }
