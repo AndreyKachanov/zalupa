@@ -64,18 +64,15 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
-import { faUserSecret, faScroll } from '@fortawesome/free-solid-svg-icons'
-import { faFacebook, faTiktok, faStackOverflow, faSquareGit } from '@fortawesome/free-brands-svg-icons'
-
-library.add(faUserSecret, faScroll, faFacebook, faTiktok, faStackOverflow, faSquareGit)
-
+// import { library } from '@fortawesome/fontawesome-svg-core'
+// import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+// import { faUserSecret, faScroll } from '@fortawesome/free-solid-svg-icons'
+// import { faFacebook, faTiktok, faStackOverflow, faSquareGit } from '@fortawesome/free-brands-svg-icons'
+// library.add(faUserSecret, faScroll, faFacebook, faTiktok, faStackOverflow, faSquareGit)
 
 export default {
     components: {
-        FontAwesomeIcon
+        // FontAwesomeIcon
     },
     data: () => ({
         menu: [
@@ -95,85 +92,79 @@ export default {
 </script>
 
 <style lang="scss">
-    //$fa-font-path : "~@fortawesome/fontawesome-free-webfonts/webfonts";
-    //@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
-    //@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
-    //@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
-    //@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
+    .mobile-bottom-nav {
+        span.cnt {
+            font-family: TTNormsRegular, sans-serif;
+            font-size: 15px;
+            font-weight: 100;
+            position: absolute;
+            border: 1px solid #ccc;
+            padding: 1px 5px;
+            border-radius: 50%;
+            background: #000;
+            color: #ffffff;
+            top: -10px;
+            text-align: center;
+            //min-width: 24px;
+            //max-width: 24px;
+        }
 
-.mobile-bottom-nav {
-    span.cnt {
-        font-family: TTNormsRegular, sans-serif;
-        font-size: 15px;
-        font-weight: 100;
-        position: absolute;
-        border: 1px solid #ccc;
-        padding: 1px 5px;
-        border-radius: 50%;
-        background: #000;
-        color: #ffffff;
-        top: -10px;
-        text-align: center;
-        //min-width: 24px;
-        //max-width: 24px;
-    }
+        @include media-breakpoint-up(md) {
+            display: none;
+        }
 
-    @include media-breakpoint-up(md) {
-        display: none;
-    }
+        .cart-block {
+            //.mobile-bottom-nav__item-content {
+            //    display: block;
+            //}
+            a {
+                i {
+                    position: relative;
+                }
+                //border: 1px solid red;
 
-    .cart-block {
-        //.mobile-bottom-nav__item-content {
-        //    display: block;
-        //}
-        a {
-            i {
-                position: relative;
             }
-            //border: 1px solid red;
 
         }
 
-    }
+        position:fixed;
+        bottom:0;
+        left:0;
+        right:0;
+        z-index:1000;
 
-    position:fixed;
-    bottom:0;
-    left:0;
-    right:0;
-    z-index:1000;
-
-    //give nav it's own compsite layer
-    will-change:transform;
-    transform: translateZ(0);
-    display:flex;
-    height: 65px;
-    box-shadow: 0 -2px 5px -2px #333;
-    background-color:#fff;
-
-    &__item{
-        flex-grow:1;
-        text-align:center;
-        font-size:12px;
-
+        //give nav it's own compsite layer
+        will-change:transform;
+        transform: translateZ(0);
         display:flex;
-        flex-direction:column;
-        justify-content:center;
-    }
-    &__item--active{
-        //dev
-        color:red;
-    }
-    &__item-content{
-        display:flex;
-        flex-direction:column;
+        height: 65px;
+        box-shadow: 0 -2px 5px -2px #333;
+        background-color:#fff;
 
-        a {
-            display: flex;
-            flex-direction: column;
-            &:hover {
-                text-decoration: none;
+        &__item{
+            flex-grow:1;
+            text-align:center;
+            font-size:12px;
+
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+        }
+        &__item--active{
+            //dev
+            color:red;
+        }
+        &__item-content{
+            display:flex;
+            flex-direction:column;
+
+            a {
+                display: flex;
+                flex-direction: column;
+                &:hover {
+                    text-decoration: none;
+                }
             }
         }
     }
-}
 </style>

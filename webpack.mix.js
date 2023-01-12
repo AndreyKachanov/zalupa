@@ -1,6 +1,7 @@
 require('dotenv').config();
 const mix = require('laravel-mix');
 const env = process.env.APP_ENV;
+const { castToSass } = require('node-sass-utils');
 
 // Если в .env параметр APP_ENV = local, файлы компилируются в public/build,
 // иначе в public/
@@ -9,23 +10,29 @@ const env = process.env.APP_ENV;
 let publicPath = 'public';
 let resourceRoot = './';
 let outputDir = 'public/';
+let fontsAwesomePath = '/fonts';
 
 
 if (env === 'local') {
     publicPath = 'public/build';
     resourceRoot = '/build/';
     outputDir = './';
+    fontsAwesomePath = '/build/fonts';
 }
 
 console.log('inProduction', mix.inProduction());
+
 
 mix
     .setPublicPath(publicPath)
     .setResourceRoot(resourceRoot)
     .js('resources/js/app.js', outputDir + 'js')
     .sourceMaps(false, 'source-map')
+    //fix error 404 on nginx - иначе шрифты на VPS не грузятся
     .copy('node_modules/@fortawesome/fontawesome-free/webfonts', publicPath + '/fonts')
-    .sass('resources/sass/app.scss', outputDir + 'css')
+    .sass('resources/sass/app.scss', outputDir + 'css', {
+        additionalData: '$fontsAwesomePath:\'' + fontsAwesomePath  + '\';'
+    })
     .vue({
             extractStyles: false,
             globalStyles: "resources/sass/vue_components.scss"

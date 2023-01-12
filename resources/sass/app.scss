@@ -3,21 +3,15 @@
 // Variables
 @import 'variables';
 
+//fix error 404 on nginx - иначе шрифты на VPS не грузятся
+//$fa-font-path: "/build/fonts";
+$fa-font-path: $fontsAwesomePath;
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
-//$fa-font-path : "~@fortawesome/fontawesome-free-webfonts/webfonts";
-//@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome.scss";
-//@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid.scss";
-//@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular.scss";
-//@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands.scss";
 
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@fortawesome/fontawesome-free/scss/brands";
-
-//@import "~font-awesome/scss/font-awesome.scss";
-//@import "~summernote/dist/summernote-bs4.css";
 
 #app {
   display: flex;
