@@ -62,6 +62,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereIsBestseller($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereIsHit($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereIsNew($value)
+ * @property string|null $note
+ * @method static \Illuminate\Database\Eloquent\Builder|Item whereNote($value)
  */
 class Item extends Model
 {

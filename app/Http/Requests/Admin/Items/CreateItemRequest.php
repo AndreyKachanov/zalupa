@@ -25,6 +25,7 @@ class CreateItemRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'note' => 'string|max:255',
             'article_number' => 'required|string|max:100',
             'price' => 'required|string|max:100',
             'img' => 'required|mimes:jpg,png,jpeg,gif,svg'

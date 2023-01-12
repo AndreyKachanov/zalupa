@@ -27,6 +27,9 @@
                 <th>Название</th><td>{{ $item->title }}</td>
             </tr>
             <tr>
+                <th>Примечание</th><td>{{ $item->note }}</td>
+            </tr>
+            <tr>
                 <th>Артикул</th><td>{{ $item->article_number }}</td>
             </tr>
             <tr>

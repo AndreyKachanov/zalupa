@@ -88,6 +88,7 @@ class ItemsController extends Controller
         $filePath = $request->file('img')->getRealpath();
         $item = new Item();
         $item->title = $request->title;
+        $item->note = $request->note;
         $item->article_number = $request->article_number;
         $item->price = $request->price;
         $item->is_new = isset($request->is_new);
@@ -132,6 +133,7 @@ class ItemsController extends Controller
         }
 
         $item->title = $request->title;
+        $item->note = $request->note;
         $item->article_number = $request->article_number;
         $item->price = $request->price;
         $item->is_new = isset($request->is_new);

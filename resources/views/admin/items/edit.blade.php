@@ -21,6 +21,14 @@
         </div>
 
         <div class="form-group">
+            <label for="note" class="col-form-label">Примечание</label>
+            <input id="note" class="form-control{{ $errors->has('note') ? ' is-invalid' : '' }}" name="note" value="{{ old('note', $item->note) }}">
+            @if ($errors->has('note'))
+                <span class="invalid-feedback"><strong>{{ $errors->first('note') }}</strong></span>
+            @endif
+        </div>
+
+        <div class="form-group">
             <label for="article_number" class="col-form-label">Артикул</label>
             <input id="article_number" class="form-control{{ $errors->has('article_number') ? ' is-invalid' : '' }}" name="article_number" value="{{ old('article_number', $item->article_number) }}" required>
             @if ($errors->has('article_number'))

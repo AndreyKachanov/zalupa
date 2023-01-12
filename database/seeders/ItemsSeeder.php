@@ -40,6 +40,7 @@ class ItemsSeeder extends Seeder
             foreach ($json as $item) {
                 Item::create([
                     'title' =>  $item->title,
+                    'note' => 'поставляется в коробке по 12 штук',
                     'article_number' => $item->article_number,
                     'price' => (float)$item->price1,
                     'img' => $item->img,

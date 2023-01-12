@@ -69,6 +69,7 @@
         <thead>
         <tr>
             <th>Название</th>
+            <th>Примечание</th>
             <th>Артикул</th>
             <th>Цена оригинал</th>
             <th>Цена (<strong>{{ \App\Models\Admin\Setting::firstWhere('prop_key', 'price_increase')->prop_value }} %</strong></th>
@@ -83,6 +84,7 @@
         @foreach ($items as $item)
             <tr>
                 <td><a href="{{ route('admin.items.show', $item) }}">{{ $item->title }}</a></td>
+                <td>{{ $item->note }}</td>
                 <td>{{ $item->article_number }}</td>
                 <td>{{ $item->getRawOriginal('price') }} ₽</td>
                 <td>{{ $item->price }} ₽</td>

@@ -15,7 +15,7 @@
     <form method="POST" action="{{ route('admin.items.store') }}" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <label for="title" class="col-form-label">Title</label>
+            <label for="title" class="col-form-label">Название</label>
             <input id="title" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ old('title') }}" required>
             @if ($errors->has('title'))
                 <span class="invalid-feedback"><strong>{{ $errors->first('title') }}</strong></span>
@@ -23,7 +23,15 @@
         </div>
 
         <div class="form-group">
-            <label for="article_number" class="col-form-label">Article number</label>
+            <label for="note" class="col-form-label">Примечание</label>
+            <input id="note" class="form-control{{ $errors->has('note') ? ' is-invalid' : '' }}" name="note" value="{{ old('note') }}">
+            @if ($errors->has('note'))
+                <span class="invalid-feedback"><strong>{{ $errors->first('note') }}</strong></span>
+            @endif
+        </div>
+
+        <div class="form-group">
+            <label for="article_number" class="col-form-label">Артикул</label>
             <input id="article_number" class="form-control{{ $errors->has('article_number') ? ' is-invalid' : '' }}" name="article_number" value="{{ old('article_number') }}" required>
             @if ($errors->has('article_number'))
                 <span class="invalid-feedback"><strong>{{ $errors->first('article_number') }}</strong></span>
@@ -62,7 +70,7 @@
         </div>
 
         <div class="form-group">
-            <label for="category" class="col-form-label">Category</label>
+            <label for="category" class="col-form-label">Категория</label>
             <select id="category" class="form-control{{ $errors->has('category') ? ' is-invalid' : '' }}" name="category_id">
 
                 @foreach ($categories as $category)
@@ -80,7 +88,7 @@
         </div>
 
         <div class="form-group">
-            <label for="img" class="col-form-label">Image (jpg,png,jpeg,gif,svg)</label>
+            <label for="img" class="col-form-label">Фото (jpg,png,jpeg,gif,svg)</label>
             <input type="file" name="img" class="form-control{{ $errors->has('img') ? ' is-invalid' : '' }}" id="img" required>
             @if ($errors->has('img'))
                 <span class="invalid-feedback"><strong>{{ $errors->first('img') }}</strong></span>
@@ -88,7 +96,7 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
         </div>
     </form>
 @endsection

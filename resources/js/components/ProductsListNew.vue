@@ -7,11 +7,20 @@
             <div class="card h-100">
                 <img class="card-img-top img-fluid" :src="product.img" alt=""/>
                 <div class="card-body">
-                    <div class="card-title">{{ product.title }}</div>
-                    <div>{{ product.price }} &#8381</div>
+                    <h3 class="card-title text-center">{{ product.title }}</h3>
+                    <h5 v-if="product.note" class="text-muted" style="color: red">
+                        <span style="color: red">Важно:</span> {{ product.note }}
+                    </h5>
+                    <h4></h4>
+                    <div>Артикул - {{ product.article_number }}</div>
+                    <h1 class="text-center">{{ product.price }} &#8381</h1>
 <!--                    <router-link :to="`/${product.slug}`">Read more</router-link>-->
-                    <div style="margin-top: 15px; display: flex; justify-content: space-around;min-width:91px">
-                        <count-items :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>
+
+
+                </div>
+                <div class="card-footer border-top-0 d-flex align-items-center justify-content-around">
+                    <count-items :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>
+                    <div>
                         <button v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">
                             Убрать
                         </button>
@@ -19,7 +28,6 @@
                             В корзину
                         </button>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -101,6 +109,7 @@ export default {
 </script>
 
 <style scoped>
+
     /*.row {*/
     /*    padding-left: 15px;*/
     /*}*/

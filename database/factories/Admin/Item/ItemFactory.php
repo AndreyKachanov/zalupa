@@ -19,6 +19,7 @@ class ItemFactory extends Factory
     {
         return [
             'title' => $this->faker->jobTitle,
+            'note' => 'Поставляется в коробке по 12 штук',
             'article_number' => $this->faker->postcode,
             'price' => rand(50, 100),
             'img' => $this->faker->loremflickr(

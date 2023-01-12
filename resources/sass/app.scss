@@ -47,9 +47,9 @@ body {
 
 .app-content {
     padding-bottom: 65px;
-    @media (min-width: 768px) {
-        padding-bottom: 0;
-    }
+    //@media (min-width: 768px) {
+    //    padding-bottom: 0;
+    //}
     flex: 1;
     background-color: #ffffff;
 
