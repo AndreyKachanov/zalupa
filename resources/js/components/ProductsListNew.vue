@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-6 col-md-4 col-lg-3 mb-3 mt-3 pl-sm-1 pr-sm-1"
+        <div class="col-6 col-md-4 col-lg-3 mb-3 mt-3 pl-sm-1 pr-sm-1 my_cart"
             v-for="product in products"
              :key="product.id"
         >
@@ -12,8 +12,12 @@
                         <span style="color: red">Важно:</span> {{ product.note }}
                     </h5>
                     <h4></h4>
-                    <div>Артикул - {{ product.article_number }}</div>
-                    <h1 class="text-center">{{ product.price }} &#8381</h1>
+                    <div>
+                        <span class="float-left">Артикул:</span>
+                        <span class="float-right">{{ product.article_number }}</span>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <h3 class="text-center">{{ product.price }} &#8381</h3>
 <!--                    <router-link :to="`/${product.slug}`">Read more</router-link>-->
 
 
@@ -25,7 +29,7 @@
                             Убрать
                         </button>
                         <button v-else class="btn btn-success" @click="addToCartNew(product.id)">
-                            В корзину
+                            <i class="fa-solid fa-cart-plus" aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>
@@ -108,8 +112,20 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+    .my_cart {
+        @media (max-width: 768px) {
+           .card-title {
+               font-size: 16px;
+           }
+        }
 
+        @media (max-width: 400px) {
+            .card-title {
+                font-size: 18px;
+            }
+        }
+    }
     /*.row {*/
     /*    padding-left: 15px;*/
     /*}*/
