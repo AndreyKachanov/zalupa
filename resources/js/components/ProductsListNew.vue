@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col-6 col-lg-4 mb-3 mt-3 pl-sm-1 pr-sm-1"
+        <div class="col-6 col-md-4 col-lg-3 mb-3 mt-3 pl-sm-1 pr-sm-1"
             v-for="product in products"
              :key="product.id"
         >
