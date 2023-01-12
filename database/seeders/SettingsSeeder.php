@@ -26,14 +26,12 @@ class SettingsSeeder extends Seeder
                 'title' => 'Увеличить цену на %',
                 'prop_key' => 'price_increase',
                 'is_icon' => false,
-                'is_url' => false,
                 'prop_value' => '0'
             ]);
             Setting::create([
                 'title' => 'Номер телефона',
                 'prop_key' => 'phone_number',
                 'prop_value' => '+79495468124',
-                'is_url' => false,
                 'is_icon' => true,
                 'fa_icon' => 'fa-solid fa-square-phone'
             ]);
@@ -41,7 +39,6 @@ class SettingsSeeder extends Seeder
                 'title' => 'Instagram',
                 'prop_key' => 'instagram',
                 'prop_value' => '+79495468124',
-                'is_url' => false,
                 'is_icon' => true,
                 'fa_icon' => 'fa-brands fa-instagram'
             ]);
@@ -49,15 +46,13 @@ class SettingsSeeder extends Seeder
                 'title' => 'Whatsapp',
                 'prop_key' => 'whatsapp',
                 'prop_value' => '+79495468124',
-                'is_url' => false,
                 'is_icon' => true,
                 'fa_icon' => 'fa-brands fa-square-whatsapp'
             ]);
             Setting::create([
                 'title' => 'Сайт',
                 'prop_key' => 'site',
-                'is_url' => true,
-                'prop_value' => 'https://yandex.ru/',
+                'prop_value' => 'https://yandex.ru',
                 'is_icon' => true,
                 'fa_icon' => 'fa-solid fa-globe'
             ]);
@@ -65,23 +60,20 @@ class SettingsSeeder extends Seeder
                 'title' => 'Viber',
                 'prop_key' => 'viber',
                 'prop_value' => '+79495468124',
-                'is_url' => false,
                 'is_icon' => true,
                 'fa_icon' => 'fa-brands fa-viber'
             ]);
             Setting::create([
                 'title' => 'Tiktok',
                 'prop_key' => 'tiktok',
-                'prop_value' => '+79495468124',
-                'is_url' => false,
+                'prop_value' => 'https://www.tiktok.com',
                 'is_icon' => true,
                 'fa_icon' => 'fa-brands fa-tiktok'
             ]);
             Setting::create([
                 'title' => 'Youtube',
                 'prop_key' => 'youtube',
-                'prop_value' => 'https://www.youtube.com/@Leningrad_top',
-                'is_url' => true,
+                'prop_value' => 'https://www.youtube.com',
                 'is_icon' => true,
                 'fa_icon' => 'fa-brands fa-youtube'
             ]);

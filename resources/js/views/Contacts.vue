@@ -1,6 +1,5 @@
 <template>
     <h1 class="h1 text-center mb-4">Контактная информация</h1>
-            <pre>{{ this.test }}</pre>
         <div class="row">
             <div
                 class="col-sm-10 offset-sm-1 offset-md-0 col-md-6 col-lg-4"
@@ -9,7 +8,6 @@
             >
                 <div class="contact_info_item d-flex flex-row align-items-center justify-content-start">
                     <div class="contact_info_image">
-<!--                        <font-awesome-icon icon="fa-brands fa-square-git" />-->
                         <i
                             :class="`${setting.fa_icon} fa-2x`"
                             aria-hidden="true">
@@ -18,7 +16,10 @@
                     <div class="contact_info_content">
                         <div class="contact_info_title">{{ setting.title }}</div>
                         <div class="contact_info_text">
-                            <a v-if="setting.is_url" target="_blank" :href="`${setting.prop_value}`">{{ setting.prop_value }}</a>
+<!--                            {{ this.isUrl(setting.prop_value) }}-->
+                            <a v-if="this.isUrl(setting.prop_value)" target="_blank" :href="`${setting.prop_value}`">
+                                {{ setting.prop_value }}
+                            </a>
                             <span v-else>{{ setting.prop_value }}</span>
                         </div>
                     </div>
@@ -31,21 +32,26 @@
 import {mapGetters, mapActions} from "vuex";
 export default {
     name: "Contacts",
-    props: ['test'],
     components: {
     },
     computed: {
         ...mapGetters('settings', {
             settings: 'allSettings'
-
         }),
-        // hasProductsInCart() {
-        //     return this.cartCnt > 0;
-        // }
-
-
     },
     methods: {
+        isUrl(str) {
+            // console.log(str);
+            // let pattern = /^[a-zA-Z0-9]{2,30}$/;
+            // return pattern.test(str);
+            let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+            '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+            return !!pattern.test(str)
+        },
     }
 }
 </script>
