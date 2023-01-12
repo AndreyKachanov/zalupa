@@ -35,7 +35,7 @@ class SettingsSeeder extends Seeder
                 'prop_value' => '+79495468124',
                 'is_url' => false,
                 'is_icon' => true,
-                'fa_icon' => 'fa fa-phone fa-2x'
+                'fa_icon' => 'fa-solid fa-square-phone'
             ]);
             Setting::create([
                 'title' => 'Instagram',
@@ -43,7 +43,7 @@ class SettingsSeeder extends Seeder
                 'prop_value' => '+79495468124',
                 'is_url' => false,
                 'is_icon' => true,
-                'fa_icon' => 'fa fa-instagram fa-2x'
+                'fa_icon' => 'fa-brands fa-instagram'
             ]);
             Setting::create([
                 'title' => 'Whatsapp',
@@ -51,7 +51,7 @@ class SettingsSeeder extends Seeder
                 'prop_value' => '+79495468124',
                 'is_url' => false,
                 'is_icon' => true,
-                'fa_icon' => 'fa fa-whatsapp fa-2x'
+                'fa_icon' => 'fa-brands fa-square-whatsapp'
             ]);
             Setting::create([
                 'title' => 'Сайт',
@@ -59,7 +59,7 @@ class SettingsSeeder extends Seeder
                 'is_url' => true,
                 'prop_value' => 'https://yandex.ru/',
                 'is_icon' => true,
-                'fa_icon' => 'fa fa-globe fa-2x'
+                'fa_icon' => 'fa-solid fa-globe'
             ]);
             Setting::create([
                 'title' => 'Viber',
@@ -67,7 +67,7 @@ class SettingsSeeder extends Seeder
                 'prop_value' => '+79495468124',
                 'is_url' => false,
                 'is_icon' => true,
-                'fa_icon' => 'fa fa-vimeo fa-2x'
+                'fa_icon' => 'fa-brands fa-viber'
             ]);
             Setting::create([
                 'title' => 'Tiktok',
@@ -75,7 +75,7 @@ class SettingsSeeder extends Seeder
                 'prop_value' => '+79495468124',
                 'is_url' => false,
                 'is_icon' => true,
-                'fa_icon' => 'fa fa-train fa-2x'
+                'fa_icon' => 'fa-brands fa-tiktok'
             ]);
             Setting::create([
                 'title' => 'Youtube',
@@ -83,7 +83,7 @@ class SettingsSeeder extends Seeder
                 'prop_value' => 'https://www.youtube.com/@Leningrad_top',
                 'is_url' => true,
                 'is_icon' => true,
-                'fa_icon' => 'fa fa-youtube fa-2x'
+                'fa_icon' => 'fa-brands fa-youtube'
             ]);
             Setting::create([
                 'title' => 'Текстовое поле',

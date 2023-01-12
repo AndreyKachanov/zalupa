@@ -11,7 +11,8 @@
                         :to="{ name: 'cart' }"
                         style="display: flex; margin-right: 15px; text-decoration: none;"
                     >
-                        <i style="color:#ff0000" class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+<!--                        <font-awesome-icon icon="fa-brands fa-square-git" />-->
+                        <i style="color:#ff0000" class="fa-solid fa-cart-plus fa-2x" aria-hidden="true"></i>
                     </router-link>
                     <div>
                         <div>Кол-во: {{ cartCnt }}</div>
@@ -41,8 +42,7 @@
         <div class="mobile-bottom-nav__item cart-block">
             <div class="mobile-bottom-nav__item-content">
                 <router-link :to="{ name: 'cart' }">
-
-                    <i class="fa fa-shopping-cart fa-2x" aria-hidden="true">
+                    <i class="fa-solid fa-cart-plus fa-2x" aria-hidden="true">
                         <span v-if="this.cartCnt > 0" class="cnt">{{ cartCnt }}</span>
                     </i>
                     <span>Корзина</span>
@@ -52,7 +52,7 @@
 
         <div class="mobile-bottom-nav__item">
             <div class="mobile-bottom-nav__item-content">
-                <router-link :to="{ name: 'contacts' }">
+                <router-link :to="{ name: 'contacts', params: 'test123' }">
                     <i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
                     Контакты
                 </router-link>
@@ -64,8 +64,18 @@
 <script>
 import { mapGetters } from 'vuex';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+import { faUserSecret, faScroll } from '@fortawesome/free-solid-svg-icons'
+import { faFacebook, faTiktok, faStackOverflow, faSquareGit } from '@fortawesome/free-brands-svg-icons'
+
+library.add(faUserSecret, faScroll, faFacebook, faTiktok, faStackOverflow, faSquareGit)
+
+
 export default {
     components: {
+        FontAwesomeIcon
     },
     data: () => ({
         menu: [

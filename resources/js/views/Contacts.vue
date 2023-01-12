@@ -1,6 +1,6 @@
 <template>
     <h1 class="h1 text-center mb-4">Контактная информация</h1>
-<!--            <pre>{{ settings }}</pre>-->
+            <pre>{{ this.test }}</pre>
         <div class="row">
             <div
                 class="col-sm-10 offset-sm-1 offset-md-0 col-md-6 col-lg-4"
@@ -9,8 +9,9 @@
             >
                 <div class="contact_info_item d-flex flex-row align-items-center justify-content-start">
                     <div class="contact_info_image">
+<!--                        <font-awesome-icon icon="fa-brands fa-square-git" />-->
                         <i
-                            :class="`${setting.fa_icon}`"
+                            :class="`${setting.fa_icon} fa-2x`"
                             aria-hidden="true">
                         </i>
                     </div>
@@ -30,6 +31,7 @@
 import {mapGetters, mapActions} from "vuex";
 export default {
     name: "Contacts",
+    props: ['test'],
     components: {
     },
     computed: {
