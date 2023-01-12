@@ -5,9 +5,9 @@
              :key="product.id"
         >
             <div class="card h-100">
+                <img class="card-img-top img-fluid" :src="product.img" alt=""/>
                 <div class="card-body">
-                    <h3>{{ product.title }}</h3>
-                    <img class="img-fluid" :src="product.img" alt=""/>
+                    <div class="card-title">{{ product.title }}</div>
                     <div>{{ product.price }} &#8381</div>
 <!--                    <router-link :to="`/${product.slug}`">Read more</router-link>-->
                     <div style="margin-top: 15px; display: flex; justify-content: space-around;min-width:91px">
