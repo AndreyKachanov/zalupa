@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-        <div class="col col-sm-6 col-lg-4 mb-3 mt-3"
+        <div class="col col-sm-6 col-lg-4 mb-3 mt-3 pl-sm-1 pr-sm-1"
             v-for="product in products"
              :key="product.id"
         >
@@ -18,8 +18,8 @@
 
 
                 </div>
-                <div class="card-footer border-top-0 d-flex align-items-center justify-content-around">
-                    <count-items :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>
+                <div class="card-footer border-top-0 d-flex align-items-center justify-content-around flex-column flex-sm-row">
+                    <count-items class="mb-2 mb-sm-0" :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>
                     <div>
                         <button v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">
                             Убрать
