@@ -23,8 +23,8 @@
                     <h3 class="text-center mb-0">{{ product.price }} &#8381</h3>
 <!--                    <router-link :to="`/${product.slug}`">Read more</router-link>-->
                 </div>
-                <div class="card-footer d-flex justify-content-around">
-                    <count-items class="mb-2 mb-sm-0" :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>
+                <div class="card-footer d-flex">
+                    <count-items :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>
                     <div class="cart-buttons">
                         <button v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">
                             Убрать
@@ -117,11 +117,37 @@ export default {
 <style lang="scss">
     .my_cart {
         .card-footer {
+            justify-content: space-around;
+            @include media-breakpoint-down(xs) {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
             max-height: 60px;
+            .countItems {
+                @include media-breakpoint-down(xs) {
+                    //font-size: ;
+                }
+                //flex-grow: 1;
+            }
+            //.countItems button {
+            //    @include media-breakpoint-down(xs) {
+            //
+            //    }
+            //}
             .cart-buttons {
-                width: 100%
+                @include media-breakpoint-down(xs) {
+                    //flex-grow: 2;
+                }
+                //width: calc(90% - 80px);
                 button {
                     width: 100%;
+                    font-size: 14px;
+                    @include media-breakpoint-down(xs) {
+                        //border: 1px solid red;
+                        font-size: 12px;
+                        padding-left: 5px;
+                        padding-right: 5px;
+                    }
                     //width: calc(90% - 80px);
                 }
 
