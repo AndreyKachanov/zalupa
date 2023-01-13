@@ -8,10 +8,14 @@
                 <img class="card-img-top img-fluid" :src="product.img" alt=""/>
                 <div class="card-body">
                     <h3 class="card-title text-center">{{ product.title }}</h3>
-                    <h5 v-if="product.note" class="text-muted" style="color: red">
+                    <p v-if="product.note" class="text-muted" style="color: red">
                         <span style="color: red">Важно:</span> {{ product.note }}
-                    </h5>
-                    <h4></h4>
+                    </p>
+                    <div class="budgets">
+                        <span class="badge badge-pill badge-primary">Новый</span>
+                        <span class="badge badge-pill badge-warning">Хит</span>
+                        <span class="badge badge-pill badge-success">Бестселлер</span>
+                    </div>
                     <div>
                         <span class="float-left">Артикул:</span>
                         <span class="float-right">{{ product.article_number }}</span>
@@ -19,8 +23,6 @@
                     </div>
                     <h3 class="text-center">{{ product.price }} &#8381</h3>
 <!--                    <router-link :to="`/${product.slug}`">Read more</router-link>-->
-
-
                 </div>
                 <div class="card-footer border-top-0 d-flex align-items-center justify-content-around flex-column flex-sm-row">
                     <count-items class="mb-2 mb-sm-0" :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>
@@ -114,19 +116,36 @@ export default {
 
 <style lang="scss">
     .my_cart {
-        @media (max-width: 768px) {
-           .card-title {
-               font-size: 16px;
-           }
+        .budgets {
+            .badge {
+                padding: 0.7em 0.9em;
+                //padding-top: 1em;
+                //padding-bottom: 1em;
+            }
+            //border: 1px solid red;
+            display: flex;
+            justify-content: space-around;
         }
 
-        @media (max-width: 400px) {
-            .card-title {
-                font-size: 18px;
+        @include media-breakpoint-down(xs) {
+            .card-body {
+                padding: 0.6rem;
+                .card-title {
+                    font-size: 1.1rem;
+                    //word-break: break-all;
+                }
+                .text-muted {
+                    font-size: 0.9rem;
+                    word-break: break-all;
+                }
+                .budgets {
+                    justify-content: space-between;
+                    //flex-direction: column;
+                    //justify-content: space-around;
+                }
             }
+
         }
     }
-    /*.row {*/
-    /*    padding-left: 15px;*/
-    /*}*/
+
 </style>

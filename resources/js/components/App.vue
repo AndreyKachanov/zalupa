@@ -93,6 +93,11 @@ export default {
 
 <style lang="scss">
     .mobile-bottom-nav {
+        @include media-breakpoint-down(xs) {
+            i {
+                font-size: 1.7em;
+            }
+        }
         span.cnt {
             font-family: TTNormsRegular, sans-serif;
             font-size: 15px;
@@ -106,13 +111,18 @@ export default {
             top: -10px;
             text-align: center;
             min-height: 20px;
+            @include media-breakpoint-down(xs) {
+                top: -7px;
+                font-size: 11px;
+                min-height: 17px;
+            }
             //min-width: 24px;
             //max-width: 24px;
         }
 
-        @include media-breakpoint-up(md) {
+        //@include media-breakpoint-up(md) {
             //display: none;
-        }
+        //}
 
         .cart-block {
             //.mobile-bottom-nav__item-content {
