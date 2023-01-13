@@ -1,7 +1,6 @@
 require('dotenv').config();
 const mix = require('laravel-mix');
 const env = process.env.APP_ENV;
-const { castToSass } = require('node-sass-utils');
 
 // Если в .env параметр APP_ENV = local, файлы компилируются в public/build,
 // иначе в public/
@@ -28,7 +27,7 @@ mix
     .setResourceRoot(resourceRoot)
     .js('resources/js/app.js', outputDir + 'js')
     .sourceMaps(false, 'source-map')
-    //fix error 404 on nginx - иначе шрифты на VPS не грузятся
+    //fix error 404 on nginx - иначе шрифты на VPS не грузятся из папки vendor
     .copy('node_modules/@fortawesome/fontawesome-free/webfonts', publicPath + '/fonts')
     // additionalData - нужен для исправления ошибки со шрифтами, где на проде nginx не видит папку /vendor...
     .sass('resources/sass/app.scss', outputDir + 'css', {
