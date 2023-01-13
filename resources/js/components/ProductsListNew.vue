@@ -117,8 +117,9 @@ export default {
 <style lang="scss">
     .my_cart {
         .card-footer {
+            max-height: 60px;
             .cart-buttons {
-                width: calc(90% - 80px);
+                width: 100%
                 button {
                     width: 100%;
                     //width: calc(90% - 80px);

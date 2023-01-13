@@ -23,5 +23,8 @@ export default {
     .countItems {
         display: flex;
         align-items: center;
+        button {
+            width: 24px;
+        }
     }
 </style>
