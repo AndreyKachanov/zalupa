@@ -164,8 +164,8 @@ export default {
                         font-size: 9px;
                         margin-left: 0.2em;
                         margin-right: 0.2em;
-                        padding-right: 0.9rem;
-                        padding-left: 0.9rem;
+                        padding-right: 0.5rem;
+                        padding-left: 0.5rem;
                     }
                 }
             }
