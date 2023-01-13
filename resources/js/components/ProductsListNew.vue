@@ -120,7 +120,11 @@ export default {
         }
         .budgets {
             .badge {
-                padding: 0.7em 0.9em;
+                padding: 0.7em 1.3em;
+                //@include media-breakpoint-up(xs) {
+                //    padding-right: 1rem;
+                //    padding-left: 1rem;
+                //}
                 //padding-top: 1em;
                 //padding-bottom: 1em;
             }
@@ -160,6 +164,8 @@ export default {
                         font-size: 9px;
                         margin-left: 0.2em;
                         margin-right: 0.2em;
+                        padding-right: 0.9rem;
+                        padding-left: 0.9rem;
                     }
                 }
             }

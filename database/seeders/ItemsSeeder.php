@@ -44,9 +44,9 @@ class ItemsSeeder extends Seeder
                     'article_number' => $item->article_number,
                     'price' => (float)$item->price1,
                     'img' => $item->img,
-                    'is_new' => false,
-                    'is_hit' => false,
-                    'is_bestseller' => false,
+                    'is_new' => true,
+                    'is_hit' => true,
+                    'is_bestseller' => true,
                     'category_id' => $item->category_id
                 ]);
             }
