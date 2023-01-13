@@ -11,16 +11,15 @@
                     <p v-if="product.note" class="text-muted" style="color: red">
                         <span style="color: red">Важно:</span> {{ product.note }}
                     </p>
-                    <div class="budgets">
-                        <span class="badge badge-pill badge-primary">Новый</span>
-                        <span class="badge badge-pill badge-warning">Хит</span>
-                        <span class="badge badge-pill badge-success">Бестселлер</span>
+                    <div class="budgets" v-if="product.is_new || product.is_hit || product.is_bestseller">
+                        <span v-if="product.is_new" class="badge badge-pill badge-primary">Новый</span>
+                        <span  v-if="product.is_hit" class="badge badge-pill badge-warning">Хит</span>
+                        <span  v-if="product.is_bestseller" class="badge badge-pill badge-success">Бестселлер</span>
                     </div>
-                    <div>
-                        <span class="float-left">Артикул:</span>
-                        <span class="float-right">{{ product.article_number }}</span>
-                        <div style="clear: both;"></div>
-                    </div>
+                    <p class="d-flex justify-content-between">
+                        <span>Артикул:</span>
+                        <span >{{ product.article_number }}</span>
+                    </p>
                     <h3 class="text-center">{{ product.price }} &#8381</h3>
 <!--                    <router-link :to="`/${product.slug}`">Read more</router-link>-->
                 </div>
@@ -116,6 +115,9 @@ export default {
 
 <style lang="scss">
     .my_cart {
+        .text-muted {
+            margin-bottom: 8px;
+        }
         .budgets {
             .badge {
                 padding: 0.7em 0.9em;
@@ -125,6 +127,7 @@ export default {
             //border: 1px solid red;
             display: flex;
             justify-content: space-around;
+            margin-bottom: 10px;
         }
 
         @include media-breakpoint-down(xs) {
@@ -145,13 +148,19 @@ export default {
                     //word-break: break-all;
                 }
                 .text-muted {
+                    margin-bottom: 8px;
                     font-size: 0.9rem;
                     word-break: break-all;
                 }
                 .budgets {
-                    justify-content: space-between;
+                    //justify-content: space-between;
                     //flex-direction: column;
                     //justify-content: space-around;
+                    span {
+                        font-size: 9px;
+                        margin-left: 0.2em;
+                        margin-right: 0.2em;
+                    }
                 }
             }
 
