@@ -1,25 +1,25 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="col col-sm-9">
+            <div class="col-12 text-right">
+                <h5 class="mt-2 mb-2">
+                    <span>Кол-во: <strong>{{ cartCnt }}</strong>; Сумма: <strong>{{ cartTotal }}</strong> &#8381</span>
+                </h5>
+            </div>
+<!--            <div class="col col-sm-3">-->
+<!--                <div class="alert alert-default d-flex">-->
+<!--                    <router-link-->
+<!--                        v-if="this.cartCnt > 0"-->
+<!--                        :to="{ name: 'cart' }"-->
+<!--                        style="display: flex; margin-right: 15px; text-decoration: none;"-->
+<!--                    >-->
+<!--                        <i style="color:#ff0000" class="fa-solid fa-cart-plus fa-2x" aria-hidden="true"></i>-->
+<!--                    </router-link>-->
+<!--                    <div>-->
 
-            </div>
-            <div class="col col-sm-3">
-                <div class="alert alert-default d-flex">
-                    <router-link
-                        v-if="this.cartCnt > 0"
-                        :to="{ name: 'cart' }"
-                        style="display: flex; margin-right: 15px; text-decoration: none;"
-                    >
-<!--                        <font-awesome-icon icon="fa-brands fa-square-git" />-->
-                        <i style="color:#ff0000" class="fa-solid fa-cart-plus fa-2x" aria-hidden="true"></i>
-                    </router-link>
-                    <div>
-                        <div>Кол-во: {{ cartCnt }}</div>
-                        <div>Сумма: {{ cartTotal }} &#8381</div>
-                    </div>
-                </div>
-            </div>
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
     <div class="container">
