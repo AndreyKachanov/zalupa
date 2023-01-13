@@ -128,6 +128,16 @@ export default {
         }
 
         @include media-breakpoint-down(xs) {
+
+            &:nth-child(odd) {
+                padding-right: 0.25rem !important;
+            }
+
+            &:nth-child(even) {
+                padding-left: 0.25rem !important;
+            }
+
+
             .card-body {
                 padding: 0.6rem;
                 .card-title {
