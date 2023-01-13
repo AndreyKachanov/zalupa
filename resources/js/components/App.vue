@@ -96,7 +96,7 @@ export default {
         span.cnt {
             font-family: TTNormsRegular, sans-serif;
             font-size: 15px;
-            font-weight: 100;
+            font-weight: bold;
             position: absolute;
             border: 1px solid #ccc;
             padding: 1px 5px;
