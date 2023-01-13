@@ -4,7 +4,7 @@
 @import 'variables';
 
 //fix error 404 on nginx - иначе шрифты на VPS не грузятся
-//$fa-font-path: "/build/fonts";
+//$fa-font-path =  "font" или "/build/fonts";
 $fa-font-path: $fontsAwesomePath;
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
@@ -14,9 +14,10 @@ $fa-font-path: $fontsAwesomePath;
 @import "~@fortawesome/fontawesome-free/scss/brands";
 
 #app {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 2;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    min-width: 370px;
 }
 
 .navbar {

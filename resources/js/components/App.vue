@@ -105,6 +105,7 @@ export default {
             color: #ffffff;
             top: -10px;
             text-align: center;
+            min-height: 20px;
             //min-width: 24px;
             //max-width: 24px;
         }
