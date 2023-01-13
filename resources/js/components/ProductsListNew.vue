@@ -16,21 +16,22 @@
                         <span  v-if="product.is_hit" class="badge badge-pill badge-warning">Хит</span>
                         <span  v-if="product.is_bestseller" class="badge badge-pill badge-success">Бестселлер</span>
                     </div>
-                    <p class="d-flex justify-content-between">
+                    <p class="d-flex justify-content-between mb-2">
                         <span>Артикул:</span>
                         <span >{{ product.article_number }}</span>
                     </p>
-                    <h3 class="text-center">{{ product.price }} &#8381</h3>
+                    <h3 class="text-center mb-0">{{ product.price }} &#8381</h3>
 <!--                    <router-link :to="`/${product.slug}`">Read more</router-link>-->
                 </div>
-                <div class="card-footer border-top-0 d-flex align-items-center justify-content-around flex-column flex-sm-row">
+                <div class="card-footer d-flex justify-content-around">
                     <count-items class="mb-2 mb-sm-0" :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>
-                    <div>
+                    <div class="cart-buttons">
                         <button v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">
                             Убрать
                         </button>
                         <button v-else class="btn btn-success" @click="addToCartNew(product.id)">
-                            <i class="fa-solid fa-cart-plus" aria-hidden="true"></i>
+<!--                            <i class="fa-solid fa-cart-plus" aria-hidden="true"></i>-->
+                            В корзину
                         </button>
                     </div>
                 </div>
@@ -115,6 +116,17 @@ export default {
 
 <style lang="scss">
     .my_cart {
+        .card-footer {
+            .cart-buttons {
+                width: calc(90% - 80px);
+                button {
+                    width: 100%;
+                    //width: calc(90% - 80px);
+                }
+
+                //border: 1px solid red;
+            }
+        }
         .text-muted {
             margin-bottom: 8px;
         }

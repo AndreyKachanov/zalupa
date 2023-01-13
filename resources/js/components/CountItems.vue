@@ -19,6 +19,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+    .countItems {
+        display: flex;
+        align-items: center;
+    }
 </style>
