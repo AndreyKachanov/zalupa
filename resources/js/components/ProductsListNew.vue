@@ -30,19 +30,19 @@
                 </div>
                 <div class="card-footer">
                     <div class="container">
-                        <div class="row">
+                        <div class="row justify-content-between">
                             <div class="col-6 pl-0 pr-0">
                                 <div class="input-group">
                                     <count-items :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>
                                 </div>
                             </div>
                             <div class="col-5 cart-buttons pl-0 pr-0">
-                                <button v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">
+                                <button style="width: 100%;" v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">
 <!--                                    <i class="fa-regular fa-cart-minus"></i>-->
 <!--                                    <i class="fa-solid fa-minus"></i>-->
                                     Убрать
                                 </button>
-                                <button v-else class="btn btn-success" @click="addToCartNew(product.id)">
+                                <button style="width: 100%;" v-else class="btn btn-success" @click="addToCartNew(product.id)">
 <!--                                    <i class="fa-solid fa-plus"></i>-->
                                     В корзину
                                 </button>
