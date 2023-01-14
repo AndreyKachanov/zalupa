@@ -1,10 +1,14 @@
 <template>
 <!--    <ul class="list-group">-->
-    <div class="container">
+    <div class="container-fluid top-menu">
         <div class="row">
-            <div class="col-12">{{ parentTitle }}</div>
+            <div class="col-8 offset-2 parent">
+                <p>
+                    {{ parentTitle }}
+                </p>
+            </div>
                 <router-link
-                    class="col-6 btn btn-success"
+                    class="child col-4 offset-2 btn btn-success"
                     v-for="category in categories"
                     :key="category.route"
                     :to="`/category/${category.slug}`"> {{ category.title }}
@@ -22,6 +26,16 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+    .top-menu {
+        .parent {
+            border: 1px solid red;
+            text-align: center;
+        }
+        .child {
+            &:nth-child(odd) {
+                margin-left: 0 !important;
+            }
+        }
+    }
 </style>
