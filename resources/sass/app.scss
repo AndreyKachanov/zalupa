@@ -1,5 +1,6 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap");
 // Variables
 @import 'variables';
 
@@ -27,6 +28,7 @@ $fa-font-path: $fontsAwesomePath;
 }
 
 body {
+  font-family: 'Montserrat', Arial, sans-serif;
   display: flex;
   min-height: 100vh;
   min-width: 270px;
