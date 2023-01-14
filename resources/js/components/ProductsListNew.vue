@@ -24,13 +24,13 @@
                         <span style="color: red">Важно:</span> {{ product.note }}
                     </p>
 
-                    <p class="d-flex justify-content-between mb-2">
+                    <p class="d-flex justify-content-between mb-2 align-items-center">
                         <span>Артикул:</span>
                         <span style="font-size: 9px">{{ product.article_number }}</span>
                     </p>
-                    <h4 class="d-flex justify-content-between mb-2">
-                        <span>Цена:</span>
-                        <span>{{  product.price }} ₽</span>
+                    <h4 class="d-flex justify-content-between mb-2 align-items-center">
+                        <span style="font-size: 17px">Цена:</span>
+                        <span style="font-size: 17px">{{ product.price }} ₽</span>
                     </h4>
 <!--                    <h3 class="text-center mb-0">{{ product.price }} &#8381</h3>-->
 <!--                    <router-link :to="`/${product.slug}`">Read more</router-link>-->
