@@ -176,7 +176,7 @@ export default {
                     .row {
                         .cart-buttons {
                             button {
-                                font-size: .7rem;
+                                font-size: .6rem;
                                 padding: 0.375rem 0.1rem;
                             }
                         }
