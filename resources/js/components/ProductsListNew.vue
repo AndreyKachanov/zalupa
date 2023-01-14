@@ -1,6 +1,12 @@
 <template>
+    <div v-if="getSubTitle" class="container-fluid">
+        <div class="row justify-content-around">
+            <div class="col-12 parent">
+                {{ getSubTitle }}
+            </div>
+        </div>
+    </div>
     <div class="row">
-        <h1 v-if="getSubTitle">{{ getSubTitle }}</h1>
         <div class="col-6 col-md-4 col-lg-3 mb-3 mt-3 pl-sm-1 pr-sm-1 my_cart"
             v-for="product in products"
              :key="product.id"
@@ -107,7 +113,10 @@ export default {
             return this.hasNewItemsForPagination(this.slug);
         },
         getSubTitle() {
-            return this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)].title;
+            let cat = this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)];
+            return cat.parent_id === null ? false : cat.title;
+
+            // return this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)].title;
         }
     },
     methods: {
@@ -145,6 +154,19 @@ export default {
 </script>
 
 <style lang="scss">
+    .parent {
+        text-align: center;
+        display: block;
+        color: white;
+        font-weight: 700;
+        text-decoration: none;
+        user-select: none;
+        padding: 1em 2em;
+        border: 1px solid;
+        border-radius: 1px;
+        word-break: break-all;
+        background-color: #c1034a;
+    }
     .my_cart {
         .card-footer {
             //justify-content: space-around;
