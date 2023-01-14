@@ -26,7 +26,7 @@
 
                     <p class="d-flex justify-content-between mb-2">
                         <span>Артикул:</span>
-                        <span >{{ product.article_number }}</span>
+                        <span style="font-size: 9px">{{ product.article_number }}</span>
                     </p>
                     <h4 class="d-flex justify-content-between mb-2">
                         <span>Цена:</span>
