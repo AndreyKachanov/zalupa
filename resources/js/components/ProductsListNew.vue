@@ -25,7 +25,7 @@
                     </p>
 
                     <p class="d-flex justify-content-between mb-2 align-items-center">
-                        <span>Артикул:</span>
+                        <span style="font-size: 9px">Артикул:</span>
                         <span style="font-size: 9px">{{ product.article_number }}</span>
                     </p>
                     <h4 class="d-flex justify-content-between mb-2 align-items-center">
