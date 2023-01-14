@@ -1,5 +1,5 @@
 <template>
-    <top-menu-childs v-if="hasSubCategories" :categories="subCategories(idCurrentCategory)"></top-menu-childs>
+    <top-menu-childs v-if="hasSubCategories" :categories="subCategories(idCurrentCategory)" :parent="getParentTitle"></top-menu-childs>
     <products-list-new :products="itemsOnlyCategory"></products-list-new>
 </template>
 
@@ -9,6 +9,7 @@ import { mapGetters, mapActions } from 'vuex';
 import ProductsListNew from "../components/ProductsListNew";
 // import TopMenu from "../components/TopMenu";
 import TopMenuChilds from "../components/TopMenuChilds.vue";
+import categories from "../store/categories";
 
 export default {
     name: "ProductsListMainParentCategory",
@@ -94,6 +95,9 @@ export default {
         hasSubCategories() {
             // хотя бы 1 элемент с таким parent_id нашелся
             return this.allCategories.some(cat => cat.parent_id === this.idCurrentCategory);
+        },
+        getParentTitle() {
+            return this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)].title;
         }
     },
     methods: {

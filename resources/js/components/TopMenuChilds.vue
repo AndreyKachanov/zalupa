@@ -2,7 +2,7 @@
 <!--    <ul class="list-group">-->
     <div class="container">
         <div class="row">
-            <a class="col-12 btn btn-success" href="#">Популярные товары</a>
+            <a class="col-12 btn btn-success" href="#">{{ parent }}</a>
 <!--            <pre>{{ categories }}</pre>-->
                 <router-link
                     class="col-6 btn btn-success"
@@ -22,7 +22,7 @@
 <script>
 export default {
     name: "TopMenuChilds",
-    props: ['categories'],
+    props: ['categories', 'parent'],
 }
 </script>
 
