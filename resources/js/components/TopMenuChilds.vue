@@ -2,11 +2,11 @@
 <!--    <ul class="list-group">-->
     <div class="container-fluid top-menu">
         <div class="row">
-            <div class="col-8 offset-2 parent">
+            <div class="col-12 parent">
                     {{ parentTitle }}
             </div>
                 <router-link
-                    class="child col-4 offset-2"
+                    class="child col-6"
                     v-for="category in categories"
                     :key="category.route"
                     :to="`/category/${category.slug}`"> {{ category.title }}
@@ -60,7 +60,7 @@ export default {
                 background: #454545bf;
             }
             &:nth-child(odd) {
-                margin-left: 0 !important;
+                //margin-left: 0 !important;
             }
         }
     }
