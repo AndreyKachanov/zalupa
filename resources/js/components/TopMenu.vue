@@ -11,10 +11,10 @@
 <!--            </li>-->
 <!--        </router-link>-->
 <!--    </ul>-->
-    <div class="container-fluid top-menu">
-        <div class="row">
+    <div class="container top-menu-main">
+        <div class="row justify-content-around">
             <router-link
-                class="child col-6"
+                class="child col-5 my-3 pt-4 pb-4"
                 v-for="category in categories"
                 :key="category.route"
                 :to="`/category/${category.slug}`"> {{ category.title }}
@@ -31,34 +31,18 @@ export default {
 </script>
 
 <style lang="scss">
-.top-menu {
-    .parent {
-        text-align: center;
-        display: block;
-        color: white;
-        font-weight: 700;
-        text-decoration: none;
-        user-select: none;
-        padding: 1em 2em;
-        border: 1px solid;
-        border-radius: 1px;
-        word-break: break-all;
-        background-color: #c1034a;
-        //&:hover {
-        //    background: #c4205c;
-        //}
-    }
+.top-menu-main {
     .child {
         text-align: center;
         display: block;
-        color: white;
-        background-color: #454545;
+        color: #000000;
+        //background-color: #454545;
         font-weight: 700;
         text-decoration: none;
         user-select: none;
         padding: 1em 2em;
         outline: none;
-        border: 1px solid;
+        border: 2px solid #c1034a;
         border-radius: 1px;
         transition: 0.2s;
         word-break: break-all;

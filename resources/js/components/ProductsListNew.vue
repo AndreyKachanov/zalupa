@@ -1,5 +1,6 @@
 <template>
     <div class="row">
+        <h1 v-if="getSubTitle">{{ getSubTitle }}</h1>
         <div class="col-6 col-md-4 col-lg-3 mb-3 mt-3 pl-sm-1 pr-sm-1 my_cart"
             v-for="product in products"
              :key="product.id"
@@ -90,7 +91,10 @@ export default {
         // или 2 вариант записи
 
         // ...mapGetters('products', { products: 'all' }),
-        ...mapGetters('categories', { cacheUrls: 'cacheUrls' }),
+        ...mapGetters('categories', {
+            cacheUrls: 'cacheUrls',
+            allCategories: 'allCategories',
+        }),
         ...mapGetters('cart', { cartAll: 'all', inCart: 'has', productsTemp: 'productsTemp', getCountFromCart: 'getCountFromCart' }),
         ...mapGetters('products', {
             hasNewItemsForPagination: 'hasNewItemsForPagination',
@@ -101,6 +105,9 @@ export default {
         hasNewItemsForButtonPagination() {
             // console.log('>>>1', this.hasNewItemsForPagination(this.slug));
             return this.hasNewItemsForPagination(this.slug);
+        },
+        getSubTitle() {
+            return this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)].title;
         }
     },
     methods: {

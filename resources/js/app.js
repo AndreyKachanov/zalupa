@@ -10,7 +10,7 @@ import router from './router/index';
 let locationPath = window.location.pathname;
 // добавить в массив product/[0-9]
 
-if (['/', '/cart', '/contacts', '/order', '/category/1-populyarnye-tovary'].indexOf(locationPath) > -1) {
+if (['/', '/cart', '/contacts', '/order', '/category/1-populyarnye-tovary', '/category/sub-1-main-1-populyarnye-tovary'].indexOf(locationPath) > -1) {
     const app = createApp({});
 
     app.component('app-component', App)
