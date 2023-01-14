@@ -12,7 +12,7 @@
              :key="product.id"
         >
             <div class="card h-100">
-                <div class="budgets" v-if="product.is_new || product.is_hit || product.is_bestseller">
+                <div class="budgets single-item" v-if="product.is_new || product.is_hit || product.is_bestseller">
                     <span v-if="product.is_new" class="badge badge-pill badge-primary">Новый</span>
                     <span  v-if="product.is_hit" class="badge badge-pill badge-warning">Хит</span>
                     <span  v-if="product.is_bestseller" class="badge badge-pill badge-success">Бестселлер</span>
@@ -221,6 +221,9 @@ export default {
             margin-bottom: 8px;
         }
         .budgets {
+            .single-item {
+                justify-content: flex-start;
+            }
             span.badge {
                 padding: 0.7em 1.3em;
                 @include media-breakpoint-down(xs) {

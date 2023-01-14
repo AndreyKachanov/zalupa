@@ -57,7 +57,7 @@ export default {
             transition: 0.2s;
             word-break: break-all;
             &:hover {
-                background: #454545bf;
+                //background: #454545bf;
             }
             &:nth-child(odd) {
                 //margin-left: 0 !important;
