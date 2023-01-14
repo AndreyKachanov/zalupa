@@ -30,7 +30,7 @@
                     </p>
                     <h4 class="d-flex justify-content-between mb-2 align-items-center">
                         <span style="font-size: 17px">Цена:</span>
-                        <span style="font-size: 17px">{{ product.price }} ₽</span>
+                        <span style="font-size: 17px; font-weight: bold">{{ product.price }} ₽</span>
                     </h4>
 <!--                    <h3 class="text-center mb-0">{{ product.price }} &#8381</h3>-->
 <!--                    <router-link :to="`/${product.slug}`">Read more</router-link>-->
