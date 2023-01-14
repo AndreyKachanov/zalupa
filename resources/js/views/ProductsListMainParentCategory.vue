@@ -1,5 +1,5 @@
 <template>
-    <top-menu v-if="hasSubCategories" :categories="subCategories(idCurrentCategory)"></top-menu>
+    <top-menu-childs v-if="hasSubCategories" :categories="subCategories(idCurrentCategory)"></top-menu-childs>
     <products-list-new :products="itemsOnlyCategory"></products-list-new>
 </template>
 
@@ -7,7 +7,8 @@
 
 import { mapGetters, mapActions } from 'vuex';
 import ProductsListNew from "../components/ProductsListNew";
-import TopMenu from "../components/TopMenu";
+// import TopMenu from "../components/TopMenu";
+import TopMenuChilds from "../components/TopMenuChilds.vue";
 
 export default {
     name: "ProductsListMainParentCategory",
@@ -15,7 +16,8 @@ export default {
     }),
     components: {
         ProductsListNew,
-        TopMenu
+        // TopMenu,
+        TopMenuChilds
     },
     mounted() {
         // console.log('mounted');
