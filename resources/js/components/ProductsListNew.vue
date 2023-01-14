@@ -31,22 +31,22 @@
                 <div class="card-footer">
                     <div class="container">
                         <div class="row">
-                            <div class="col-7 pl-0 pr-0">
+                            <div class="col-6 pl-0 pr-0">
                                 <div class="input-group">
                                     <count-items :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>
                                 </div>
                             </div>
-<!--                            <div class="col-5 cart-buttons pl-0 pr-0">-->
-<!--                                <button v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">-->
-<!--&lt;!&ndash;                                    <i class="fa-regular fa-cart-minus"></i>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <i class="fa-solid fa-minus"></i>&ndash;&gt;-->
-<!--                                    Убрать-->
-<!--                                </button>-->
-<!--                                <button v-else class="btn btn-success" @click="addToCartNew(product.id)">-->
-<!--&lt;!&ndash;                                    <i class="fa-solid fa-plus"></i>&ndash;&gt;-->
-<!--                                    В корзину-->
-<!--                                </button>-->
-<!--                            </div>-->
+                            <div class="col-5 cart-buttons pl-0 pr-0">
+                                <button v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">
+<!--                                    <i class="fa-regular fa-cart-minus"></i>-->
+<!--                                    <i class="fa-solid fa-minus"></i>-->
+                                    Убрать
+                                </button>
+                                <button v-else class="btn btn-success" @click="addToCartNew(product.id)">
+<!--                                    <i class="fa-solid fa-plus"></i>-->
+                                    В корзину
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -151,13 +151,14 @@ export default {
                         .cart-buttons {
                             button {
                                 font-size: .7rem;
+                                padding: 0.375rem 0.1rem;
                             }
                         }
                         margin: 0;
                         span.input-group-prepend, span.input-group-append, input[type='text'] {
                             //border: 1px solid red;
                             button {
-                                padding: 0.3rem 0.5rem
+                                padding: 0.25rem 0.35rem
                             }
                         }
                         input[type='text'] {
