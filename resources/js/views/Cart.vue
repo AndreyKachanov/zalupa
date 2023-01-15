@@ -64,7 +64,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 text-center mt-3">
                     <router-link  v-if="cartCnt" :to="{ name: 'checkout' }" class="btn btn-success">
                         <span>Оформить - {{ cartTotal }} ₽</span>
                     </router-link>
@@ -149,6 +149,9 @@ export default {
         border-bottom: 1px solid #eeeeee;
         padding-top: 15px;
         padding-bottom: 15px;
+        &:last-child {
+            border-bottom: none;
+        }
 
         .cart-items {
             @include media-breakpoint-down(xs) {
