@@ -3,7 +3,7 @@
 <!--        <h1>Корзина</h1>-->
         <hr>
 <!--        <pre>{{ products }}</pre>-->
-        <div v-if="hasProductsInCart" class="container">
+        <div v-if="hasProductsInCart" class="container mb-4">
             <div class="row">
                 <div v-for="product in products" :key="product.id" class="main-row col-12">
 <!--                    <div class="container">-->
