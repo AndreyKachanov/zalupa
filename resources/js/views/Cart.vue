@@ -21,14 +21,14 @@
                                             <div class="col-12 pl-0 pr-0">
                                                 {{ product.cnt }} x {{ product.price }} руб
                                             </div>
-                                            <div class="col-12">
+                                            <div class="col-12 pl-0 pr-0">
                                                 <strong>
                                                     {{ product.price * product.cnt }} руб
                                                 </strong>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-5 cart-items">
+                                    <div class="col-5 cart-items pl-3 pr-0">
                                         <div class="input-group">
                                             <span class="input-group-prepend">
                                                 <button
@@ -159,8 +159,8 @@ export default {
                     }
                 }
                 input[type='text'] {
-                    padding-left: 0;
-                    padding-right: 0;
+                    padding-left: 0px;
+                    padding-right: 0px;
                     //padding: 0.3rem 0.6rem
                 }
             }
