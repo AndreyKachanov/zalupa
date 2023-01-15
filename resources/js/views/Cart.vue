@@ -156,7 +156,7 @@ export default {
             padding-top: 0;
         }
         &:last-child {
-            border-bottom: none;
+            //border-bottom: none;
         }
 
         .cart-items {
