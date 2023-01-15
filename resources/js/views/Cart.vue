@@ -152,6 +152,9 @@ export default {
         border-bottom: 1px solid #eeeeee;
         padding-top: 15px;
         padding-bottom: 15px;
+        &:first-child {
+            padding-top: 0;
+        }
         &:last-child {
             border-bottom: none;
         }

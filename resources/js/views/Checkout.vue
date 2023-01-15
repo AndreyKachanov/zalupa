@@ -12,7 +12,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <form action="" method="post">
-                                <h2>Введите контакты для связи с Вами:</h2>
+                                <h2>Заполните форму:</h2>
                                 <input type="text" v-model="name" placeholder="Введите Ваше имя" required class="input-group mb-2 form-group">
                                 <input type="text" v-model="contact" placeholder="Введите номер телефона" required class="input-group">
                                 <input type="text" v-model="city" placeholder="Введите город" required class="input-group">
@@ -20,9 +20,8 @@
                                 <input type="text" v-model="house_number" placeholder="Введите номер дома" required class="input-group">
                                 <input type="text" v-model="transport_company" placeholder="Введите название транспортной компании" required class="input-group">
                             </form>
-                            <h1 class="text-uppercase">Заказ</h1>
+                            <h1 class="text-uppercase text-center">Ваш заказ:</h1>
                             <div class="billed"><span class="font-weight-bold text-uppercase">№ заказа:</span><span class="ml-1">{{ billNumber }}</span></div>
-                            <div class="billed"><span class="font-weight-bold text-uppercase">Дата:</span><span class="ml-1">{{currentDate()}}</span></div>
                         </div>
                     </div>
 
@@ -31,10 +30,10 @@
                             <table class="table">
                                 <thead>
                                 <tr>
-                                    <th>Product</th>
-                                    <th>Unit</th>
-                                    <th>Price</th>
-                                    <th>Total</th>
+                                    <th>Товар</th>
+                                    <th>Кол-во</th>
+                                    <th>Цена</th>
+                                    <th>Всего</th>
                                 </tr>
                                 </thead>
                                 <tbody>
