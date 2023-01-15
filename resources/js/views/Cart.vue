@@ -111,7 +111,7 @@
 <!--                </tr>-->
 <!--            </tbody>-->
 <!--        </table>-->
-        <p v-else>Корзина пустая</p>
+        <p class="text-center" v-else>Корзина пустая</p>
 
 
 <!--    </div>-->
