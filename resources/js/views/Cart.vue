@@ -64,6 +64,9 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-12">
+                    <p class="text-center mb0" style="font-size: 17px; color: red;">Минимальный заказ 5 000 руб</p>
+                </div>
                 <div class="col-12 text-center mt-3">
                     <router-link  v-if="cartCnt" :to="{ name: 'checkout' }" class="btn btn-success">
                         <span>Оформить - {{ cartTotal }} ₽</span>
