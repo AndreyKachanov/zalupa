@@ -6,13 +6,14 @@
             </div>
         </div>
     </div>
+<!--    <pre>{{ products }}</pre>-->
     <div class="row">
         <div class="col-6 col-md-4 col-lg-3 mb-3 mt-3 pl-sm-1 pr-sm-1 my_cart"
             v-for="product in products"
              :key="product.id"
         >
             <div class="card h-100">
-                <div class="budgets single-item" v-if="product.is_new || product.is_hit || product.is_bestseller">
+                <div class="budgets" :class="singleItemClass(product)" v-if="product.is_new || product.is_hit || product.is_bestseller">
                     <span v-if="product.is_new" class="badge badge-pill badge-primary">Новый</span>
                     <span  v-if="product.is_hit" class="badge badge-pill badge-warning">Хит</span>
                     <span  v-if="product.is_bestseller" class="badge badge-pill badge-success">Бестселлер</span>
@@ -37,7 +38,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="container">
-                        <div class="row justify-content-between">
+                        <div class="row justify-content-between align-items-center">
                             <div class="col-6 pl-0 pr-0">
 <!--                                <div class="input-group">-->
                                     <count-items :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>
@@ -149,6 +150,16 @@ export default {
                 }
             }
         },
+        singleItemClass(pr){
+            // console.log('id=',pr.id);
+            let cntTrue = [pr.is_new, pr.is_hit, pr.is_bestseller].filter(Boolean).length
+            // console.log('cntTrue', cntTrue);
+            // console.log([pr.is_new, pr.is_hit, pr.is_bestseller].filter(Boolean).length);
+            // console.log(pr);
+            return {
+                'single-item': cntTrue === 1,
+            }
+        }
     }
 }
 </script>
@@ -221,9 +232,6 @@ export default {
             margin-bottom: 8px;
         }
         .budgets {
-            .single-item {
-                justify-content: flex-start;
-            }
             span.badge {
                 padding: 0.7em 1.3em;
                 @include media-breakpoint-down(xs) {
@@ -239,6 +247,10 @@ export default {
             width: 100%;
             justify-content: space-around;
             margin: .7rem 0;
+        }
+        .single-item {
+            justify-content: flex-start;
+            padding-left: 14px;
         }
 
         @include media-breakpoint-down(xs) {

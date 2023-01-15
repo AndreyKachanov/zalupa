@@ -244,6 +244,7 @@ class ApiController extends Controller
      */
     public function getItemsFromCategory(Category $category)
     {
+        //dd(1);
         //dd($request->page);
         try {
             return ItemResource::collection(Item::whereCategoryId($category->id)
