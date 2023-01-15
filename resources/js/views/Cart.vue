@@ -66,7 +66,7 @@
             <div class="row">
                 <div class="col-12">
                     <router-link  v-if="cartCnt" :to="{ name: 'checkout' }" class="btn btn-success">
-                        <span>Итого - {{ cartTotal }} ₽</span>
+                        <span>Оформить - {{ cartTotal }} ₽</span>
                     </router-link>
                 </div>
             </div>
