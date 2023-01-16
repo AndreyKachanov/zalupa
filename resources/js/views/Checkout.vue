@@ -1,65 +1,83 @@
 <template>
-    <div v-if="hasProductsInCart || flagOrderSent" class="container test123">
-        <div v-if="flagOrderSent && !hasProductsInCart">
+    <div v-if="hasProductsInCart || flagOrderSent" class="row">
+
+        <div class="col-12 text-center" v-if="flagOrderSent && !hasProductsInCart">
             <h1>Ваш заказ удачно отправлен. Ожидайте звонка менеджера.</h1>
             <router-link
                 :to="{ name: 'products' }"
             >На главную</router-link>
         </div>
-        <div v-else class="d-flex justify-content-center row">
-            <div class="col-md-12">
-                <div class="p-3 bg-white rounded">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <form action="" method="post">
-                                <h2>Заполните форму:</h2>
-                                <input type="text" v-model="name" placeholder="Введите Ваше имя" required class="input-group mb-2 form-group">
-                                <input type="text" v-model="contact" placeholder="Введите номер телефона" required class="input-group">
-                                <input type="text" v-model="city" placeholder="Введите город" required class="input-group">
-                                <input type="text" v-model="street" placeholder="Введите улицу" required class="input-group">
-                                <input type="text" v-model="house_number" placeholder="Введите номер дома" required class="input-group">
-                                <input type="text" v-model="transport_company" placeholder="Введите название транспортной компании" required class="input-group">
-                            </form>
-                            <h1 class="text-uppercase text-center">Ваш заказ:</h1>
-                            <div class="billed"><span class="font-weight-bold text-uppercase">№ заказа:</span><span class="ml-1">{{ billNumber }}</span></div>
-                        </div>
-                    </div>
 
-                    <div class="mt-3">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                <tr>
-                                    <th>Товар</th>
-                                    <th>Кол-во</th>
-                                    <th>Цена</th>
-                                    <th>Всего</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="product in products" :key="product.id">
-                                    <td>{{ product.title }}</td>
-                                    <td>{{ product.cnt }}</td>
-                                    <td>{{ product.price }}</td>
-                                    <td>{{ product.price * product.cnt }}</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td>Total</td>
-                                    <td>{{ cartTotal }}</td>
-                                </tr>
-                                </tbody>
-                            </table>
+        <div v-else class="col-12 pb-5">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2>Заполните форму:</h2>
+                </div>
+                <div class="col-12 pl-0 pr-0">
+                    <div class="card">
+                        <form v-if="!formDone" @submit.prevent="sendForm" class="col-12 pl-0 pr-0">
+                            <div class="progress">
+                                <div class="progress-bar bg-success" :style="progressStyles"></div>
+                            </div>
+                            <!--                                    <div>-->
+                            <app-field
+                                v-for="(field, i) in info"
+                                :value="field.value"
+                                :name="field.name"
+                                :valid="field.valid"
+                                :activated="field.activated"
+                                :test="field.for"
+                                successclasses="fa-bath text-primary"
+                                :key="i"
+                                @input="onInput(i, $event)"
+                            >
+                            </app-field>
+                            <!--                                    </div>-->
+
+                        </form>
+                        <div v-else>
+                            <h2>All done</h2>
                         </div>
-                    </div>
-                    <div class="mt-3">
-                        <div class="text-right mb-3">
-                            <button class="btn btn-danger btn-sm mr-5" type="button">Отменить</button>
-                            <button @click="sendOrder" class="btn btn-success btn-sm mr-5" type="button">Заказать</button>
-                        </div>
+                        {{ showConfirm }}
                     </div>
                 </div>
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Товар</th>
+                                <th>Кол-во</th>
+                                <th>Цена</th>
+                                <th>Всего</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr v-for="product in products" :key="product.id">
+                                <td>{{ product.title }}</td>
+                                <td>{{ product.cnt }}</td>
+                                <td>{{ product.price }}</td>
+                                <td>{{ product.price * product.cnt }}</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>Всего</td>
+                                <td>{{ cartTotal }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row justify-content-around">
+                        <router-link :to="{ name: 'cart' }" class="btn btn-sm mr-5 btn-danger">
+                            Отменить
+                        </router-link>
+                        <button class="btn btn-success btn-sm" :disabled="!formReady">
+                            Заказать
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -69,24 +87,78 @@
 <script>
 import AppE404 from '../components/E404';
 import {mapActions, mapGetters} from "vuex";
+import AppField from "../components/AppField.vue";
 
 export default {
     components: {
+        AppField,
         AppE404
     },
     data: () => ({
-        name: 'Grishka',
-        contact: '+79496593257',
-        city: 'Шахтарськ',
-        street: 'ул. Назаре',
-        house_number: '11а',
-        transport_company: 'Нова Пошта'
+        // name: 'Grishka',
+        // contact: '+79496593257',
+        // city: 'Шахтарськ',
+        // street: 'ул. Назаре',
+        // house_number: '11а',
+        // transport_company: 'Нова Пошта',
+        info: [
+            {
+                name: 'Имя:',
+                value: '',
+                pattern: /^[a-zA-Z ]{2,30}$/,
+                for: 'name'
+            },
+            {
+                name: 'Номер телефона:',
+                value: '',
+                pattern: /^[0-9]{7,14}$/,
+                for: 'phone'
+            },
+            {
+                name: 'Город:',
+                value: '',
+                pattern: /^[a-zA-Z ]{2,30}$/,
+                for: 'city'
+            },
+            {
+                name: 'Улица:',
+                value: '',
+                pattern: /^[a-zA-Z ]{2,30}$/,
+                for: 'street'
+            },
+            {
+                name: 'Номер дома:',
+                value: '',
+                pattern: /^[a-zA-Z ]{2,30}$/,
+                for: 'house_number'
+            },
+            {
+                name: 'Транспортная компания:',
+                value: '',
+                pattern: /^[a-zA-Z ]{2,30}$/,
+                for: 'transport_company'
+            }
+        ],
+        formDone: false,
+        showConfirm: false,
 
     }),
     computed: {
         ...mapGetters('cart', { products: 'productsDetailed', cartTotal: 'total', billNumber: 'billNumber', cartCnt: 'length', flagOrderSent: 'flagOrderSent'}),
         hasProductsInCart() {
             return this.cartCnt > 0;
+        },
+        fieldsDone() {
+            return this.info.reduce((t, f) => t + (f.valid ? 1 : 0), 0);
+        },
+        formReady() {
+            return this.fieldsDone === this.info.length;
+        },
+        progressStyles() {
+            return {
+                // кол-во процентов заполненных полей
+                width: (this.fieldsDone / this.info.length * 100) + '%'
+            }
         }
     },
     methods: {
@@ -106,21 +178,28 @@ export default {
                 house_number: this.house_number,
                 transport_company: this.transport_company
             });
-        }
-
+        },
+        onInput(i, e) {
+            let field = this.info[i];
+            field.value = e.target.value.trim();
+            field.valid = field.pattern.test(field.value);
+            field.activated = true;
+        },
+        sendForm() {
+            if (this.formReady) {
+                this.showConfirm = true;
+            }
+        },
     },
     created() {
-        // console.log(this.$route);
-        // console.log(this.billNumber);
-        // console.log(this.currentDate());
-    },
-
+        return this.info.forEach(field => {
+            field.activated = field.value !== '';
+            field.valid = field.pattern.test(field.value);
+        });
+    }
 }
 </script>
 
 
 <style scoped>
-    .checkout-table {
-        display: flex;
-    }
 </style>
