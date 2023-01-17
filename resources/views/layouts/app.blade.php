@@ -27,7 +27,9 @@
     </head>
     <body>
         <div id="app">
-            <header class="header">
+            <header
+                @class(['hide-class' => $pageWithVue])
+                class="header">
                 <nav class="navbar navbar-expand-md navbar-dark">
                     <div class="container">
                         <a class="navbar-brand" href="{{ url('/') }}">

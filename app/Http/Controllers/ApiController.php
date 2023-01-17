@@ -248,7 +248,7 @@ class ApiController extends Controller
         //dd(1);
         //dd($request->page);
         try {
-            return ItemResource::collection(Item::whereCategoryId($category->id)
+            return ItemResource::collection(Item::whereCategoryId($category->id)->orderByDesc('created_at')
                 ->paginate(config('app.pagination_default_value')));
             //->paginate(config('app.pagination_default_value'), ['*'], 'page', 4));
         } catch (QueryException $e) {

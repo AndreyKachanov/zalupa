@@ -64,6 +64,13 @@ class SettingsSeeder extends Seeder
                 'fa_icon' => 'fa-brands fa-viber'
             ]);
             Setting::create([
+                'title' => 'Telegram',
+                'prop_key' => 'telegram',
+                'prop_value' => '+79495468124',
+                'is_icon' => true,
+                'fa_icon' => 'fa-brands fa-telegram'
+            ]);
+            Setting::create([
                 'title' => 'Tiktok',
                 'prop_key' => 'tiktok',
                 'prop_value' => 'https://www.tiktok.com',
