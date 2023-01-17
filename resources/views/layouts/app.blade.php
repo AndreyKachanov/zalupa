@@ -84,7 +84,7 @@
                 </nav>
             </header>
             <main
-                @class(['app-content', 'py-3' => !$pageWithVue])
+                @class(['app-content', 'py-3', 'mb-5' => !$pageWithVue])
                 {!! !$pageWithVue ?: 'id="app-vue"' !!}
             >
                     @if($pageWithVue)

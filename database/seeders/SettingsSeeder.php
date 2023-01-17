@@ -87,7 +87,7 @@ class SettingsSeeder extends Seeder
             Setting::create([
                 'title' => 'Общая информация',
                 'prop_key' => 'custom_text',
-                'prop_value' => 'Брак не меняем!',
+                'prop_value' => 'Брак Грышка сказал не меняет',
                 'is_icon' => true,
                 'fa_icon' => 'fa-solid fa-circle-info'
             ]);
