@@ -79,6 +79,11 @@ export default {
 
 <style lang="scss">
     .mobile-bottom-nav {
+
+        i.fa {
+            color: red;
+        }
+
         @include media-breakpoint-down(xs) {
             i {
                 font-size: 1.7em;
@@ -156,6 +161,7 @@ export default {
             flex-direction:column;
 
             a {
+                color: red;
                 display: flex;
                 flex-direction: column;
                 &:hover {
