@@ -39,7 +39,7 @@
 {{--                <td>{{ $contact->orders->sum(fn($item) => $item->item->price * $item->cnt) }} ₽</td>--}}
                 <td>{{ $contact->orders->sum(fn($item) => $item->item->price * $item->cnt) }} ₽</td>
                 <td>{{ $contact->name }}</td>
-                <td>{{ $contact->contact }}</td>
+                <td>{{ $contact->phone }}</td>
                 <td>{{ $contact->token->ip }}</td>
             </tr>
         @endforeach

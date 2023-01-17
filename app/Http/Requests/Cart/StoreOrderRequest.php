@@ -35,7 +35,7 @@ class StoreOrderRequest extends FormRequest
                 'string',
                 'max:255'
             ],
-            'contact' => [
+            'phone' => [
                 'required',
                 'string',
                 'max:255'

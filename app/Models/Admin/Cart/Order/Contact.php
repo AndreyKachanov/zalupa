@@ -47,6 +47,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|Contact withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Contact withoutTrashed()
+ * @property string $phone
+ * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhone($value)
  */
 class Contact extends Model
 {

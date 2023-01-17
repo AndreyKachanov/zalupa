@@ -27,7 +27,7 @@
 <body>
 <div style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">У вас новый заказ № {{ $contact->token->invoice->bill_number }}:</div>
 <p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Имя: {{ $contact->name }}</p>
-<p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Телефон: {{ $contact->contact }}</p>
+<p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Телефон: {{ $contact->phone }}</p>
 <p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Город: {{ $contact->city }}</p>
 <p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Улица: {{ $contact->street }}</p>
 <p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Номер дома: {{ $contact->house_number }}</p>

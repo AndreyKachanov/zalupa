@@ -156,6 +156,7 @@ class ApiController extends Controller
      */
     public function storeOrder(StoreOrderRequest $request)
     {
+        //dd($request->all());
         $oldToken = Token::firstWhere('token', $request->token);
         $items = array_map(fn($item) => ['item_id' => $item['id'], 'cnt' => $item['cnt']], $request->items);
 
@@ -163,7 +164,7 @@ class ApiController extends Controller
         try {
             $contact = new Contact();
             $contact->name = $request->name;
-            $contact->contact = $request->contact;
+            $contact->phone = $request->phone;
             $contact->city = $request->city;
             $contact->street = $request->street;
             $contact->house_number = $request->house_number;

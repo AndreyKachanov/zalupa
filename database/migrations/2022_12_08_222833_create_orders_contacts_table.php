@@ -26,7 +26,7 @@ return new class extends Migration
             Schema::create($this->tableName, function (Blueprint $table) {
                 $table->smallIncrements('id');
                 $table->string('name');
-                $table->string('contact');
+                $table->string('phone');
                 $table->string('city');
                 $table->string('street');
                 $table->string('house_number');

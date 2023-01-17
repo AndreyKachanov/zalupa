@@ -4,7 +4,6 @@ namespace App\UseCases;
 
 use App\Mail\SendOrder;
 use App\Models\Admin\Cart\Order\Contact;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer as MailerInterface;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;

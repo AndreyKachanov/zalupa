@@ -19,8 +19,8 @@
                     <td>{{ $order->name }}</td>
                 </tr>
                 <tr>
-                    <td>Контакты</td>
-                    <td>{{ $order->contact }}</td>
+                    <td>Номер телефона</td>
+                    <td>{{ $order->phone }}</td>
                 </tr>
                 <tr>
                     <td>Город</td>

@@ -228,11 +228,13 @@ export default {
             let { bill_number } = await makeRequest(url);
             commit('setBillNumber', bill_number);
         },
-        async sendOrderToStore({ state, getters, commit }, { name, contact, city, street, house_number, transport_company }) {
+        async sendOrderToStore({ state, getters, commit }, { name, phone, city, street, house_number, transport_company }) {
+            // console.log({ name, phone, city, street, house_number, transport_company });
+
             let json = {
                 token: state.token,
                 name: name,
-                contact: contact,
+                phone: phone,
                 city: city,
                 street: street,
                 house_number: house_number,
@@ -240,7 +242,6 @@ export default {
                 items: getters.all
             };
             let url = `/api/cart/store`;
-            // let { new_token, new_bill_number } = await makeRequestPostJson(url, json);
             let { new_token } = await makeRequestPostJson(url, json);
             if (new_token) {
                 console.log('Ваш заказ удачно отправлен!');

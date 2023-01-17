@@ -1,47 +1,37 @@
 <template>
-    <div v-if="hasProductsInCart || flagOrderSent" class="row">
-
-        <div class="col-12 text-center" v-if="flagOrderSent && !hasProductsInCart">
+    <div v-if="hasProductsInCart || flagOrderSent" class="row pb-4">
+        <div v-if="flagOrderSent && !hasProductsInCart">
             <h1>Ваш заказ удачно отправлен. Ожидайте звонка менеджера.</h1>
             <router-link
                 :to="{ name: 'products' }"
             >На главную</router-link>
         </div>
-
-        <div v-else class="col-12 pb-5">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <h2>Заполните форму:</h2>
-                </div>
-                <div class="col-12 pl-0 pr-0">
-                    <div class="card">
-                        <form v-if="!formDone" @submit.prevent="sendForm" class="col-12 pl-0 pr-0">
-                            <div class="progress">
-                                <div class="progress-bar bg-success" :style="progressStyles"></div>
-                            </div>
-                            <!--                                    <div>-->
-                            <app-field
-                                v-for="(field, i) in info"
-                                :value="field.value"
-                                :name="field.name"
-                                :valid="field.valid"
-                                :activated="field.activated"
-                                :test="field.for"
-                                successclasses="fa-bath text-primary"
-                                :key="i"
-                                @input="onInput(i, $event)"
-                            >
-                            </app-field>
-                            <!--                                    </div>-->
-
-                        </form>
-                        <div v-else>
-                            <h2>All done</h2>
-                        </div>
-                        {{ showConfirm }}
+        <div v-else class="row">
+            <div class="col-10 offset-1 text-center mt-3">
+                <h2>Заполните форму:</h2>
+            </div>
+            <div class="col-10 offset-1 pl-0 pr-0">
+                <form @submit.prevent="sendForm">
+                    <div class="progress mb-3">
+                        <div class="progress-bar bg-success" :style="progressStyles"></div>
                     </div>
-                </div>
-                <div class="col-12">
+                    <app-field
+                        v-for="(field, i) in info"
+                        :value="field.value"
+                        :label="field.label"
+                        :valid="field.valid"
+                        :activated="field.activated"
+                        :name="field.name"
+                        :key="i"
+                        @input="onInput(i, $event)"
+                    >
+                    </app-field>
+                    <div>
+                        <h2 class="text-center">Ваш заказ:</h2>
+                        <div class="mb-3 pl-2">
+                            <span class="font-weight-bold">№ заказа: </span><span class="ml-1">{{ billNumber }}</span>
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -76,8 +66,7 @@
                             Заказать
                         </button>
                     </div>
-                </div>
-
+                </form>
             </div>
         </div>
     </div>
@@ -103,44 +92,44 @@ export default {
         // transport_company: 'Нова Пошта',
         info: [
             {
-                name: 'Имя:',
+                label: 'ФИО:',
                 value: '',
                 pattern: /^[a-zA-Z ]{2,30}$/,
-                for: 'name'
+                name: 'name'
             },
             {
-                name: 'Номер телефона:',
+                label: 'Номер телефона:',
                 value: '',
                 pattern: /^[0-9]{7,14}$/,
-                for: 'phone'
+                name: 'phone'
             },
             {
-                name: 'Город:',
+                label: 'Город:',
                 value: '',
                 pattern: /^[a-zA-Z ]{2,30}$/,
-                for: 'city'
+                name: 'city'
             },
             {
-                name: 'Улица:',
+                label: 'Улица:',
                 value: '',
                 pattern: /^[a-zA-Z ]{2,30}$/,
-                for: 'street'
+                name: 'street'
             },
             {
-                name: 'Номер дома:',
+                label: 'Номер дома:',
                 value: '',
                 pattern: /^[a-zA-Z ]{2,30}$/,
-                for: 'house_number'
+                name: 'house_number'
             },
             {
-                name: 'Транспортная компания:',
+                label: 'Транспортная компания:',
                 value: '',
                 pattern: /^[a-zA-Z ]{2,30}$/,
-                for: 'transport_company'
+                name: 'transport_company'
             }
         ],
         formDone: false,
-        showConfirm: false,
+        // showConfirm: false,
 
     }),
     computed: {
@@ -163,21 +152,17 @@ export default {
     },
     methods: {
         ...mapActions('cart', ['sendOrderToStore', 'sendOrderToStore']),
-        currentDate() {
-            const current = new Date();
-            return `${current.getDate()}.${current.getMonth()+1}.${current.getFullYear()}`;
-        },
         sendOrder() {
-            // let name = this.name;
-            // let contact = this.contact;
-            this.sendOrderToStore({
-                name: this.name,
-                contact: this.contact,
-                city: this.city,
-                street: this.street,
-                house_number: this.house_number,
-                transport_company: this.transport_company
-            });
+            // console.log(1);
+
+            // this.sendOrderToStore({
+            //     name: this.name,
+            //     contact: this.contact,
+            //     city: this.city,
+            //     street: this.street,
+            //     house_number: this.house_number,
+            //     transport_company: this.transport_company
+            // });
         },
         onInput(i, e) {
             let field = this.info[i];
@@ -185,9 +170,33 @@ export default {
             field.valid = field.pattern.test(field.value);
             field.activated = true;
         },
-        sendForm() {
+        sendForm(e) {
             if (this.formReady) {
-                this.showConfirm = true;
+                    // console.log(e);
+                    // console.log(e.target.elements);
+                this.sendOrderToStore({
+                    name: e.target.elements.name.value,
+                    phone: e.target.elements.phone.value,
+                    city: e.target.elements.city.value,
+                    street: e.target.elements.street.value,
+                    house_number: e.target.elements.house_number.value,
+                    transport_company: e.target.elements.transport_company.value,
+
+                });
+
+                // this.showConfirm = true;
+                this.formDone = true;
+
+                // this.sendOrderToStore({
+                //     name: this.name,
+                //     contact: this.contact,
+                //     city: this.city,
+                //     street: this.street,
+                //     house_number: this.house_number,
+                //     transport_company: this.transport_company
+                // });
+            } else {
+                console.log('Форма не готова');
             }
         },
     },

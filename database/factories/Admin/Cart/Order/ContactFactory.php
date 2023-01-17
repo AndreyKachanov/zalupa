@@ -23,7 +23,7 @@ class ContactFactory extends Factory
             'created_at' => $dt,
             'updated_at' => $dt,
             'name' => $this->faker->name,
-            'contact' => $this->faker->phoneNumber,
+            'phone' => $this->faker->phoneNumber,
             'city' => $this->faker->city,
             'street' => $this->faker->streetAddress,
             'house_number' => $this->faker->buildingNumber,
