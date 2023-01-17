@@ -1,13 +1,15 @@
 <template>
     <div v-if="hasProductsInCart || flagOrderSent" class="row pb-4">
         <div v-if="flagOrderSent && !hasProductsInCart">
-            <h1>Ваш заказ удачно отправлен. Ожидайте звонка менеджера.</h1>
-            <router-link
-                :to="{ name: 'products' }"
-            >На главную</router-link>
+            <div class="col-10 offset-1 text-center mt-3 mb-2">
+                <h2>Ваш заказ удачно отправлен. Ожидайте звонка менеджера.</h2>
+            </div>
+<!--            <router-link class="text-center mt-5"-->
+<!--                :to="{ name: 'products' }"-->
+<!--            >На главную</router-link>-->
         </div>
         <div v-else class="row">
-            <div class="col-10 offset-1 text-center mt-3">
+            <div class="col-10 offset-1 text-center mt-3 mb-2">
                 <h2>Заполните форму:</h2>
             </div>
             <div class="col-10 offset-1 pl-0 pr-0">
@@ -27,7 +29,7 @@
                     >
                     </app-field>
                     <div>
-                        <h2 class="text-center">Ваш заказ:</h2>
+                        <h2 class="text-center mb-2">Ваш заказ:</h2>
                         <div class="mb-3 pl-2">
                             <span class="font-weight-bold">№ заказа: </span><span class="ml-1">{{ billNumber }}</span>
                         </div>
@@ -59,10 +61,10 @@
                         </table>
                     </div>
                     <div class="row justify-content-around">
-                        <router-link :to="{ name: 'cart' }" class="btn btn-sm mr-5 btn-danger">
+                        <router-link :to="{ name: 'cart' }" class="btn mr-5 btn-danger pl-3 pr-3">
                             Отменить
                         </router-link>
-                        <button class="btn btn-success btn-sm" :disabled="!formReady">
+                        <button class="btn btn-success pl-3 pr-3" :disabled="!formReady">
                             Заказать
                         </button>
                     </div>
@@ -84,47 +86,44 @@ export default {
         AppE404
     },
     data: () => ({
-        // name: 'Grishka',
-        // contact: '+79496593257',
-        // city: 'Шахтарськ',
-        // street: 'ул. Назаре',
-        // house_number: '11а',
-        // transport_company: 'Нова Пошта',
         info: [
             {
                 label: 'ФИО:',
                 value: '',
-                pattern: /^[a-zA-Z ]{2,30}$/,
+                pattern: /^[а-яА-Я \-]{2,50}$/,
                 name: 'name'
             },
             {
                 label: 'Номер телефона:',
                 value: '',
-                pattern: /^[0-9]{7,14}$/,
+                // pattern: /^[0-9]{7,14}$/,
+                pattern: /^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$/,
                 name: 'phone'
             },
             {
                 label: 'Город:',
                 value: '',
-                pattern: /^[a-zA-Z ]{2,30}$/,
+                // pattern: /^[a-zA-Z ]{2,30}$/,
+                // любой буквенный символ или дефис или пробел
+                pattern: /^[а-яА-Я \-]{2,50}$/,
                 name: 'city'
             },
             {
                 label: 'Улица:',
                 value: '',
-                pattern: /^[a-zA-Z ]{2,30}$/,
+                pattern: /^[а-яА-Я \-]{2,50}$/,
                 name: 'street'
             },
             {
                 label: 'Номер дома:',
                 value: '',
-                pattern: /^[a-zA-Z ]{2,30}$/,
+                pattern: /^[0-9а-яА-Я \-]{1,50}$/,
                 name: 'house_number'
             },
             {
                 label: 'Транспортная компания:',
                 value: '',
-                pattern: /^[a-zA-Z ]{2,30}$/,
+                pattern: /^[а-яА-Я \-]{2,50}$/,
                 name: 'transport_company'
             }
         ],
