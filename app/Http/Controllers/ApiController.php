@@ -209,7 +209,7 @@ class ApiController extends Controller
     {
         try {
             //return SettingsResource::collection(Setting::all()->except(Setting::firstWhere('prop_key', 'price_increase')->id));
-            return SettingsResource::collection(Setting::whereIsIcon(true)->get());
+            return SettingsResource::collection(Setting::whereNotNull('prop_value')->whereIsIcon(true)-> get());
         } catch (QueryException $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new HttpResponseException(response($errorMsg, 500));

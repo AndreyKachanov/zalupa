@@ -9,7 +9,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>Общие настройки</h2>
+                    <h2>Общие настройки:</h2>
                 </div>
                 <div class="card-body">
                     <form method="POST" action="{{ route('admin.settings.update') }}">
@@ -28,7 +28,6 @@
                                         class="form-control{{ $errors->has($setting->prop_key) ? ' is-invalid' : '' }}"
                                         name="{{ $setting->prop_key }}"
                                         value="{{ $setting->prop_value }}"
-                                        required
                                     >
                                 </div>
                             </div>

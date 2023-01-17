@@ -78,10 +78,11 @@ class SettingsSeeder extends Seeder
                 'fa_icon' => 'fa-brands fa-youtube'
             ]);
             Setting::create([
-                'title' => 'Текстовое поле',
+                'title' => 'Общая информация',
                 'prop_key' => 'custom_text',
-                'prop_value' => 'Обмен брака',
-                'is_icon' => true
+                'prop_value' => 'Брак не меняем!',
+                'is_icon' => true,
+                'fa_icon' => 'fa-solid fa-circle-info'
             ]);
         } catch (Exception $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
