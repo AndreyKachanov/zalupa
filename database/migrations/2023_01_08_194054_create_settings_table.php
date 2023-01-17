@@ -25,9 +25,8 @@ return new class extends Migration
                 $table->id();
                 $table->string('title');
                 $table->string('prop_key')->unique();
-                $table->string('prop_value');
+                $table->string('prop_value')->nullable();
                 $table->boolean('is_icon')->default(false);
-                $table->string('fa_icon')->nullable();
                 $table->timestamps();
             });
         }

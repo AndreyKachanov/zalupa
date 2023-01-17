@@ -81,7 +81,7 @@ class SettingsSeeder extends Seeder
                 'title' => 'Текстовое поле',
                 'prop_key' => 'custom_text',
                 'prop_value' => 'Обмен брака',
-                'is_icon' => false
+                'is_icon' => true
             ]);
         } catch (Exception $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
