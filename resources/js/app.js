@@ -9,8 +9,18 @@ import router from './router/index';
 // console.log(window.location.pathname)
 let locationPath = window.location.pathname;
 // добавить в массив product/[0-9]
+// console.log(locationPath);
 
-if (['/', '/cart', '/contacts', '/order', '/category/1-populyarnye-tovary', '/category/sub-1-main-1-populyarnye-tovary'].indexOf(locationPath) > -1) {
+
+// ^\/category\/[\w\-]+$ - любой буквенный символ или дефис
+// ^\/category\/[a-z\-0-1]+$
+
+// console.log('res=', /^\/category\/[a-z\-0-1]+$/.test(locationPath)); // false
+let isSubCategoryPath = /^\/category\/[a-z0-9\-]*$/.test(locationPath);
+
+let arrPath = ['/', '/cart', '/contacts', '/order', '/category/1-populyarnye-tovary', '/category/sub-1-main-1-populyarnye-tovary'];
+if ( arrPath.indexOf(locationPath) > -1 || isSubCategoryPath) {
+    // console.log('test');
     const app = createApp({});
 
     app.component('app-component', App)
@@ -20,9 +30,11 @@ if (['/', '/cart', '/contacts', '/order', '/category/1-populyarnye-tovary', '/ca
 
     router.beforeEach((to, from, next) => {
         if (to.name === 'category') {
-            let slug = to.params.slug
+            let slug = to.params.slug;
+            // console.log(slug);
             let cacheUrls = store.getters["categories/cacheUrls"];
             if (!cacheUrls.includes(slug)) {
+                // console.log(1);
                 store.dispatch('products/getProductsFromCategory', slug);
                 store.dispatch('categories/setCacheUrls', slug);
             }

@@ -81,13 +81,23 @@ export default {
             return this.itemsFromCategories(arr);
         },
         itemsOnlyCategory() {
+            // console.log(111);
             // ид категории, в которую зашли
             let idCat = this.idCurrentCategory;
             let arr = [idCat];
             return this.itemsFromCategories(arr);
         },
         idCurrentCategory() {
-            return this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)].id;
+            // try {
+            //     setTimeout(() => console.log('setTimeout test'), 1000);
+            //     console.log('assCategories', this.allCategories);
+                if (this.allCategories.length > 0) {
+                    return this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)].id;
+                }
+
+            // } catch(err) {
+            //     console.log(err);
+            // }
         },
         slug() {
             return this.$route.params.slug;

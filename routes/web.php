@@ -80,5 +80,13 @@ Route::group(
 
 //Маршрут под vue-router - чтобы после перезагрузки работали страницы
 Route::get('/{any}', fn() => view('layouts.app'))
-    ->whereIn('any', ['cart', 'order', 'contacts', 'product/[0-9]', 'category/1-populyarnye-tovary', 'category/sub-1-main-1-populyarnye-tovary'])
+    ->whereIn('any', [
+        'cart',
+        'order',
+        'contacts',
+        //'product/[0-9]',
+        //'category/1-populyarnye-tovary',
+        //'category/sub-1-main-1-populyarnye-tovary',
+        'category/[0-9a-z\-]*'
+    ])
     ->name('any');

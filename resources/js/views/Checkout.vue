@@ -118,7 +118,7 @@ export default {
             {
                 label: 'Улица:',
                 value: '',
-                pattern: /^[а-яА-Я \-]{2,50}$/,
+                pattern: /^[а-яА-Я \-\.]{2,50}$/,
                 name: 'street'
             },
             {

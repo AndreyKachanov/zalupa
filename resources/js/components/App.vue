@@ -1,7 +1,7 @@
 <template>
     <div v-if="this.$route.name === 'cart'" class="container">
         <div class="row">
-            <div class="col-12 text-right">
+            <div class="col-12 text-center">
                 <h5 class="mt-2 mb-2">
                     <span>Кол-во: <strong>{{ cartCnt }}</strong>; Сумма: <strong>{{ cartTotal }}</strong> &#8381</span>
                 </h5>

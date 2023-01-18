@@ -6,79 +6,66 @@
             </div>
         </div>
     </div>
-<!--    <pre>{{ products }}</pre>-->
-    <div class="row">
-        <div class="col-6 col-md-4 col-lg-3 mb-3 mt-3 pl-sm-1 pr-sm-1 my_cart"
-            v-for="product in products"
-             :key="product.id"
-        >
-            <div class="card h-100">
-                <div class="budgets" :class="singleItemClass(product)" v-if="product.is_new || product.is_hit || product.is_bestseller">
-                    <span v-if="product.is_new" class="badge badge-pill badge-primary">Новый</span>
-                    <span  v-if="product.is_hit" class="badge badge-pill badge-warning">Хит</span>
-                    <span  v-if="product.is_bestseller" class="badge badge-pill badge-success">Бестселлер</span>
-                </div>
-                <img class="card-img-top img-fluid" :src="product.img" alt=""/>
-                <div class="card-body">
-                    <h3 class="card-title text-center">{{ product.title }}</h3>
-                    <p v-if="product.note" class="text-muted" style="color: red">
-                        <span style="color: red">Важно:</span> {{ product.note }}
-                    </p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 col-md-4 col-lg-3 mb-3 mt-3 pl-sm-1 pr-sm-1 my_cart"
+                 v-for="product in products"
+                 :key="product.id"
+            >
+                <div class="card h-100">
+                    <div class="budgets" :class="singleItemClass(product)" v-if="product.is_new || product.is_hit || product.is_bestseller">
+                        <span v-if="product.is_new" class="badge badge-pill badge-primary">Новый</span>
+                        <span  v-if="product.is_hit" class="badge badge-pill badge-warning">Хит</span>
+                        <span  v-if="product.is_bestseller" class="badge badge-pill badge-success">Бестселлер</span>
+                    </div>
+                    <img class="card-img-top img-fluid" :src="product.img" alt=""/>
+                    <div class="card-body">
+                        <h3 class="card-title text-center">{{ product.title }}</h3>
+                        <p v-if="product.note" class="text-muted" style="color: red">
+                            <span style="color: red">Важно:</span> {{ product.note }}
+                        </p>
 
-                    <p class="d-flex justify-content-between mb-2 align-items-center">
-                        <span style="font-size: 9px">Артикул:</span>
-                        <span style="font-size: 9px">{{ product.article_number }}</span>
-                    </p>
-                    <h4 class="d-flex justify-content-between mb-2 align-items-center">
-                        <span style="font-size: 17px">Цена:</span>
-                        <span style="font-size: 17px; font-weight: bold">{{ product.price }} ₽</span>
-                    </h4>
-<!--                    <h3 class="text-center mb-0">{{ product.price }} &#8381</h3>-->
-<!--                    <router-link :to="`/${product.slug}`">Read more</router-link>-->
-                </div>
-                <div class="card-footer">
-                    <div class="container">
-                        <div class="row justify-content-between align-items-center">
-                            <div class="col-6 pl-0 pr-0">
-<!--                                <div class="input-group">-->
+                        <p class="d-flex justify-content-between mb-2 align-items-center">
+                            <span style="font-size: 9px">Артикул:</span>
+                            <span style="font-size: 9px">{{ product.article_number }}</span>
+                        </p>
+                        <h4 class="d-flex justify-content-between mb-2 align-items-center">
+                            <span style="font-size: 17px">Цена:</span>
+                            <span style="font-size: 17px; font-weight: bold">{{ product.price }} ₽</span>
+                        </h4>
+                    </div>
+                    <div class="card-footer">
+                        <div class="container">
+                            <div class="row justify-content-between align-items-center">
+                                <div class="col-6 pl-0 pr-0">
                                     <count-items :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>
-<!--                                </div>-->
-                            </div>
-                            <div class="col-5 cart-buttons pl-0 pr-0">
-                                <button style="width: 100%;" v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">
-                                    Убрать
-                                </button>
-                                <button style="width: 100%;" v-else class="btn btn-success" @click="addToCartNew(product.id)">
-                                    В корзину
-                                </button>
+                                </div>
+                                <div class="col-5 cart-buttons pl-0 pr-0">
+                                    <button style="width: 100%;" v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">
+                                        Убрать
+                                    </button>
+                                    <button style="width: 100%;" v-else class="btn btn-success" @click="addToCartNew(product.id)">
+                                        В корзину
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-
-<!--                    <count-items :count-from-cart="getCountFromCart(product.id)" @set-cnt="setNewCnt(product.id, $event)"></count-items>-->
-<!--                    <div class="cart-buttons">-->
-<!--                        <button v-if="inCart(product.id)" class="btn btn-danger" @click="removeFromCart(product.id)">-->
-<!--                            Убрать-->
-<!--                        </button>-->
-<!--                        <button v-else class="btn btn-success" @click="addToCartNew(product.id)">-->
-<!--                            В корзину-->
-<!--                        </button>-->
-<!--                    </div>-->
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col text-center">
-            <button
-                class="btn btn-success mt-2 mb-3"
-                v-if="hasNewItemsForButtonPagination"
-                @click="getProductsFromCategory(this.slug)"
-            >Показать еще
-            </button>
+        <div class="row">
+            <div class="col-12 text-center">
+                <button
+                    class="btn btn-success mt-2 mb-3"
+                    v-if="hasNewItemsForButtonPagination"
+                    @click="getProductsFromCategory(this.slug)"
+                >Показать еще
+                </button>
+            </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -114,8 +101,15 @@ export default {
             return this.hasNewItemsForPagination(this.slug);
         },
         getSubTitle() {
-            let cat = this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)];
-            return cat.parent_id === null ? false : cat.title;
+            try {
+                if (this.allCategories.length > 0) {
+                    let cat = this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)];
+                    return cat.parent_id === null ? false : cat.title;
+                }
+            } catch (err) {
+                console.log(err);
+            }
+
 
             // return this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)].title;
         }

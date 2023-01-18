@@ -116,6 +116,7 @@ export default {
         //     commit('setItemsTest', items.data);
         // },
         async getProductsFromCategory({ commit, state }, slug) {
+            // console.log(2);
             let page = state.showMoreArr[slug] === undefined ? 1 : state.showMoreArr[slug] + 1
             let url = `/api/items/category/${slug}?page=${page}`;
             let items  = await makeRequest(url);
