@@ -6,7 +6,7 @@
             </div>
         </div>
     </div>
-    <div class="container-fluid">
+<!--    <div class="container-fluid">-->
         <div class="row">
             <div class="col-6 col-md-4 col-lg-3 mb-3 mt-3 pl-sm-1 pr-sm-1 my_cart"
                  v-for="product in products"
@@ -64,7 +64,7 @@
                 </button>
             </div>
         </div>
-    </div>
+<!--    </div>-->
 
 </template>
 
