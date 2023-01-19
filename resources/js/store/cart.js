@@ -73,7 +73,7 @@ export default {
             state.products = state.products.filter(pr => pr.id !== id);
         },
         setCnt(state, { id, cnt }) {
-            console.log(id, cnt);
+            // console.log(id, cnt);
             let i = state.products.findIndex(pr => pr.id === id);
             state.products[i].cnt = Math.max(1, cnt);
         },
@@ -161,19 +161,19 @@ export default {
             // console.log(payload);
             // console.log(store.getters.all);
             if (getters.has(id)) {
-                console.log(state.token);
-                console.log(id);
-                console.log(cnt);
+                // console.log(state.token);
+                // console.log(id);
+                // console.log(cnt);
                 let url = `/api/cart/set-cnt/${state.token}/${id}/${cnt}`;
                 let res = await makeRequestPost(url);
                 if (res) {
-                    console.log('Кол-во товара удачно обновлено на сервере');
+                    // console.log('Кол-во товара удачно обновлено на сервере');
                     commit('setCnt', { id, cnt });
                 } else {
-                    console.log('Ошибка обновления количества товара в корзине');
+                    // console.log('Ошибка обновления количества товара в корзине');
                 }
             } else {
-                console.log('Товара нет в корзине');
+                // console.log('Товара нет в корзине');
             }
         },
         setTempCnt(store, payload) {
@@ -181,7 +181,7 @@ export default {
 
             // console.log(store.getters.all);
             if (store.getters.hasTemp(payload.id)) {
-                console.log('индекс есть');
+                // console.log('индекс есть');
                 store.commit('setTempCnt', payload);
             } else {
                 store.commit('setTempCntPushArr', payload);
@@ -193,7 +193,7 @@ export default {
 
             // console.log(store.getters.all);
             if (store.getters.hasTemp(payload.id)) {
-                console.log('индекс есть');
+                // console.log('индекс есть');
                 store.commit('setTempCnt', payload);
             } else {
                 store.commit('setTempCntPushArr', payload);

@@ -133,6 +133,8 @@ export default {
                 // console.log('id =' + id, 'cnt=' + cnt);
                 if (cnt > 0) {
                     this.setCnt({id, cnt})
+                } else {
+                    // console.log('cnt < 0, ничего не делаем');
                 }
             }
             else {

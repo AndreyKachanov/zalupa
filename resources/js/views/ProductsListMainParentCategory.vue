@@ -1,4 +1,7 @@
 <template>
+<!--    <pre>-->
+<!--        {{ itemsOnlyCategory }}-->
+<!--    </pre>-->
     <top-menu-childs v-if="hasSubCategories" :categories="subCategories(idCurrentCategory)" :parentTitle="getParentTitle"></top-menu-childs>
     <products-list-new :products="itemsOnlyCategory"></products-list-new>
 </template>
