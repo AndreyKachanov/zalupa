@@ -56,7 +56,9 @@ export default {
         // возвращает все items, где category = ids
         itemsFromCategories(state) {
             return function (ids) {
-                // console.log('ids2', ids);
+                // console.log('ids=', ids);
+                // console.log('items', state.items);
+                // console.log('items filter', state.items.filter(item => ids.includes(item.category)));
                 return state.items.filter(item => ids.includes(item.category));
             }
         },

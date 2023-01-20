@@ -58,6 +58,7 @@ class Category extends Model
     protected $table = 'items_categories';
 
     protected $guarded = ['id'];
+    protected $casts = ['parent_id' => 'integer'];
 
     /**
      * @return \string[][]

@@ -17,7 +17,7 @@ class CategoriesResource extends JsonResource
             'id' => $this->id,
             'slug' => $this->slug,
             'title' => $this->title,
-            'parent_id' => $this->parent_id
+            'parent_id' => isset($this->parent_id) ? (int)$this->parent_id : null
         ];
     }
 }

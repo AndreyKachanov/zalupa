@@ -41,16 +41,17 @@ class ItemsCategorySeeder extends Seeder
                     'parent_id' => null
                 ]);
             }
-            $parentCategories = Category::all();
 
-            foreach ($parentCategories as $category) {
-                for ($i = 1; $i <= 2; $i++) {
-                    Category::create([
-                        'title' =>  'Sub ' . $i . ', main - ' . $category->title,
-                        'parent_id' => $category->id
-                    ]);
-                }
-            }
+            //$parentCategories = Category::all();
+            //foreach ($parentCategories as $category) {
+            //    for ($i = 1; $i <= 2; $i++) {
+            //        Category::create([
+            //            'title' =>  'Sub ' . $i . ', main - ' . $category->title,
+            //            'parent_id' => $category->id
+            //        ]);
+            //    }
+            //}
+
         } catch (Exception $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new Exception($errorMsg);

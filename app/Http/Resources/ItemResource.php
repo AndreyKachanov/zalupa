@@ -27,7 +27,7 @@ class ItemResource extends JsonResource
             'is_new' => $this->is_new,
             'is_hit' => $this->is_hit,
             'is_bestseller' => $this->is_bestseller,
-            'category' => $this->category_id
+            'category' => (int)$this->category_id
         ];
     }
 }

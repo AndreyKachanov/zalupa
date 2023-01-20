@@ -1,8 +1,10 @@
 <template>
 <!--    <pre>-->
-<!--        {{ itemsOnlyCategory }}-->
+<!--        {{ all }}-->
+<!--        {{ subCategories(idCurrentCategory) }}-->
 <!--    </pre>-->
-    <top-menu-childs v-if="hasSubCategories" :categories="subCategories(idCurrentCategory)" :parentTitle="getParentTitle"></top-menu-childs>
+    <top-menu-childs :categories="subCategories(idCurrentCategory)" :parentTitle="getParentTitle"></top-menu-childs>
+<!--    <top-menu-childs :categories="subCategories(idCurrentCategory)"></top-menu-childs>-->
     <products-list-new :products="itemsOnlyCategory"></products-list-new>
 </template>
 
@@ -62,7 +64,10 @@ export default {
     computed: {
         // ...mapGetters({ products: 'products/all' })
         // или 2 вариант записи
-        ...mapGetters('products', { itemsFromCategories: 'itemsFromCategories' }),
+        ...mapGetters('products', {
+            itemsFromCategories: 'itemsFromCategories',
+            all: 'all'
+        }),
         ...mapGetters('categories', {
             allCategories: 'allCategories',
             subCategories: 'subCategories',
@@ -87,7 +92,9 @@ export default {
             // console.log(111);
             // ид категории, в которую зашли
             let idCat = this.idCurrentCategory;
+            // console.log('idCat = ', idCat);
             let arr = [idCat];
+            // console.log(this.itemsFromCategories(arr));
             return this.itemsFromCategories(arr);
         },
         idCurrentCategory() {
@@ -110,7 +117,9 @@ export default {
             return this.allCategories.some(cat => cat.parent_id === this.idCurrentCategory);
         },
         getParentTitle() {
-            return this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)].title;
+            if (this.allCategories.length > 0) {
+                return this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)].title;
+            }
         }
     },
     methods: {

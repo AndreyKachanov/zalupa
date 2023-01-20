@@ -78,10 +78,10 @@ export default {
             state.products[i].cnt = Math.max(1, cnt);
         },
         setTempCnt(state, { id, cnt }) {
-            console.log('test');
-            console.log(id, cnt);
+            // console.log('test');
+            // console.log(id, cnt);
             let i = state.productsTemp.findIndex(pr => pr.id === id);
-            console.log('i = ' + i);
+            // console.log('i = ' + i);
             state.productsTemp[i].cnt = Math.max(1, cnt);
         },
         setTempCntPushArr(state, { id, cnt }) {

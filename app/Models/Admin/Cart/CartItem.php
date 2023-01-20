@@ -43,6 +43,7 @@ class CartItem extends Model
 
     protected $table = 'carts_items';
     protected $guarded = ['id'];
+    protected $casts = ['cnt' => 'integer'];
 
     public function rToken()
     {

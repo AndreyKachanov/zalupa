@@ -33,40 +33,43 @@
 <p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Номер дома: {{ $contact->house_number }}</p>
 <p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Транспортная компания: {{ $contact->transport_company }}</p>
 
-<table>
-    <tr>
-        <th style="text-align: left;">Продукт</th>
-        <th>Артикул</th>
-        <th>Цена</th>
-        <th>Кол-во</th>
-        <th>Сумма</th>
-    </tr>
-    <tbody>
-    @foreach ($contact->orders as $ord)
+<div class="table-responsive">
+    <table class="table">
         <tr>
-            <td>
-                <img
-                    src="{{ Storage::disk('uploads')->url($ord->item->img) }}"
-                    class="img-fluid img-thumbnail"
-                    style="max-width: 15%; margin-right: 15px;"
-                    alt="{{ $ord->item->title }}"
-                >
-                {{ $ord->item->title }}
-            </td>
-            <td>{{ $ord->item->article_number }}</td>
-            <td>{{ $ord->item->price }} ₽</td>
-            <td>{{ $ord->cnt }}</td>
-
-            <td>{{ $ord->item->price * $ord->cnt }} ₽</td>
+            <th style="text-align: left;">Продукт</th>
+            <th>Артикул</th>
+            <th>Цена</th>
+            <th>Кол-во</th>
+            <th>Сумма</th>
         </tr>
-    @endforeach
-    <tr>
-        <td>Всего:</td>
-        <td style="text-align:right;" colspan="5">
-            {{ $contact->orders->sum(fn($item) => $item->item->price * $item->cnt) }} ₽
-        </td>
-    </tr>
-    </tbody>
-</table>
+        <tbody>
+        @foreach ($contact->orders as $ord)
+            <tr>
+                <td>
+                    <img
+                        src="{{ Storage::disk('uploads')->url($ord->item->img) }}"
+                        class="img-fluid img-thumbnail"
+                        style="max-width: 15%; margin-right: 15px;"
+                        alt="{{ $ord->item->title }}"
+                    >
+                    {{ $ord->item->title }}
+                </td>
+                <td>{{ $ord->item->article_number }}</td>
+                <td>{{ $ord->item->price }} ₽</td>
+                <td>{{ $ord->cnt }}</td>
+
+                <td>{{ $ord->item->price * $ord->cnt }} ₽</td>
+            </tr>
+        @endforeach
+        <tr>
+            <td>Всего:</td>
+            <td style="text-align:right;" colspan="5">
+                {{ $contact->orders->sum(fn($item) => $item->item->price * $item->cnt) }} ₽
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
 </body>
 </html>

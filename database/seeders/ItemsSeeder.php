@@ -44,9 +44,9 @@ class ItemsSeeder extends Seeder
                     'article_number' => $item->article_number,
                     'price' => (float)$item->price1,
                     'img' => $item->img,
-                    'is_new' => true,
-                    'is_hit' => true,
-                    'is_bestseller' => true,
+                    'is_new' => false,
+                    'is_hit' => false,
+                    'is_bestseller' => false,
                     'category_id' => $item->category_id
                 ]);
             }
@@ -55,47 +55,47 @@ class ItemsSeeder extends Seeder
             throw new Exception($errorMsg);
         }
 
-        //Создание айтемов с помощью фабрик
-        try {
-            //по 4 итема привязать к родительской категории
-            //$countParent = 4;
-            //$parentCategories = Category::whereParentId(null)->get();
-            //$parentItemIds = [];
-            //foreach ($parentCategories as $parent) {
-            //    for ($i = 1; $i <=  $countParent; $i++) {
-            //        $parentItemIds[] = $parent->id;
-            //    }
-            //}
-            //
-            //Item::factory()
-            //    ->count(count($parentItemIds))
-            //    ->state(new Sequence(fn($sequence) => ['category_id' => $parentItemIds[$sequence->index]]))
-            //    ->create();
-
-            //по 2 итемов привязать к дочерним категориям
-            $countSub = 1;
-            $subCategories = Category::whereNotNull('parent_id')->get();
-            $categoryItemIds = [];
-            foreach ($subCategories as $category) {
-                for ($i = 1; $i <= $countSub; $i++) {
-                    $categoryItemIds[] = $category->id;
-                }
-            }
-            Item::factory()
-                ->count(count($categoryItemIds))
-                ->state(new Sequence(fn($sequence) => ['category_id' => $categoryItemIds[$sequence->index]]))
-                ->create();
-
-            //Update article_number
-            $items = Item::whereIn('category_id', Category::whereNotNull('parent_id')->pluck('id')->toArray())->get();
-            foreach ($items as $item) {
-                $new = $item->id . '.' . $item->article_number;
-                $item->update(['article_number' => $new]);
-            }
-
-        } catch (Exception $e) {
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            throw new Exception($errorMsg);
-        }
+        ////Создание айтемов с помощью фабрик
+        //try {
+        //    //по 4 итема привязать к родительской категории
+        //    //$countParent = 4;
+        //    //$parentCategories = Category::whereParentId(null)->get();
+        //    //$parentItemIds = [];
+        //    //foreach ($parentCategories as $parent) {
+        //    //    for ($i = 1; $i <=  $countParent; $i++) {
+        //    //        $parentItemIds[] = $parent->id;
+        //    //    }
+        //    //}
+        //    //
+        //    //Item::factory()
+        //    //    ->count(count($parentItemIds))
+        //    //    ->state(new Sequence(fn($sequence) => ['category_id' => $parentItemIds[$sequence->index]]))
+        //    //    ->create();
+        //
+        //    //по 2 итемов привязать к дочерним категориям
+        //    $countSub = 1;
+        //    $subCategories = Category::whereNotNull('parent_id')->get();
+        //    $categoryItemIds = [];
+        //    foreach ($subCategories as $category) {
+        //        for ($i = 1; $i <= $countSub; $i++) {
+        //            $categoryItemIds[] = $category->id;
+        //        }
+        //    }
+        //    Item::factory()
+        //        ->count(count($categoryItemIds))
+        //        ->state(new Sequence(fn($sequence) => ['category_id' => $categoryItemIds[$sequence->index]]))
+        //        ->create();
+        //
+        //    //Update article_number
+        //    $items = Item::whereIn('category_id', Category::whereNotNull('parent_id')->pluck('id')->toArray())->get();
+        //    foreach ($items as $item) {
+        //        $new = $item->id . '.' . $item->article_number;
+        //        $item->update(['article_number' => $new]);
+        //    }
+        //
+        //} catch (Exception $e) {
+        //    $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
+        //    throw new Exception($errorMsg);
+        //}
     }
 }

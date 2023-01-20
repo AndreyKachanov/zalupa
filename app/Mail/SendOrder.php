@@ -22,7 +22,7 @@ class SendOrder extends Mailable
 
     public function build()
     {
-        return $this->view('emails.send_orders', ['contact' => $this->contact])
+        return $this->view('emails.send_orders2', ['contact' => $this->contact])
             ->from(config('mail.from.address'))
             ->subject("Заказ с сайта " . config('app.site_short'));
     }

@@ -6,7 +6,7 @@
     'pagination_default_value' => 16,
     'env' => 'local',
     'debug' => false,
-    'url' => 'https://catalog.loc',
+    'url' => 'https://localhost:3000',
     'site_short' => 'catalog.loc',
     'price_increase' => '1',
     'asset_url' => NULL,
@@ -487,7 +487,7 @@
       array (
         'driver' => 'local',
         'root' => '/var/www/catalog.loc/storage/app/public',
-        'url' => 'https://catalog.loc/storage',
+        'url' => 'https://localhost:3000/storage',
         'visibility' => 'public',
         'throw' => false,
       ),
@@ -495,7 +495,7 @@
       array (
         'driver' => 'local',
         'root' => '/var/www/catalog.loc/public/uploads',
-        'url' => 'https://catalog.loc/uploads',
+        'url' => 'https://localhost:3000/uploads',
         'visibility' => 'public',
       ),
       's3' => 
