@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
         }
 
         User::create([
-            'email'             => 'andreii.kachanov@gmail.com',
+            'email'             => 'test@test.loc',
             'name'              => 'Сергей Бурунов',
             'phone'             => '+79493955454',
             'phone_auth'        => false,

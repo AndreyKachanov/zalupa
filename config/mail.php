@@ -93,11 +93,13 @@ return [
     |
     */
 
+
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
-
+    //кому отправляем письмо
+    'to' => env('MAIL_TO', 'manager1@example.com'),
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings

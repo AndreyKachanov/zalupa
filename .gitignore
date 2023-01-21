@@ -13,8 +13,10 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+bootstrap/cache/config.php
 
 #custom
 /public/build
 /public/uploads
 database.sql
+1.zip
