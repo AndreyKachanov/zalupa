@@ -124,13 +124,20 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->update($request->only(['title']));
+        //dd($category);
+        $category->slug = null;
+        $category->title = $request->title;
+        $category->save();
+        //$category->update($request->only(['title']));
         return redirect()->route('admin.categories.index');
     }
 
     public function updateSubCategory(UpdateCategoryRequest $request, Category $category)
     {
-        $category->update($request->only(['title', 'parent_id']));
+        $category->slug = null;
+        $category->title = $request->title;
+        $category->save();
+        //$category->update($request->only(['title', 'parent_id']));
         return redirect()->route('admin.subcategories.index');
     }
 
