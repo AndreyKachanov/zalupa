@@ -84,6 +84,7 @@ Route::get('/{any}', fn() => view('layouts.app'))
         'cart',
         'order',
         'contacts',
+        'search',
         //'product/[0-9]',
         //'category/1-populyarnye-tovary',
         //'category/sub-1-main-1-populyarnye-tovary',

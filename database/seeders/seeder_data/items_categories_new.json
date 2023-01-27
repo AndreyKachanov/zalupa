@@ -1,0 +1,290 @@
+[
+  {
+    "id": 1,
+    "title": "1. Топ продаж и новинки",
+    "parent_id": null,
+    "slug": "1-populyarnye-tovary",
+    "deleted_at": null,
+    "created_at": "2023-01-21 01:55:11",
+    "updated_at": "2023-01-21 13:31:00"
+  },
+  {
+    "id": 4,
+    "title": "2. Мягкие игрушки",
+    "parent_id": null,
+    "slug": "2-myagkie-igrushki",
+    "deleted_at": null,
+    "created_at": "2023-01-21 01:55:11",
+    "updated_at": "2023-01-21 00:35:17"
+  },
+  {
+    "id": 5,
+    "title": "3. Светящиеся игрушки",
+    "parent_id": null,
+    "slug": "3-svetyashchiesya-igrushki",
+    "deleted_at": null,
+    "created_at": "2023-01-21 01:55:11",
+    "updated_at": "2023-01-21 00:35:26"
+  },
+  {
+    "id": 25,
+    "title": "4. Шары           БоБо",
+    "parent_id": null,
+    "slug": "9-shary-bobo",
+    "deleted_at": null,
+    "created_at": "2023-01-21 01:55:11",
+    "updated_at": "2023-01-21 00:35:49"
+  },
+  {
+    "id": 26,
+    "title": "5. Антистресс Слайм Сквиш",
+    "parent_id": null,
+    "slug": "10-antistress-slaym-skvish",
+    "deleted_at": null,
+    "created_at": "2023-01-21 01:55:11",
+    "updated_at": "2023-01-21 00:36:13"
+  },
+  {
+    "id": 32,
+    "title": "6. Настольные игры",
+    "parent_id": null,
+    "slug": "15-nastolnye-igry",
+    "deleted_at": null,
+    "created_at": "2023-01-21 01:55:11",
+    "updated_at": "2023-01-21 00:36:23"
+  },
+  {
+    "id": 33,
+    "title": "4. Новогодние товары",
+    "parent_id": null,
+    "slug": "4-novogodnie-tovary",
+    "deleted_at": "2023-01-21 01:04:38",
+    "created_at": "2023-01-21 01:55:11",
+    "updated_at": "2023-01-21 01:04:38"
+  },
+  {
+    "id": 34,
+    "title": "5.Разное",
+    "parent_id": null,
+    "slug": "5-raznoe",
+    "deleted_at": "2023-01-21 00:37:08",
+    "created_at": "2023-01-21 01:55:11",
+    "updated_at": "2023-01-21 00:37:08"
+  },
+  {
+    "id": 35,
+    "title": "3.1 Мечи светящиеся",
+    "parent_id": 5,
+    "slug": "3-1-mechi-svetyashchiesya",
+    "deleted_at": null,
+    "created_at": "2023-01-20 23:22:53",
+    "updated_at": "2023-01-20 23:22:53"
+  },
+  {
+    "id": 36,
+    "title": "3.2 Шапки с ушами",
+    "parent_id": 5,
+    "slug": "3-2-shapki-s-ushami",
+    "deleted_at": null,
+    "created_at": "2023-01-21 00:11:47",
+    "updated_at": "2023-01-21 00:11:47"
+  },
+  {
+    "id": 37,
+    "title": "3.3 Ободки светящиеся",
+    "parent_id": 5,
+    "slug": "3-3-obodki-svetyashchiesya",
+    "deleted_at": null,
+    "created_at": "2023-01-21 00:12:14",
+    "updated_at": "2023-01-21 00:14:53"
+  },
+  {
+    "id": 38,
+    "title": "3.4 Вертушки светящиеся",
+    "parent_id": 5,
+    "slug": "3-4-vertushki-svetyashchiesya",
+    "deleted_at": null,
+    "created_at": "2023-01-21 00:12:53",
+    "updated_at": "2023-01-21 00:12:53"
+  },
+  {
+    "id": 39,
+    "title": "3.5 Маски",
+    "parent_id": 5,
+    "slug": "3-5-maski",
+    "deleted_at": null,
+    "created_at": "2023-01-21 00:13:47",
+    "updated_at": "2023-01-21 00:13:47"
+  },
+  {
+    "id": 40,
+    "title": "3.6 Вертолетики-рогатки",
+    "parent_id": 5,
+    "slug": "3-6-vertoletiki-rogatki-svetyashchiesya",
+    "deleted_at": null,
+    "created_at": "2023-01-21 00:14:15",
+    "updated_at": "2023-01-21 00:33:50"
+  },
+  {
+    "id": 41,
+    "title": "3.7 Автоматы и пистолеты",
+    "parent_id": 5,
+    "slug": "3-7-avtomaty-i-pistolety",
+    "deleted_at": null,
+    "created_at": "2023-01-21 00:14:44",
+    "updated_at": "2023-01-21 00:14:44"
+  },
+  {
+    "id": 42,
+    "title": "3.8 Микрофоны светящиеся",
+    "parent_id": 5,
+    "slug": "3-7-mikrofony-svetyashchiesya",
+    "deleted_at": null,
+    "created_at": "2023-01-21 00:15:37",
+    "updated_at": "2023-01-21 00:15:44"
+  },
+  {
+    "id": 43,
+    "title": "3.9 Ветерки",
+    "parent_id": 5,
+    "slug": "3-9-veterki",
+    "deleted_at": null,
+    "created_at": "2023-01-21 00:16:39",
+    "updated_at": "2023-01-21 00:16:39"
+  },
+  {
+    "id": 44,
+    "title": "3.10 Палочки светящиеся",
+    "parent_id": 5,
+    "slug": "3-10-palochki-svetyashchiesya",
+    "deleted_at": null,
+    "created_at": "2023-01-21 00:17:22",
+    "updated_at": "2023-01-21 00:17:22"
+  },
+  {
+    "id": 45,
+    "title": "3.11 Неоновые товары",
+    "parent_id": 5,
+    "slug": "3-11-neonovye-tovary",
+    "deleted_at": null,
+    "created_at": "2023-01-21 00:17:45",
+    "updated_at": "2023-01-21 00:17:45"
+  },
+  {
+    "id": 46,
+    "title": "3.12 Шокеры и лазеры",
+    "parent_id": 5,
+    "slug": "3-12-shokery-i-lazery",
+    "deleted_at": null,
+    "created_at": "2023-01-21 00:18:21",
+    "updated_at": "2023-01-21 00:18:21"
+  },
+  {
+    "id": 47,
+    "title": "3.13 Шляпы разные",
+    "parent_id": 5,
+    "slug": "3-13-shlyapy-raznye",
+    "deleted_at": null,
+    "created_at": "2023-01-21 13:54:20",
+    "updated_at": "2023-01-21 13:54:20"
+  },
+  {
+    "id": 48,
+    "title": "3.14 Интерактивные игрушки",
+    "parent_id": 5,
+    "slug": "3-14-interaktivnye-igrushki",
+    "deleted_at": null,
+    "created_at": "2023-01-21 22:31:22",
+    "updated_at": "2023-01-21 22:31:22"
+  },
+  {
+    "id": 49,
+    "title": "2.1 ТОП продаж и новинки",
+    "parent_id": 4,
+    "slug": "2-1-top-prodazh-i-novinki",
+    "deleted_at": null,
+    "created_at": "2023-01-21 23:01:36",
+    "updated_at": "2023-01-21 23:01:36"
+  },
+  {
+    "id": 50,
+    "title": "2.2 Из мультиков и Игр",
+    "parent_id": 4,
+    "slug": "2-2-iz-multikov-i-igr",
+    "deleted_at": null,
+    "created_at": "2023-01-22 22:01:42",
+    "updated_at": "2023-01-22 22:04:33"
+  },
+  {
+    "id": 51,
+    "title": "2.3 Игрушки Собаки",
+    "parent_id": 4,
+    "slug": "2-3-igrushki-sobaki",
+    "deleted_at": null,
+    "created_at": "2023-01-22 22:03:34",
+    "updated_at": "2023-01-22 22:04:16"
+  },
+  {
+    "id": 52,
+    "title": "2.4 Игрушки Медведи",
+    "parent_id": 4,
+    "slug": "2-4-igrushki-medvedi",
+    "deleted_at": null,
+    "created_at": "2023-01-22 22:04:08",
+    "updated_at": "2023-01-22 22:04:08"
+  },
+  {
+    "id": 53,
+    "title": "2.5 Игрушки Зайцы",
+    "parent_id": 4,
+    "slug": "2-5-igrushki-zaycy",
+    "deleted_at": null,
+    "created_at": "2023-01-22 22:05:08",
+    "updated_at": "2023-01-22 22:05:08"
+  },
+  {
+    "id": 54,
+    "title": "2.6 Игрушки Коты",
+    "parent_id": 4,
+    "slug": "2-6-igrushki-koty",
+    "deleted_at": null,
+    "created_at": "2023-01-22 22:05:35",
+    "updated_at": "2023-01-22 22:05:35"
+  },
+  {
+    "id": 55,
+    "title": "2.7 Игрушки Слоны",
+    "parent_id": 4,
+    "slug": "2-7-igrushki-slony",
+    "deleted_at": null,
+    "created_at": "2023-01-22 22:06:26",
+    "updated_at": "2023-01-22 22:06:26"
+  },
+  {
+    "id": 56,
+    "title": "2.8 Разные Животные",
+    "parent_id": 4,
+    "slug": "2-8-raznye-zhivotnye",
+    "deleted_at": null,
+    "created_at": "2023-01-22 22:07:41",
+    "updated_at": "2023-01-22 22:07:41"
+  },
+  {
+    "id": 57,
+    "title": "2.9 Игрушки с Пледом",
+    "parent_id": 4,
+    "slug": "2-9-igrushki-s-pledom",
+    "deleted_at": null,
+    "created_at": "2023-01-22 22:08:57",
+    "updated_at": "2023-01-22 22:08:57"
+  },
+  {
+    "id": 58,
+    "title": "2.10 Игрушки Брелки",
+    "parent_id": 4,
+    "slug": "2-10-igrushki-brelki",
+    "deleted_at": null,
+    "created_at": "2023-01-22 22:10:06",
+    "updated_at": "2023-01-22 22:10:06"
+  }
+]

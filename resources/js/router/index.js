@@ -1,24 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+import MainPage from "../views/MainPage.vue";
+
 import Cart from '../views/Cart';
 import Contacts from '../views/Contacts';
+
 import Checkout from '../views/Checkout';
-import ProductsList from '../views/ProductsList';
-import ProductsListMain from "../views/ProductsListMain";
-import ParentCategoryProductsList from '../views/ParentCategoryProductsList'
+
 import Product from "../views/Product";
-import Test from "../views/Test";
-import CheckoutStep1 from '../views/checkout/Step1';
-import CheckoutStep2 from '../views/checkout/Step2';
 import E404 from '../views/E404';
-import ProductsListMainParentCategory from "../views/ProductsListMainParentCategory";
+import CategoryPage from "../views/CategoryPage.vue";
+import Search from "../views/Search.vue";
 
 // массив, который описывает пути доступные на нашем сайте
 let routes = [
     {
         name: 'products',
         path: '/',
-        component: ProductsListMain
+        component: MainPage
     },
     {
         name: 'cart',
@@ -39,7 +38,12 @@ let routes = [
     {
         name: 'category',
         path: '/category/:slug',
-        component: ProductsListMainParentCategory
+        component: CategoryPage
+    },
+    {
+        name: 'search',
+        path: '/search',
+        component: Search
     },
     {
         name: 'products-item',

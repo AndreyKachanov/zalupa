@@ -54,14 +54,15 @@ export default {
         //     return state.itemsFromParent
         // }
         // возвращает все items, где category = ids
-        itemsFromCategories(state) {
-            return function (ids) {
-                // console.log('ids=', ids);
-                // console.log('items', state.items);
-                // console.log('items filter', state.items.filter(item => ids.includes(item.category)));
-                return state.items.filter(item => ids.includes(item.category));
-            }
-        },
+        // getItemsByIdsCategories(state) {
+        //     return function (ids) {
+        //         return state.items.filter(item => ids.includes(item.category)).splice(0, 50);
+        //     }
+        // },
+        // возвращает все items, где category = ids
+        getItemsByIdsCategories: state => (ids, cnt) => state.items.filter(item => ids.includes(item.category)).splice(0, cnt),
+        lengthItemsByIdsCategories: state => (ids) => state.items.filter(item => ids.includes(item.category)).length,
+
         // hasNewItemsForPagination: state => slug => state.showMoreArr[slug],
         hasNewItemsForPagination(state) {
             return function (slug) {

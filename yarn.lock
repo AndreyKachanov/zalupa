@@ -5705,6 +5705,11 @@
   "resolved" "https://registry.npmjs.org/vm-browserify/-/vm-browserify-1.1.2.tgz"
   "version" "1.1.2"
 
+"vue-awesome-sidebar@^1.2.1":
+  "integrity" "sha512-R8kzF0dtGJhFgbbbp6NDj6XYCriX6dw/vlDJQUE6+rjRZnQLCU+0SSZlKAMoocYLtvcKGsw5FSoXraUarfCXfg=="
+  "resolved" "https://registry.npmjs.org/vue-awesome-sidebar/-/vue-awesome-sidebar-1.2.1.tgz"
+  "version" "1.2.1"
+
 "vue-loader@^17.0.0":
   "integrity" "sha512-/OOyugJnImKCkAKrAvdsWMuwoCqGxWT5USLsjohzWbMgOwpA5wQmzQiLMzZd7DjhIfunzAGIApTOgIylz/kwcg=="
   "resolved" "https://registry.npmjs.org/vue-loader/-/vue-loader-17.0.1.tgz"

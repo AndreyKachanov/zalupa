@@ -32,13 +32,17 @@ class ItemsCategorySeeder extends Seeder
         //    Category::create(['title' => $item]);
         //}
         try {
-            $file = Storage::disk('database')->get('seeders/seeder_data/items_categories.json');
+            $file = Storage::disk('database')->get('seeders/seeder_data/items_categories_new.json');
             $json =  json_decode($file);
             foreach ($json as $item) {
                 Category::create([
                     'id' => $item->id,
                     'title' =>  $item->title,
-                    'parent_id' => null
+                    'slug' => $item->slug,
+                    'deleted_at' => $item->deleted_at,
+                    'created_at' => $item->created_at,
+                    'updated_at' => $item->updated_at,
+                    'parent_id' => $item->parent_id,
                 ]);
             }
 

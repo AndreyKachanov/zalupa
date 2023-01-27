@@ -29,6 +29,7 @@ class ItemFactory extends Factory
                 350,
                 'soft_toy'
             ),
+            //'img' => 'items/0e37809be4620a63da0b392c9a113af4.jpg',
             'is_new' => false,
             'is_hit' => false,
             'is_bestseller' => false

@@ -61,7 +61,7 @@
 
 import { mapGetters, mapActions } from 'vuex';
 // import CountItems from '../components/CountItems';
-import ProductsListNew from "../components/ProductsListNew";
+import ProductsListNew from "../components/ProductsList.vue";
 
 export default {
     name: "ProductsList",

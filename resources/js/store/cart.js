@@ -137,7 +137,7 @@ export default {
                     if (state.billNumber === null) {
                         this.dispatch('cart/setBillNumber', state.token);
                     } else {
-                        console.log('bill_number !== null');
+                        // console.log('bill_number !== null');
                     }
                 }
             } else {

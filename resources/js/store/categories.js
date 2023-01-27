@@ -11,16 +11,17 @@ export default {
             return state.categories
         },
         cacheUrls: state => state.cacheUrls,
-        parentsCategories: function (state) {
-            return state.categories.filter(cat => cat.parent_id === null)
-        },
-        subCategories: function (state) {
-            return function (parentCategory) {
-                // return '123'
-                // console.log('id parent', parentCategory);
-                return state.categories.filter(cat => cat.parent_id === parentCategory)
-            }
-        }
+        // parentsCategories: function (state) {
+        //     return state.categories.filter(cat => cat.parent_id === null)
+        // },
+        parentsCategories: state => state.categories.filter(cat => cat.parent_id === null),
+        // subCategories: function (state) {
+        //     return function (parentCategory) {
+        //         return state.categories.filter(cat => cat.parent_id === parentCategory)
+        //     }
+        // },
+        subCategories: state => (idCurrentCategory) => state.categories.filter(cat => cat.parent_id === idCurrentCategory)
+
 
     },
     mutations: {

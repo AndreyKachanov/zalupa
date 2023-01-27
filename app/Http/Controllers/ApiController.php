@@ -45,7 +45,7 @@ class ApiController extends Controller
     {
         try {
             //return ItemResource::collection(Item::paginate(20));
-            return ItemResource::collection(Item::paginate(3));
+            return ItemResource::collection(Item::all());
             //return Item::paginate(11);
         } catch (QueryException $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
@@ -225,7 +225,7 @@ class ApiController extends Controller
                 /** @var Category $query */
                 $query->whereParentId($category->id)
                     ->orWhere('id', $category->id);
-            })->paginate(4);
+            })->paginate(config('app.pagination_default_value'));
             //})->paginate(2);
             //dd($items->pluck('category_id')->toArray());
 

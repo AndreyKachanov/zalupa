@@ -1,4 +1,28 @@
 <template>
+<!--    <VueAwesomeSideBar-->
+<!--        :miniMenu="miniMenu"-->
+<!--        :collapsed="collapsed"-->
+<!--        :menu="testMenu"-->
+<!--    ></VueAwesomeSideBar>-->
+
+<!--    <pre>-->
+<!--        {{ allCategories }}-->
+<!--    </pre>-->
+<!--    <div class="search_bar">-->
+<!--        <input type="text" v-model="search" placeholder="Search fruits..." />-->
+
+<!--        <div class="item fruit" v-for="product in filteredProducts" :key="product.id">-->
+<!--            <router-link-->
+<!--                :key="product.route"-->
+<!--                :to="`/category/${product.slug}`"> {{ product.title }}-->
+<!--            </router-link>-->
+<!--        </div>-->
+<!--        <div class="item error" v-if="search&&!filteredProducts.length">-->
+<!--            <p>No results found!</p>-->
+<!--        </div>-->
+
+<!--    </div>-->
+
     <div v-if="this.$route.name === 'cart'" class="container">
         <div class="row">
             <div class="col-12 text-center">
@@ -21,6 +45,24 @@
                 <router-link :to="{ name: 'products' }">
                     <i class="fa fa-home fa-2x" aria-hidden="true"></i>
                     Главная
+                </router-link>
+            </div>
+        </div>
+
+        <div class="mobile-bottom-nav__item mobile-bottom-nav__item--active">
+            <div class="mobile-bottom-nav__item-content">
+                <router-link :to="{ name: 'products' }">
+                    <i class="fa-solid fa-chart-simple fa-2x" aria-hidden="true"></i>
+                    Категории
+                </router-link>
+            </div>
+        </div>
+
+        <div class="mobile-bottom-nav__item mobile-bottom-nav__item--active">
+            <div class="mobile-bottom-nav__item-content">
+                <router-link :to="{ name: 'search' }">
+                    <i class="fa fa-search fa-2x" aria-hidden="true"></i>
+                    Поиск
                 </router-link>
             </div>
         </div>
@@ -56,6 +98,8 @@ import { mapGetters } from 'vuex';
 // import { faFacebook, faTiktok, faStackOverflow, faSquareGit } from '@fortawesome/free-brands-svg-icons'
 // library.add(faUserSecret, faScroll, faFacebook, faTiktok, faStackOverflow, faSquareGit)
 
+
+
 export default {
     components: {
         // FontAwesomeIcon
@@ -65,12 +109,60 @@ export default {
             { route: 'products', title: 'Продукты' },
             { route: 'cart', title: 'Корзина' },
             { route: 'checkout', title: 'Заказ' }
-        ]
+        ],
+        // fruits: ["apple", "banana", "orange"],
+        // input: '',
+        testMenu: [
+            {
+                children: [
+                    {
+                        name: 'level 1.1',
+                        href: '/a',
+                        children: [
+                            {
+                                href: '/b',
+                                name: 'level 1.1.1',
+                            },
+                        ]
+                    },
+                    {
+                        name: 'level 1.2'
+                    }
+                ],
+            }
+        ],
+        testData: [
+            { key: 'test-data-1', value: 'test data 1' },
+            { key: 'test-data-2', value: 'test data 2' },
+            { key: 'test-data-3', value: 'test data 3' }
+        ],
+        collapsed: false,
+        miniMenu: false,
+        value: '',
+        selected: '',
+        products: [
+            {id: 1, name: "Foo"},
+            {id: 2, name: "Bar"},
+            {id: 3, name: "Baz"},
+            {id: 4, name: "Foobar"}
+        ],
+        search: ""
     }),
     computed: {
         ...mapGetters('cart', { cartCnt: 'length', cartTotal: 'total' }),
+        ...mapGetters('categories', { allCategories: 'allCategories' }),
+        filteredProducts() {
+            return this.allCategories.filter(p => {
+                // return true if the product should be visible
+
+                // in this example we just check if the search string
+                // is a substring of the product name (case insensitive)
+                return p.title.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
+            });
+        }
     },
     methods: {
+
     },
     created() {
     }
@@ -78,6 +170,42 @@ export default {
 </script>
 
 <style lang="scss">
+
+    .search_bar {
+        input {
+            display: block;
+            width: 350px;
+            margin: 20px auto;
+            padding: 10px 45px;
+            //background: white url("assets/search-icon.svg") no-repeat 15px center;
+            background-size: 15px 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+            rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+        }
+
+        .item {
+            width: 350px;
+            margin: 0 auto 10px auto;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+            rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+        }
+
+        .fruit {
+            background-color: rgb(97, 62, 252);
+            cursor: pointer;
+        }
+
+        .error {
+            background-color: tomato;
+        }
+    }
+
     .mobile-bottom-nav {
 
         i.fa {
