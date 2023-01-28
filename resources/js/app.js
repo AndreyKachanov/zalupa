@@ -20,10 +20,11 @@ let locationPath = window.location.pathname;
 
 // console.log('res=', /^\/category\/[a-z\-0-1]+$/.test(locationPath)); // false
 let isSubCategoryPath = /^\/category\/[a-z0-9\-]*$/.test(locationPath);
+let isSearchItem = /^\/search\/[a-z0-9\-]*$/.test(locationPath);
 
 // let arrPath = ['/', '/cart', '/contacts', '/order', '/category/1-populyarnye-tovary', '/category/sub-1-main-1-populyarnye-tovary'];
 let arrPath = ['/', '/cart', '/contacts', '/order', '/search'];
-if ( arrPath.indexOf(locationPath) > -1 || isSubCategoryPath) {
+if (arrPath.indexOf(locationPath) > -1 || isSubCategoryPath || isSearchItem) {
     // console.log('test');
     const app = createApp({});
 

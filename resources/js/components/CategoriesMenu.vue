@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid top-menu">
-        <div class="row justify-content-around">
+        <div class="row justify-content-between">
             <div class="col-12 parent">
                     {{ parentTitle }}
             </div>

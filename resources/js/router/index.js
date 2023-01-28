@@ -46,15 +46,15 @@ let routes = [
         component: Search
     },
     {
+        name: 'search-open-item',
+        path: '/search/:slug',
+        component: Product
+    },
+    {
         name: 'products-item',
         path: '/:slug',
         component: Product
     },
-    // {
-    //     name: 'test',
-    //     path: '/test',
-    //     component: Test
-    // },
     {
         name: 'E404',
         path: '/:pathMatch(.*)',

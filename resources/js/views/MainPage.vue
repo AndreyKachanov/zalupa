@@ -1,4 +1,5 @@
 <template>
+
     <div>
         <main-menu :categories="parentsCategories"></main-menu>
     </div>

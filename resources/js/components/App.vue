@@ -1,27 +1,18 @@
 <template>
-<!--    <VueAwesomeSideBar-->
-<!--        :miniMenu="miniMenu"-->
-<!--        :collapsed="collapsed"-->
-<!--        :menu="testMenu"-->
-<!--    ></VueAwesomeSideBar>-->
-
-<!--    <pre>-->
-<!--        {{ allCategories }}-->
-<!--    </pre>-->
-<!--    <div class="search_bar">-->
-<!--        <input type="text" v-model="search" placeholder="Search fruits..." />-->
-
-<!--        <div class="item fruit" v-for="product in filteredProducts" :key="product.id">-->
-<!--            <router-link-->
-<!--                :key="product.route"-->
-<!--                :to="`/category/${product.slug}`"> {{ product.title }}-->
-<!--            </router-link>-->
-<!--        </div>-->
-<!--        <div class="item error" v-if="search&&!filteredProducts.length">-->
-<!--            <p>No results found!</p>-->
-<!--        </div>-->
-
-<!--    </div>-->
+    <VueAwesomeSideBar
+        v-if="categoriesForSidebar.length > 0"
+        :width="width"
+        :miniMenu="false"
+        :menuType="menuType"
+        :collapsed="collapsed"
+        :menu="categoriesForSidebar"
+        :closeOnClickOutSide="true"
+        :childrenOpenAnimation="true"
+        :keepChildrenOpen="true"
+        :overLayerOnOpen="true"
+        :BottomMiniMenuBtn="false"
+        vueRouterEnabel
+    ></VueAwesomeSideBar>
 
     <div v-if="this.$route.name === 'cart'" class="container">
         <div class="row">
@@ -32,6 +23,14 @@
             </div>
         </div>
     </div>
+
+    <div
+        v-if="this.$route.name === 'products' || this.$route.name === 'category' || this.$route.name === 'search-open-item'"
+        class="container"
+    >
+        <search-component/>
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col col-sm-12">
@@ -49,12 +48,12 @@
             </div>
         </div>
 
-        <div class="mobile-bottom-nav__item mobile-bottom-nav__item--active">
+        <div class="mobile-bottom-nav__item mobile-bottom-nav__item--active" @click="collapsed = !collapsed">
             <div class="mobile-bottom-nav__item-content">
-                <router-link :to="{ name: 'products' }">
+                <a href="#">
                     <i class="fa-solid fa-chart-simple fa-2x" aria-hidden="true"></i>
                     Категории
-                </router-link>
+                </a>
             </div>
         </div>
 
@@ -91,6 +90,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
+import SearchComponent from "./Search.vue";
 
 // import { library } from '@fortawesome/fontawesome-svg-core'
 // import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -98,11 +98,9 @@ import { mapGetters } from 'vuex';
 // import { faFacebook, faTiktok, faStackOverflow, faSquareGit } from '@fortawesome/free-brands-svg-icons'
 // library.add(faUserSecret, faScroll, faFacebook, faTiktok, faStackOverflow, faSquareGit)
 
-
-
 export default {
     components: {
-        // FontAwesomeIcon
+        SearchComponent
     },
     data: () => ({
         menu: [
@@ -110,99 +108,126 @@ export default {
             { route: 'cart', title: 'Корзина' },
             { route: 'checkout', title: 'Заказ' }
         ],
-        // fruits: ["apple", "banana", "orange"],
-        // input: '',
-        testMenu: [
-            {
-                children: [
-                    {
-                        name: 'level 1.1',
-                        href: '/a',
-                        children: [
-                            {
-                                href: '/b',
-                                name: 'level 1.1.1',
-                            },
-                        ]
-                    },
-                    {
-                        name: 'level 1.2'
-                    }
-                ],
-            }
-        ],
-        testData: [
-            { key: 'test-data-1', value: 'test data 1' },
-            { key: 'test-data-2', value: 'test data 2' },
-            { key: 'test-data-3', value: 'test data 3' }
-        ],
-        collapsed: false,
+        // testMenu: [
+        //     {
+        //         name: 'Dashboard',
+        //         href: '/category/3-2-shapki-s-ushami',
+        //         children: [
+        //             {
+        //                 href: '/products',
+        //                 name: 'level 2.1',
+        //             },
+        //         ]
+        //     },
+        //     {
+        //         name: 'Dashboard',
+        //         href: '/c',
+        //         children: [
+        //             {
+        //                 href: '/c',
+        //                 name: 'level 2.1',
+        //             },
+        //         ]
+        //     },
+        //
+        // ],
+        // testMenuBefore: [
+        //     {
+        //         "id": 4,
+        //         "href": "/category/2-myagkie-igrushki",
+        //         "name": "2. Мягкие игрушки",
+        //         "parent_id": null
+        //     },
+        //     {
+        //         "id": 5,
+        //         "href": "/category/3-svetyashchiesya-igrushki",
+        //         "name": "3. Светящиеся игрушки",
+        //         "parent_id": null
+        //     },
+        //     {
+        //         "id": 35,
+        //         "href": "/category/3-1-mechi-svetyashchiesya",
+        //         "name": "3.1 Мечи светящиеся",
+        //         "parent_id": 5
+        //     },
+        //     {
+        //         "id": 36,
+        //         "href": "/category/3-2-shapki-s-ushami",
+        //         "name": "3.2 Шапки с ушами",
+        //         "parent_id": 5
+        //     },
+        //     {
+        //         "id": 37,
+        //         "href": "/category/3-3-obodki-svetyashchiesya",
+        //         "name": "3.3 Ободки светящиеся",
+        //         "parent_id": 5
+        //     },
+        //     {
+        //         "id": 49,
+        //         "href": "/category/2-1-top-prodazh-i-novinki",
+        //         "name": "2.1 ТОП продаж и новинки",
+        //         "parent_id": 4
+        //     },
+        //     {
+        //         "id": 50,
+        //         "href": "/category/2-2-iz-multikov-i-igr",
+        //         "name": "2.2 Из мультиков и Игр",
+        //         "parent_id": 4
+        //     },
+        // ],
+        collapsed: true,
+        menuType: 'simple',
         miniMenu: false,
-        value: '',
-        selected: '',
-        products: [
-            {id: 1, name: "Foo"},
-            {id: 2, name: "Bar"},
-            {id: 3, name: "Baz"},
-            {id: 4, name: "Foobar"}
-        ],
-        search: ""
+        width: '340px',
+        search: ''
     }),
     computed: {
         ...mapGetters('cart', { cartCnt: 'length', cartTotal: 'total' }),
         ...mapGetters('categories', { allCategories: 'allCategories' }),
         filteredProducts() {
             return this.allCategories.filter(p => {
-                // return true if the product should be visible
-
-                // in this example we just check if the search string
-                // is a substring of the product name (case insensitive)
                 return p.title.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
             });
+        },
+        categoriesForSidebar() {
+            let unflatten = function( array, parent, tree ){
+                tree = typeof tree !== 'undefined' ? tree : [];
+                parent = typeof parent !== 'undefined' ? parent : { id: null };
+
+                var children = _.filter( array, function(child){ return child.parent_id === parent.id; });
+
+                if( !_.isEmpty( children )  ){
+                    if( parent.id === null ){
+                        tree = children;
+                    }else{
+                        parent['children'] = children
+                    }
+                    _.each( children, function( child ){ unflatten( array, child ) } );
+                }
+                return tree;
+            }
+
+            let arr = this.allCategories.map(item => ({
+                id: item.id,
+                name: item.title,
+                href: '/category/' + item.slug,
+                parent_id: item.parent_id
+            }));
+
+            return unflatten(arr);
         }
     },
     methods: {
-
-    },
-    created() {
     }
 }
 </script>
 
 <style lang="scss">
-
-    .search_bar {
-        input {
-            display: block;
-            width: 350px;
-            margin: 20px auto;
-            padding: 10px 45px;
-            //background: white url("assets/search-icon.svg") no-repeat 15px center;
-            background-size: 15px 15px;
-            font-size: 16px;
-            border: none;
-            border-radius: 5px;
-            box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
-            rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-        }
-
-        .item {
-            width: 350px;
-            margin: 0 auto 10px auto;
-            padding: 10px 20px;
-            color: white;
-            border-radius: 5px;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-            rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-        }
-
-        .fruit {
-            background-color: rgb(97, 62, 252);
-            cursor: pointer;
-        }
-
-        .error {
-            background-color: tomato;
+    .vas-menu {
+        padding-top: 10px !important;
+        height: calc(100vh - 65px) !important;
+        .menu-item-base {
+            margin-top: 6px;
         }
     }
 
@@ -214,7 +239,7 @@ export default {
 
         @include media-breakpoint-down(xs) {
             i {
-                font-size: 1.7em;
+                font-size: 1.4em;
             }
         }
         span.cnt {

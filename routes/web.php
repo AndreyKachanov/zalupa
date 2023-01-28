@@ -88,6 +88,7 @@ Route::get('/{any}', fn() => view('layouts.app'))
         //'product/[0-9]',
         //'category/1-populyarnye-tovary',
         //'category/sub-1-main-1-populyarnye-tovary',
-        'category/[0-9a-z\-]*'
+        'category/[0-9a-z\-]*',
+        'search/[0-9a-z\-]*',
     ])
     ->name('any');
