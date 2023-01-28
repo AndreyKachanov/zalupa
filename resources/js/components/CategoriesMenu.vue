@@ -35,15 +35,11 @@
             border-radius: 1px;
             word-break: break-all;
             background-color: #c1034a;
-            //&:hover {
-            //    background: #c4205c;
-            //}
         }
         .child {
             text-align: center;
             display: block;
             color: #000000;
-            //background-color: #454545;
             font-weight: 700;
             text-decoration: none;
             user-select: none;
@@ -54,10 +50,8 @@
             transition: 0.2s;
             word-break: break-all;
             &:hover {
-                //background: #454545bf;
             }
             &:nth-child(odd) {
-                //margin-left: 0 !important;
             }
         }
     }
