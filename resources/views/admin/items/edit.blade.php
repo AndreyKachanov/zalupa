@@ -1,7 +1,6 @@
 @php
     /** @var \App\Models\Admin\Item\Item $item */
     /** @var \App\Models\Admin\Item\Category $category */
-
     /** @var \Illuminate\Database\Eloquent\Collection $categories */
 @endphp
 @extends('layouts.app')
@@ -67,21 +66,71 @@
             @endif
         </div>
 
-        <div class="form-group">
-            <label for="category" class="col-form-label">Категория</label>
-            <select id="category" class="form-control{{ $errors->has('category') ? ' is-invalid' : '' }}" name="category_id">
-                @foreach ($categories as $category)
-                    <option
-                        value="{{ $category->id }}"
-                        {{ (string)$category->id === old('category_id', (string)$item->category_id) ? ' selected' : ''}}>
-                        {{ $category->title }}
-                    </option>
-                @endforeach
-            </select>
-            @if ($errors->has('category_id'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('category_id') }}</strong></span>
-            @endif
-        </div>
+        @if(isset($item->rCategory))
+            <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
+                {{ Form::label('category_id', 'Категория*', ['class' => 'control-label']) }}
+                {{ Form::select(
+                    'category_id',
+                    $mainCategoriesArray,
+                    ( $item->rCategory->parent_id == null) ? $item->rCategory->id : $item->rCategory->parent_id,
+
+                        [
+                            'class' => 'form-control',
+                            'id' => 'selectCategory',
+                        ]
+                    ) }}
+            </div>
+
+            <div class="form-group">
+                {{ Form::label('sub_category_id', 'Подкатегория', ['class' => 'control-label']) }}
+                {{ Form::select(
+                    'sub_category_id',
+                    Session::get('edit_sub_categories')['arr'] ?? $subCategoriesArray,
+                    $item->rCategory->id ?? '',
+                        [
+                            'class' => 'form-control',
+                            'id' => 'subCategory',
+
+                            (isset(Session::get('edit_sub_categories')['arr'])
+                                ? count(Session::get('edit_sub_categories')['arr']
+                                    ? 'disabled'
+                                    : '')
+                                : (
+                                    count($subCategoriesArray) == 0
+                                    ? 'disabled'
+                                    : ''
+                                  )
+                            )
+                        ]
+                ) }}
+            </div>
+        @else
+
+            <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
+                {{ Form::label('category_id', 'Категория*', ['class' => 'control-label']) }}
+
+                {{ Form::select(
+                    'category_id',
+                    $mainCategoriesArray, 0,
+                        [
+                            'class' => 'form-control',
+                            'id' => 'selectCategory',
+                        ]
+                    ) }}
+            </div>
+
+            <div class="form-group">
+                {{ Form::label('sub_category_id', 'Подкатегория', ['class' => 'control-label']) }}
+                {{ Form::select(
+                    'sub_category_id', $subCategoriesArray, 0,
+                        [
+                            'class' => 'form-control',
+                            'id' => 'subCategory',
+                            count($subCategoriesArray) == 0 ? 'disabled' : ''
+                        ]
+                ) }}
+            </div>
+        @endif
 
         <div class="row">
             <div style="margin: 20px auto;">
@@ -100,4 +149,48 @@
             <button type="submit" class="btn btn-primary">Save</button>
         </div>
     </form>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+
+            $('#selectCategory').on('change', function () {
+                let idCategory =  $(this).find("option:selected").attr('value');
+                if (idCategory !== 0) {
+
+                    let getSubCategories = '{!!route('admin.get_subcategories', ['id' => 'J']) !!}';
+                    let url = getSubCategories.replace("J", idCategory);
+
+                    $.ajax({
+                        type: "get",
+                        url: url,
+                        success: function (result) {
+
+                            let items = result.sub_categories;
+
+                            if (items.length > 0) {
+
+                                $('#subCategory').children('option').remove();
+                                $('#subCategory').removeAttr('disabled');
+
+                                $('#subCategory').append("<option value='0'>Выберите подкатегорию</option>");
+                                $.each(items, function (i, item) {
+                                    $('#subCategory').append($('<option>', {
+                                        value: item.id,
+                                        text : item.title
+                                    }));
+                                });
+                            } else {
+                                $('#subCategory').attr('disabled','disabled');
+                                $('#subCategory').children('option').remove();
+                            }
+                        }
+                    });
+                } else {
+                    $('#subCategory').attr('disabled','disabled');
+                    $('#subCategory').children('option').remove();
+                }
+            });
+        });
+    </script>
 @endsection

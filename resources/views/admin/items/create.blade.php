@@ -70,21 +70,29 @@
         </div>
 
         <div class="form-group">
-            <label for="category" class="col-form-label">Категория</label>
-            <select id="category" class="form-control{{ $errors->has('category') ? ' is-invalid' : '' }}" name="category_id">
+            {{ Form::label('selectCategory', 'Категория*', ['class' => 'control-label']) }}
+            {{ Form::select('category_id', $selectCategory ?? [], '0', ['class' => 'form-control', 'id' => 'selectCategory']) }}
+        </div>
 
-                @foreach ($categories as $category)
-{{--                    <option value="{{ $category->id }}">{{ $category->title }}</option>--}}
-                    <option
-                        value="{{ $category->id }}"
-                        {{ (string)$category->id === old('category_id') ? ' selected' : ''}}>
-                        {{ $category->title }}
-                    </option>
-                @endforeach;
-            </select>
-            @if ($errors->has('category_id'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('category_id') }}</strong></span>
-            @endif
+        <div class="form-group">
+            {{ Form::label('subCategory', 'Подкатегория', ['class' => 'control-label']) }}
+            {{ Form::select(
+                'sub_category_id',
+                Session::get('create_sub_categories')['arr'] ?? $selectSubCategory,
+                 old('sub_category_id'),
+                    [
+                        'class' => 'form-control',
+                        'id' => 'subCategory',
+
+                        (isset(Session::get('create_sub_categories')['arr'])
+                            ? (count(Session::get('create_sub_categories')['arr']) == 0
+                                ? 'disabled'
+                                : '')
+                            :  (count($selectSubCategory) == 0  ? 'disabled' : '')
+                        )
+                    ]
+                )
+            }}
         </div>
 
         <div class="form-group">
@@ -99,4 +107,48 @@
             <button type="submit" class="btn btn-primary">Сохранить</button>
         </div>
     </form>
+@endsection
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+
+            $('#selectCategory').on('change', function () {
+                let idCategory =  $(this).find("option:selected").attr('value');
+                if (idCategory !== 0) {
+
+                    let getSubCategories = '{!!route('admin.get_subcategories', ['id' => 'J']) !!}';
+                    let url = getSubCategories.replace("J", idCategory);
+
+                    $.ajax({
+                        type: "get",
+                        url: url,
+                        success: function (result) {
+
+                            let items = result.sub_categories;
+
+                            if (items.length > 0) {
+
+                                $('#subCategory').children('option').remove();
+                                $('#subCategory').removeAttr('disabled');
+
+                                $('#subCategory').append("<option value='0'>Выберите подкатегорию</option>");
+                                $.each(items, function (i, item) {
+                                    $('#subCategory').append($('<option>', {
+                                        value: item.id,
+                                        text : item.title
+                                    }));
+                                });
+                            } else {
+                                $('#subCategory').attr('disabled','disabled');
+                                $('#subCategory').children('option').remove();
+                            }
+                        }
+                    });
+                } else {
+                    $('#subCategory').attr('disabled','disabled');
+                    $('#subCategory').children('option').remove();
+                }
+            });
+        });
+    </script>
 @endsection

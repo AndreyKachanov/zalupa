@@ -27,7 +27,7 @@ class CreateItemRequest extends FormRequest
             'title' => 'required|string|max:255',
             'note' => 'string|max:255',
             'article_number' => 'required|string|max:100',
-            'price' => 'required|string|max:100',
+            'price' => 'required|integer',
             'img' => 'required|mimes:jpg,png,jpeg,gif,svg'
         ];
     }

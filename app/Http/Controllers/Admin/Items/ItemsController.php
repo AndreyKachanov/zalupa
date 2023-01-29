@@ -74,9 +74,54 @@ class ItemsController extends Controller
      */
     public function create()
     {
-        $categories = Category::get(['id', 'title']);
-//        dd($categories);
-        return view('admin.items.create', compact('categories'));
+        $categories = Category::whereNull('parent_id')->get(['id', 'title']);
+        $categoryToView = [];
+        $subCategoryToView = [];
+        foreach ($categories as $category) {
+            $categoryToView[$category->id] = mb_substr($category->title, 0, 90);
+        }
+
+        $selectSubCategory = Category::select(['id', 'title'])
+            ->where('parent_id', key($categoryToView))
+            ->orderBy('title')
+            ->get();
+
+        if ($selectSubCategory->count() > 0) {
+            $subCategoryToView = [];
+            $subCategoryToView[0] = 'Выберите подкатегорию';
+
+            foreach ($selectSubCategory as $s) {
+                $subCategoryToView[$s->id] = mb_substr($s->title, 0, 90);
+            }
+        }
+
+        return view('admin.items.create', [
+            'selectCategory'    => $categoryToView ?? null,
+            'selectSubCategory' => $subCategoryToView ?? [],
+        ]);
+    }
+
+    public function getSubCategories(Request $request, $id)
+    {
+        $subCategories = Category::select(['id', 'title'])
+            ->where('parent_id', $id)
+            ->orderBy('title')
+            ->get();
+
+        if ($subCategories->count() > 0) {
+            $subCategoriesToSession = [];
+            $subCategoriesToSession['0'] = 'Выберите подкатегорию';
+
+            foreach ($subCategories as $category) {
+                $subCategoriesToSession[$category->id] = $category->title;
+            }
+
+            $request->session()->put('create_sub_categories.arr', $subCategoriesToSession);
+            return response()->json(['sub_categories' => $subCategories], 200);
+        }
+
+        $request->session()->put('create_sub_categories.arr', []);
+        return response()->json(['sub_categories' => []], 200);
     }
 
     /**
@@ -95,7 +140,9 @@ class ItemsController extends Controller
         $item->is_hit = isset($request->is_hit);
         $item->is_bestseller = isset($request->is_bestseller);
         $item->img = $this->service->saveImageWithResize($filePath);
-        $item->category_id = $request->category_id;
+        $item->category_id = (isset($request->sub_category_id) && $request->sub_category_id != '0')
+            ? $request->sub_category_id
+            : $request->category_id;
         $item->save();
         $item->update(['article_number' => $item->id . '.' . $item->article_number]);
         return redirect()->route('admin.items.show', $item);
@@ -116,8 +163,71 @@ class ItemsController extends Controller
      */
     public function edit(Item $item)
     {
-        $categories = Category::all();
-        return view('admin.items.edit', compact('item', 'categories'));
+        $mainCategories = Category::select(['id', 'title'])
+            ->whereNull('deleted_at')
+            ->whereNull('parent_id')
+            ->orderBy('title')
+            ->get();
+
+        $mainCategoriesArray = [];
+        $subCategoriesArray = [];
+
+        foreach ($mainCategories as $c) {
+            $mainCategoriesArray[$c->id] = mb_substr($c->title, 0, 90);
+        }
+
+        // id of parent category
+        if (isset($item->rCategory)) {
+            $parentCategoryId = $item->rCategory->parent_id;
+
+            // If the analysis has a category with parent_id = null
+            if ($parentCategoryId == null) {
+                $subCategories = Category::select(['id', 'title'])
+                    ->where('parent_id', $item->rCategory->id)
+                    ->orderBy('title')
+                    ->get();
+
+                // If this category has children
+                if ($subCategories->count() > 0) {
+                    $subCategoriesArray[0] = "Выберите подкатегорию";
+                }
+
+                // otherwise the array will be empty
+            } else {
+                // selects all subcategories from the main category where the analysis is located
+                $subCategories = Category::select(['id', 'title'])
+                    ->where('parent_id', $parentCategoryId)
+                    ->orderBy('title')
+                    ->get();
+
+                $subCategoriesArray = [];
+                $subCategoriesArray[0] = "Выберите подкатегорию";
+            }
+
+            foreach ($subCategories as $s) {
+                $subCategoriesArray[$s->id] = mb_substr($s->title, 0, 90);
+            }
+        } else {
+            // selects all subcategories from first main category
+            $subCategories = Category::select(['id', 'title'])
+                ->where('parent_id', $mainCategories[0]->id)
+                ->orderBy('title')
+                ->get();
+
+            $subCategoriesArray = [];
+            $subCategoriesArray[0] = "Выберите подкатегорию";
+
+            foreach ($subCategories as $s) {
+                $subCategoriesArray[$s->id] = mb_substr($s->title, 0, 90);
+            }
+        }
+
+        //$categories = Category::all();
+        return view('admin.items.edit', [
+            'item'             => $item,
+            'mainCategoriesArray' => $mainCategoriesArray ?? null,
+            'subCategoriesArray'  => $subCategoriesArray
+        ]);
     }
 
     /**
@@ -139,7 +249,10 @@ class ItemsController extends Controller
         $item->is_new = isset($request->is_new);
         $item->is_hit = isset($request->is_hit);
         $item->is_bestseller = isset($request->is_bestseller);
-        $item->category_id = $request->category_id;
+        //$item->category_id = $request->category_id;
+        $item->category_id = (isset($request->sub_category_id) && $request->sub_category_id != '0')
+            ? $request->sub_category_id
+            : $request->category_id;
         $item->save();
         return redirect()->route('admin.items.show', compact('item'));
     }

@@ -8,6 +8,7 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\Admin\Items\CategoryController;
 use App\Http\Controllers\Admin\Items\OrdersController;
 use App\Http\Controllers\Admin\Items\SettingsController;
+use App\Http\Controllers\Admin\Items\ItemsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,22 +60,16 @@ Route::group(
         });
         Route::group(['prefix' => 'settings', 'as' => 'settings.'], function () {
             Route::get('/', [SettingsController::class, 'index'])->name('index');
-            //Route::get('edit-price', [SettingsController::class, 'editPrice'])->name('edit-price');
             Route::post('/', [SettingsController::class, 'update'])->name('update');
-            //Route::match(['put', 'patch'], '{setting}', [SettingsController::class, 'update'])
-            //    ->name('update');
         });
         Route::get('/', [AdminHome::class, 'index'])->name('home');
         Route::resource('items', 'Items\ItemsController');
         Route::resource('categories', 'Items\CategoryController');
-        //Route::resource('orders', 'Items\OrdersController');
         Route::resource('orders', OrdersController::class);
         Route::resource('users', 'UsersController');
         Route::post('/users/{user}/verify', 'UsersController@verify')->name('users.verify');
-
-        //Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
-        //Route::get('settings/price', [SettingsController::class, 'setPrice'])->name('settings.price');
-        //Route::post('settings/storePrice', [SettingsController::class, 'storePrice'])->name('settings.price');
+        //Subcategories for sub menu in create and edit items
+        Route::get('/getSubcategories/{id}', [ItemsController::class, 'getSubCategories'])->name('get_subcategories');
     }
 );
 
