@@ -138,16 +138,6 @@
                             }
                         }
                         margin: 0;
-                        span.input-group-prepend, span.input-group-append, input[type='text'] {
-                            //border: 1px solid red;
-                            button {
-                                padding: 0.25rem 0.35rem
-                            }
-                        }
-                        //input[type='number'] {
-                        //    padding-left: 0;
-                        //    padding-right: 0;
-                        //}
                     }
                 }
                 padding-left: 0.8rem;

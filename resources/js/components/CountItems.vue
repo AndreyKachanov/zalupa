@@ -49,12 +49,21 @@ export default {
 <style lang="scss">
     .input-group {
         @include media-breakpoint-down(xs) {
+
+            span.input-group-prepend, span.input-group-append, input[type='text'] {
+                //border: 1px solid red;
+                button {
+                    padding: 0.25rem 0.38rem
+                }
+            }
+
             button {
                 line-height: 0 !important;
             }
             //border: 1px solid red;
             .fa {
                 line-height: 0 !important;
+                padding-bottom: 1px;
             }
             .fa:before {
                 font-size: 8px;
@@ -63,7 +72,7 @@ export default {
                 padding-left: 0;
                 padding-right: 0;
                 line-height: 2.2 !important;
-                font-size: 8px;
+                font-size: 10px;
             }
         }
     }
