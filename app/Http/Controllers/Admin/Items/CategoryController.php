@@ -6,10 +6,18 @@ use App\Models\Admin\Item\Category;
 use App\Http\Requests\Admin\Items\CreateCategoryRequest;
 use App\Http\Requests\Admin\Items\UpdateCategoryRequest;
 use App\Http\Controllers\Controller;
+use App\Services\ImageService;
 use Illuminate\Support\Facades\Request;
+use function PHPUnit\Framework\isNull;
 
 class CategoryController extends Controller
 {
+    private $service;
+
+    public function __construct(ImageService $service)
+    {
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -58,11 +66,14 @@ class CategoryController extends Controller
      */
     public function store(CreateCategoryRequest $request)
     {
-        Category::create([
-            'title' => $request->title
-        ]);
-
-        return redirect()->route('admin.categories.index');
+        $filePath = $request->file('img') !== null ? $request->file('img')->getRealpath() : null;
+        $category = new Category();
+        $category->title = $request->title;
+        $category->img = is_null($filePath)
+            ? null
+            : $this->service->saveImageWithResize($filePath, 'categories');
+        $category->save();
+        return redirect()->route('admin.categories.show', $category);
     }
 
     public function storeSubCategory(CreateCategoryRequest $request)
@@ -124,12 +135,17 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //dd($category);
+        if ($request->hasFile('img')) {
+            $filePath = $request->file('img')->getRealpath();
+            $category->img = $this->service->saveImageWithResize($filePath, 'categories');
+        }
+
         $category->slug = null;
         $category->title = $request->title;
         $category->save();
         //$category->update($request->only(['title']));
-        return redirect()->route('admin.categories.index');
+        //return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.categories.show', compact('category'));
     }
 
     public function updateSubCategory(UpdateCategoryRequest $request, Category $category)

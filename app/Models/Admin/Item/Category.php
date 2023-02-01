@@ -47,6 +47,8 @@ use Cviebrock\EloquentSluggable\Sluggable;
  * @property-read \Illuminate\Database\Eloquent\Collection|Category[] $children
  * @property-read int|null $children_count
  * @property-read Category|null $parent
+ * @property string|null $img
+ * @method static \Illuminate\Database\Eloquent\Builder|Category whereImg($value)
  */
 class Category extends Model
 {

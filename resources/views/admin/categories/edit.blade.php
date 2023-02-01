@@ -7,7 +7,7 @@
 @section('content')
     @include('admin.categories._nav')
 
-    <form method="POST" action="{{ route('admin.categories.update', $category) }}">
+    <form method="POST" action="{{ route('admin.categories.update', $category) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -19,8 +19,21 @@
             @endif
         </div>
 
+        <div class="row">
+            <div style="margin: 20px auto;">
+                <img src="{{ is_null($category->img) ?  asset('/assets/no-image.png') : Storage::disk('uploads')->url($category->img) }}" alt="" width="300" height="350">
+            </div>
+        </div>
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Save</button>
+            <label for="img" class="col-form-label">Image (jpg,png,jpeg,gif,svg)</label>
+            <input type="file" name="img" class="form-control{{ $errors->has('img') ? ' is-invalid' : '' }}" id="img">
+            @if ($errors->has('img'))
+                <span class="invalid-feedback"><strong>{{ $errors->first('img') }}</strong></span>
+            @endif
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Сохранить</button>
         </div>
     </form>
 @endsection

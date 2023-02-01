@@ -139,7 +139,7 @@ class ItemsController extends Controller
         $item->is_new = isset($request->is_new);
         $item->is_hit = isset($request->is_hit);
         $item->is_bestseller = isset($request->is_bestseller);
-        $item->img = $this->service->saveImageWithResize($filePath);
+        $item->img = $this->service->saveImageWithResize($filePath, 'items');
         $item->category_id = (isset($request->sub_category_id) && $request->sub_category_id != '0')
             ? $request->sub_category_id
             : $request->category_id;
@@ -239,7 +239,7 @@ class ItemsController extends Controller
     {
         if ($request->hasFile('img')) {
             $filePath = $request->file('img')->getRealpath();
-            $item->img = $this->service->saveImageWithResize($filePath);
+            $item->img = $this->service->saveImageWithResize($filePath, 'items');
         }
 
         $item->title = $request->title;

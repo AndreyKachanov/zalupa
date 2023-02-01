@@ -13,7 +13,7 @@ class ImageService
      * @param  string  $filePathFromRequest
      * @return string
      */
-    public function saveImageWithResize(string $filePathFromRequest): string
+    public function saveImageWithResize(string $filePathFromRequest, string $dirName): string
     {
         try {
             $img = Image::make($filePathFromRequest);
@@ -22,7 +22,7 @@ class ImageService
             })->encode(null, 80);
             $now = Carbon::now()->toDateTimeString();
             $hash = md5($img->__toString() . $now);
-            $fileName = 'items/' . $hash . '.jpg';
+            $fileName = $dirName . '/' . $hash . '.jpg';
             Storage::disk('uploads')->put($fileName, $img);
         } catch (Exception $e) {
             $errorMsg = sprintf(

@@ -3,9 +3,9 @@
     <div>
         <main-menu :categories="parentsCategories"></main-menu>
     </div>
-    <pre>
-        {{ countHitItems }}
-    </pre>
+<!--    <pre>-->
+<!--        {{ countHitItems }}-->
+<!--    </pre>-->
 <!--    <div class="container">-->
             <h2  v-if="newItems" class="text-center">Новинки</h2>
             <products-list v-if="newItems" :products="newItems"></products-list>

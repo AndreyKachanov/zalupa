@@ -1,6 +1,5 @@
 @php
-    /** @var \App\Entity\ItemCategory $category */
-
+    /** @var \App\Models\Admin\Item\Category $category */
 @endphp
 
 @extends('layouts.app')
@@ -15,6 +14,12 @@
             @method('DELETE')
             <button class="btn btn-danger">Delete</button>
         </form>
+    </div>
+
+    <div class="row">
+        <div style="margin: 20px auto;">
+            <img src="{{ is_null($category->img) ?  asset('/assets/no-image.png') : Storage::disk('uploads')->url($category->img) }}" alt="" width="300" height="350">
+        </div>
     </div>
 
     <table class="table table-bordered table-striped">
