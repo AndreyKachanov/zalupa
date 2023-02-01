@@ -61,7 +61,11 @@ export default {
         // },
         // возвращает все items, где category = ids
         getItemsByIdsCategories: state => (ids, cnt) => state.items.filter(item => ids.includes(item.category)).splice(0, cnt),
+        getNewItems: state => (cnt) => state.items.filter(item => item.is_new === true).splice(0, cnt),
+        getHitItems: state => (cnt) => state.items.filter(item => item.is_hit === true).splice(0, cnt),
         lengthItemsByIdsCategories: state => (ids) => state.items.filter(item => ids.includes(item.category)).length,
+        lengthNewItems: state => state.items.filter(item => item.is_new === true).length,
+        lengthHitItems: state => state.items.filter(item => item.is_hit === true).length,
 
         // hasNewItemsForPagination: state => slug => state.showMoreArr[slug],
         hasNewItemsForPagination(state) {
