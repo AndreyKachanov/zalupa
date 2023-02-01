@@ -45,7 +45,7 @@ class ApiController extends Controller
     {
         try {
             //return ItemResource::collection(Item::paginate(20));
-            return ItemResource::collection(Item::all());
+            return ItemResource::collection(Item::orderByDesc('created_at')->get());
             //return Item::paginate(11);
         } catch (QueryException $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
@@ -124,6 +124,14 @@ class ApiController extends Controller
      */
     public function setCnt(Token $token, Item $item, int $cnt)
     {
+        if ($cnt < 1 || $cnt > 65535) {
+            throw new HttpResponseException(response()->json([
+                'success'   => false,
+                'message'   => 'Validation errors',
+                'data'      => 'Invalid count items.'
+            ])->setStatusCode(422));
+        }
+
         try {
             return response($token->rCartItems()
                 ->whereItemId($item->id)

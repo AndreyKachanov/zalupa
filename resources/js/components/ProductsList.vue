@@ -144,11 +144,10 @@
                                 padding: 0.25rem 0.35rem
                             }
                         }
-                        input[type='text'] {
-                            padding-left: 0;
-                            padding-right: 0;
-                            //padding: 0.3rem 0.6rem
-                        }
+                        //input[type='number'] {
+                        //    padding-left: 0;
+                        //    padding-right: 0;
+                        //}
                     }
                 }
                 padding-left: 0.8rem;

@@ -24,7 +24,6 @@ $missing = fn(Request $request) => response('Missing route. Not found1111', 404)
 Route::post('test', fn(Request $request) => dd($request->all()))->name('api.test');
 
 Route::get('items', [ApiController::class, 'items'])->name('api.items');
-//Route::get('items/category/{category:slug}', [ApiController::class, 'getItemsFromCategory'])->name('api.get-items-from-category');
 Route::get('items/category/{category:slug}', [ApiController::class, 'getItemsFromParentCategoryAndSubcategories'])->name('api.get-items-from-category');
 
 Route::get('get-categories', [ApiController::class, 'getCategories'])->name('api.get-categories');
@@ -36,8 +35,6 @@ Route::group(
         'as'         => 'api.cart.'
     ],
     function () use ($missing) {
-        //Route::get('load/{token:token}', [ApiController::class, 'cartLoad'])->name('load')
-        //    ->middleware(['throttle:token'])->missing($missing);
         Route::get('load', [ApiController::class, 'cartLoad'])->name('load')
             ->middleware(['throttle:token'])->missing($missing);
         Route::post('add/token/{token:token}/item/{item}/count/{cnt}', [ApiController::class, 'addsItemsToCart'])
@@ -53,8 +50,6 @@ Route::group(
             ->missing($missing);
         Route::post('store', [ApiController::class, 'storeOrder'])->name('store-order')
             ->missing($missing);
-        //Route::get('new_token', [ApiController::class, 'getNewToken'])->name('get-new-token')
-        //    ->missing($missing);
     }
 );
 

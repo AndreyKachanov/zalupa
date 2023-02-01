@@ -158,23 +158,25 @@ export default {
         },
         // async setCnt(state, store, id, cnt) {
         async setCnt({ state, getters, commit }, { id, cnt }) {
-            // console.log(payload);
-            // console.log(store.getters.all);
-            if (getters.has(id)) {
-                // console.log(state.token);
-                // console.log(id);
-                // console.log(cnt);
-                let url = `/api/cart/set-cnt/${state.token}/${id}/${cnt}`;
-                let res = await makeRequestPost(url);
-                if (res) {
-                    // console.log('Кол-во товара удачно обновлено на сервере');
-                    commit('setCnt', { id, cnt });
+            if (cnt >= 1 && cnt <= 65535) {
+                if (getters.has(id)) {
+                    // console.log(state.token);
+                    // console.log(id);
+                    // console.log(cnt);
+                    let url = `/api/cart/set-cnt/${state.token}/${id}/${cnt}`;
+                    let res = await makeRequestPost(url);
+                    if (res) {
+                        // console.log('Кол-во товара удачно обновлено на сервере');
+                        commit('setCnt', { id, cnt });
+                    } else {
+                        // console.log('Ошибка обновления количества товара в корзине');
+                    }
                 } else {
-                    // console.log('Ошибка обновления количества товара в корзине');
                 }
             } else {
-                // console.log('Товара нет в корзине');
+                // console.log('cnt < 1 || > 65535');
             }
+
         },
         setTempCnt(store, payload) {
             // console.log(store.state.productsTemp);

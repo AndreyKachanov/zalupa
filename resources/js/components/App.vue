@@ -25,7 +25,7 @@
     </div>
 
     <div
-        v-if="this.$route.name === 'products' || this.$route.name === 'category' || this.$route.name === 'search-open-item'"
+        v-if="this.$route.name === 'products' || this.$route.name === 'category' || this.$route.name === 'product-item'"
         class="container"
     >
         <search-component/>

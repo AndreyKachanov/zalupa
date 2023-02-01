@@ -6,7 +6,7 @@
                 <router-link
                     @click="search=''"
                     class="item fruit" v-for="product in filteredProducts" :key="product.id"
-                    :to="`/search/${product.slug}`"> {{ product.title }}
+                    :to="`/product/${product.slug}`"> {{ product.title }}
                 </router-link>
                 <div class="item error" v-if="search.length >= 2 && !filteredProducts.length">
                     Результатов не найдено!
