@@ -11,6 +11,7 @@
         :childrenOpenAnimation="true"
         :keepChildrenOpen="true"
         :BottomMiniMenuBtn="false"
+        @item-click="itemClickHandel"
         vueRouterEnabel
     ></VueAwesomeSideBar>
 
@@ -180,7 +181,7 @@ export default {
         //     },
         // ],
         collapsed: true,
-        menuType: 'fully',
+        menuType: 'simple',
         miniMenu: false,
         width: '320px',
         search: ''
@@ -226,6 +227,17 @@ export default {
         }
     },
     methods: {
+        itemClickHandel(item) {
+            // console.log(this.$el.childNodes);
+            if (this.ismobile && !item?.children) {
+                setTimeout(() => {
+                    this.collapsed = true;
+                }, 200);
+            }
+        },
+        test() {
+            console.log('test');
+        }
     },
     created() {
         this.screenWidth = innerWidth;
