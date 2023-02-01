@@ -6,13 +6,17 @@
         :menuType="menuType"
         :collapsed="collapsed"
         :menu="categoriesForSidebar"
-        :closeOnClickOutSide="true"
+        :closeOnClickOutSide="ismobile"
+        :overLayerOnOpen="ismobile"
         :childrenOpenAnimation="true"
         :keepChildrenOpen="true"
-        :overLayerOnOpen="true"
         :BottomMiniMenuBtn="false"
         vueRouterEnabel
     ></VueAwesomeSideBar>
+
+<!--    <pre>-->
+<!--        {{ categoriesForSidebar }}-->
+<!--    </pre>-->
 
     <div v-if="this.$route.name === 'cart'" class="container">
         <div class="row">
@@ -176,14 +180,17 @@ export default {
         //     },
         // ],
         collapsed: true,
-        menuType: 'simple',
+        menuType: 'fully',
         miniMenu: false,
-        width: '340px',
+        width: '320px',
         search: ''
     }),
     computed: {
         ...mapGetters('cart', { cartCnt: 'length', cartTotal: 'total' }),
         ...mapGetters('categories', { allCategories: 'allCategories' }),
+        ismobile() {
+            return this.screenWidth < 600;
+        },
         filteredProducts() {
             return this.allCategories.filter(p => {
                 return p.title.toLowerCase().indexOf(this.search.toLowerCase()) !== -1;
@@ -211,19 +218,28 @@ export default {
                 id: item.id,
                 name: item.title,
                 href: '/category/' + item.slug,
-                parent_id: item.parent_id
+                parent_id: item.parent_id,
+                collapseOnClick: item.parent_id !== null,
             }));
 
             return unflatten(arr);
         }
     },
     methods: {
-    }
+    },
+    created() {
+        this.screenWidth = innerWidth;
+    },
 }
 </script>
 
 <style lang="scss">
     .vas-menu {
+        @include media-breakpoint-down(xs) {
+            .labelName {
+                font-size: 14px;
+            }
+        }
         padding-top: 10px !important;
         height: calc(100vh - 65px) !important;
         .menu-item-base {
