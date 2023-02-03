@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Admin\Items\CategoryController;
 use App\Http\Requests\Cart\CartLoadRequest;
 use App\Http\Requests\Cart\CheckTokenRequest;
 use App\Http\Requests\Cart\StoreOrderRequest;
@@ -17,7 +16,6 @@ use App\Models\Admin\Item\Category;
 use App\Models\Admin\Item\Item;
 use App\Models\Admin\Setting;
 use App\UseCases\ApiService;
-use App\UseCases\Auth\RegisterService;
 use App\UseCases\SendOrderService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -28,7 +26,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 class ApiController extends Controller
 {
@@ -44,8 +41,11 @@ class ApiController extends Controller
     public function items()
     {
         try {
-            //return ItemResource::collection(Item::paginate(20));
-            return ItemResource::collection(Item::orderByDesc('created_at')->get());
+                $items = ItemResource::collection(Item::orderByDesc('created_at')->get());
+                //$items = cache()->remember('items', 60*60*24, function () {
+                //    return ItemResource::collection(Item::orderByDesc('created_at')->get());
+                //});
+            return $items;
             //return Item::paginate(11);
         } catch (QueryException $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
@@ -206,7 +206,7 @@ class ApiController extends Controller
     {
         try {
             //return ParentsCategoriesResource::collection(Category::whereParentId(null)->get());
-            return CategoriesResource::collection(Category::all());
+            return CategoriesResource::collection(Category::orderByDesc('created_at')->get());
         } catch (QueryException $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new HttpResponseException(response($errorMsg, 500));

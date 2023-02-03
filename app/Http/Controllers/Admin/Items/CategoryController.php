@@ -35,7 +35,7 @@ class CategoryController extends Controller
             'recursiveItems',
             'descendants',
             'children'
-            ])->paginate(15);
+            ])->orderBy('sorting')->paginate(config('app.pagination_default_value'));
         return view('admin.categories.index', compact('categories'));
     }
 

@@ -3,55 +3,61 @@
     "id": 1,
     "title": "1. Топ продаж и новинки",
     "parent_id": null,
-    "slug": "1-populyarnye-tovary",
-    "deleted_at": null,
-    "created_at": "2023-01-21 01:55:11",
-    "updated_at": "2023-01-21 13:31:00"
+    "slug": "1-top-prodazh-i-novinki",
+    "deleted_at": "2023-02-02 15:19:15",
+    "created_at": "2023-01-22 01:58:11",
+    "updated_at": "2023-02-02 15:19:15",
+    "img": "categories/124b7c6cdf7660003b6c9e71ad2f215b.jpg"
   },
   {
     "id": 4,
-    "title": "2. Мягкие игрушки",
+    "title": "Мягкие игрушки",
     "parent_id": null,
-    "slug": "2-myagkie-igrushki",
+    "slug": "myagkie-igrushki",
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:11",
-    "updated_at": "2023-01-21 00:35:17"
+    "updated_at": "2023-02-02 15:19:58",
+    "img": "categories/65f91d2225a0a2fba4b02bfe38506457.jpg"
   },
   {
     "id": 5,
-    "title": "3. Светящиеся игрушки",
+    "title": "Светящиеся игрушки",
     "parent_id": null,
-    "slug": "3-svetyashchiesya-igrushki",
+    "slug": "svetyashchiesya-igrushki",
     "deleted_at": null,
-    "created_at": "2023-01-21 01:55:11",
-    "updated_at": "2023-01-21 00:35:26"
+    "created_at": "2022-02-01 01:55:11",
+    "updated_at": "2023-02-02 15:20:09",
+    "img": "categories/2e0067e1a3b0e70f435810e0921dff1d.jpg"
   },
   {
     "id": 25,
-    "title": "4. Шары           БоБо",
+    "title": "Шары БоБо",
     "parent_id": null,
-    "slug": "9-shary-bobo",
+    "slug": "shary-bobo",
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:11",
-    "updated_at": "2023-01-21 00:35:49"
+    "updated_at": "2023-02-02 15:20:23",
+    "img": "categories/d860ad3661ad1e9d2fc6a819a9b926a3.jpg"
   },
   {
     "id": 26,
-    "title": "5. Антистресс Слайм Сквиш",
+    "title": "Антистресс Слайм Сквиш",
     "parent_id": null,
-    "slug": "10-antistress-slaym-skvish",
+    "slug": "antistress-slaym-skvish",
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:11",
-    "updated_at": "2023-01-21 00:36:13"
+    "updated_at": "2023-02-02 15:20:34",
+    "img": "categories/96031a5aaca4810df89cd05234692c77.jpg"
   },
   {
     "id": 32,
-    "title": "6. Настольные игры",
+    "title": "Настольные игры",
     "parent_id": null,
-    "slug": "15-nastolnye-igry",
+    "slug": "nastolnye-igry",
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:11",
-    "updated_at": "2023-01-21 00:36:23"
+    "updated_at": "2023-02-02 15:20:42",
+    "img": "categories/89b0a975a09871951181a474fb4e123e.jpg"
   },
   {
     "id": 33,
@@ -60,7 +66,8 @@
     "slug": "4-novogodnie-tovary",
     "deleted_at": "2023-01-21 01:04:38",
     "created_at": "2023-01-21 01:55:11",
-    "updated_at": "2023-01-21 01:04:38"
+    "updated_at": "2023-01-21 01:04:38",
+    "img": null
   },
   {
     "id": 34,
@@ -69,7 +76,8 @@
     "slug": "5-raznoe",
     "deleted_at": "2023-01-21 00:37:08",
     "created_at": "2023-01-21 01:55:11",
-    "updated_at": "2023-01-21 00:37:08"
+    "updated_at": "2023-01-21 00:37:08",
+    "img": null
   },
   {
     "id": 35,
@@ -78,7 +86,8 @@
     "slug": "3-1-mechi-svetyashchiesya",
     "deleted_at": null,
     "created_at": "2023-01-20 23:22:53",
-    "updated_at": "2023-01-20 23:22:53"
+    "updated_at": "2023-01-20 23:22:53",
+    "img": null
   },
   {
     "id": 36,
@@ -87,7 +96,8 @@
     "slug": "3-2-shapki-s-ushami",
     "deleted_at": null,
     "created_at": "2023-01-21 00:11:47",
-    "updated_at": "2023-01-21 00:11:47"
+    "updated_at": "2023-01-21 00:11:47",
+    "img": null
   },
   {
     "id": 37,
@@ -96,7 +106,8 @@
     "slug": "3-3-obodki-svetyashchiesya",
     "deleted_at": null,
     "created_at": "2023-01-21 00:12:14",
-    "updated_at": "2023-01-21 00:14:53"
+    "updated_at": "2023-01-21 00:14:53",
+    "img": null
   },
   {
     "id": 38,
@@ -105,7 +116,8 @@
     "slug": "3-4-vertushki-svetyashchiesya",
     "deleted_at": null,
     "created_at": "2023-01-21 00:12:53",
-    "updated_at": "2023-01-21 00:12:53"
+    "updated_at": "2023-01-21 00:12:53",
+    "img": null
   },
   {
     "id": 39,
@@ -114,7 +126,8 @@
     "slug": "3-5-maski",
     "deleted_at": null,
     "created_at": "2023-01-21 00:13:47",
-    "updated_at": "2023-01-21 00:13:47"
+    "updated_at": "2023-01-21 00:13:47",
+    "img": null
   },
   {
     "id": 40,
@@ -123,7 +136,8 @@
     "slug": "3-6-vertoletiki-rogatki-svetyashchiesya",
     "deleted_at": null,
     "created_at": "2023-01-21 00:14:15",
-    "updated_at": "2023-01-21 00:33:50"
+    "updated_at": "2023-01-21 00:33:50",
+    "img": null
   },
   {
     "id": 41,
@@ -132,7 +146,8 @@
     "slug": "3-7-avtomaty-i-pistolety",
     "deleted_at": null,
     "created_at": "2023-01-21 00:14:44",
-    "updated_at": "2023-01-21 00:14:44"
+    "updated_at": "2023-01-21 00:14:44",
+    "img": null
   },
   {
     "id": 42,
@@ -141,7 +156,8 @@
     "slug": "3-7-mikrofony-svetyashchiesya",
     "deleted_at": null,
     "created_at": "2023-01-21 00:15:37",
-    "updated_at": "2023-01-21 00:15:44"
+    "updated_at": "2023-01-21 00:15:44",
+    "img": null
   },
   {
     "id": 43,
@@ -150,7 +166,8 @@
     "slug": "3-9-veterki",
     "deleted_at": null,
     "created_at": "2023-01-21 00:16:39",
-    "updated_at": "2023-01-21 00:16:39"
+    "updated_at": "2023-01-21 00:16:39",
+    "img": null
   },
   {
     "id": 44,
@@ -159,7 +176,8 @@
     "slug": "3-10-palochki-svetyashchiesya",
     "deleted_at": null,
     "created_at": "2023-01-21 00:17:22",
-    "updated_at": "2023-01-21 00:17:22"
+    "updated_at": "2023-01-21 00:17:22",
+    "img": null
   },
   {
     "id": 45,
@@ -168,7 +186,8 @@
     "slug": "3-11-neonovye-tovary",
     "deleted_at": null,
     "created_at": "2023-01-21 00:17:45",
-    "updated_at": "2023-01-21 00:17:45"
+    "updated_at": "2023-01-21 00:17:45",
+    "img": null
   },
   {
     "id": 46,
@@ -177,7 +196,8 @@
     "slug": "3-12-shokery-i-lazery",
     "deleted_at": null,
     "created_at": "2023-01-21 00:18:21",
-    "updated_at": "2023-01-21 00:18:21"
+    "updated_at": "2023-01-21 00:18:21",
+    "img": null
   },
   {
     "id": 47,
@@ -186,7 +206,8 @@
     "slug": "3-13-shlyapy-raznye",
     "deleted_at": null,
     "created_at": "2023-01-21 13:54:20",
-    "updated_at": "2023-01-21 13:54:20"
+    "updated_at": "2023-01-21 13:54:20",
+    "img": null
   },
   {
     "id": 48,
@@ -195,7 +216,8 @@
     "slug": "3-14-interaktivnye-igrushki",
     "deleted_at": null,
     "created_at": "2023-01-21 22:31:22",
-    "updated_at": "2023-01-21 22:31:22"
+    "updated_at": "2023-01-21 22:31:22",
+    "img": null
   },
   {
     "id": 49,
@@ -204,7 +226,8 @@
     "slug": "2-1-top-prodazh-i-novinki",
     "deleted_at": null,
     "created_at": "2023-01-21 23:01:36",
-    "updated_at": "2023-01-21 23:01:36"
+    "updated_at": "2023-01-21 23:01:36",
+    "img": null
   },
   {
     "id": 50,
@@ -213,7 +236,8 @@
     "slug": "2-2-iz-multikov-i-igr",
     "deleted_at": null,
     "created_at": "2023-01-22 22:01:42",
-    "updated_at": "2023-01-22 22:04:33"
+    "updated_at": "2023-01-22 22:04:33",
+    "img": null
   },
   {
     "id": 51,
@@ -222,7 +246,8 @@
     "slug": "2-3-igrushki-sobaki",
     "deleted_at": null,
     "created_at": "2023-01-22 22:03:34",
-    "updated_at": "2023-01-22 22:04:16"
+    "updated_at": "2023-01-22 22:04:16",
+    "img": null
   },
   {
     "id": 52,
@@ -231,7 +256,8 @@
     "slug": "2-4-igrushki-medvedi",
     "deleted_at": null,
     "created_at": "2023-01-22 22:04:08",
-    "updated_at": "2023-01-22 22:04:08"
+    "updated_at": "2023-01-22 22:04:08",
+    "img": null
   },
   {
     "id": 53,
@@ -240,7 +266,8 @@
     "slug": "2-5-igrushki-zaycy",
     "deleted_at": null,
     "created_at": "2023-01-22 22:05:08",
-    "updated_at": "2023-01-22 22:05:08"
+    "updated_at": "2023-01-22 22:05:08",
+    "img": null
   },
   {
     "id": 54,
@@ -249,7 +276,8 @@
     "slug": "2-6-igrushki-koty",
     "deleted_at": null,
     "created_at": "2023-01-22 22:05:35",
-    "updated_at": "2023-01-22 22:05:35"
+    "updated_at": "2023-01-22 22:05:35",
+    "img": null
   },
   {
     "id": 55,
@@ -258,7 +286,8 @@
     "slug": "2-7-igrushki-slony",
     "deleted_at": null,
     "created_at": "2023-01-22 22:06:26",
-    "updated_at": "2023-01-22 22:06:26"
+    "updated_at": "2023-01-22 22:06:26",
+    "img": null
   },
   {
     "id": 56,
@@ -267,7 +296,8 @@
     "slug": "2-8-raznye-zhivotnye",
     "deleted_at": null,
     "created_at": "2023-01-22 22:07:41",
-    "updated_at": "2023-01-22 22:07:41"
+    "updated_at": "2023-01-22 22:07:41",
+    "img": null
   },
   {
     "id": 57,
@@ -276,7 +306,8 @@
     "slug": "2-9-igrushki-s-pledom",
     "deleted_at": null,
     "created_at": "2023-01-22 22:08:57",
-    "updated_at": "2023-01-22 22:08:57"
+    "updated_at": "2023-01-22 22:08:57",
+    "img": null
   },
   {
     "id": 58,
@@ -285,24 +316,107 @@
     "slug": "2-10-igrushki-brelki",
     "deleted_at": null,
     "created_at": "2023-01-22 22:10:06",
-    "updated_at": "2023-01-22 22:10:06"
+    "updated_at": "2023-01-22 22:10:06",
+    "img": null
   },
   {
     "id": 59,
-    "title": "7. Детская косметика",
+    "title": "Детская косметика",
     "parent_id": null,
-    "slug": "7-detskaya-kosmetika",
+    "slug": "detskaya-kosmetika",
     "deleted_at": null,
     "created_at": "2023-01-27 16:40:51",
-    "updated_at": "2023-01-27 16:40:51"
+    "updated_at": "2023-02-02 15:20:55",
+    "img": "categories/3f7e2d42116a8023679d6b5ebe9c7e81.jpg"
   },
   {
     "id": 60,
-    "title": "8. Гуджицу",
+    "title": "Гуджицу",
     "parent_id": null,
-    "slug": "8-gudzhicu",
+    "slug": "gudzhicu",
     "deleted_at": null,
     "created_at": "2023-01-30 13:18:52",
-    "updated_at": "2023-01-30 13:18:52"
+    "updated_at": "2023-02-02 15:21:06",
+    "img": "categories/59f056a2903f1a8ad4f003f4249d0281.jpg"
+  },
+  {
+    "id": 61,
+    "title": "На радиоуправлении",
+    "parent_id": null,
+    "slug": "na-radioupravlenii",
+    "deleted_at": null,
+    "created_at": "2023-02-02 14:29:09",
+    "updated_at": "2023-02-02 14:32:38",
+    "img": "categories/f259a6e68e6594757e49f035497119cc.jpg"
+  },
+  {
+    "id": 62,
+    "title": "Роботы, Трансформеры",
+    "parent_id": null,
+    "slug": "roboty-transformery",
+    "deleted_at": null,
+    "created_at": "2023-02-02 14:35:26",
+    "updated_at": "2023-02-02 14:35:26",
+    "img": "categories/9d88f1c475299c093b776a0ad076b2d5.jpg"
+  },
+  {
+    "id": 63,
+    "title": "Куклы",
+    "parent_id": null,
+    "slug": "kukly",
+    "deleted_at": null,
+    "created_at": "2023-02-02 14:38:33",
+    "updated_at": "2023-02-02 14:38:33",
+    "img": "categories/0c22a44f89d0687d48616c1410740b43.jpg"
+  },
+  {
+    "id": 64,
+    "title": "Машинки",
+    "parent_id": null,
+    "slug": "mashinki",
+    "deleted_at": null,
+    "created_at": "2023-02-02 14:44:06",
+    "updated_at": "2023-02-02 14:45:12",
+    "img": "categories/af5fb3b05585482b185968f057e6792c.jpg"
+  },
+  {
+    "id": 65,
+    "title": "Из мультиков и игр",
+    "parent_id": null,
+    "slug": "iz-multikov-i-igr",
+    "deleted_at": null,
+    "created_at": "2023-02-02 14:48:58",
+    "updated_at": "2023-02-02 14:48:58",
+    "img": "categories/875cee32a79fd43319bda92257181043.jpg"
+  },
+  {
+    "id": 66,
+    "title": "Конструкторы",
+    "parent_id": null,
+    "slug": "konstruktory",
+    "deleted_at": null,
+    "created_at": "2023-02-02 14:53:26",
+    "updated_at": "2023-02-02 14:53:26",
+    "img": "categories/5eae8ceb64592aefc7d5bede334ea54f.jpg"
+  },
+  {
+    "id": 67,
+    "title": "Детское оружие",
+    "parent_id": null,
+    "slug": "detskoe-oruzhie",
+    "deleted_at": null,
+    "created_at": "2023-02-02 14:58:23",
+    "updated_at": "2023-02-02 14:59:07",
+    "img": "categories/7dc9b47de783b35ca3b2aef2de3baed6.jpg"
+  },
+  {
+    "id": 68,
+    "title": "Для рисования",
+    "parent_id": null,
+    "slug": "dlya-risovaniya",
+    "deleted_at": null,
+    "created_at": "2023-02-02 15:10:54",
+    "updated_at": "2023-02-02 15:12:22",
+    "img": "categories/16a4b874ebd8d8c69f7fa5ceb1a06be3.jpg"
   }
 ]

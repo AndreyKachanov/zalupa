@@ -15,6 +15,9 @@ $fa-font-path: $fontsAwesomePath;
 @import "~@fortawesome/fontawesome-free/scss/brands";
 @import "~@fortawesome/fontawesome-free/scss/regular";
 
+//jquery ui
+//@import '~jquery-ui/themes/base/all.css';
+
 #app {
     display: flex;
     flex-direction: column;

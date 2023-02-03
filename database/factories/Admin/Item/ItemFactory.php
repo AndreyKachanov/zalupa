@@ -22,16 +22,16 @@ class ItemFactory extends Factory
             'note' => 'Поставляется в коробке по 12 штук',
             'article_number' => $this->faker->postcode,
             'price' => rand(50, 100),
-            'img' => $this->faker->loremflickr(
-                Storage::disk('uploads'),
-                'items',
-                300,
-                350,
-                'soft_toy'
-            ),
-            //'img' => 'items/0e37809be4620a63da0b392c9a113af4.jpg',
-            'is_new' => false,
-            'is_hit' => false,
+            //'img' => $this->faker->loremflickr(
+            //    Storage::disk('uploads'),
+            //    'items',
+            //    300,
+            //    350,
+            //    'soft_toy'
+            //),
+            'img' => 'items/1b84d4bb7c069c7eba13abfa09fa265b.jpg',
+            'is_new' => true,
+            'is_hit' => true,
             'is_bestseller' => false
         ];
     }

@@ -65,7 +65,7 @@ class ItemsSeeder extends Seeder
         ////Создание айтемов с помощью фабрик
         //try {
         //    //по 4 итема привязать к родительской категории
-        //    $countParent = 4;
+        //    $countParent = 500;
         //    $parentCategories = Category::whereParentId(null)->get();
         //    $parentItemIds = [];
         //    foreach ($parentCategories as $parent) {

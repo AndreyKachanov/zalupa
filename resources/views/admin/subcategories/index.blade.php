@@ -7,7 +7,7 @@
 
 @section('content')
     @include('admin.subcategories._nav')
-
+{{--    <h2 class="text-center">Выберите категорию</h2>--}}
     <table class="table table-bordered table-striped">
         <thead>
         <tr>
