@@ -88,11 +88,23 @@ class Item extends Model
         ];
     }
 
+    //public function resolveRouteBinding($value, $field = null)
+    //{
+    //    return $this->with('rCategory')->where($this->getRouteKeyName(), $value)->firstOrFail();
+    //}
+
+    //public function resolveRouteBinding($value, $field = null)
+    //{
+    //    return $this->with('rCategory')->where('name', $value)->firstOrFail();
+    //}
+
     protected $casts = [
         'is_new' => 'boolean',
         'is_hit' => 'boolean',
         'is_bestseller' => 'boolean'
     ];
+
+    //protected $appends = ['price'];
 
     public function rCategory()
     {
@@ -107,7 +119,15 @@ class Item extends Model
     protected function price(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => ($value / 100) * (int)Setting::firstWhere('prop_key', 'price_increase')->prop_value + $value
+            //get: fn ($value) => ($value / 100) * (int)Setting::firstWhere('prop_key', 'price_increase')->prop_value + $value
+            get: function ($value) {
+                //myCacheFunction - функция кеширования, чтобы не дергалась бд много раз.
+                $priceIncrease = myCacheFunction(
+                    'price_increase',
+                    fn() => Setting::firstWhere('prop_key', 'price_increase')->prop_value
+                );
+                return ($value / 100) * (int)$priceIncrease + $value;
+            }
         );
     }
 }

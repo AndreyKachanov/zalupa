@@ -111,4 +111,11 @@
       'Flare' => 'Spatie\\LaravelIgnition\\Facades\\Flare',
     ),
   ),
+  'staudenmeir/laravel-cte' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Staudenmeir\\LaravelCte\\DatabaseServiceProvider',
+    ),
+  ),
 );

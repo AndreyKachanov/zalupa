@@ -5,10 +5,12 @@ namespace App\Models\Admin\Item;
 use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
 /**
  * App\Models\Item\Category
@@ -49,6 +51,20 @@ use Cviebrock\EloquentSluggable\Sluggable;
  * @property-read Category|null $parent
  * @property string|null $img
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereImg($value)
+ * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection|static[] all($columns = ['*'])
+ * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder|Category breadthFirst()
+ * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder|Category depthFirst()
+ * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Collection|static[] get($columns = ['*'])
+ * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder|Category getExpressionGrammar()
+ * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder|Category hasChildren()
+ * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder|Category hasParent()
+ * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder|Category isLeaf()
+ * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder|Category isRoot()
+ * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder|Category tree($maxDepth = null)
+ * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder|Category treeOf(callable $constraint, $maxDepth = null)
+ * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder|Category whereDepth($operator, $value = null)
+ * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder|Category withGlobalScopes(array $scopes)
+ * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder|Category withRelationshipExpression($direction, callable $constraint, $initialDepth, $from = null, $maxDepth = null)
  */
 class Category extends Model
 {
@@ -56,6 +72,7 @@ class Category extends Model
     use HasFactory;
     use SoftDeletes;
     use Sluggable;
+    use HasRecursiveRelationships;
 
     protected $table = 'items_categories';
 
@@ -106,18 +123,23 @@ class Category extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function parent()
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'parent_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function children()
+    public function children(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id');
+    }
+
+    public function recursiveItems(): \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants
+    {
+        return $this->hasManyOfDescendantsAndSelf(Item::class);
     }
 }

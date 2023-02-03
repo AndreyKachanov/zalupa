@@ -25,14 +25,28 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::whereParentId(null)->paginate(15);
+        //$categories = Category::tree()->get()->toTree();
+        //dd(Category::all()[0]->recursiveItems);
+        //return view('admin.categories.test', compact('categories'));
+
+        //dd(Category::all()->descendants());
+        $categories = Category::whereParentId(null)->withCount([
+            'items',
+            'recursiveItems',
+            'descendants',
+            'children'
+            ])->paginate(15);
         return view('admin.categories.index', compact('categories'));
     }
 
     public function indexSubCategories()
     {
-        $subCategories = Category::whereNotNull('parent_id')->orderByDesc('created_at')->paginate(100);
-        return view('admin.subcategories.index', compact('subCategories'));
+        //$subCategories = Category::whereNotNull('parent_id')->orderByDesc('created_at')->paginate(100);
+        //return view('admin.subcategories.index', compact('subCategories'));
+        //$categories = Category::whereParentId(null)->paginate(15);
+        //$categories = Category::withCount('children')->paginate(15);
+        $categories = Category::whereParentId(null)->withCount(['children'])->paginate(15);
+        return view('admin.subcategories.index', compact('categories'));
     }
     /**
      * Show the form for creating a new resource.
@@ -94,6 +108,7 @@ class CategoryController extends Controller
 
     public function showSubCategory(Category $category)
     {
+        //dd($category->children->isNotEmpty());
         return view('admin.subcategories.show', compact('category'));
     }
 

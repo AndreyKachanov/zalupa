@@ -4,6 +4,7 @@ namespace App\Models\Admin;
 
 use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 /**
  * App\Models\Admin\Setting

@@ -20,7 +20,7 @@
     <table class="table table-bordered table-striped">
         <tbody>
             <tr>
-                <th>Родитель</th><td>{{ $category->parent->title }}</td>
+                <th>Родитель</th><td>{{ $category->parent->title ?? 'нет родителя' }}</td>
             </tr>
             <tr>
                 <th>Название</th><td>{{ $category->title }}</td>

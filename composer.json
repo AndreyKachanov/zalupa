@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "ext-pdo": "*",
         "cviebrock/eloquent-sluggable": "^9.0",
         "davejamesmiller/laravel-breadcrumbs": "^5.3",
         "guzzlehttp/guzzle": "^7.2",
@@ -14,7 +15,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
         "laravelcollective/html": "^6.3",
-      "ext-pdo": "*"
+        "staudenmeir/laravel-adjacency-list": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

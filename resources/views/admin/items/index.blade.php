@@ -1,23 +1,16 @@
 @php
     /** @var \App\Models\Admin\Item\Item $item */
-    /** @var \App\Models\Admin\Item\Category $category */
-
     /** @var \Illuminate\Pagination\LengthAwarePaginator $items */
-    /** @var \Illuminate\Database\Eloquent\Collection $categories */
-        //dump(  in_array('title',old('search_checkbox') ) );
-    //dump(in_array('title', old('search_checkbox')));
-    //dump(old('checkbox_title') !== null);
-
 @endphp
 
 @extends('layouts.app')
 
 @section('content')
     @include('admin.items._nav')
-    <p><a href="{{ route('admin.items.create') }}" class="btn btn-success">Добавить</a></p>
+    <p><a href="{{ route('admin.items.create') }}" class="btn btn-success">Добавить товар</a></p>
     <div class="card mb-3">
 
-        <div class="card-header">Поиск</div>
+        <div class="card-header">Поиск товара</div>
 
         <div class="card-body">
             <form action="?" method="GET">

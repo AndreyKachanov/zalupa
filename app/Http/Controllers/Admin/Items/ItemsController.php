@@ -26,27 +26,18 @@ class ItemsController extends Controller
      */
     public function index(Request $request)
     {
-        //dump($request->all());
         if (isset($request->find)) {
             $request->validate([
-                //'search_checkbox' => 'required',
                 'search_input' => 'required'
             ]);
         }
-        //dump(isset($request->find));
-        //dump($request->all());
-        //dump($request->find);
-
-
-        //dd(Category::where('title','LIKE', "%{$request->search}%")->pluck('id')->toArray());
-        //$request->flash();
-
         $request->flashOnly([
             'checkbox_title',
             'checkbox_article_number',
             'checkbox_category',
             'search_input'
         ]);
+
         $query = Item::orderByDesc('created_at');
 
         if (isset($request->checkbox_title)) {
@@ -62,9 +53,8 @@ class ItemsController extends Controller
             $query->whereIn('category_id', $ids);
         }
 
-        $items = $query->paginate(20);
-        $categories = Category::all();
-        return view('admin.items.index', compact('items', 'categories'));
+        $items = $query->with('rCategory')->paginate(20);
+        return view('admin.items.index', compact('items'));
     }
 
     /**
@@ -154,6 +144,7 @@ class ItemsController extends Controller
      */
     public function show(Item $item)
     {
+        $item->load('rCategory');
         return view('admin.items.show', compact('item'));
     }
 
