@@ -219,11 +219,15 @@ class CategoryController extends Controller
         try {
             $category->loadCount([
                 'items',
-                'recursiveItems',
-                'descendants',
+                //'recursiveItems',
+                //'descendants',
                 'children'
             ]);
-            if ($category->recursive_items_count > 0 || $category->descendants_count > 0) {
+            //dump($category->items_count);
+            //dump($category->children_count);
+            //dd($category->items_count > 0 || $category->children_count > 0);
+
+            if ($category->items_count > 0 || $category->children_count > 0) {
                 return redirect()->back()->withErrors('Нельзя удалить категорию имеющую подкатегории или товары');
             }
             if ($category->delete()) {
@@ -243,16 +247,17 @@ class CategoryController extends Controller
     {
         $category->loadCount([
             'items',
-            'recursiveItems',
-            'descendants',
-            'children'
+            //'recursiveItems',
+            //'descendants',
+            //'children'
         ]);
         //dump($category->children_count);
         //dump($category->descendants_count);
         //dump($category->items_count);
         //dd($category->recursive_items_count);
 
-        if ($category->recursive_items_count > 0 || $category->descendants_count > 0) {
+        //if ($category->recursive_items_count > 0 || $category->descendants_count > 0) {
+        if ($category->items_count > 0) {
             return redirect()->back()->withErrors('Нельзя удалить категорию имеющую подкатегории или товары');
         }
         //if ($category->items()->exists()) {
