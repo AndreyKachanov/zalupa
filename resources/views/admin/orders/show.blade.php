@@ -195,32 +195,6 @@
                     <th scope="col">Сумма</th>
                 </tr>
             </thead>
-{{--            <tbody>--}}
-{{--                @foreach ($order->orders as $ord)--}}
-{{--                    <tr>--}}
-{{--                        <td>--}}
-{{--                            <img--}}
-{{--                                src="{{ Storage::disk('uploads')->url($ord->item->img) }}"--}}
-{{--                                class="img-fluid img-thumbnail"--}}
-{{--                                style="max-width: 15%; margin-right: 15px;"--}}
-{{--                                alt="{{ $ord->item->title }}"--}}
-{{--                            >--}}
-{{--                            {{ $ord->item->title }} @isset($ord->item->deleted_at) - <strong style="color: red">удален {{ $ord->item->deleted_at->format('d.m.Y H:m') }}@endisset </strong>--}}
-{{--                        </td>--}}
-{{--                        <td>{{ $ord->item->article_number }}</td>--}}
-{{--                        <td>{{ $ord->item->price }} ₽</td>--}}
-{{--                        <td>{{ $ord->cnt }}</td>--}}
-
-{{--                        <td>{{ $ord->item->price * $ord->cnt }} ₽</td>--}}
-{{--                    </tr>--}}
-{{--                @endforeach--}}
-{{--                    <tr>--}}
-{{--                        <td>Всего:</td>--}}
-{{--                        <td style="text-align:right;" colspan="5">--}}
-{{--                            {{ $order->orders->sum(fn($item) => $item->item->price * $item->cnt) }} ₽--}}
-{{--                        </td>--}}
-{{--                    </tr>--}}
-{{--            </tbody>--}}
             <tbody>
             @foreach ($order->orders as $ord)
                 <tr>

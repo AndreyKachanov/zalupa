@@ -142,6 +142,12 @@ class Category extends Model
 
     public function recursiveItems(): \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants
     {
-        return $this->hasManyOfDescendantsAndSelf(Item::class);
+        //return $this->hasManyOfDescendantsAndSelf(Item::class);
+        return $this->hasManyOfDescendants(Item::class);
     }
+
+    //public function recursiveItemsNotSelf(): \Staudenmeir\LaravelAdjacencyList\Eloquent\Relations\HasManyOfDescendants
+    //{
+    //    return $this->hasManyOfDescendants(Item::class);
+    //}
 }

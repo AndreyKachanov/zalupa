@@ -19,7 +19,7 @@ class ImageService
             $img = Image::make($filePathFromRequest);
             $img->orientate()->fit(300, 350, function ($constraint) {
                 $constraint->upsize();
-            })->encode(null, 80);
+            })->encode(null, 100);
             $now = Carbon::now()->toDateTimeString();
             $hash = md5($img->__toString() . $now);
             $fileName = $dirName . '/' . $hash . '.jpg';

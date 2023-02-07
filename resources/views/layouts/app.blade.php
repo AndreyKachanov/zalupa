@@ -1,5 +1,6 @@
 @php
     $pageWithVue = in_array(Route::currentRouteName(), ['home', 'any']);
+    $notShowBreadcrumbs = in_array(Route::currentRouteName(), ['admin.home', 'login', 'password.request', 'password.reset', ]);
 @endphp
 
 <!DOCTYPE html>
@@ -89,8 +90,11 @@
 
                     @if(!$pageWithVue)
                         <div class="container">
-                            @section('breadcrumbs', Breadcrumbs::render())
-                            @yield('breadcrumbs')
+                            @if(!$notShowBreadcrumbs)
+                                @section('breadcrumbs', Breadcrumbs::render())
+                                @yield('breadcrumbs')
+                            @endif
+{{--                            {{  dump($notShowBreadcrumbs) }}--}}
                             @include('layouts.partials.flash')
                             @yield('content')
                         </div>

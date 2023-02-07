@@ -18,6 +18,8 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
     'author' => env('APP_AUTHOR', 'Andreii Kachanov'),
     'pagination_default_value' => 20,
+    'telegram_chat_id' => env('CHAT_ID', ''),
+    'telegram_bot_token' => env('TELEGRAMM_BOT_TOKEN', ''),
 
     /*
     |--------------------------------------------------------------------------

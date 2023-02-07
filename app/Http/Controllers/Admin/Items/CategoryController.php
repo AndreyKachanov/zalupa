@@ -7,8 +7,9 @@ use App\Http\Requests\Admin\Items\CreateCategoryRequest;
 use App\Http\Requests\Admin\Items\UpdateCategoryRequest;
 use App\Http\Controllers\Controller;
 use App\Services\ImageService;
-use Illuminate\Support\Facades\Request;
-use function PHPUnit\Framework\isNull;
+use Exception;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -58,18 +59,21 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
 
-    public function createSubCategory()
+    public function createSubCategory(Category $category)
     {
-        $selectCategory = Category::select(['id', 'title'])->whereParentId(null)
-            ->orderBy('title')
-            ->get();
 
-        $categoriesToView = [];
-
-        foreach ($selectCategory as $category) {
-            $categoriesToView[$category->id] = mb_substr($category->title, 0, 60);
-        }
-        return view('admin.subcategories.create', compact('categoriesToView'));
+        //dd($category);
+        //dd($request->all());
+        //$selectCategory = Category::select(['id', 'title'])->whereParentId(null)
+        //    ->orderBy('title')
+        //    ->get();
+        //
+        //$categoriesToView = [];
+        //
+        //foreach ($selectCategory as $category) {
+        //    $categoriesToView[$category->id] = mb_substr($category->title, 0, 60);
+        //}
+        return view('admin.subcategories.create', compact('category'));
     }
 
     /**
@@ -82,33 +86,59 @@ class CategoryController extends Controller
     {
         $filePath = $request->file('img') !== null ? $request->file('img')->getRealpath() : null;
         $category = new Category();
+        $category->sorting = Category::whereParentId(null)->max('sorting') + 1;
         $category->title = $request->title;
         $category->img = is_null($filePath)
             ? null
             : $this->service->saveImageWithResize($filePath, 'categories');
         $category->save();
-        return redirect()->route('admin.categories.show', $category);
+        return redirect()->route('admin.categories.index');
     }
 
-    public function storeSubCategory(CreateCategoryRequest $request)
+    public function storeSubCategory(Category $category, CreateCategoryRequest $request)
     {
-        Category::create([
-            'title' => $request->title,
-            'parent_id' => $request->parent_id
-        ]);
+        $filePath = $request->file('img') !== null ? $request->file('img')->getRealpath() : null;
+        $childCategory = new Category();
+        $childCategory->sorting = Category::whereParentId($category->id)->max('sorting') + 1;
+        $childCategory->title = $request->title;
+        $childCategory->img = is_null($filePath)
+            ? null
+            : $this->service->saveImageWithResize($filePath, 'categories');
+        $childCategory->parent_id = $category->id;
+        $childCategory->save();
 
-        return redirect()->route('admin.subcategories.index');
+        return redirect()->route('admin.categories.show', $category);
+
+        //Category::create([
+        //    'title' => $request->title,
+        //    'sorting' => Category::whereParentId($category->id)->max('sorting') + 1,
+        //    'parent_id' => $category->id
+        //]);
+
+        //return redirect()->route('admin.categories.show', $category);
     }
 
 
     public function show(Category $category)
     {
+        //dd($category->children->sortByDesc('sorting'));
+        $category->loadCount([
+            'items',
+            'recursiveItems',
+            //'descendants',
+            'children'
+        ]);
         return view('admin.categories.show', compact('category'));
     }
 
     public function showSubCategory(Category $category)
     {
-        //dd($category->children->isNotEmpty());
+        $category->loadCount([
+            'items',
+            'recursiveItems',
+            'descendants',
+            'children'
+        ]);
         return view('admin.subcategories.show', compact('category'));
     }
 
@@ -127,10 +157,11 @@ class CategoryController extends Controller
     public function editSubCategory(Category $category)
     {
         //dd($category);
+        //dd($category);
         $selectCategory = Category::select(['id', 'title'])->whereParentId(null)
             ->orderBy('title')
             ->get();
-
+        //
         $categoriesToView = [];
 
         foreach ($selectCategory as $cat) {
@@ -165,28 +196,80 @@ class CategoryController extends Controller
 
     public function updateSubCategory(UpdateCategoryRequest $request, Category $category)
     {
+        //dd($request->all());
+        if ($request->hasFile('img')) {
+            $filePath = $request->file('img')->getRealpath();
+            $category->img = $this->service->saveImageWithResize($filePath, 'categories');
+        }
         $category->slug = null;
         $category->title = $request->title;
+        $category->parent_id = $request->parent_id;
         $category->save();
         //$category->update($request->only(['title', 'parent_id']));
-        return redirect()->route('admin.subcategories.index');
+        return redirect()->route('admin.subcategories.show', $category);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse|void
+     * @throws Exception
      */
     public function destroy(Category $category)
     {
-        $category->delete();
-        return redirect()->route('admin.categories.index');
+        try {
+            $category->loadCount([
+                'items',
+                'recursiveItems',
+                'descendants',
+                'children'
+            ]);
+            if ($category->recursive_items_count > 0 || $category->descendants_count > 0) {
+                return redirect()->back()->withErrors('Нельзя удалить категорию имеющую подкатегории или товары');
+            }
+            if ($category->delete()) {
+                return redirect()->route('admin.categories.index');
+            }
+        } catch (Exception $e) {
+            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
+            dd($errorMsg);
+        }
     }
 
+    /**
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse|void
+     */
     public function destroySubCategory(Category $category)
     {
-        $category->delete();
-        return redirect()->route('admin.subcategories.index');
+        $category->loadCount([
+            'items',
+            'recursiveItems',
+            'descendants',
+            'children'
+        ]);
+        //dump($category->children_count);
+        //dump($category->descendants_count);
+        //dump($category->items_count);
+        //dd($category->recursive_items_count);
+
+        if ($category->recursive_items_count > 0 || $category->descendants_count > 0) {
+            return redirect()->back()->withErrors('Нельзя удалить категорию имеющую подкатегории или товары');
+        }
+        //if ($category->items()->exists()) {
+        //    return redirect()->back()->withErrors('');
+        //}
+
+        //dd(1);
+        //if (!$category->items()->exists()) {
+        //    $category->delete();
+        //    return redirect()->route('admin.categories.show', $category->parent);
+        //}
+
+        if ($category->delete()) {
+            return redirect()->route('admin.categories.show', $category->parent);
+        }
+
+        //return redirect()->route('admin.subcategories.show', $category)->with('errors', 'Ошибка соединения с базой данных');
+        //return redirect()->route('admin.subcategories.show', $category)->withErrors(["your_custom_error"=>"Your custom error message!"]);
     }
 }

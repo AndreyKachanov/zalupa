@@ -27,8 +27,8 @@ Route::group(
     function () {
         Route::group(['prefix' => 'subcategories', 'as' => 'subcategories.'], function () {
             Route::get('/', [CategoryController::class, 'indexSubCategories'])->name('index');
-            Route::post('/', [CategoryController::class, 'storeSubCategory'])->name('store');
-            Route::get('create', [CategoryController::class, 'createSubCategory'])->name('create');
+            Route::post('/{category}', [CategoryController::class, 'storeSubCategory'])->name('store');
+            Route::get('create/{category}', [CategoryController::class, 'createSubCategory'])->name('create');
             Route::get('{category}', [CategoryController::class, 'showSubCategory'])->name('show');
             Route::get('{category}/edit', [CategoryController::class, 'editSubCategory'])->name('edit');
             Route::match(['put', 'patch'], '{category}', [CategoryController::class, 'updateSubCategory'])

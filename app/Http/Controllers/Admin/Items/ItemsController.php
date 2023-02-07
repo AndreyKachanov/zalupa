@@ -53,7 +53,7 @@ class ItemsController extends Controller
             $query->whereIn('category_id', $ids);
         }
 
-        $items = $query->with('rCategory')->paginate(20);
+        $items = $query->with('rCategory')->paginate(config('app.pagination_default_value'));
         return view('admin.items.index', compact('items'));
     }
 

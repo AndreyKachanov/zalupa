@@ -40,7 +40,7 @@ Breadcrumbs::register('password.reset', function (Crumbs $crumbs) {
 
 // Admin
 Breadcrumbs::register('admin.home', function (Crumbs $crumbs) {
-    $crumbs->parent('home');
+    //$crumbs->parent('home');
     $crumbs->push('Админка', route('admin.home'));
 });
 
@@ -84,8 +84,8 @@ Breadcrumbs::register('admin.categories.show', function (Crumbs $crumbs, Categor
 });
 
 Breadcrumbs::register('admin.categories.edit', function (Crumbs $crumbs, Category $category) {
-    $crumbs->parent('admin.categories.index');
-    $crumbs->push('Edit', route('admin.categories.edit', $category));
+    $crumbs->parent('admin.categories.show', $category);
+    $crumbs->push('Изменить', route('admin.categories.edit', $category));
 });
 
 //Admin SubCategories
@@ -94,29 +94,29 @@ Breadcrumbs::register('admin.subcategories.index', function (Crumbs $crumbs) {
     $crumbs->push('Подкатегории', route('admin.subcategories.index'));
 });
 
-Breadcrumbs::register('admin.subcategories.create', function (Crumbs $crumbs) {
-    $crumbs->parent('admin.subcategories.index');
-    $crumbs->push('Создать', route('admin.subcategories.create'));
+Breadcrumbs::register('admin.subcategories.create', function (Crumbs $crumbs, Category $category) {
+    $crumbs->parent('admin.categories.show', $category);
+    $crumbs->push('Создать подкатегорию', route('admin.subcategories.create', $category));
 });
 
 Breadcrumbs::register('admin.subcategories.show', function (Crumbs $crumbs, Category $category) {
-    $crumbs->parent('admin.subcategories.index');
+    $crumbs->parent('admin.categories.show', $category->parent);
     $crumbs->push($category->title, route('admin.subcategories.show', $category));
 });
 
 Breadcrumbs::register('admin.subcategories.edit', function (Crumbs $crumbs, Category $category) {
-    $crumbs->parent('admin.subcategories.index');
-    $crumbs->push('Edit', route('admin.subcategories.edit', $category));
+    $crumbs->parent('admin.subcategories.show', $category);
+    $crumbs->push('Изменить', route('admin.subcategories.edit', $category));
 });
 //Admin Items
 Breadcrumbs::register('admin.items.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
-    $crumbs->push('Items', route('admin.items.index'));
+    $crumbs->push('Товары', route('admin.items.index'));
 });
 
 Breadcrumbs::register('admin.items.create', function (Crumbs $crumbs) {
     $crumbs->parent('admin.items.index');
-    $crumbs->push('Create', route('admin.items.create'));
+    $crumbs->push('Создать', route('admin.items.create'));
 });
 
 Breadcrumbs::register('admin.items.show', function (Crumbs $crumbs, Item $item) {
@@ -125,8 +125,8 @@ Breadcrumbs::register('admin.items.show', function (Crumbs $crumbs, Item $item) 
 });
 
 Breadcrumbs::register('admin.items.edit', function (Crumbs $crumbs, Item $item) {
-    $crumbs->parent('admin.items.index');
-    $crumbs->push('Edit', route('admin.items.edit', $item));
+    $crumbs->parent('admin.items.show', $item);
+    $crumbs->push('Изменить', route('admin.items.edit', $item));
 });
 
 //Orders-Contacts

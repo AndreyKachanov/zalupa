@@ -40,22 +40,23 @@ class ItemsSeeder extends Seeder
             $file = Storage::disk('database')->get('seeders/seeder_data/items_new.json');
             $json = json_decode($file);
             foreach ($json as $item) {
-                //dd($item);
-                Item::create([
-                    'title' =>  $item->title,
-                    'note' => $item->note,
-                    'slug' => $item->slug,
-                    'article_number' => $item->article_number,
-                    'price' => $item->price,
-                    'img' => $item->img,
-                    'is_new' => $item->is_new,
-                    'is_hit' => $item->is_hit,
-                    'is_bestseller' => $item->is_bestseller,
-                    'category_id' => $item->category_id,
-                    'deleted_at' => $item->deleted_at,
-                    'created_at' => $item->created_at,
-                    'updated_at' => $item->updated_at
-                ]);
+                //if (!isset($item->deleted_at)) {
+                    Item::create([
+                        'title' =>  $item->title,
+                        'note' => $item->note,
+                        'slug' => $item->slug,
+                        'article_number' => $item->article_number,
+                        'price' => $item->price,
+                        'img' => $item->img,
+                        'is_new' => $item->is_new,
+                        'is_hit' => $item->is_hit,
+                        'is_bestseller' => $item->is_bestseller,
+                        'category_id' => $item->category_id,
+                        'deleted_at' => $item->deleted_at,
+                        'created_at' => $item->created_at,
+                        'updated_at' => $item->updated_at
+                    ]);
+                //}
             }
         } catch (Exception $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());

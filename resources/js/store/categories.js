@@ -14,13 +14,13 @@ export default {
         // parentsCategories: function (state) {
         //     return state.categories.filter(cat => cat.parent_id === null)
         // },
-        parentsCategories: state => state.categories.filter(cat => cat.parent_id === null),
+        parentsCategories: state => state.categories.filter(cat => cat.parent_id === null).sort((a, b) => a.sorting > b.sorting ? 1 : -1),
         // subCategories: function (state) {
         //     return function (parentCategory) {
         //         return state.categories.filter(cat => cat.parent_id === parentCategory)
         //     }
         // },
-        subCategories: state => (idCurrentCategory) => state.categories.filter(cat => cat.parent_id === idCurrentCategory)
+        subCategories: state => (idCurrentCategory) => state.categories.filter(cat => cat.parent_id === idCurrentCategory).sort((a, b) => a.sorting > b.sorting ? 1 : -1)
 
 
     },

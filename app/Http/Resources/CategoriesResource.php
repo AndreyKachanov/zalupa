@@ -13,9 +13,9 @@ class CategoriesResource extends JsonResource
      */
     public function toArray($request)
     {
-        //return parent::toArray($request);
         return [
             'id' => $this->id,
+            'sorting' => $this->sorting,
             'img' =>  is_null($this->img) ? null : Storage::disk('uploads')->url($this->img),
             'slug' => $this->slug,
             'title' => $this->title,

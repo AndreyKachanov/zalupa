@@ -48,19 +48,30 @@ class ItemsCategorySeeder extends Seeder
             $file = Storage::disk('database')->get('seeders/seeder_data/items_categories_new.json');
             $json =  json_decode($file);
             foreach ($json as $item) {
-                Category::create([
-                    'id' => $item->id,
-                    'sorting' => null,
-                    'title' =>  $item->title,
-                    //'img' => 'categories/1b84d4bb7c069c7eba13abfa09fa265b.jpg',
-                    //'img' => null,
-                    'img' => $item->img,
-                    'slug' => $item->slug,
-                    'deleted_at' => $item->deleted_at,
-                    'created_at' => $item->created_at,
-                    'updated_at' => $item->updated_at,
-                    'parent_id' => $item->parent_id,
-                ]);
+                //if (!isset($item->deleted_at)) {
+                //    if ($item->parent_id === null) {
+                //        $sorting = Category::whereParentId(null)->max('sorting') + 1;
+                //    } else {
+                //        $sorting = Category::whereParentId($item->parent_id)->max('sorting') + 1;
+                //    }
+                    Category::create([
+                        'id' => $item->id,
+                        'sorting' => !isset($item->deleted_at)
+                            ? $item->parent_id === null
+                                ? Category::whereParentId(null)->max('sorting') + 1
+                                : Category::whereParentId($item->parent_id)->max('sorting') + 1
+                            : null,
+                        'title' =>  $item->title,
+                        //'img' => 'categories/1b84d4bb7c069c7eba13abfa09fa265b.jpg',
+                        //'img' => null,
+                        'img' => $item->img,
+                        'slug' => $item->slug,
+                        'deleted_at' => $item->deleted_at,
+                        'created_at' => $item->created_at,
+                        'updated_at' => $item->updated_at,
+                        'parent_id' => $item->parent_id,
+                    ]);
+                //}
             }
 
             foreach (Category::whereNull('parent_id')->orderBy('id')->get() as $key => $category) {

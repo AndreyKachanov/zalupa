@@ -192,6 +192,7 @@ class ApiController extends Controller
         }
 
         $this->sendOrderService->send($contact);
+        $this->sendOrderService->sendTelegramm($contact);
 
         return response()->json([
             'new_token' => $newToken->token,

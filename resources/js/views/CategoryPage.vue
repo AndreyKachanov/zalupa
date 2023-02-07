@@ -1,8 +1,11 @@
 <template>
-    <categories-menu
-        :sub-categories="subCategories(idCurrentCategory)"
+
+    <main-menu
+        :categories="subCategories(idCurrentCategory)"
         :parent-title="parentTitle"
-    ></categories-menu>
+    >
+    </main-menu>
+
     <products-list :products="itemsWithPagination"></products-list>
     <div v-if="startItems < countAll" class="row">
         <div class="col-12 text-center">
@@ -19,14 +22,17 @@
     import { mapGetters } from 'vuex';
     import CategoriesMenu from "../components/CategoriesMenu.vue";
     import ProductsList from "../components/ProductsList.vue";
+    import MainMenu from "../components/MainMenu.vue"
 
     export default {
         name: "CategoryPage",
         data: () => ({
             startItems: 16,
             countLoadItems: 16,
+            parentTitle1: ''
         }),
         components: {
+            MainMenu,
             CategoriesMenu,
             ProductsList
         },

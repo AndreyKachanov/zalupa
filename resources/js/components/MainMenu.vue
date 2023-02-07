@@ -1,6 +1,11 @@
 <template>
     <div class="container top-menu-main">
-        <div class="front-category-grid front-category-grid">
+        <div v-if="parentTitle.length > 0" class="row justify-content-between mb-3">
+            <div class="col-12 parent">
+                {{ parentTitle }}
+            </div>
+        </div>
+        <div v-if="categories.length > 0" class="front-category-grid front-category-grid">
 
                 <ul>
                     <router-link
@@ -30,7 +35,7 @@
 <script>
 export default {
     name: "MainMenu",
-    props: ['categories'],
+    props: ['categories', 'parentTitle'],
     methods: {
         getImg(category) {
             return category.img === null ? '/assets/no-image.png' : category.img;
@@ -40,6 +45,39 @@ export default {
 </script>
 
 <style lang="scss">
+.top-menu {
+    .parent {
+        text-align: center;
+        display: block;
+        color: white;
+        font-weight: 700;
+        text-decoration: none;
+        user-select: none;
+        padding: 1em 2em;
+        border: 1px solid;
+        border-radius: 1px;
+        word-break: break-all;
+        background-color: #c1034a;
+    }
+    .child {
+        text-align: center;
+        display: block;
+        color: #000000;
+        font-weight: 700;
+        text-decoration: none;
+        user-select: none;
+        padding: 1em 2em;
+        outline: none;
+        border: 2px solid #c1034a;
+        border-radius: 1px;
+        transition: 0.2s;
+        word-break: break-all;
+        &:hover {
+        }
+        &:nth-child(odd) {
+        }
+    }
+}
 .top-menu-main {
     .row-bottom-20 {
         margin-bottom: 20px;
