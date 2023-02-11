@@ -289,7 +289,8 @@
                                 {{ $category->items_count }}
                             </td>
                             <td data-label="Товары из подкатегорий">
-                                {{ $category->recursive_items_count }}
+{{--                                {{ $category->recursive_items_count }}--}}
+                                {{ $category->children->sum(fn($category) => $category->items_count) }}
                             </td>
 
 {{--                            <td data-label="Все подкатегории">--}}

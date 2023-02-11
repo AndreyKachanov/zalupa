@@ -1,52 +1,52 @@
 <template>
-
     <main-menu
         :categories="subCategories(idCurrentCategory)"
         :parent-title="parentTitle"
     >
     </main-menu>
 
-    <products-list :products="itemsWithPagination"></products-list>
-    <div v-if="startItems < countAll" class="row">
-        <div class="col-12 text-center">
-            <button
-                class="btn btn-success mt-2 mb-3"
-                @click="startItems += countLoadItems"
-            >Показать еще
-            </button>
-        </div>
-    </div>
+    <h2  v-if="getNewItems.length > 0" class="text-center mt-3">Новинки</h2>
+    <items-list
+        v-if="getNewItems.length > 0"
+        :items="getNewItems"
+    ></items-list>
+
+    <h2  v-if="getHitItems.length > 0" class="text-center mt-3">Хиты</h2>
+    <items-list
+        v-if="getHitItems.length > 0"
+        :items="getHitItems"
+    ></items-list>
+
+    <items-list
+        v-if="getItemsByIdCategories.length > 0"
+        :items="getItemsByIdCategories"
+    ></items-list>
 </template>
 
 <script>
     import { mapGetters } from 'vuex';
-    import CategoriesMenu from "../components/CategoriesMenu.vue";
-    import ProductsList from "../components/ProductsList.vue";
     import MainMenu from "../components/MainMenu.vue"
+    import ItemsList from "../components/ItemsList.vue";
 
     export default {
         name: "CategoryPage",
         data: () => ({
-            startItems: 16,
-            countLoadItems: 16,
-            parentTitle1: ''
         }),
         components: {
+            ItemsList,
             MainMenu,
-            CategoriesMenu,
-            ProductsList
         },
         computed: {
             ...mapGetters('products', {
                 getItemsByIdsCategories: 'getItemsByIdsCategories',
-                lengthItemsByIdsCategories: 'lengthItemsByIdsCategories'
+                itemsByIdCategories: 'itemsByIdCategories',
             }),
             ...mapGetters('categories', {
                 allCategories: 'allCategories',
                 subCategories: 'subCategories',
             }),
-            // айдишники текущей категории +  дочерних категорий
-            getCategoriesIds() {
+            // айдишники текущей категории + дочерних категорий
+            getCategoriesId() {
                 // ид категории, в которую зашли
                 let idCat = this.idCurrentCategory;
                 let arrIdsCat = [idCat];
@@ -62,15 +62,15 @@
                 }
                 return arrIdsCat;
             },
-            // извлекаем товары с учетом постраничной загрузки
-            itemsWithPagination() {
-                return this.getItemsByIdsCategories(this.getCategoriesIds, this.startItems);
+            getItemsByIdCategories() {
+                return this.itemsByIdCategories(this.getCategoriesId);
             },
-            // общее кол-во товаров в категории + подкатегории
-            countAll() {
-                return this.lengthItemsByIdsCategories(this.getCategoriesIds);
+            getNewItems() {
+                return this.getItemsByIdCategories.filter(item => item.is_new === true);
             },
-
+            getHitItems() {
+                return this.getItemsByIdCategories.filter(item => item.is_hit === true);
+            },
             // itemsOnlyCategory() {
             //     // console.log(111);
             //     // ид категории, в которую зашли
@@ -100,9 +100,7 @@
                 return this.allCategories.some(cat => cat.parent_id === this.idCurrentCategory);
             },
             parentTitle() {
-                // if (this.allCategories.length > 0) {
-                    return this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)].title;
-                // }
+                return this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)].title;
             }
         },
         methods: {

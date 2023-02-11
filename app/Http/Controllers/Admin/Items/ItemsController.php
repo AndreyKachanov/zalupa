@@ -64,7 +64,7 @@ class ItemsController extends Controller
      */
     public function create()
     {
-        $categories = Category::whereNull('parent_id')->get(['id', 'title']);
+        $categories = Category::whereNull('parent_id')->orderBy('sorting')->get(['id', 'title']);
         $categoryToView = [];
         $subCategoryToView = [];
         foreach ($categories as $category) {
@@ -73,7 +73,7 @@ class ItemsController extends Controller
 
         $selectSubCategory = Category::select(['id', 'title'])
             ->where('parent_id', key($categoryToView))
-            ->orderBy('title')
+            ->orderBy('sorting')
             ->get();
 
         if ($selectSubCategory->count() > 0) {
@@ -85,6 +85,8 @@ class ItemsController extends Controller
             }
         }
 
+        //dd($categoryToView);
+
         return view('admin.items.create', [
             'selectCategory'    => $categoryToView ?? null,
             'selectSubCategory' => $subCategoryToView ?? [],
@@ -95,7 +97,7 @@ class ItemsController extends Controller
     {
         $subCategories = Category::select(['id', 'title'])
             ->where('parent_id', $id)
-            ->orderBy('title')
+            ->orderBy('sorting')
             ->get();
 
         if ($subCategories->count() > 0) {
@@ -157,7 +159,7 @@ class ItemsController extends Controller
         $mainCategories = Category::select(['id', 'title'])
             ->whereNull('deleted_at')
             ->whereNull('parent_id')
-            ->orderBy('title')
+            ->orderBy('sorting')
             ->get();
 
         $mainCategoriesArray = [];
@@ -175,7 +177,7 @@ class ItemsController extends Controller
             if ($parentCategoryId == null) {
                 $subCategories = Category::select(['id', 'title'])
                     ->where('parent_id', $item->rCategory->id)
-                    ->orderBy('title')
+                    ->orderBy('sorting')
                     ->get();
 
                 // If this category has children
@@ -188,7 +190,7 @@ class ItemsController extends Controller
                 // selects all subcategories from the main category where the analysis is located
                 $subCategories = Category::select(['id', 'title'])
                     ->where('parent_id', $parentCategoryId)
-                    ->orderBy('title')
+                    ->orderBy('sorting')
                     ->get();
 
                 $subCategoriesArray = [];
@@ -202,7 +204,7 @@ class ItemsController extends Controller
             // selects all subcategories from first main category
             $subCategories = Category::select(['id', 'title'])
                 ->where('parent_id', $mainCategories[0]->id)
-                ->orderBy('title')
+                ->orderBy('sorting')
                 ->get();
 
             $subCategoriesArray = [];

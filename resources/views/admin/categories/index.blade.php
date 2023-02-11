@@ -46,11 +46,11 @@
         <thead>
             <tr>
                 <th scope="col">№</th>
-                <th scope="col">Name</th>
-                <th scope="col">Childs</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Дети</th>
 {{--                <th scope="col">Все подкатегории</th>--}}
-                <th scope="col">Items</th>
-                <th scope="col">Items all</th>
+                <th scope="col">Товары</th>
+                <th scope="col">Товары с подкатегорий</th>
             </tr>
         </thead>
         <tbody>
@@ -61,7 +61,9 @@
                     <td>{{ $category->children_count }}</td>
 {{--                    <td>{{ $category->descendants_count }}</td>--}}
                     <td>{{ $category->items_count }}</td>
-                    <td>{{ $category->recursive_items_count }}</td>
+{{--                    <td>{{ $category->recursive_items_count }}</td>--}}
+{{--                    <td>{{ dump($category->children->values()->get(0)->id) }}</td>--}}
+                    <td>{{ $category->children->sum(fn($category) => $category->items_count) }}</td>
                 </tr>
             @endforeach
 {{--        <tr>--}}

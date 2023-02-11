@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Items;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Cart\Order\Contact;
+use Exception;
 
 class OrdersController extends Controller
 {
@@ -17,5 +18,19 @@ class OrdersController extends Controller
     public function show(Contact $order)
     {
         return view('admin.orders.show', compact('order'));
+    }
+
+    /**
+     * @param Contact $order
+     * @return \Illuminate\Http\RedirectResponse|void
+     */
+    public function destroy(Contact $order) {
+        try {
+            $order->delete();
+            return redirect()->route('admin.orders.index');
+        } catch (Exception $e) {
+            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
+            dd($errorMsg);
+        }
     }
 }

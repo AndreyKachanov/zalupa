@@ -31,12 +31,20 @@ class CategoryController extends Controller
         //return view('admin.categories.test', compact('categories'));
 
         //dd(Category::all()->descendants());
-        $categories = Category::whereParentId(null)->withCount([
+        $categories = Category::whereParentId(null)
+        ->with(['children' => function ($query) {
+            $query->withCount('items');
+        }])
+        ->withCount([
             'items',
-            'recursiveItems',
-            'descendants',
+            //'recursiveItems',
+            //'descendants',
             'children'
-            ])->orderBy('sorting')->paginate(config('app.pagination_default_value'));
+        ])
+            //->orderBy('sorting')->get();
+            ->orderBy('sorting')
+            ->paginate(config('app.pagination_default_value'));
+        //dd($categories[0]->children[1]->items_count);
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -121,13 +129,17 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
+        //dd(1);
         //dd($category->children->sortByDesc('sorting'));
-        $category->loadCount([
+        $category->load(['children' => function ($query) {
+            $query->withCount('items');
+        }])->loadCount([
             'items',
-            'recursiveItems',
+            //'recursiveItems',
             //'descendants',
             'children'
         ]);
+        //dd($category->children[0]->items_count);
         return view('admin.categories.show', compact('category'));
     }
 
@@ -135,8 +147,8 @@ class CategoryController extends Controller
     {
         $category->loadCount([
             'items',
-            'recursiveItems',
-            'descendants',
+            //'recursiveItems',
+            //'descendants',
             'children'
         ]);
         return view('admin.subcategories.show', compact('category'));
@@ -159,7 +171,7 @@ class CategoryController extends Controller
         //dd($category);
         //dd($category);
         $selectCategory = Category::select(['id', 'title'])->whereParentId(null)
-            ->orderBy('title')
+            ->orderBy('sorting')
             ->get();
         //
         $categoriesToView = [];

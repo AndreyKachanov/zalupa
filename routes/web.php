@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\HomeController as AdminHome;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Models\Admin\Cart\Invoice;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Items\CategoryController;
 use App\Http\Controllers\Admin\Items\OrdersController;
@@ -14,6 +15,17 @@ Auth::routes();
 Route::get('/login/phone', [LoginController::class, 'phone'])->name('login.phone');
 Route::post('/login/phone', [LoginController::class, 'verify']);
 Route::get('/verify/{token}', [RegisterController::class, 'verify'])->name('register.verify');
+
+//Route::get('test', function () {
+//
+//    $maxId = Invoice::max('id');
+//    //dd(str_pad($maxId + ($maxId + 10), 5, '0', STR_PAD_LEFT));
+//
+//    dd(Invoice::create([
+//        'bill_number' => date('Y') . '-' . str_pad($maxId*33, 6, '0', STR_PAD_LEFT),
+//        'token_id' => 1
+//    ])->bill_number);
+//});
 
 
 Route::view('/', 'layouts.app')->name('home');

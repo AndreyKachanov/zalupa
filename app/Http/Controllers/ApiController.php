@@ -144,7 +144,7 @@ class ApiController extends Controller
 
     public function getBillNumber(CheckTokenRequest $request)
     {
-        //Если приходит запрос на этот роут, значит токен полюбому есть в бд
+        //Если приходит запрос на этот роут, значит токен по-любому есть в бд
         //Если токен есть в таблице invoice - вернуть старый bill_number, иначе новый
         try {
             $token = Token::firstWhere('token', $request->get('token'));
@@ -207,7 +207,7 @@ class ApiController extends Controller
     {
         try {
             //return ParentsCategoriesResource::collection(Category::whereParentId(null)->get());
-            return CategoriesResource::collection(Category::orderByDesc('created_at')->get());
+            return CategoriesResource::collection(Category::orderBy('sorting')->get());
         } catch (QueryException $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new HttpResponseException(response($errorMsg, 500));

@@ -148,9 +148,8 @@
 
 @section('content')
     @include('admin.orders._nav')
-
-        <table class="table table-bordered table-striped">
-            <caption style="caption-side: top; text-align: center; color: #000">Заказ № {{ $order->token->invoice->bill_number }}</caption>
+    <table class="table table-bordered table-striped">
+        <caption style="caption-side: top; text-align: center; color: #000">Заказ № {{ $order->token->invoice->bill_number }}</caption>
             <tbody>
                 <tr>
                     <td>№ заказа</td>
@@ -182,8 +181,14 @@
                 </tr>
             </tbody>
         </table>
-
-        <table class="bottom">
+    <div class="col-12 d-flex justify-content-start mt-3">
+        <form method="POST" action="{{ route('admin.orders.destroy', $order) }}" class="ml-5">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-sm btn-danger pl-4 pr-4">Удалить</button>
+        </form>
+    </div>
+    <table class="bottom">
             <caption style="caption-side: top; text-align: center; color: #000">Список товаров</caption>
             <thead>
                 <tr>

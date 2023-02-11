@@ -16,7 +16,7 @@
     ></VueAwesomeSideBar>
 
 <!--    <pre>-->
-<!--        {{ categoriesForSidebar }}-->
+<!--        {{ allCategories }}-->
 <!--    </pre>-->
 
     <div v-if="this.$route.name === 'cart'" class="container">
