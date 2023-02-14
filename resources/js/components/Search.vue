@@ -11,7 +11,7 @@
                         v-slot="{ route, isExactActive, navigate }"
                         :custom="true"
                     >
-                        <a :href="route.fullPath" @click="navigate" class="item fruit">
+                        <a :href="route.fullPath" @click="navigate; search=''" class="item fruit" >
                             <img :src="getImg(category)" class="img-thumbnail" :alt="`${category.title}`">
                             <div class="ml-3">{{ category.title }}</div>
                         </a>
