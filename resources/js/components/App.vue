@@ -36,7 +36,7 @@
         <search-component/>
     </div>
 
-    <div class="container">
+    <div class="container mt-3">
         <div class="row">
             <div class="col col-sm-12">
                 <router-view></router-view>
@@ -262,7 +262,7 @@ export default {
     .mobile-bottom-nav {
 
         i.fa {
-            color: red;
+            color: #c1034a;
         }
 
         @include media-breakpoint-down(xs) {
@@ -283,10 +283,13 @@ export default {
             top: -10px;
             text-align: center;
             min-height: 20px;
+            min-width: 26px;
+            line-height: 1.5 !important;
             @include media-breakpoint-down(xs) {
                 top: -7px;
                 font-size: 11px;
-                min-height: 17px;
+                min-height: 21px;
+                min-width: 21px;
             }
             //min-width: 24px;
             //max-width: 24px;
@@ -335,14 +338,14 @@ export default {
         }
         &__item--active{
             //dev
-            color:red;
+            color: #c1034a;
         }
         &__item-content{
             display:flex;
             flex-direction:column;
 
             a {
-                color: red;
+                color: #c1034a;
                 display: flex;
                 flex-direction: column;
                 &:hover {

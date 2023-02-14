@@ -5,15 +5,17 @@
     >
     </main-menu>
 
-    <h2  v-if="getNewItems.length > 0" class="text-center mt-3">Новинки</h2>
     <items-list
         v-if="getNewItems.length > 0"
+        :title="'Новинки'"
+        :type-list="'short'"
         :items="getNewItems"
     ></items-list>
 
-    <h2  v-if="getHitItems.length > 0" class="text-center mt-1">Хиты</h2>
     <items-list
         v-if="getHitItems.length > 0"
+        :title="'Хиты'"
+        :type-list="'short'"
         :items="getHitItems"
     ></items-list>
 </template>
@@ -21,20 +23,15 @@
 <script>
     import { mapGetters } from 'vuex';
     import MainMenu from "../components/MainMenu.vue";
-    import ProductsList from "../components/ProductsList.vue";
     import ItemsList from "../components/ItemsList.vue";
 
     export default {
         name: "MainPage",
         data: () => ({
-            startItemsNew: 10,
-            startItemsHit: 10,
-            countLoadItems: 10,
             parentTitle: ''
         }),
         components: {
             MainMenu,
-            ProductsList,
             ItemsList
         },
         computed: {
@@ -43,10 +40,7 @@
             }),
             ...mapGetters('products', {
                 newItems: 'newItems',
-                hitItems: 'hitItems',
-                getHitItems: 'getHitItems',
-                lengthNewItems: 'lengthNewItems',
-                lengthHitItems: 'lengthHitItems'
+                hitItems: 'hitItems'
             }),
             getParentsCategories() {
                 return this.parentsCategories.sort((a, b) => a.sorting > b.sorting ? 1 : -1);
@@ -57,11 +51,9 @@
             getHitItems() {
                 return this.hitItems;
             }
-        },
-        methods: {
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss">
 </style>

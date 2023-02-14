@@ -13,7 +13,8 @@
                 v-slot="{ route, isExactActive, navigate }"
                 :custom="true">
                 <li :class="isExactActive ? 'active' : ''">
-                    <a :href="route.fullPath" @click="navigate">
+                    <a :href="route.fullPath"
+                       @click="navigate">
                         <div class="img-container">
                             <img :src="getImg(category)" class="img-responsive" alt="">
                         </div>

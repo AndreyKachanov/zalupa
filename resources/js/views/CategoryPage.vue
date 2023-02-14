@@ -5,20 +5,24 @@
     >
     </main-menu>
 
-    <h2  v-if="getNewItems.length > 0" class="text-center mt-3">Новинки</h2>
     <items-list
         v-if="getNewItems.length > 0"
+        :title="'Новинки'"
+        :type-list="'short'"
         :items="getNewItems"
     ></items-list>
 
-    <h2  v-if="getHitItems.length > 0" class="text-center mt-3">Хиты</h2>
     <items-list
         v-if="getHitItems.length > 0"
+        :title="'Хиты'"
+        :type-list="'short'"
         :items="getHitItems"
     ></items-list>
 
     <items-list
         v-if="getItemsByIdCategories.length > 0"
+        :title="'Все товары'"
+        :type-list="'full'"
         :items="getItemsByIdCategories"
     ></items-list>
 </template>
@@ -102,11 +106,9 @@
             parentTitle() {
                 return this.allCategories[this.allCategories.findIndex(pr => pr.slug === this.slug)].title;
             }
-        },
-        methods: {
         }
     }
 </script>
 
-<style scoped>
+<style lang="scss">
 </style>

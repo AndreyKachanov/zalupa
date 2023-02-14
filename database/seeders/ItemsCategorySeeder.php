@@ -56,11 +56,12 @@ class ItemsCategorySeeder extends Seeder
                 //    }
                     Category::create([
                         'id' => $item->id,
-                        'sorting' => !isset($item->deleted_at)
-                            ? $item->parent_id === null
-                                ? Category::whereParentId(null)->max('sorting') + 1
-                                : Category::whereParentId($item->parent_id)->max('sorting') + 1
-                            : null,
+                        //'sorting' => !isset($item->deleted_at)
+                        //    ? $item->parent_id === null
+                        //        ? Category::whereParentId(null)->max('sorting') + 1
+                        //        : Category::whereParentId($item->parent_id)->max('sorting') + 1
+                        //    : null,
+                        'sorting' => $item->sorting,
                         'title' =>  $item->title,
                         //'img' => 'categories/1b84d4bb7c069c7eba13abfa09fa265b.jpg',
                         //'img' => null,

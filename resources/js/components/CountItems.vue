@@ -1,9 +1,4 @@
 <template>
-<!--    <div class="countItems">-->
-<!--        <button @click="$emit('setCnt', this.countFromCart - 1)">-</button>-->
-<!--        <span class="ml-1 ml-sm-2 mr-sm-2 mr-1">{{ countFromCart }}</span>-->
-<!--        <button  @click="$emit('setCnt', this.countFromCart + 1)">+</button>-->
-<!--    </div>-->
     <div class="input-group">
         <span class="input-group-prepend">
             <button @click="$emit('setCnt', this.countFromCart - 1)" type="button" class="btn btn-outline-secondary btn-number">
@@ -75,6 +70,15 @@ export default {
                 font-size: 10px;
             }
         }
+        @include media-breakpoint-down(lg) {
+            //border: 1px solid red;
+            span.input-group-prepend, span.input-group-append, input[type='text'] {
+                //border: 1px solid red;
+                button {
+                    padding: 0.25rem 0.38rem
+                }
+            }
+        }
     }
 
     input::-webkit-outer-spin-button,
@@ -82,25 +86,7 @@ export default {
         -webkit-appearance: none;
         margin: 0;
     }
-    input[type=number] {
+    input[type='number'] {
         -moz-appearance: textfield;
-    }
-    .countItems {
-        display: flex;
-        align-items: center;
-
-        button, span {
-            font-size: 12px;
-            @include media-breakpoint-down(xs) {
-                font-size: 10px;
-            }
-        }
-
-        button {
-            width: 24px;
-            @include media-breakpoint-down(xs) {
-                width: 20px;
-            }
-        }
     }
 </style>

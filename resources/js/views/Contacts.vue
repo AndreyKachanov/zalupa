@@ -20,6 +20,11 @@
                             <a v-if="this.isUrl(setting.prop_value)" target="_blank" :href="`${setting.prop_value}`">
                                 {{ setting.prop_value }}
                             </a>
+                            <a v-else-if="setting.prop_key === 'phone_number'"
+                               :href="`tel:${setting.prop_value}`"
+                            >
+                                {{ setting.prop_value }}
+                            </a>
                             <span v-else>{{ setting.prop_value }}</span>
                         </div>
                     </div>
@@ -47,7 +52,7 @@ export default {
             let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
             '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
             '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+@]*)*'+ // port and path
             '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
             '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
             return !!pattern.test(str)
@@ -70,13 +75,12 @@ export default {
     //}
 
     //width: calc((100% - 60px) / 3);
-    height: 100px;
+    min-height: 100px;
     border: solid 1px #e8e8e8;
-    box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
     padding-left: 32px;
     padding-right: 15px;
-
-
+    background-color: #fff;
 }
 .contact_info_image
 {
@@ -84,7 +88,7 @@ export default {
     height: 35px;
     text-align: center;
     i {
-        color: red;
+        color: #c1034a;
     }
 }
 .contact_info_image img
@@ -93,15 +97,20 @@ export default {
 }
 .contact_info_content
 {
-    padding-left: 17px;
+    padding: 20px 0 20px 17px;
 }
 .contact_info_title
 {
     font-weight: 500;
+    margin-bottom: 5px;
 }
 .contact_info_text
 {
     font-size: 12px;
     color: rgba(0,0,0,0.5);
+
+    span {
+        word-break: break-all;
+    }
 }
 </style>

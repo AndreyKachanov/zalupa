@@ -36,6 +36,7 @@ body {
   min-height: 100vh;
   min-width: 270px;
   flex-direction: column;
+  background-color: #f0f0f0;
 
     //footer {
     //    display: none;
@@ -59,7 +60,7 @@ body {
     //    padding-bottom: 0;
     //}
     flex: 1;
-    background-color: #f0f0f0;
+    //background-color: #f0f0f0;
 
   //@include media-breakpoint-down(sm) {
   //    background-color: #edeef0;

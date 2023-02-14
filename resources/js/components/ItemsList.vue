@@ -1,4 +1,5 @@
 <template>
+    <h3  v-if="title" class="text-left mt-3 my-h3"><span>{{ title }}</span></h3>
     <div class="row justify-content-center">
         <div class="col-6 col-md-4 col-lg-3 mb-3 pl-sm-1 pr-sm-1 my-cart"
              v-for="item in items.slice(0, this.countStart)"
@@ -25,6 +26,7 @@
                         <span style="font-size: 17px">Цена:</span>
                         <span style="font-size: 17px; font-weight: bold">{{ item.price }} ₽</span>
                     </h4>
+                    <router-link :to="`/product/${item.slug}`">Подробнее</router-link>
                 </div>
                 <div class="card-footer">
                     <div class="container">
@@ -61,11 +63,13 @@
 
     export default {
         name: "ItemsList",
-        props: ['items'],
-        data: () => ({
-            countStart: innerWidth >= 768 && innerWidth <= 991 ? 9 : 12,
-            countLoad: innerWidth >= 768 && innerWidth <= 991 ? 9 : 12
-        }),
+        props: ['items', 'title', 'type-list'],
+        data() {
+            return {
+                countStart: '',
+                countLoad: ''
+            }
+        },
         components: {
             CountItems
         },
@@ -115,97 +119,101 @@
                     'single-item': cntTrue === 1,
                 }
             },
-        }
+        },
+        created() {
+            function isMdDisplay(width) {
+                return width >= 768 && width <= 991;
+            }
+
+            this.countStart = this.typeList === 'short'
+                ? isMdDisplay(innerWidth) ? 6 : 4
+                : isMdDisplay(innerWidth) ? 9 : 12;
+
+            this.countLoad = isMdDisplay(innerWidth) ? 9 : 8
+        },
     }
 </script>
 
 <style lang="scss">
- .my-cart {
-        .card-footer {
-            //justify-content: space-around;
-            @include media-breakpoint-down(xs) {
-                .container {
-                    padding: 0;
-                    .row {
-                        .cart-buttons {
-                            button {
-                                font-size: .6rem;
-                                padding: 0.375rem 0.1rem;
-                            }
-                        }
-                        margin: 0;
-                    }
-                }
-                padding-left: 0.8rem;
-                padding-right: 0.8rem;
-            }
-            //max-height: 60px;
-            .countItems {
-                @include media-breakpoint-down(xs) {
-                }
-            }
-
-            //.cart-buttons {
-            //    @include media-breakpoint-down(xs) {
-            //    }
-            //    button {
-            //        width: 100%;
-            //        font-size: 14px;
-            //        @include media-breakpoint-down(xs) {
-            //            font-size: 12px;
-            //            padding-left: 5px;
-            //            padding-right: 5px;
-            //        }
-            //    }
-            //}
-        }
-        .text-muted {
-            margin-bottom: 8px;
-        }
-        .budgets {
-            span.badge {
-                padding: 0.7em 1.3em;
-                @include media-breakpoint-down(xs) {
-                    font-size: 9px;
-                    margin-left: 0.2em;
-                    margin-right: 0.2em;
-                    padding-right: 0.5rem;
-                    padding-left: 0.5rem;
-                }
-            }
-            display: flex;
-            position: absolute;
-            width: 100%;
-            justify-content: space-around;
-            margin: .7rem 0;
-        }
-        .single-item {
-            justify-content: flex-start;
-            padding-left: 14px;
-        }
-
-        @include media-breakpoint-down(xs) {
-            &:nth-child(odd) {
-                padding-right: 0.25rem !important;
-            }
-
-            &:nth-child(even) {
-                padding-left: 0.25rem !important;
-            }
-            .card-body {
-                padding: 0.6rem;
-                .card-title {
-                    font-size: 1.1rem;
-                    //word-break: break-all;
-                }
-                .text-muted {
-                    margin-bottom: 8px;
-                    font-size: 0.9rem;
-                    word-break: break-all;
-                }
-            }
-
+    .my-h3 {
+        margin-bottom: 25px;
+        span {
+            padding-bottom: 5px;
+            border-bottom: 3px solid #c1034a;
         }
     }
+     .my-cart {
+            .card-footer {
+                @include media-breakpoint-down(xs) {
+                    .container {
+                        padding: 0;
+                        .row {
+                            .cart-buttons {
+                                button {
+                                    font-size: .6rem;
+                                    padding: 0.375rem 0.1rem;
+                                }
+                            }
+                            margin: 0;
+                        }
+                    }
+                    padding-left: 0.8rem;
+                    padding-right: 0.8rem;
+                }
+
+                @include media-breakpoint-down(lg) {
+                    padding-left: 0.5rem;
+                    padding-right: 0.5rem;
+                }
+
+            }
+            .text-muted {
+                margin-bottom: 8px;
+            }
+            .budgets {
+                span.badge {
+                    padding: 0.7em 1.3em;
+                    @include media-breakpoint-down(xs) {
+                        font-size: 9px;
+                        margin-left: 0.2em;
+                        margin-right: 0.2em;
+                        padding-right: 0.5rem;
+                        padding-left: 0.5rem;
+                    }
+                }
+                display: flex;
+                position: absolute;
+                width: 100%;
+                justify-content: space-around;
+                margin: .7rem 0;
+            }
+            .single-item {
+                justify-content: flex-start;
+                padding-left: 14px;
+            }
+
+            @include media-breakpoint-down(xs) {
+                &:nth-child(odd) {
+                    padding-right: 0.25rem !important;
+                }
+
+                &:nth-child(even) {
+                    padding-left: 0.25rem !important;
+                }
+                .card-body {
+                    padding: 0.6rem;
+                    .card-title {
+                        font-size: 1.1rem;
+                        //word-break: break-all;
+                    }
+                    .text-muted {
+                        margin-bottom: 8px;
+                        font-size: 0.9rem;
+                        word-break: break-all;
+                    }
+                }
+
+            }
+        }
 
 </style>

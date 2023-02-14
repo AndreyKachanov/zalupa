@@ -250,10 +250,10 @@
     "is_new": 0,
     "is_hit": 1,
     "is_bestseller": 0,
-    "category_id": 48,
+    "category_id": 71,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:11",
-    "updated_at": "2023-02-02 15:14:50"
+    "updated_at": "2023-02-09 13:19:11"
   },
   {
     "id": 17,
@@ -266,10 +266,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 48,
+    "category_id": 71,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:11",
-    "updated_at": "2023-02-02 15:15:07"
+    "updated_at": "2023-02-09 13:19:02"
   },
   {
     "id": 18,
@@ -2692,80 +2692,80 @@
     "title": "Танцующий Бамблби",
     "note": "Мин заказ 3 шт.",
     "slug": "tancuyushchiy-bamblbi",
-    "article_number": "1048.3.6010",
-    "price": 450.00,
+    "article_number": "1048.3036",
+    "price": 350.00,
     "img": "items/d86a0aab982bfcd345f83ad6dbcca221.jpg",
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 48,
+    "category_id": 71,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:12",
-    "updated_at": "2023-01-21 22:41:33"
+    "updated_at": "2023-02-10 13:48:01"
   },
   {
     "id": 170,
     "title": "Танцующий человек паук",
     "note": "Мин заказ 3шт.",
     "slug": "tancuyushchiy-chelovek-pauk",
-    "article_number": "1049.3.6010",
-    "price": 450.00,
-    "img": "items/f453de937527f7f264893b29df3a4c1c.jpg",
+    "article_number": "1049.3036",
+    "price": 350.00,
+    "img": "items/d7179e9d98f7ded103c4de7606bde577.jpg",
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 48,
+    "category_id": 71,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:12",
-    "updated_at": "2023-01-21 22:41:57"
+    "updated_at": "2023-02-10 13:49:18"
   },
   {
     "id": 171,
     "title": "Танцующий халк",
     "note": "Мин заказ 3шт.",
     "slug": "tancuyushchiy-halk",
-    "article_number": "1050.3.6010",
-    "price": 450.00,
-    "img": "items/917a06b1143426c519ee50ea21de3505.jpg",
+    "article_number": "1050.3036",
+    "price": 350.00,
+    "img": "items/b83800ab749b6af871383937979d681d.jpg",
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 48,
+    "category_id": 71,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:12",
-    "updated_at": "2023-01-21 22:42:20"
+    "updated_at": "2023-02-10 13:45:31"
   },
   {
     "id": 172,
     "title": "Танцующий Бэтмен",
     "note": "Мин заказ 3 шт.",
     "slug": "tancuyushchiy-betmen",
-    "article_number": "1051.3.6010",
-    "price": 450.00,
+    "article_number": "1051.3036",
+    "price": 350.00,
     "img": "items/646c8bf3aa3ea1cf6424a450a09d250a.jpg",
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 48,
+    "category_id": 71,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:12",
-    "updated_at": "2023-01-21 22:42:40"
+    "updated_at": "2023-02-10 13:50:07"
   },
   {
     "id": 173,
     "title": "Танцующий железный человек",
     "note": "Мин заказ 3шт.",
     "slug": "tancuyushchiy-zheleznyy-chelovek",
-    "article_number": "1052.3.6010",
-    "price": 450.00,
+    "article_number": "1052.3036",
+    "price": 350.00,
     "img": "items/01303fbfb22cebd68a2e4da47356c474.jpg",
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 48,
+    "category_id": 71,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:12",
-    "updated_at": "2023-01-21 22:43:01"
+    "updated_at": "2023-02-10 13:50:34"
   },
   {
     "id": 174,
@@ -2810,10 +2810,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 70,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:12",
-    "updated_at": "2023-01-21 22:43:52"
+    "updated_at": "2023-02-09 22:23:08"
   },
   {
     "id": 177,
@@ -4106,10 +4106,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:13",
-    "updated_at": "2023-01-23 22:59:35"
+    "updated_at": "2023-02-09 12:10:22"
   },
   {
     "id": 258,
@@ -4122,10 +4122,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:13",
-    "updated_at": "2023-01-23 23:00:19"
+    "updated_at": "2023-02-09 12:10:15"
   },
   {
     "id": 259,
@@ -4138,10 +4138,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 56,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:13",
-    "updated_at": "2023-01-23 23:00:51"
+    "updated_at": "2023-02-09 12:10:04"
   },
   {
     "id": 260,
@@ -4154,10 +4154,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 56,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:13",
-    "updated_at": "2023-01-23 23:01:33"
+    "updated_at": "2023-02-09 12:09:15"
   },
   {
     "id": 261,
@@ -4168,12 +4168,12 @@
     "price": 277.00,
     "img": "items/44b60826f1d467908c0cb3b2c0b787fa.jpg",
     "is_new": 0,
-    "is_hit": 0,
+    "is_hit": 1,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 56,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:13",
-    "updated_at": "2023-01-23 23:02:08"
+    "updated_at": "2023-02-09 12:09:06"
   },
   {
     "id": 262,
@@ -4186,10 +4186,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:13",
-    "updated_at": "2023-01-23 23:02:45"
+    "updated_at": "2023-02-09 12:08:56"
   },
   {
     "id": 263,
@@ -4197,15 +4197,15 @@
     "note": "Мин 3 штуки",
     "slug": "medved-svetyashchiysya-cveta-v-assortimente",
     "article_number": "1153.2.3036",
-    "price": 999.00,
+    "price": 300.00,
     "img": "items/3bb0b9ff40aaf00e329bd8a1e88f2ff4.jpg",
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 52,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:13",
-    "updated_at": "2023-01-23 23:03:55"
+    "updated_at": "2023-02-09 12:08:40"
   },
   {
     "id": 264,
@@ -4226,18 +4226,18 @@
   {
     "id": 265,
     "title": "Mix Игрушки для Автоматов 100 шт. 15-18см",
-    "note": "поставляется в коробке по 12 штук",
+    "note": "Модно от 1 пачки. В упаковке 100 штук",
     "slug": "mix-igrushki-dlya-avtomatov-100-sht-15-18sm",
     "article_number": "1155.2.3036",
     "price": 5000.00,
     "img": "items/cc2834fb410c3abe483a2cd09d69b544.jpg",
     "is_new": 0,
-    "is_hit": 0,
+    "is_hit": 1,
     "is_bestseller": 1,
-    "category_id": 49,
+    "category_id": 56,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:13",
-    "updated_at": "2023-01-23 23:04:30"
+    "updated_at": "2023-02-09 12:08:15"
   },
   {
     "id": 266,
@@ -4250,10 +4250,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 54,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:13",
-    "updated_at": "2023-01-23 23:18:19"
+    "updated_at": "2023-02-09 12:07:29"
   },
   {
     "id": 267,
@@ -4264,12 +4264,12 @@
     "price": 251.00,
     "img": "items/0b5b38f62ac279363eac4a6540eb680e.jpg",
     "is_new": 0,
-    "is_hit": 0,
+    "is_hit": 1,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 54,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:13",
-    "updated_at": "2023-01-23 23:05:50"
+    "updated_at": "2023-02-09 12:07:19"
   },
   {
     "id": 268,
@@ -4280,12 +4280,12 @@
     "price": 319.00,
     "img": "items/bc8d2c1804f570b6f01caf6a53ffa5e2.jpg",
     "is_new": 0,
-    "is_hit": 0,
+    "is_hit": 1,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 54,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:13",
-    "updated_at": "2023-01-23 23:06:30"
+    "updated_at": "2023-02-09 12:07:09"
   },
   {
     "id": 269,
@@ -4730,10 +4730,10 @@
     "is_new": 0,
     "is_hit": 1,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:40:00"
+    "updated_at": "2023-02-09 12:06:21"
   },
   {
     "id": 297,
@@ -4762,15 +4762,15 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 1,
-    "category_id": 49,
+    "category_id": 56,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:40:53"
+    "updated_at": "2023-02-09 12:06:06"
   },
   {
     "id": 299,
     "title": "Сиба-ину в одежде (30 см)",
-    "note": "поставляется в коробке по 12 штук",
+    "note": "Мин заказ 3 шт",
     "slug": "siba-inu-v-odezhde-30-sm",
     "article_number": "1189.2.3036",
     "price": 410.00,
@@ -4778,10 +4778,10 @@
     "is_new": 0,
     "is_hit": 1,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 51,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:41:15"
+    "updated_at": "2023-02-09 12:05:49"
   },
   {
     "id": 300,
@@ -4792,12 +4792,12 @@
     "price": 85.00,
     "img": "items/ed32324d3e5875c0e3565718c451f96b.jpg",
     "is_new": 0,
-    "is_hit": 0,
+    "is_hit": 1,
     "is_bestseller": 1,
-    "category_id": 49,
+    "category_id": 56,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:41:40"
+    "updated_at": "2023-02-09 12:05:28"
   },
   {
     "id": 301,
@@ -4826,10 +4826,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 23:20:36"
+    "updated_at": "2023-02-09 12:05:07"
   },
   {
     "id": 303,
@@ -4842,10 +4842,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 23:21:21"
+    "updated_at": "2023-02-09 12:05:01"
   },
   {
     "id": 304,
@@ -4858,10 +4858,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 23:21:56"
+    "updated_at": "2023-02-09 12:04:54"
   },
   {
     "id": 305,
@@ -4874,10 +4874,10 @@
     "is_new": 0,
     "is_hit": 1,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:46:59"
+    "updated_at": "2023-02-09 12:04:47"
   },
   {
     "id": 306,
@@ -4890,10 +4890,10 @@
     "is_new": 0,
     "is_hit": 1,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:47:31"
+    "updated_at": "2023-02-09 12:04:41"
   },
   {
     "id": 307,
@@ -4906,10 +4906,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:48:02"
+    "updated_at": "2023-02-09 12:04:35"
   },
   {
     "id": 308,
@@ -4922,15 +4922,15 @@
     "is_new": 0,
     "is_hit": 1,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:48:42"
+    "updated_at": "2023-02-09 12:04:14"
   },
   {
     "id": 309,
     "title": "Стич (Розовый) 30см",
-    "note": "поставляется в коробке по 12 штук",
+    "note": "Мин заказ 3 шт",
     "slug": "stich-rozovyy-30sm",
     "article_number": "1199.2.3036",
     "price": 390.00,
@@ -4938,10 +4938,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 1,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:49:16"
+    "updated_at": "2023-02-09 12:04:07"
   },
   {
     "id": 310,
@@ -4954,10 +4954,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:50:03"
+    "updated_at": "2023-02-09 12:03:54"
   },
   {
     "id": 311,
@@ -4970,10 +4970,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:50:57"
+    "updated_at": "2023-02-09 12:03:47"
   },
   {
     "id": 312,
@@ -4994,7 +4994,7 @@
   {
     "id": 313,
     "title": "Стич (Голубой) 25см",
-    "note": "В пачке по 12 штук",
+    "note": "Мин заказ 3 шт",
     "slug": "stich-goluboy-25sm-2",
     "article_number": "1202.2.3036",
     "price": 265.00,
@@ -5002,15 +5002,15 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:51:40"
+    "updated_at": "2023-02-09 12:03:37"
   },
   {
     "id": 314,
     "title": "Стич (Голубой) 30см",
-    "note": "поставляется в коробке по 12 штук",
+    "note": "Мин заказ 3 шт",
     "slug": "stich-goluboy-30sm",
     "article_number": "1204.2.3036",
     "price": 390.00,
@@ -5018,10 +5018,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:52:07"
+    "updated_at": "2023-02-09 12:03:19"
   },
   {
     "id": 315,
@@ -5034,10 +5034,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:52:24"
+    "updated_at": "2023-02-09 12:02:55"
   },
   {
     "id": 316,
@@ -5050,10 +5050,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:52:53"
+    "updated_at": "2023-02-09 12:02:47"
   },
   {
     "id": 317,
@@ -5066,10 +5066,10 @@
     "is_new": 0,
     "is_hit": 1,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 56,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:53:16"
+    "updated_at": "2023-02-09 12:02:37"
   },
   {
     "id": 318,
@@ -5082,10 +5082,10 @@
     "is_new": 0,
     "is_hit": 1,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 56,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:53:45"
+    "updated_at": "2023-02-09 12:02:26"
   },
   {
     "id": 319,
@@ -5098,10 +5098,10 @@
     "is_new": 0,
     "is_hit": 1,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 56,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:54:19"
+    "updated_at": "2023-02-09 12:12:25"
   },
   {
     "id": 320,
@@ -5114,10 +5114,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 56,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:54:52"
+    "updated_at": "2023-02-09 12:12:19"
   },
   {
     "id": 321,
@@ -5130,10 +5130,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 56,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:55:18"
+    "updated_at": "2023-02-09 12:12:13"
   },
   {
     "id": 322,
@@ -5146,10 +5146,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 56,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:55:41"
+    "updated_at": "2023-02-09 12:12:05"
   },
   {
     "id": 323,
@@ -5162,10 +5162,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 56,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 21:56:16"
+    "updated_at": "2023-02-09 12:11:58"
   },
   {
     "id": 324,
@@ -5274,10 +5274,10 @@
     "is_new": 0,
     "is_hit": 1,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 22:00:39"
+    "updated_at": "2023-02-09 12:11:44"
   },
   {
     "id": 331,
@@ -5290,10 +5290,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 22:01:17"
+    "updated_at": "2023-02-09 12:11:38"
   },
   {
     "id": 332,
@@ -5306,10 +5306,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 22:01:57"
+    "updated_at": "2023-02-09 12:11:32"
   },
   {
     "id": 333,
@@ -5322,10 +5322,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 22:02:25"
+    "updated_at": "2023-02-09 12:11:27"
   },
   {
     "id": 334,
@@ -5354,10 +5354,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 22:03:36"
+    "updated_at": "2023-02-09 12:11:21"
   },
   {
     "id": 336,
@@ -5722,10 +5722,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 22:21:11"
+    "updated_at": "2023-02-09 12:11:13"
   },
   {
     "id": 359,
@@ -5754,10 +5754,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 22:22:07"
+    "updated_at": "2023-02-09 12:11:05"
   },
   {
     "id": 361,
@@ -5770,10 +5770,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 22:22:55"
+    "updated_at": "2023-02-09 12:10:58"
   },
   {
     "id": 362,
@@ -5818,10 +5818,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 22:25:00"
+    "updated_at": "2023-02-09 12:10:52"
   },
   {
     "id": 365,
@@ -5994,10 +5994,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 22:44:50"
+    "updated_at": "2023-02-09 12:10:45"
   },
   {
     "id": 376,
@@ -6106,10 +6106,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 54,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 22:48:34"
+    "updated_at": "2023-02-09 12:10:38"
   },
   {
     "id": 383,
@@ -6202,10 +6202,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 49,
+    "category_id": 50,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:14",
-    "updated_at": "2023-01-23 22:54:01"
+    "updated_at": "2023-02-09 12:10:30"
   },
   {
     "id": 389,
@@ -9210,10 +9210,10 @@
     "is_new": 1,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 48,
+    "category_id": 71,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:16",
-    "updated_at": "2023-02-02 15:03:55"
+    "updated_at": "2023-02-09 13:20:24"
   },
   {
     "id": 577,
@@ -9226,10 +9226,10 @@
     "is_new": 1,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 48,
+    "category_id": 71,
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:16",
-    "updated_at": "2023-02-02 15:04:15"
+    "updated_at": "2023-02-09 13:20:14"
   },
   {
     "id": 578,
@@ -10890,10 +10890,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 69,
     "deleted_at": null,
     "created_at": "2023-01-25 21:59:11",
-    "updated_at": "2023-01-25 21:59:11"
+    "updated_at": "2023-02-09 13:21:50"
   },
   {
     "id": 682,
@@ -11690,10 +11690,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 70,
     "deleted_at": null,
     "created_at": "2023-01-27 16:12:38",
-    "updated_at": "2023-01-27 16:12:38"
+    "updated_at": "2023-02-09 13:23:06"
   },
   {
     "id": 732,
@@ -11706,10 +11706,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 70,
     "deleted_at": null,
     "created_at": "2023-01-27 16:13:58",
-    "updated_at": "2023-01-27 16:13:58"
+    "updated_at": "2023-02-09 13:23:14"
   },
   {
     "id": 733,
@@ -11722,10 +11722,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 70,
     "deleted_at": null,
     "created_at": "2023-01-27 16:15:22",
-    "updated_at": "2023-01-27 16:15:22"
+    "updated_at": "2023-02-09 13:23:20"
   },
   {
     "id": 734,
@@ -11738,10 +11738,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 70,
     "deleted_at": null,
     "created_at": "2023-01-27 16:16:16",
-    "updated_at": "2023-01-27 16:16:16"
+    "updated_at": "2023-02-09 13:23:27"
   },
   {
     "id": 735,
@@ -11754,10 +11754,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 70,
     "deleted_at": null,
     "created_at": "2023-01-27 16:17:19",
-    "updated_at": "2023-01-27 16:17:19"
+    "updated_at": "2023-02-09 13:23:34"
   },
   {
     "id": 736,
@@ -11770,10 +11770,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 70,
     "deleted_at": null,
     "created_at": "2023-01-27 16:18:25",
-    "updated_at": "2023-01-27 16:18:25"
+    "updated_at": "2023-02-09 13:23:40"
   },
   {
     "id": 737,
@@ -11786,10 +11786,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 70,
     "deleted_at": null,
     "created_at": "2023-01-27 16:19:53",
-    "updated_at": "2023-01-27 16:19:53"
+    "updated_at": "2023-02-09 13:23:54"
   },
   {
     "id": 738,
@@ -13754,10 +13754,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 69,
     "deleted_at": null,
     "created_at": "2023-02-04 14:33:58",
-    "updated_at": "2023-02-04 14:33:58"
+    "updated_at": "2023-02-09 13:21:57"
   },
   {
     "id": 861,
@@ -13770,10 +13770,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 69,
     "deleted_at": null,
     "created_at": "2023-02-04 14:35:47",
-    "updated_at": "2023-02-04 14:35:47"
+    "updated_at": "2023-02-09 13:22:03"
   },
   {
     "id": 862,
@@ -13786,10 +13786,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 69,
     "deleted_at": null,
     "created_at": "2023-02-04 14:37:22",
-    "updated_at": "2023-02-04 14:37:22"
+    "updated_at": "2023-02-09 13:22:09"
   },
   {
     "id": 863,
@@ -13802,10 +13802,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 69,
     "deleted_at": null,
     "created_at": "2023-02-04 14:38:44",
-    "updated_at": "2023-02-04 14:38:44"
+    "updated_at": "2023-02-09 13:22:15"
   },
   {
     "id": 864,
@@ -13818,10 +13818,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 69,
     "deleted_at": null,
     "created_at": "2023-02-04 14:40:30",
-    "updated_at": "2023-02-04 14:40:30"
+    "updated_at": "2023-02-09 13:22:21"
   },
   {
     "id": 865,
@@ -13834,10 +13834,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 69,
     "deleted_at": null,
     "created_at": "2023-02-04 14:42:57",
-    "updated_at": "2023-02-04 14:42:57"
+    "updated_at": "2023-02-09 13:22:26"
   },
   {
     "id": 866,
@@ -13850,10 +13850,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 5,
+    "category_id": 70,
     "deleted_at": null,
     "created_at": "2023-02-04 14:46:45",
-    "updated_at": "2023-02-04 14:46:45"
+    "updated_at": "2023-02-09 13:24:00"
   },
   {
     "id": 867,
@@ -14218,10 +14218,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 48,
+    "category_id": 71,
     "deleted_at": null,
     "created_at": "2023-02-05 14:24:20",
-    "updated_at": "2023-02-05 14:24:20"
+    "updated_at": "2023-02-09 13:20:34"
   },
   {
     "id": 890,
@@ -14346,10 +14346,10 @@
     "is_new": 0,
     "is_hit": 0,
     "is_bestseller": 0,
-    "category_id": 48,
+    "category_id": 71,
     "deleted_at": null,
     "created_at": "2023-02-05 14:49:54",
-    "updated_at": "2023-02-05 14:49:54"
+    "updated_at": "2023-02-09 13:20:43"
   },
   {
     "id": 898,
@@ -14782,5 +14782,661 @@
     "deleted_at": null,
     "created_at": "2023-02-08 12:33:37",
     "updated_at": "2023-02-08 12:33:37"
+  },
+  {
+    "id": 925,
+    "title": "Танцующий пантера",
+    "note": "Мин заказ 3шт.",
+    "slug": "tancuyushchiy-pantera",
+    "article_number": "925.3036",
+    "price": 350.00,
+    "img": "items/65428327808aecaea4700296ae01d4f4.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-10 13:52:14",
+    "updated_at": "2023-02-10 13:52:14"
+  },
+  {
+    "id": 926,
+    "title": "Танцующий робот",
+    "note": "Мин заказ 3 шт.",
+    "slug": "tancuyushchiy-robot",
+    "article_number": "926.3036",
+    "price": 350.00,
+    "img": "items/f73914763d181400ccf88fca3f590f37.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-10 13:53:31",
+    "updated_at": "2023-02-10 13:53:31"
+  },
+  {
+    "id": 927,
+    "title": "Танцующий робот",
+    "note": "Мин заказ 3 шт",
+    "slug": "tancuyushchiy-robot-2",
+    "article_number": "927.3036",
+    "price": 350.00,
+    "img": "items/3c74bf57f2721b53f9adfd30000bf1e9.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-10 13:55:02",
+    "updated_at": "2023-02-10 13:55:02"
+  },
+  {
+    "id": 928,
+    "title": "Танцующий робот 2",
+    "note": "Мин заказ 3 шт.",
+    "slug": "tancuyushchiy-robot-2-2",
+    "article_number": "928.3036",
+    "price": 350.00,
+    "img": "items/d02fab52e7014bb7ad639aae401bad01.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-10 13:56:24",
+    "updated_at": "2023-02-10 13:56:24"
+  },
+  {
+    "id": 929,
+    "title": "Танцующий трансформер",
+    "note": "Мин заказ 3 шт",
+    "slug": "tancuyushchiy-transformer",
+    "article_number": "929.3036",
+    "price": 350.00,
+    "img": "items/416db2a160388afd02a33134d59aded0.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-10 13:57:27",
+    "updated_at": "2023-02-10 13:57:27"
+  },
+  {
+    "id": 930,
+    "title": "Танцующий танос",
+    "note": "Мин заказ 3шт",
+    "slug": "tancuyushchiy-tanos",
+    "article_number": "930.3036",
+    "price": 350.00,
+    "img": "items/96b2ea3e1a761657040abcee8b807ef9.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-10 13:58:29",
+    "updated_at": "2023-02-10 13:58:29"
+  },
+  {
+    "id": 931,
+    "title": "Музыкально-танцующие герои на шаре",
+    "note": "Микс герои. Мин заказ 3 шт.",
+    "slug": "muzykalno-tancuyushchie-geroi-na-share",
+    "article_number": "931.3036",
+    "price": 280.00,
+    "img": "items/5fa790f6d7c3369d84604709f9a71e0d.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-10 14:04:11",
+    "updated_at": "2023-02-10 14:04:11"
+  },
+  {
+    "id": 932,
+    "title": "Танцующая и светящаяся утка",
+    "note": "Мин заказ 3 шт",
+    "slug": "tancuyushchaya-i-svetyashchayasya-utka",
+    "article_number": "932.3036",
+    "price": 280.00,
+    "img": "items/2be598a38a6bf779c17e1d39f8bb1ae1.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-10 14:05:01",
+    "updated_at": "2023-02-10 14:05:01"
+  },
+  {
+    "id": 933,
+    "title": "Танцующая божья коровка",
+    "note": "Мон заказ 3шт",
+    "slug": "tancuyushchaya-bozhya-korovka",
+    "article_number": "933.3036",
+    "price": 280.00,
+    "img": "items/05ead9bbf8da50e15d994c1009973d22.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-10 14:09:31",
+    "updated_at": "2023-02-10 14:09:31"
+  },
+  {
+    "id": 934,
+    "title": "Танцующая Маша и медведь",
+    "note": "Мин заказ 3шт",
+    "slug": "tancuyushchaya-masha-i-medved",
+    "article_number": "934.3036",
+    "price": 280.00,
+    "img": "items/38e2ccfc9f1f75835dac35769701915d.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-10 14:11:21",
+    "updated_at": "2023-02-10 14:11:21"
+  },
+  {
+    "id": 935,
+    "title": "Машинка на пульте DASHER",
+    "note": "Мин заказ 3 шт",
+    "slug": "mashinka-na-pulte-dasher",
+    "article_number": "935.3036",
+    "price": 400.00,
+    "img": "items/91e21191d95f9ccaab0992e7bead3e7c.jpg",
+    "is_new": 1,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 61,
+    "deleted_at": null,
+    "created_at": "2023-02-10 14:13:23",
+    "updated_at": "2023-02-10 14:13:23"
+  },
+  {
+    "id": 936,
+    "title": "Машинка на пульте дашер",
+    "note": "Мин заказ 3 шт",
+    "slug": "mashinka-na-pulte-dasher-2",
+    "article_number": "936.3036",
+    "price": 400.00,
+    "img": "items/e2e4faeb3207557c5117657bf34a3482.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 61,
+    "deleted_at": null,
+    "created_at": "2023-02-10 14:14:40",
+    "updated_at": "2023-02-10 14:14:40"
+  },
+  {
+    "id": 937,
+    "title": "Машинка на радио управлении дашер",
+    "note": "Мин заказ 3шт",
+    "slug": "mashinka-na-radio-upravlenii-dasher",
+    "article_number": "937.3036",
+    "price": 400.00,
+    "img": "items/a46b61b650e41280bfc92cd5071a0186.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 61,
+    "deleted_at": null,
+    "created_at": "2023-02-10 14:16:18",
+    "updated_at": "2023-02-10 14:16:18"
+  },
+  {
+    "id": 938,
+    "title": "Машинка на пульте дашер",
+    "note": "Мин заказ 3 шт",
+    "slug": "mashinka-na-pulte-dasher-3",
+    "article_number": "938.3036",
+    "price": 400.00,
+    "img": "items/d49464a2663b156c0241763e997ecb3b.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 61,
+    "deleted_at": null,
+    "created_at": "2023-02-10 14:19:28",
+    "updated_at": "2023-02-10 14:19:28"
+  },
+  {
+    "id": 939,
+    "title": "Набор радужные друзья",
+    "note": "Мин заказ 3 шт",
+    "slug": "nabor-raduzhnye-druzya",
+    "article_number": "939.9069",
+    "price": 500.00,
+    "img": "items/9085cec1cb9d3f41ed9aae1f9cefb018.jpg",
+    "is_new": 1,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 65,
+    "deleted_at": null,
+    "created_at": "2023-02-11 12:37:25",
+    "updated_at": "2023-02-11 12:37:25"
+  },
+  {
+    "id": 940,
+    "title": "Зубастики shark акула",
+    "note": "Мин заказ 3 упаковки. В упаковке по 6 шт. Цена за 1 шт",
+    "slug": "zubastiki-shark-akula",
+    "article_number": "940.9069",
+    "price": 150.00,
+    "img": "items/74384a02c4d5f5fdbed21e5377b7fd1c.jpg",
+    "is_new": 1,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 65,
+    "deleted_at": null,
+    "created_at": "2023-02-11 12:43:36",
+    "updated_at": "2023-02-11 12:43:36"
+  },
+  {
+    "id": 941,
+    "title": "Зубастики шарк коровка",
+    "note": "Мин заказ 3 упаковки. В упаковке по 6 шт. Цена за 1 шт",
+    "slug": "zubastiki-shark-korovka",
+    "article_number": "941.9069",
+    "price": 150.00,
+    "img": "items/b57d2f5bdad3b24f4680b62e1a19b366.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 65,
+    "deleted_at": null,
+    "created_at": "2023-02-11 12:44:22",
+    "updated_at": "2023-02-11 12:44:22"
+  },
+  {
+    "id": 942,
+    "title": "Зубастики шарк мышка",
+    "note": "Мин заказ 3 упаковки. В упаковке по 6 шт. Цена за 1 шт",
+    "slug": "zubastiki-shark-myshka",
+    "article_number": "942.9069",
+    "price": 150.00,
+    "img": "items/6001af3382711e36105410472e2f0061.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 65,
+    "deleted_at": null,
+    "created_at": "2023-02-11 12:45:15",
+    "updated_at": "2023-02-11 12:45:15"
+  },
+  {
+    "id": 943,
+    "title": "Зубастики шарк динозавр",
+    "note": "Мин заказ 3 упаковки. В упаковке по 6 шт. Цена за 1 шт",
+    "slug": "zubastiki-shark-dinozavr",
+    "article_number": "943.9069",
+    "price": 150.00,
+    "img": "items/75e5dfcd3fd1c57d0e5494c4a40f788d.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 65,
+    "deleted_at": null,
+    "created_at": "2023-02-11 12:46:03",
+    "updated_at": "2023-02-11 12:46:03"
+  },
+  {
+    "id": 944,
+    "title": "Зубастики шарк крокодил",
+    "note": "Мин заказ 3 упаковки. В упаковке по 6 шт. Цена за 1 шт",
+    "slug": "zubastiki-shark-krokodil",
+    "article_number": "944.9069",
+    "price": 150.00,
+    "img": "items/2c07986a787f212114533512ae68e261.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 65,
+    "deleted_at": null,
+    "created_at": "2023-02-11 12:46:54",
+    "updated_at": "2023-02-11 12:46:54"
+  },
+  {
+    "id": 945,
+    "title": "Набор героев Pjmasks",
+    "note": "Мин заказ 5 наборов",
+    "slug": "nabor-geroev-pjmasks",
+    "article_number": "945.9069",
+    "price": 250.00,
+    "img": "items/44d7efb4102f0511069112a686d83776.jpg",
+    "is_new": 1,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 65,
+    "deleted_at": null,
+    "created_at": "2023-02-11 12:53:31",
+    "updated_at": "2023-02-11 12:53:31"
+  },
+  {
+    "id": 946,
+    "title": "Набор машинок грузовики",
+    "note": "Мин заказ 3 набора",
+    "slug": "nabor-mashinok-gruzoviki",
+    "article_number": "946.9069",
+    "price": 180.00,
+    "img": "items/f25032392e25db3d80be0749783bad7d.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 64,
+    "deleted_at": null,
+    "created_at": "2023-02-11 12:56:40",
+    "updated_at": "2023-02-11 12:56:40"
+  },
+  {
+    "id": 947,
+    "title": "Набор черепашек ниндзя Juvynl 2",
+    "note": "Мин заказ 3 набора",
+    "slug": "nabor-cherepashek-nindzya-juvynl-2",
+    "article_number": "947.9069",
+    "price": 650.00,
+    "img": "items/a241dc3344f49ed906e480890a7fb096.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 65,
+    "deleted_at": null,
+    "created_at": "2023-02-11 13:00:25",
+    "updated_at": "2023-02-11 13:00:25"
+  },
+  {
+    "id": 948,
+    "title": "Настольная игра алладин",
+    "note": "Мин заказ 3 шт",
+    "slug": "nastolnaya-igra-alladin",
+    "article_number": "948.9069",
+    "price": 300.00,
+    "img": "items/6a9f29aec588361f49c950d950d1d8c4.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 32,
+    "deleted_at": null,
+    "created_at": "2023-02-11 13:02:40",
+    "updated_at": "2023-02-11 13:02:40"
+  },
+  {
+    "id": 949,
+    "title": "2 пистолета",
+    "note": "Мин заказ 3шт",
+    "slug": "2-pistoleta",
+    "article_number": "949.9069",
+    "price": 650.00,
+    "img": "items/4943900ab5c1af18271905c2246a4e2f.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 67,
+    "deleted_at": null,
+    "created_at": "2023-02-11 13:08:08",
+    "updated_at": "2023-02-11 13:08:08"
+  },
+  {
+    "id": 950,
+    "title": "Наборы ниндзя v",
+    "note": "В упаковке 12 штук. Цена за 1 шт",
+    "slug": "nabory-nindzya-v",
+    "article_number": "950.9069",
+    "price": 70.00,
+    "img": "items/0c370c0527a2baee19225764ed4e50fb.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 65,
+    "deleted_at": null,
+    "created_at": "2023-02-11 13:11:05",
+    "updated_at": "2023-02-11 13:11:05"
+  },
+  {
+    "id": 951,
+    "title": "Настольная игра вертеть Вот это сопли",
+    "note": "Мин заказ 3 шт",
+    "slug": "nastolnaya-igra-vertet-vot-eto-sopli",
+    "article_number": "951.9069",
+    "price": 300.00,
+    "img": "items/eb9fe0f984d650a61dfcbe907083bfc8.jpg",
+    "is_new": 1,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 32,
+    "deleted_at": null,
+    "created_at": "2023-02-11 13:13:55",
+    "updated_at": "2023-02-11 13:13:55"
+  },
+  {
+    "id": 952,
+    "title": "Ветерок 4",
+    "note": "Мин заказ 10штук",
+    "slug": "veterok-4",
+    "article_number": "952.3063",
+    "price": 60.00,
+    "img": "items/6a9b9efb9896ca10bbe7762293e0f8d9.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 43,
+    "deleted_at": null,
+    "created_at": "2023-02-11 14:13:48",
+    "updated_at": "2023-02-11 14:13:48"
+  },
+  {
+    "id": 953,
+    "title": "Маркеры для стчинга",
+    "note": "В пачке разное количество. Цена за 1 шт",
+    "slug": "markery-dlya-stchinga",
+    "article_number": "953.3036",
+    "price": 9.00,
+    "img": "items/fe4a5c403bd34fc6fc5f7ea717e62750.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 68,
+    "deleted_at": null,
+    "created_at": "2023-02-11 14:17:58",
+    "updated_at": "2023-02-11 14:17:58"
+  },
+  {
+    "id": 954,
+    "title": "Трансформер giga 10",
+    "note": "Мин заказ 3 шт",
+    "slug": "transformer-giga-10",
+    "article_number": "954.3036",
+    "price": 1100.00,
+    "img": "items/19ae4ce64efc8d78cbb91e363cd4ea27.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 62,
+    "deleted_at": null,
+    "created_at": "2023-02-13 14:29:12",
+    "updated_at": "2023-02-13 14:29:12"
+  },
+  {
+    "id": 955,
+    "title": "Трансформер giga 9",
+    "note": "Мин заказ 3 шт",
+    "slug": "transformer-giga-9",
+    "article_number": "955.3036",
+    "price": 1000.00,
+    "img": "items/821a6eaba94d3b7d3882813816774f40.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 62,
+    "deleted_at": null,
+    "created_at": "2023-02-13 14:32:22",
+    "updated_at": "2023-02-13 14:32:22"
+  },
+  {
+    "id": 956,
+    "title": "Танцующая утка",
+    "note": "Мин заказ 3шт",
+    "slug": "tancuyushchaya-utka",
+    "article_number": "956.1030",
+    "price": 350.00,
+    "img": "items/7a203e687e124f1469bccca6985377bd.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-13 14:45:30",
+    "updated_at": "2023-02-13 14:45:30"
+  },
+  {
+    "id": 957,
+    "title": "Танцующая принцесс",
+    "note": "Мин заказ 3 шт",
+    "slug": "tancuyushchaya-princess",
+    "article_number": "957.1032",
+    "price": 350.00,
+    "img": "items/7bfef4b3be42f6b1e2ccaf79c0cd5d88.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-13 14:46:43",
+    "updated_at": "2023-02-13 14:46:43"
+  },
+  {
+    "id": 958,
+    "title": "Танцующая пчелка",
+    "note": "Мин заказ 3шт",
+    "slug": "tancuyushchaya-pchelka",
+    "article_number": "958.1032",
+    "price": 350.00,
+    "img": "items/5d5563cc350934af6d9a84c3fa160fa7.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-13 14:48:43",
+    "updated_at": "2023-02-13 14:48:43"
+  },
+  {
+    "id": 959,
+    "title": "Танцующая черепаха",
+    "note": "Мин заказ 3 шт",
+    "slug": "tancuyushchaya-cherepaha",
+    "article_number": "959.1032",
+    "price": 350.00,
+    "img": "items/33a5d83644fd6c05b0a01be53c4e4695.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-13 14:50:08",
+    "updated_at": "2023-02-13 14:50:08"
+  },
+  {
+    "id": 960,
+    "title": "Танцующая пчела",
+    "note": "Мин заказ 5 шт",
+    "slug": "tancuyushchaya-pchela",
+    "article_number": "960.5055",
+    "price": 350.00,
+    "img": "items/2b3f0e633fc9bbd3c51e9c06814d99c3.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 71,
+    "deleted_at": null,
+    "created_at": "2023-02-14 12:35:02",
+    "updated_at": "2023-02-14 12:35:02"
+  },
+  {
+    "id": 961,
+    "title": "Проэктор",
+    "note": "Мин заказ 3 шт",
+    "slug": "proektor",
+    "article_number": "961.9069",
+    "price": 550.00,
+    "img": "items/e986cabade93ec5b1686d89a824c707a.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 68,
+    "deleted_at": null,
+    "created_at": "2023-02-14 13:08:03",
+    "updated_at": "2023-02-14 13:08:03"
+  },
+  {
+    "id": 962,
+    "title": "Бластер базука",
+    "note": "Мин заказ 3 шт",
+    "slug": "blaster-bazuka",
+    "article_number": "962.9069",
+    "price": 2500.00,
+    "img": "items/35357151772f0b9e5b177dfca11fc221.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 67,
+    "deleted_at": null,
+    "created_at": "2023-02-14 13:12:04",
+    "updated_at": "2023-02-14 13:12:04"
+  },
+  {
+    "id": 963,
+    "title": "Очки большие",
+    "note": "В пачке 12шт. Цена за 1 шшт",
+    "slug": "ochki-bolshie-2",
+    "article_number": "963.9069",
+    "price": 55.00,
+    "img": "items/8a03ce71f0ce528f6b1ae09cc5bdf6f9.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 5,
+    "deleted_at": null,
+    "created_at": "2023-02-14 13:14:13",
+    "updated_at": "2023-02-14 13:14:13"
+  },
+  {
+    "id": 964,
+    "title": "Пазлы",
+    "note": "Мин заказ 5 шт.",
+    "slug": "pazly",
+    "article_number": "964.9069",
+    "price": 120.00,
+    "img": "items/0432cd5c959bd611ee0c3c2a6ac3cde5.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 4,
+    "deleted_at": null,
+    "created_at": "2023-02-14 13:15:21",
+    "updated_at": "2023-02-14 13:15:21"
+  },
+  {
+    "id": 965,
+    "title": "Инструменты конструктор",
+    "note": "Мир заказ 3шт",
+    "slug": "instrumenty-konstruktor",
+    "article_number": "965.9069",
+    "price": 250.00,
+    "img": "items/8b7554c12d01bbc42fdd8d3f757879bb.jpg",
+    "is_new": 0,
+    "is_hit": 0,
+    "is_bestseller": 0,
+    "category_id": 66,
+    "deleted_at": null,
+    "created_at": "2023-02-14 13:19:04",
+    "updated_at": "2023-02-14 13:19:04"
   }
 ]

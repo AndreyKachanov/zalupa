@@ -7,7 +7,8 @@
     "deleted_at": "2023-02-02 15:19:15",
     "created_at": "2023-01-22 01:58:11",
     "updated_at": "2023-02-02 15:19:15",
-    "img": "categories/124b7c6cdf7660003b6c9e71ad2f215b.jpg"
+    "img": "categories/124b7c6cdf7660003b6c9e71ad2f215b.jpg",
+    "sorting": null
   },
   {
     "id": 4,
@@ -17,7 +18,8 @@
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:11",
     "updated_at": "2023-02-02 15:19:58",
-    "img": "categories/65f91d2225a0a2fba4b02bfe38506457.jpg"
+    "img": "categories/65f91d2225a0a2fba4b02bfe38506457.jpg",
+    "sorting": 1
   },
   {
     "id": 5,
@@ -27,7 +29,8 @@
     "deleted_at": null,
     "created_at": "2022-02-01 01:55:11",
     "updated_at": "2023-02-02 15:20:09",
-    "img": "categories/2e0067e1a3b0e70f435810e0921dff1d.jpg"
+    "img": "categories/2e0067e1a3b0e70f435810e0921dff1d.jpg",
+    "sorting": 2
   },
   {
     "id": 25,
@@ -37,7 +40,8 @@
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:11",
     "updated_at": "2023-02-02 15:20:23",
-    "img": "categories/d860ad3661ad1e9d2fc6a819a9b926a3.jpg"
+    "img": "categories/d860ad3661ad1e9d2fc6a819a9b926a3.jpg",
+    "sorting": 3
   },
   {
     "id": 26,
@@ -47,7 +51,8 @@
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:11",
     "updated_at": "2023-02-02 15:20:34",
-    "img": "categories/96031a5aaca4810df89cd05234692c77.jpg"
+    "img": "categories/96031a5aaca4810df89cd05234692c77.jpg",
+    "sorting": 4
   },
   {
     "id": 32,
@@ -57,7 +62,8 @@
     "deleted_at": null,
     "created_at": "2023-01-21 01:55:11",
     "updated_at": "2023-02-02 15:20:42",
-    "img": "categories/89b0a975a09871951181a474fb4e123e.jpg"
+    "img": "categories/89b0a975a09871951181a474fb4e123e.jpg",
+    "sorting": 5
   },
   {
     "id": 33,
@@ -67,7 +73,8 @@
     "deleted_at": "2023-01-21 01:04:38",
     "created_at": "2023-01-21 01:55:11",
     "updated_at": "2023-01-21 01:04:38",
-    "img": null
+    "img": null,
+    "sorting": null
   },
   {
     "id": 34,
@@ -77,247 +84,272 @@
     "deleted_at": "2023-01-21 00:37:08",
     "created_at": "2023-01-21 01:55:11",
     "updated_at": "2023-01-21 00:37:08",
-    "img": null
+    "img": null,
+    "sorting": null
   },
   {
     "id": 35,
-    "title": "3.1 Мечи светящиеся",
+    "title": "Мечи светящиеся",
     "parent_id": 5,
-    "slug": "3-1-mechi-svetyashchiesya",
+    "slug": "mechi-svetyashchiesya",
     "deleted_at": null,
     "created_at": "2023-01-20 23:22:53",
-    "updated_at": "2023-01-20 23:22:53",
-    "img": null
+    "updated_at": "2023-02-09 12:34:04",
+    "img": "categories/7473216854a94926e333a8794d5b208f.jpg",
+    "sorting": 1
   },
   {
     "id": 36,
-    "title": "3.2 Шапки с ушами",
+    "title": "Шапки с ушами",
     "parent_id": 5,
-    "slug": "3-2-shapki-s-ushami",
+    "slug": "shapki-s-ushami",
     "deleted_at": null,
     "created_at": "2023-01-21 00:11:47",
-    "updated_at": "2023-01-21 00:11:47",
-    "img": null
+    "updated_at": "2023-02-09 12:36:35",
+    "img": "categories/4c906d6d71bcf7e4050d475a609c2453.jpg",
+    "sorting": 2
   },
   {
     "id": 37,
-    "title": "3.3 Ободки светящиеся",
+    "title": "Ободки светящиеся",
     "parent_id": 5,
-    "slug": "3-3-obodki-svetyashchiesya",
+    "slug": "obodki-svetyashchiesya",
     "deleted_at": null,
     "created_at": "2023-01-21 00:12:14",
-    "updated_at": "2023-01-21 00:14:53",
-    "img": null
+    "updated_at": "2023-02-09 12:37:58",
+    "img": "categories/7268f3911eee4e4cf75aa6a2a0d9bdae.jpg",
+    "sorting": 3
   },
   {
     "id": 38,
-    "title": "3.4 Вертушки светящиеся",
+    "title": "Вертушки светящиеся",
     "parent_id": 5,
-    "slug": "3-4-vertushki-svetyashchiesya",
+    "slug": "vertushki-svetyashchiesya",
     "deleted_at": null,
     "created_at": "2023-01-21 00:12:53",
-    "updated_at": "2023-01-21 00:12:53",
-    "img": null
+    "updated_at": "2023-02-09 12:41:05",
+    "img": "categories/c2a0fc36e51ba62509d3e268d99dcfa9.jpg",
+    "sorting": 4
   },
   {
     "id": 39,
-    "title": "3.5 Маски",
+    "title": "Маски",
     "parent_id": 5,
-    "slug": "3-5-maski",
+    "slug": "maski",
     "deleted_at": null,
     "created_at": "2023-01-21 00:13:47",
-    "updated_at": "2023-01-21 00:13:47",
-    "img": null
+    "updated_at": "2023-02-09 12:43:53",
+    "img": "categories/0f00d0b447735e5d5f4cf61850fb69bc.jpg",
+    "sorting": 5
   },
   {
     "id": 40,
-    "title": "3.6 Вертолетики-рогатки",
+    "title": "Вертолетики-рогатки",
     "parent_id": 5,
-    "slug": "3-6-vertoletiki-rogatki-svetyashchiesya",
+    "slug": "vertoletiki-rogatki",
     "deleted_at": null,
     "created_at": "2023-01-21 00:14:15",
-    "updated_at": "2023-01-21 00:33:50",
-    "img": null
+    "updated_at": "2023-02-09 12:46:37",
+    "img": "categories/a7e64e47e0e04f27102257cdc02ff6fa.jpg",
+    "sorting": 6
   },
   {
     "id": 41,
-    "title": "3.7 Автоматы и пистолеты",
+    "title": "Автоматы и пистолеты",
     "parent_id": 5,
-    "slug": "3-7-avtomaty-i-pistolety",
+    "slug": "avtomaty-i-pistolety",
     "deleted_at": null,
     "created_at": "2023-01-21 00:14:44",
-    "updated_at": "2023-01-21 00:14:44",
-    "img": null
+    "updated_at": "2023-02-09 12:50:33",
+    "img": "categories/b1f66c562f223009b3afa24f680cdaa1.jpg",
+    "sorting": 7
   },
   {
     "id": 42,
-    "title": "3.8 Микрофоны светящиеся",
+    "title": "Микрофоны светящиеся",
     "parent_id": 5,
-    "slug": "3-7-mikrofony-svetyashchiesya",
+    "slug": "mikrofony-svetyashchiesya",
     "deleted_at": null,
     "created_at": "2023-01-21 00:15:37",
-    "updated_at": "2023-01-21 00:15:44",
-    "img": null
+    "updated_at": "2023-02-09 12:53:22",
+    "img": "categories/bedad83ecead744ac3746d520e9e5a84.jpg",
+    "sorting": 8
   },
   {
     "id": 43,
-    "title": "3.9 Ветерки",
+    "title": "Ветерки",
     "parent_id": 5,
-    "slug": "3-9-veterki",
+    "slug": "veterki",
     "deleted_at": null,
     "created_at": "2023-01-21 00:16:39",
-    "updated_at": "2023-01-21 00:16:39",
-    "img": null
+    "updated_at": "2023-02-09 13:06:14",
+    "img": "categories/0c09de60ead561379bbd08cef12fb4e3.jpg",
+    "sorting": 9
   },
   {
     "id": 44,
-    "title": "3.10 Палочки светящиеся",
+    "title": "Палочки светящиеся",
     "parent_id": 5,
-    "slug": "3-10-palochki-svetyashchiesya",
+    "slug": "palochki-svetyashchiesya",
     "deleted_at": null,
     "created_at": "2023-01-21 00:17:22",
-    "updated_at": "2023-01-21 00:17:22",
-    "img": null
+    "updated_at": "2023-02-09 13:08:33",
+    "img": "categories/ddaed118d4b7a6202abc2a8b31699703.jpg",
+    "sorting": 10
   },
   {
     "id": 45,
-    "title": "3.11 Неоновые товары",
+    "title": "Неоновые товары",
     "parent_id": 5,
-    "slug": "3-11-neonovye-tovary",
+    "slug": "neonovye-tovary",
     "deleted_at": null,
     "created_at": "2023-01-21 00:17:45",
-    "updated_at": "2023-01-21 00:17:45",
-    "img": null
+    "updated_at": "2023-02-09 13:10:49",
+    "img": "categories/6949abea3b3da640e4a8e6a90bef885a.jpg",
+    "sorting": 11
   },
   {
     "id": 46,
-    "title": "3.12 Шокеры и лазеры",
+    "title": "Шокеры и лазеры",
     "parent_id": 5,
-    "slug": "3-12-shokery-i-lazery",
+    "slug": "shokery-i-lazery",
     "deleted_at": null,
     "created_at": "2023-01-21 00:18:21",
-    "updated_at": "2023-01-21 00:18:21",
-    "img": null
+    "updated_at": "2023-02-09 13:11:41",
+    "img": "categories/fc7bc73698bf30d882691c04b41a2cdf.jpg",
+    "sorting": 12
   },
   {
     "id": 47,
-    "title": "3.13 Шляпы разные",
+    "title": "Шляпы разные",
     "parent_id": 5,
-    "slug": "3-13-shlyapy-raznye",
+    "slug": "shlyapy-raznye",
     "deleted_at": null,
     "created_at": "2023-01-21 13:54:20",
-    "updated_at": "2023-01-21 13:54:20",
-    "img": null
+    "updated_at": "2023-02-09 13:13:26",
+    "img": "categories/9d209ddec2376bd8168670136ab7e94a.jpg",
+    "sorting": 13
   },
   {
     "id": 48,
     "title": "3.14 Интерактивные игрушки",
     "parent_id": 5,
     "slug": "3-14-interaktivnye-igrushki",
-    "deleted_at": null,
+    "deleted_at": "2023-02-09 13:21:00",
     "created_at": "2023-01-21 22:31:22",
-    "updated_at": "2023-01-21 22:31:22",
-    "img": null
+    "updated_at": "2023-02-09 13:21:00",
+    "img": null,
+    "sorting": 14
   },
   {
     "id": 49,
     "title": "2.1 ТОП продаж и новинки",
     "parent_id": 4,
     "slug": "2-1-top-prodazh-i-novinki",
-    "deleted_at": null,
+    "deleted_at": "2023-02-09 12:12:43",
     "created_at": "2023-01-21 23:01:36",
-    "updated_at": "2023-01-21 23:01:36",
-    "img": null
+    "updated_at": "2023-02-09 12:12:43",
+    "img": null,
+    "sorting": 1
   },
   {
     "id": 50,
-    "title": "2.2 Из мультиков и Игр",
+    "title": "Из мультиков и Игр",
     "parent_id": 4,
-    "slug": "2-2-iz-multikov-i-igr",
+    "slug": "iz-multikov-i-igr-2",
     "deleted_at": null,
     "created_at": "2023-01-22 22:01:42",
-    "updated_at": "2023-01-22 22:04:33",
-    "img": null
+    "updated_at": "2023-02-09 12:16:48",
+    "img": "categories/b93bc5373eaf19e58f5332075ac730d7.jpg",
+    "sorting": 2
   },
   {
     "id": 51,
-    "title": "2.3 Игрушки Собаки",
+    "title": "Игрушки Собаки",
     "parent_id": 4,
-    "slug": "2-3-igrushki-sobaki",
+    "slug": "igrushki-sobaki",
     "deleted_at": null,
     "created_at": "2023-01-22 22:03:34",
-    "updated_at": "2023-01-22 22:04:16",
-    "img": null
+    "updated_at": "2023-02-09 11:46:03",
+    "img": "categories/ebd0732e07cf8354cfb08bd91b340f77.jpg",
+    "sorting": 3
   },
   {
     "id": 52,
-    "title": "2.4 Игрушки Медведи",
+    "title": "Игрушки Медведи",
     "parent_id": 4,
-    "slug": "2-4-igrushki-medvedi",
+    "slug": "igrushki-medvedi",
     "deleted_at": null,
     "created_at": "2023-01-22 22:04:08",
-    "updated_at": "2023-01-22 22:04:08",
-    "img": null
+    "updated_at": "2023-02-09 11:47:18",
+    "img": "categories/94edf05329ed8c9c304dbdbd39cba120.jpg",
+    "sorting": 4
   },
   {
     "id": 53,
-    "title": "2.5 Игрушки Зайцы",
+    "title": "Игрушки Зайцы",
     "parent_id": 4,
-    "slug": "2-5-igrushki-zaycy",
+    "slug": "igrushki-zaycy",
     "deleted_at": null,
     "created_at": "2023-01-22 22:05:08",
-    "updated_at": "2023-01-22 22:05:08",
-    "img": null
+    "updated_at": "2023-02-09 11:48:27",
+    "img": "categories/19e5e06f167cc4ef20d5a12c28518924.jpg",
+    "sorting": 5
   },
   {
     "id": 54,
-    "title": "2.6 Игрушки Коты",
+    "title": "Игрушки Коты",
     "parent_id": 4,
-    "slug": "2-6-igrushki-koty",
+    "slug": "igrushki-koty",
     "deleted_at": null,
     "created_at": "2023-01-22 22:05:35",
-    "updated_at": "2023-01-22 22:05:35",
-    "img": null
+    "updated_at": "2023-02-09 11:49:43",
+    "img": "categories/6a81e38a00a50bf3a2ec1e47549161b0.jpg",
+    "sorting": 6
   },
   {
     "id": 55,
-    "title": "2.7 Игрушки Слоны",
+    "title": "Игрушки Слоны",
     "parent_id": 4,
-    "slug": "2-7-igrushki-slony",
+    "slug": "igrushki-slony",
     "deleted_at": null,
     "created_at": "2023-01-22 22:06:26",
-    "updated_at": "2023-01-22 22:06:26",
-    "img": null
+    "updated_at": "2023-02-09 11:50:46",
+    "img": "categories/71ea3e92a780a77fb0a88685a3c3cbbc.jpg",
+    "sorting": 7
   },
   {
     "id": 56,
-    "title": "2.8 Разные Животные",
+    "title": "Разные Животные",
     "parent_id": 4,
-    "slug": "2-8-raznye-zhivotnye",
+    "slug": "raznye-zhivotnye",
     "deleted_at": null,
     "created_at": "2023-01-22 22:07:41",
-    "updated_at": "2023-01-22 22:07:41",
-    "img": null
+    "updated_at": "2023-02-09 11:54:59",
+    "img": "categories/378e195569620a6e6c7467c330f77130.jpg",
+    "sorting": 8
   },
   {
     "id": 57,
-    "title": "2.9 Игрушки с Пледом",
+    "title": "Игрушки с Пледом",
     "parent_id": 4,
-    "slug": "2-9-igrushki-s-pledom",
+    "slug": "igrushki-s-pledom",
     "deleted_at": null,
     "created_at": "2023-01-22 22:08:57",
-    "updated_at": "2023-01-22 22:08:57",
-    "img": null
+    "updated_at": "2023-02-09 11:56:33",
+    "img": "categories/d65ded8411b0c891099519e18ea4a91c.jpg",
+    "sorting": 9
   },
   {
     "id": 58,
-    "title": "2.10 Игрушки Брелки",
+    "title": "Игрушки Брелки",
     "parent_id": 4,
-    "slug": "2-10-igrushki-brelki",
+    "slug": "igrushki-brelki",
     "deleted_at": null,
     "created_at": "2023-01-22 22:10:06",
-    "updated_at": "2023-01-22 22:10:06",
-    "img": null
+    "updated_at": "2023-02-09 11:59:51",
+    "img": "categories/6dcd889bd60bd8ea676ff4a9db5974a1.jpg",
+    "sorting": 10
   },
   {
     "id": 59,
@@ -327,7 +359,8 @@
     "deleted_at": null,
     "created_at": "2023-01-27 16:40:51",
     "updated_at": "2023-02-02 15:20:55",
-    "img": "categories/3f7e2d42116a8023679d6b5ebe9c7e81.jpg"
+    "img": "categories/3f7e2d42116a8023679d6b5ebe9c7e81.jpg",
+    "sorting": 6
   },
   {
     "id": 60,
@@ -337,7 +370,8 @@
     "deleted_at": null,
     "created_at": "2023-01-30 13:18:52",
     "updated_at": "2023-02-02 15:21:06",
-    "img": "categories/59f056a2903f1a8ad4f003f4249d0281.jpg"
+    "img": "categories/59f056a2903f1a8ad4f003f4249d0281.jpg",
+    "sorting": 7
   },
   {
     "id": 61,
@@ -347,7 +381,8 @@
     "deleted_at": null,
     "created_at": "2023-02-02 14:29:09",
     "updated_at": "2023-02-02 14:32:38",
-    "img": "categories/f259a6e68e6594757e49f035497119cc.jpg"
+    "img": "categories/f259a6e68e6594757e49f035497119cc.jpg",
+    "sorting": 8
   },
   {
     "id": 62,
@@ -357,7 +392,8 @@
     "deleted_at": null,
     "created_at": "2023-02-02 14:35:26",
     "updated_at": "2023-02-02 14:35:26",
-    "img": "categories/9d88f1c475299c093b776a0ad076b2d5.jpg"
+    "img": "categories/9d88f1c475299c093b776a0ad076b2d5.jpg",
+    "sorting": 9
   },
   {
     "id": 63,
@@ -367,7 +403,8 @@
     "deleted_at": null,
     "created_at": "2023-02-02 14:38:33",
     "updated_at": "2023-02-02 14:38:33",
-    "img": "categories/0c22a44f89d0687d48616c1410740b43.jpg"
+    "img": "categories/0c22a44f89d0687d48616c1410740b43.jpg",
+    "sorting": 10
   },
   {
     "id": 64,
@@ -377,7 +414,8 @@
     "deleted_at": null,
     "created_at": "2023-02-02 14:44:06",
     "updated_at": "2023-02-02 14:45:12",
-    "img": "categories/af5fb3b05585482b185968f057e6792c.jpg"
+    "img": "categories/af5fb3b05585482b185968f057e6792c.jpg",
+    "sorting": 11
   },
   {
     "id": 65,
@@ -387,7 +425,8 @@
     "deleted_at": null,
     "created_at": "2023-02-02 14:48:58",
     "updated_at": "2023-02-02 14:48:58",
-    "img": "categories/875cee32a79fd43319bda92257181043.jpg"
+    "img": "categories/875cee32a79fd43319bda92257181043.jpg",
+    "sorting": 12
   },
   {
     "id": 66,
@@ -397,7 +436,8 @@
     "deleted_at": null,
     "created_at": "2023-02-02 14:53:26",
     "updated_at": "2023-02-02 14:53:26",
-    "img": "categories/5eae8ceb64592aefc7d5bede334ea54f.jpg"
+    "img": "categories/5eae8ceb64592aefc7d5bede334ea54f.jpg",
+    "sorting": 13
   },
   {
     "id": 67,
@@ -407,7 +447,8 @@
     "deleted_at": null,
     "created_at": "2023-02-02 14:58:23",
     "updated_at": "2023-02-02 14:59:07",
-    "img": "categories/7dc9b47de783b35ca3b2aef2de3baed6.jpg"
+    "img": "categories/7dc9b47de783b35ca3b2aef2de3baed6.jpg",
+    "sorting": 14
   },
   {
     "id": 68,
@@ -417,6 +458,40 @@
     "deleted_at": null,
     "created_at": "2023-02-02 15:10:54",
     "updated_at": "2023-02-02 15:12:22",
-    "img": "categories/16a4b874ebd8d8c69f7fa5ceb1a06be3.jpg"
+    "img": "categories/16a4b874ebd8d8c69f7fa5ceb1a06be3.jpg",
+    "sorting": 15
+  },
+  {
+    "id": 69,
+    "title": "ЙО ЙО",
+    "parent_id": 5,
+    "slug": "yo-yo",
+    "deleted_at": null,
+    "created_at": "2023-02-09 13:15:44",
+    "updated_at": "2023-02-09 13:15:44",
+    "img": "categories/669a086c63e41d922074f6ecb65c3ea4.jpg",
+    "sorting": 15
+  },
+  {
+    "id": 70,
+    "title": "Радуга пружинка",
+    "parent_id": 5,
+    "slug": "raduga-pruzhinka",
+    "deleted_at": null,
+    "created_at": "2023-02-09 13:16:40",
+    "updated_at": "2023-02-09 13:16:40",
+    "img": "categories/f7c7bf58897f674887797b1919537f35.jpg",
+    "sorting": 16
+  },
+  {
+    "id": 71,
+    "title": "Интерактивные игрушки",
+    "parent_id": null,
+    "slug": "interaktivnye-igrushki",
+    "deleted_at": null,
+    "created_at": "2023-02-09 13:18:16",
+    "updated_at": "2023-02-09 13:18:16",
+    "img": "categories/fb1dd988a7d63d6dee6662b39c3bc6ba.jpg",
+    "sorting": 16
   }
 ]
