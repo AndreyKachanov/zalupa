@@ -6,7 +6,7 @@
         :menuType="menuType"
         :collapsed="collapsed"
         :menu="categoriesForSidebar"
-        :closeOnClickOutSide="ismobile"
+        :closeOnClickOutSide="true"
         :overLayerOnOpen="ismobile"
         :childrenOpenAnimation="true"
         :keepChildrenOpen="true"

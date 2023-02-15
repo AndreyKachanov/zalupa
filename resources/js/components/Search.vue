@@ -101,7 +101,7 @@
         top: 0;
         background-color: #000;
         overflow-x: hidden;
-        z-index: 999;
+        z-index: 846;
         opacity: 0.3;
         transition: opacity 0.2s;
     }
@@ -136,7 +136,7 @@
         }
         input {
             position: relative;
-            z-index: 999999;
+            z-index: 847;
             display: block;
             width: 100%;
             padding: 8px 15px 8px 45px;
