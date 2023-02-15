@@ -11,7 +11,7 @@
                         v-slot="{ route, isExactActive, navigate }"
                         :custom="true"
                     >
-                        <a :href="route.fullPath" @click="navigate; search=''" class="item fruit" >
+                        <a :href="route.fullPath" @click.prevent="clickCategory(navigate)" class="item fruit" >
                             <img :src="getImg(category)" class="img-thumbnail" :alt="`${category.title}`">
                             <div class="ml-3">{{ category.title }}</div>
                         </a>
@@ -30,6 +30,8 @@
                     </router-link>
                 </div>
             </div>
+<!--            <div class="overlay" :class="{ show: showOverlay }" @click="hideOverlay"></div>-->
+            <div class="overlay" :class="showOverlay" @click="search=''"></div>
             <div v-if="search.length >= 2 && (!filteredProducts.length && !filteredCategories.length)" class="item error">
                 Результатов не найдено!
             </div>
@@ -43,7 +45,8 @@
         name: "Search",
         data: () => ({
             search: '',
-            icon: '\uf002'
+            icon: '\uf002',
+            // showOverlay: this.search.length >= 2 && (this.filteredProducts.length || this.filteredCategories.length)
         }),
         computed: {
             ...mapGetters('products', { products: 'all' }),
@@ -62,16 +65,50 @@
                     }
                 });
             },
+            showOverlay() {
+                return this.search.length >= 1
+                    ? 'show-overlay'
+                    : '';
+            }
         },
         methods: {
             getImg(category) {
                 return category.img === null ? '/assets/no-image.png' : category.img;
+            },
+            clickCategory(navigate) {
+                this.search = '';
+                navigate();
+            },
+            overlayClick(event) {
+                console.log(event);
+            },
+            hideOverlay(){
+                this.showOverlay = !this.showOverlay;
+                this.search = '';
             }
         }
     }
 </script>
 
 <style lang="scss">
+
+    .overlay {
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background-color: #000;
+        overflow-x: hidden;
+        z-index: 999;
+        opacity: 0.3;
+        transition: opacity 0.2s;
+    }
+    .show-overlay {
+        display: block;
+    }
+
     .search_bar {
         .search-items-wrap {
             border: solid 1px #e8e8e8;
@@ -80,10 +117,6 @@
             width: 100%;
             position: absolute;
             z-index: 9999;
-            //width: 97%;
-            //@include media-breakpoint-down(xs) {
-            //    width: 92%;
-            //}
 
             .products {
                 border-top: 1px solid #dce1e6;
@@ -102,39 +135,33 @@
             }
         }
         input {
+            position: relative;
+            z-index: 999999;
             display: block;
             width: 100%;
-            //margin: 20px auto;
-            //margin-bottom: 13px;
             padding: 8px 15px 8px 45px;
             background: white url("/assets/search-icon.png") no-repeat 15px center;
             background-size: 20px 20px;
             font-size: 16px;
             border: none;
             border-radius: 5px;
-            box-shadow: rgba(50, 50, 93, 0.4) 0px 2px 5px -1px,
+            box-shadow: rgba(50, 50, 93, 0.4) 0 2px 5px -1px,
             rgba(0, 0, 0, 0.5) 0px 1px 3px -1px;
         }
         .item {
             display: flex;
             align-items: center;
-            //margin: 0 auto 2px auto;
             padding: 10px 20px 10px 15px;
             color: #000000;
-            //border-radius: 5px;
-            //box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-            //rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
             img {
                 border-radius: 50%;
                 width: 100px;
                 height: 100px;
                 flex: 0 0 auto;
-                //max-width: 100px;
             }
         }
 
         .fruit {
-            //background-color: rgb(97, 62, 252);
             cursor: pointer;
         }
 

@@ -317,7 +317,7 @@ export default {
         bottom:0;
         left:0;
         right:0;
-        z-index:1000;
+        z-index:99;
 
         //give nav it's own compsite layer
         will-change:transform;
