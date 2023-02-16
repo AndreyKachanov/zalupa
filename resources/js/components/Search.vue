@@ -155,7 +155,7 @@
         .item {
             display: flex;
             align-items: center;
-            padding: 10px 20px 10px 15px;
+            padding: 10px 5px 10px 15px;
             color: #000000;
             img {
                 border-radius: 50%;
