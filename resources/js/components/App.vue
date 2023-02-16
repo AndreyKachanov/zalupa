@@ -114,78 +114,10 @@ export default {
             { route: 'cart', title: 'Корзина' },
             { route: 'checkout', title: 'Заказ' }
         ],
-        // testMenu: [
-        //     {
-        //         name: 'Dashboard',
-        //         href: '/category/3-2-shapki-s-ushami',
-        //         children: [
-        //             {
-        //                 href: '/products',
-        //                 name: 'level 2.1',
-        //             },
-        //         ]
-        //     },
-        //     {
-        //         name: 'Dashboard',
-        //         href: '/c',
-        //         children: [
-        //             {
-        //                 href: '/c',
-        //                 name: 'level 2.1',
-        //             },
-        //         ]
-        //     },
-        //
-        // ],
-        // testMenuBefore: [
-        //     {
-        //         "id": 4,
-        //         "href": "/category/2-myagkie-igrushki",
-        //         "name": "2. Мягкие игрушки",
-        //         "parent_id": null
-        //     },
-        //     {
-        //         "id": 5,
-        //         "href": "/category/3-svetyashchiesya-igrushki",
-        //         "name": "3. Светящиеся игрушки",
-        //         "parent_id": null
-        //     },
-        //     {
-        //         "id": 35,
-        //         "href": "/category/3-1-mechi-svetyashchiesya",
-        //         "name": "3.1 Мечи светящиеся",
-        //         "parent_id": 5
-        //     },
-        //     {
-        //         "id": 36,
-        //         "href": "/category/3-2-shapki-s-ushami",
-        //         "name": "3.2 Шапки с ушами",
-        //         "parent_id": 5
-        //     },
-        //     {
-        //         "id": 37,
-        //         "href": "/category/3-3-obodki-svetyashchiesya",
-        //         "name": "3.3 Ободки светящиеся",
-        //         "parent_id": 5
-        //     },
-        //     {
-        //         "id": 49,
-        //         "href": "/category/2-1-top-prodazh-i-novinki",
-        //         "name": "2.1 ТОП продаж и новинки",
-        //         "parent_id": 4
-        //     },
-        //     {
-        //         "id": 50,
-        //         "href": "/category/2-2-iz-multikov-i-igr",
-        //         "name": "2.2 Из мультиков и Игр",
-        //         "parent_id": 4
-        //     },
-        // ],
         collapsed: true,
-        // closeOnClickOutSide: true,
         menuType: 'simple',
         miniMenu: false,
-        width: '320px',
+        width: '280px',
         search: ''
     }),
     computed: {
@@ -338,7 +270,7 @@ export default {
         bottom:0;
         left:0;
         right:0;
-        z-index:99;
+        z-index: 850;
 
         //give nav it's own compsite layer
         will-change:transform;
