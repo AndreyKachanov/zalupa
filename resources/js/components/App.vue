@@ -1,4 +1,4 @@
-<template>
+<template @click="test123">
     <VueAwesomeSideBar
         v-if="categoriesForSidebar.length > 0"
         :width="width"
@@ -6,7 +6,8 @@
         :menuType="menuType"
         :collapsed="collapsed"
         :menu="categoriesForSidebar"
-        :closeOnClickOutSide="closeOnClickOutSide"
+        :closeOnClickOutSide="true"
+        @update:collapsed="handelCollapse"
         :overLayerOnOpen="ismobile"
         :childrenOpenAnimation="true"
         :keepChildrenOpen="true"
@@ -181,7 +182,7 @@ export default {
         //     },
         // ],
         collapsed: true,
-        closeOnClickOutSide: true,
+        // closeOnClickOutSide: true,
         menuType: 'simple',
         miniMenu: false,
         width: '320px',
@@ -225,6 +226,10 @@ export default {
             }));
 
             return unflatten(arr);
+        },
+        test234() {
+            console.log(this.collapsed);
+            return true;
         }
     },
     methods: {
@@ -238,17 +243,26 @@ export default {
         },
         test() {
             console.log('test');
+        },
+        test123() {
+            console.log('test123');
+        },
+        handelCollapse(value) {
+            if (value === true) {
+                this.collapsed = true;
+            }
         }
+
     },
     created() {
         this.screenWidth = innerWidth;
     },
-    watch: {
-        // whenever question changes, this function will run
-        collapsed(test, test2) {
-            console.log(test, test2);
-        }
-    },
+    // watch: {
+    //     // whenever question changes, this function will run
+    //     collapsed(test, test2) {
+    //         console.log(test, test2);
+    //     }
+    // },
 }
 </script>
 

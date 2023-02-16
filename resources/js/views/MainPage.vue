@@ -5,19 +5,19 @@
     >
     </main-menu>
 
-    <items-list
-        v-if="getNewItems.length > 0"
-        :title="'Новинки'"
-        :type-list="'short'"
-        :items="getNewItems"
-    ></items-list>
+<!--    <items-list-->
+<!--        v-if="getNewItems.length > 0"-->
+<!--        :title="'Новинки'"-->
+<!--        :type-list="'short'"-->
+<!--        :items="getNewItems"-->
+<!--    ></items-list>-->
 
-    <items-list
-        v-if="getHitItems.length > 0"
-        :title="'Хиты'"
-        :type-list="'short'"
-        :items="getHitItems"
-    ></items-list>
+<!--    <items-list-->
+<!--        v-if="getHitItems.length > 0"-->
+<!--        :title="'Хиты'"-->
+<!--        :type-list="'short'"-->
+<!--        :items="getHitItems"-->
+<!--    ></items-list>-->
 </template>
 
 <script>

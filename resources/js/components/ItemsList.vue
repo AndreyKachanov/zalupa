@@ -26,7 +26,7 @@
                         <span style="font-size: 17px">Цена:</span>
                         <span style="font-size: 17px; font-weight: bold">{{ item.price }} ₽</span>
                     </h4>
-                    <router-link :to="`/product/${item.slug}`">Подробнее</router-link>
+<!--                    <router-link :to="`/product/${item.slug}`">Подробнее</router-link>-->
                 </div>
                 <div class="card-footer">
                     <div class="container">
