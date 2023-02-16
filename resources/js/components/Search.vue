@@ -105,7 +105,7 @@
         top: 0;
         background-color: #000;
         overflow-x: hidden;
-        z-index: 846;
+        z-index: 851;
         opacity: 0.3;
         transition: opacity 0.2s;
     }
