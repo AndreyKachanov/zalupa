@@ -14,7 +14,7 @@
                     >
                         <a :href="route.fullPath" @click.prevent="clickCategory(navigate)" class="item fruit" >
                             <img :src="getImg(category)" class="img-thumbnail" :alt="`${category.title}`">
-                            <div class="ml-3">{{ category.title }}</div>
+                            <div class="ml-2">{{ category.title }}</div>
                         </a>
                     </router-link>
                     <p v-if="filteredProducts.length">Товары</p>
@@ -26,7 +26,7 @@
                     >
                         <a :href="route.fullPath" @click="navigate" class="item fruit">
                                 <img :src="`${product.img}`" class="img-thumbnail" :alt="`${product.title}`">
-                                <div class="ml-3">{{ product.title }}</div>
+                                <div class="ml-2">{{ product.title }}</div>
                         </a>
                     </router-link>
                 </div>
@@ -155,7 +155,7 @@
         .item {
             display: flex;
             align-items: center;
-            padding: 10px 5px 10px 15px;
+            padding: 10px 10px 10px 10px;
             color: #000000;
             img {
                 border-radius: 50%;
