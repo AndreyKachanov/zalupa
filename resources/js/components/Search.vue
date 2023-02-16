@@ -1,7 +1,8 @@
 <template>
     <div class="row justify-content-center">
         <div class="col-10 search_bar pl-0 pr-0">
-            <input type="search" v-model="search" placeholder="Поиск товаров..." />
+<!--            <input type="search" v-model="search" placeholder="Поиск товаров..." />-->
+            <input type="search" :value="search" @input="onInput" placeholder="Поиск товаров..." />
             <div class="search-items-wrap" v-if="search.length >= 2 && (filteredProducts.length || filteredCategories.length)">
                 <div class="products">
                     <p class="mb-2" v-if="filteredCategories.length">Категории товаров</p>
@@ -72,6 +73,9 @@
             }
         },
         methods: {
+            onInput(e) {
+                this.search = e.target.value;
+            },
             getImg(category) {
                 return category.img === null ? '/assets/no-image.png' : category.img;
             },

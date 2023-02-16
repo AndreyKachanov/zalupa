@@ -6,7 +6,7 @@
         :menuType="menuType"
         :collapsed="collapsed"
         :menu="categoriesForSidebar"
-        :closeOnClickOutSide="true"
+        :closeOnClickOutSide="closeOnClickOutSide"
         :overLayerOnOpen="ismobile"
         :childrenOpenAnimation="true"
         :keepChildrenOpen="true"
@@ -16,7 +16,7 @@
     ></VueAwesomeSideBar>
 
 <!--    <pre>-->
-<!--        {{ allCategories }}-->
+<!--        {{ collapsed }}-->
 <!--    </pre>-->
 
     <div v-if="this.$route.name === 'cart'" class="container">
@@ -181,6 +181,7 @@ export default {
         //     },
         // ],
         collapsed: true,
+        closeOnClickOutSide: true,
         menuType: 'simple',
         miniMenu: false,
         width: '320px',
@@ -241,6 +242,12 @@ export default {
     },
     created() {
         this.screenWidth = innerWidth;
+    },
+    watch: {
+        // whenever question changes, this function will run
+        collapsed(test, test2) {
+            console.log(test, test2);
+        }
     },
 }
 </script>
