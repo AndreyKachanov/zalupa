@@ -35,7 +35,7 @@ class SendOrderService
     {
         $sum = $contact->orders->sum(fn($item) => $item->item->price * $item->cnt);
         $url = route('admin.orders.show', $contact);
-        $message = 'Новый заказ с сайта ' . config('app.site_short') .  ' на общую сумму ' . $sum . ' руб. ' . $url;
+        $message = 'Заказ № ' . $contact->token->invoice->bill_number . ' с сайта ' . config('app.site_short') .  ' на общую сумму ' . $sum . ' руб. ' . $url;
 
         $chatId = config('app.telegram_chat_id');
         $botToken = config('app.telegram_bot_token');

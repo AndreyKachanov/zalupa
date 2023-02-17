@@ -78,10 +78,10 @@ export default {
     min-height: 100px;
     border: solid 1px #e8e8e8;
     box-shadow: 0 1px 5px rgba(0,0,0,0.1);
-    padding-left: 32px;
+    padding-left: 25px;
     padding-right: 15px;
     background-color: #fff;
-    
+
 }
 .contact_info_image
 {
@@ -90,7 +90,7 @@ export default {
     text-align: center;
     i {
         //color: #c1034a;
-        color: #000;
+        color: red;
     }
 }
 .contact_info_image img
@@ -103,7 +103,7 @@ export default {
 }
 .contact_info_title
 {
-    font-weight: 500;
+    font-weight: bold;
     margin-bottom: 5px;
 }
 .contact_info_text

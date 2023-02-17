@@ -196,6 +196,7 @@ export default {
 
 <style lang="scss">
     .vas-menu {
+        z-index: 853 !important;
         .labelName {
             font-weight: bold;
             @include media-breakpoint-down(xs) {
@@ -212,7 +213,7 @@ export default {
     .mobile-bottom-nav {
 
         i.fa {
-            color: #000;
+            color: red;
         }
 
         @include media-breakpoint-down(xs) {
@@ -301,6 +302,9 @@ export default {
                 font-weight: bold;
                 &:hover {
                     text-decoration: none;
+                }
+                i {
+                    color: red;
                 }
             }
         }
