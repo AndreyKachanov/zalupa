@@ -1,5 +1,5 @@
 <template>
-    <div class="menu">
+    <div class="menu mt-3">
         <div v-if="parentTitle.length > 0" class="row justify-content-between mb-3">
             <div class="col-12 parent-title">
                 {{ parentTitle }}
@@ -51,7 +51,7 @@
             border: 1px solid;
             border-radius: 1px;
             word-break: break-all;
-            background-color: #c1034a;
+            background-color: #000;
         }
         ul {
             padding: 0;
@@ -86,6 +86,7 @@
                     background: #fff;
                     border-radius: 12px;
                     text-align: center;
+                    color: #000;
 
                     &:hover {
                         text-decoration: none;
@@ -115,7 +116,7 @@
                         margin-top: 10px;
                         padding: 0 6px;
                         font-size: 14px;
-                        font-weight: 400;
+                        font-weight: bold;
                         @include media-breakpoint-down(xs) {
                             font-size: 13px;
                         }

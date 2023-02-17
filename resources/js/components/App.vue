@@ -16,10 +16,6 @@
         vueRouterEnabel
     ></VueAwesomeSideBar>
 
-<!--    <pre>-->
-<!--        {{ collapsed }}-->
-<!--    </pre>-->
-
     <div v-if="this.$route.name === 'cart'" class="container">
         <div class="row">
             <div class="col-12 text-center">
@@ -37,7 +33,7 @@
         <search-component/>
     </div>
 
-    <div class="container mt-3">
+    <div class="container">
         <div class="row">
             <div class="col col-sm-12">
                 <router-view></router-view>
@@ -117,7 +113,7 @@ export default {
         collapsed: true,
         menuType: 'simple',
         miniMenu: false,
-        width: '280px',
+        width: '300px',
         search: ''
     }),
     computed: {

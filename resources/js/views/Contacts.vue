@@ -88,7 +88,8 @@ export default {
     height: 35px;
     text-align: center;
     i {
-        color: #c1034a;
+        //color: #c1034a;
+        color: #000;
     }
 }
 .contact_info_image img
