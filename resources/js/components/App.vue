@@ -200,8 +200,9 @@ export default {
 
 <style lang="scss">
     .vas-menu {
-        @include media-breakpoint-down(xs) {
-            .labelName {
+        .labelName {
+            font-weight: bold;
+            @include media-breakpoint-down(xs) {
                 font-size: 14px;
             }
         }
@@ -215,7 +216,7 @@ export default {
     .mobile-bottom-nav {
 
         i.fa {
-            color: #c1034a;
+            color: #000;
         }
 
         @include media-breakpoint-down(xs) {
@@ -291,16 +292,17 @@ export default {
         }
         &__item--active{
             //dev
-            color: #c1034a;
+            color: #000;
         }
         &__item-content{
             display:flex;
             flex-direction:column;
 
             a {
-                color: #c1034a;
+                color: #000;
                 display: flex;
                 flex-direction: column;
+                font-weight: bold;
                 &:hover {
                     text-decoration: none;
                 }
