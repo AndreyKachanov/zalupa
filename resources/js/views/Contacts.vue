@@ -81,6 +81,7 @@ export default {
     padding-left: 32px;
     padding-right: 15px;
     background-color: #fff;
+    
 }
 .contact_info_image
 {
