@@ -7,13 +7,13 @@
     "require": {
         "php": "^8.1",
         "ext-pdo": "*",
-        "cviebrock/eloquent-sluggable": "^9.0",
+        "cviebrock/eloquent-sluggable": "^10.0",
         "davejamesmiller/laravel-breadcrumbs": "^5.3",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
-        "laravel/framework": "^9.19",
+        "laravel/framework": "^10.0",
         "laravel/tinker": "^2.7",
-        "laravel/ui": "^3.4",
+        "laravel/ui": "^4.0",
         "laravelcollective/html": "^6.3",
         "staudenmeir/laravel-adjacency-list": "^1.0"
     },
@@ -24,9 +24,9 @@
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0",
+        "nunomaduro/collision": "^7.0",
+        "phpunit/phpunit": "^10.0",
+        "spatie/laravel-ignition": "^2.0",
         "squizlabs/php_codesniffer": "^3.5",
         "phpmd/phpmd": "^2.8"
     },
@@ -75,6 +75,6 @@
             "pestphp/pest-plugin": true
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
