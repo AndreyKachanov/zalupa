@@ -16,6 +16,9 @@ Route::get('/login/phone', [LoginController::class, 'phone'])->name('login.phone
 Route::post('/login/phone', [LoginController::class, 'verify']);
 Route::get('/verify/{token}', [RegisterController::class, 'verify'])->name('register.verify');
 
+Route::get('test123', function () {
+    dd('test123');
+});
 //Route::get('test', function () {
 //
 //    $maxId = Invoice::max('id');
