@@ -25,10 +25,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static create(array $array)
  * @method static first()
  * @method static find(int $int)
- * @mixin \Eloquent
  * @property-read int|null $posts_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User\Permission[] $rPermissions
  * @property-read int|null $r_permissions_count
+ * @mixin \Eloquent
  */
 class Role extends Model
 {

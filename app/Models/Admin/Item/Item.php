@@ -40,7 +40,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrice3($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereUpdatedAt($value)
- * @mixin \Eloquent
  * @property string|null $link
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereLink($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|CartItem[] $rCartItems
@@ -64,6 +63,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereIsNew($value)
  * @property string|null $note
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereNote($value)
+ * @mixin \Eloquent
  */
 class Item extends Model
 {

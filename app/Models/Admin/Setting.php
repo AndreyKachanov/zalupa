@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Log;
  * @method static \Illuminate\Database\Eloquent\Builder|Setting wherePropKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting wherePropValue($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereUpdatedAt($value)
- * @mixin \Eloquent
  * @property string $title
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereTitle($value)
  * @property int $is_icon
@@ -31,6 +30,7 @@ use Illuminate\Support\Facades\Log;
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereIsIcon($value)
  * @property int $is_url
  * @method static \Illuminate\Database\Eloquent\Builder|Setting whereIsUrl($value)
+ * @mixin \Eloquent
  */
 class Setting extends Model
 {

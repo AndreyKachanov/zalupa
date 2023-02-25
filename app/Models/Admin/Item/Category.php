@@ -20,7 +20,6 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category query()
- * @mixin \Eloquent
  * @property int $id
  * @property string|null $title
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -67,6 +66,7 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
  * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder|Category withRelationshipExpression($direction, callable $constraint, $initialDepth, $from = null, $maxDepth = null)
  * @property int|null $sorting
  * @method static \Staudenmeir\LaravelAdjacencyList\Eloquent\Builder|Category whereSorting($value)
+ * @mixin \Eloquent
  */
 class Category extends Model
 {

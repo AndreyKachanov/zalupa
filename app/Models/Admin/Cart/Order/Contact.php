@@ -30,7 +30,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereTokenId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereUpdatedAt($value)
- * @mixin \Eloquent
  * @property string $email
  * @method static \Database\Factories\Admin\Cart\Order\ContactFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Contact whereEmail($value)
@@ -49,6 +48,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|Contact withoutTrashed()
  * @property string $phone
  * @method static \Illuminate\Database\Eloquent\Builder|Contact wherePhone($value)
+ * @mixin \Eloquent
  */
 class Contact extends Model
 {

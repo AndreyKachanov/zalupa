@@ -22,9 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User\Permission whereUpdatedAt($value)
  * @method static count()
  * @method static create(array $array)
- * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User\Role[] $rRoles
  * @property-read int|null $r_roles_count
+ * @mixin \Eloquent
  */
 class Permission extends Model
 {
