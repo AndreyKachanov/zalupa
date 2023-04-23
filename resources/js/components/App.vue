@@ -114,7 +114,8 @@ export default {
         menuType: 'simple',
         miniMenu: false,
         width: '300px',
-        search: ''
+        search: '',
+        test111: true
     }),
     computed: {
         ...mapGetters('cart', { cartCnt: 'length', cartTotal: 'total' }),
@@ -150,9 +151,9 @@ export default {
                 name: item.title,
                 href: '/category/' + item.slug,
                 parent_id: item.parent_id,
-                collapseOnClick: item.parent_id !== null,
+                collapseOnClick: !this.allCategories.some((element) => element.parent_id === item.id)
             }));
-
+            console.log(unflatten(arr));
             return unflatten(arr);
         },
         test234() {

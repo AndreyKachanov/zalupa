@@ -42,9 +42,9 @@
                 newItems: 'newItems',
                 hitItems: 'hitItems'
             }),
-            getParentsCategories() {
-                return this.parentsCategories.sort((a, b) => a.sorting > b.sorting ? 1 : -1);
-            },
+            // getParentsCategories() {
+            //     return this.parentsCategories.sort((a, b) => a.sorting > b.sorting ? 1 : -1);
+            // },
             getNewItems() {
                 return this.newItems;
             },

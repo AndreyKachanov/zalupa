@@ -61,7 +61,7 @@ class ItemsCategorySeeder extends Seeder
                         //        ? Category::whereParentId(null)->max('sorting') + 1
                         //        : Category::whereParentId($item->parent_id)->max('sorting') + 1
                         //    : null,
-                        'sorting' => $item->sorting,
+                        //'sorting' => $item->sorting,
                         'title' =>  $item->title,
                         //'img' => 'categories/1b84d4bb7c069c7eba13abfa09fa265b.jpg',
                         //'img' => null,
@@ -75,9 +75,9 @@ class ItemsCategorySeeder extends Seeder
                 //}
             }
 
-            foreach (Category::whereNull('parent_id')->orderBy('id')->get() as $key => $category) {
-                $category->update(['sorting' => $key + 1]);
-            }
+            //foreach (Category::whereNull('parent_id')->orderBy('id')->get() as $key => $category) {
+            //    $category->update(['sorting' => $key + 1]);
+            //}
 
             //$parentCategories = Category::all();
             //foreach ($parentCategories as $category) {

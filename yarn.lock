@@ -5712,10 +5712,10 @@
   "resolved" "https://registry.npmjs.org/vm-browserify/-/vm-browserify-1.1.2.tgz"
   "version" "1.1.2"
 
-"vue-awesome-sidebar@^1.2.1":
-  "integrity" "sha512-R8kzF0dtGJhFgbbbp6NDj6XYCriX6dw/vlDJQUE6+rjRZnQLCU+0SSZlKAMoocYLtvcKGsw5FSoXraUarfCXfg=="
-  "resolved" "https://registry.npmjs.org/vue-awesome-sidebar/-/vue-awesome-sidebar-1.2.1.tgz"
-  "version" "1.2.1"
+"vue-awesome-sidebar@^1.2.3":
+  "integrity" "sha512-A/2UOMZnzcMvin9rObqqEDcs10i3fiANqpTGGFDWoynzpx1PQ+yco7CmMwY78AEZbGAUx8KSf8qUeRMHmbXqHA=="
+  "resolved" "https://registry.npmjs.org/vue-awesome-sidebar/-/vue-awesome-sidebar-1.2.3.tgz"
+  "version" "1.2.3"
 
 "vue-loader@^17.0.0":
   "integrity" "sha512-/OOyugJnImKCkAKrAvdsWMuwoCqGxWT5USLsjohzWbMgOwpA5wQmzQiLMzZd7DjhIfunzAGIApTOgIylz/kwcg=="

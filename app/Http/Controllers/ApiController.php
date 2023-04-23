@@ -207,7 +207,7 @@ class ApiController extends Controller
     {
         try {
             //return ParentsCategoriesResource::collection(Category::whereParentId(null)->get());
-            return CategoriesResource::collection(Category::orderBy('sorting')->get());
+            return CategoriesResource::collection(Category::defaultOrder()->get());
         } catch (QueryException $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new HttpResponseException(response($errorMsg, 500));

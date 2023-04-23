@@ -15,10 +15,9 @@ class CategoriesResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'sorting' => $this->sorting,
-            'img' =>  is_null($this->img) ? null : Storage::disk('uploads')->url($this->img),
-            'slug' => $this->slug,
             'title' => $this->title,
+            'slug' => $this->slug,
+            'img' =>  is_null($this->img) ? null : Storage::disk('uploads')->url($this->img),
             'parent_id' => isset($this->parent_id) ? (int)$this->parent_id : null
         ];
     }

@@ -8,14 +8,8 @@
 @section('content')
     @include('admin.items._nav')
 
-    <div class="d-flex flex-row mb-1">
-        <a href="{{ route('admin.items.edit', $item) }}" class="btn btn-sm btn-primary mr-1">Изменить</a>
-        <form method="POST" action="{{ route('admin.items.destroy', $item) }}" class="mr-1">
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-sm btn-danger">Удалить</button>
-        </form>
-    </div>
+    <h2 class="text-center mt-3 mb-3">{{ $item->title }}</h2>
+
     <div class="row">
         <div style="margin: 10px auto;">
             <img src="{{ Storage::disk('uploads')->url($item->img) }}" alt="{{ $item->title }}">
@@ -49,9 +43,15 @@
                 <th>Бестселлер</th><td>{!! $item->is_bestseller ? '&#x2705;' : '&nbsp;' !!}</td>
             </tr>
             <tr>
-                <th>Категория</th><td>{{ $item->rCategory->title ?? 'Без категории' }}</td>
+                <th>Категория</th><td>{{ $item->category->title }}</td>
             </tr>
         <tbody>
         </tbody>
     </table>
+    <div class="col-12 d-flex justify-content-center mt-3">
+        <a href="{{ route('admin.items.edit', $item) }}" class="btn btn-sm btn-primary mr-1 pl-4 pr-4">Изменить</a>
+        {{ Form::open(['method' => 'delete', 'route' => ['admin.items.destroy', $item], 'class' => 'ml-5']) }}
+            {{ Form::submit('Удалить', ['class' => 'btn btn-sm btn-danger pl-4 pr-4'])  }}
+        {{ Form::close() }}
+    </div>
 @endsection

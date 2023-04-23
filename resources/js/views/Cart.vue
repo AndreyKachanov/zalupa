@@ -15,11 +15,11 @@
                             <div class="col-5 pl-0 pr-0">
                                 <div class="row ml-0 mr-0" style="text-align: right">
                                     <div class="col-12 pl-0 pr-0">
-                                        {{ product.cnt }} x {{ product.price }} руб
+                                        {{ product.cnt }} x {{ product.price }} ₽
                                     </div>
                                     <div class="col-12 pl-0 pr-0">
                                         <strong>
-                                            {{ product.price * product.cnt }} руб
+                                            {{ product.price * product.cnt }} ₽
                                         </strong>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <p class="text-center mb-0" style="font-size: 17px; color: red;">Минимальный заказ 5 000 руб</p>
+                <p class="text-center mb-0" style="font-size: 17px; color: red;">Минимальный заказ 5 000 ₽</p>
             </div>
             <div class="col-12 text-center mt-3">
                 <router-link  v-if="cartCnt" :to="{ name: 'checkout' }" class="btn btn-success">

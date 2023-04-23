@@ -57,6 +57,14 @@ Route::group(
         Route::get('/', [AdminHome::class, 'index'])->name('home');
         Route::resource('items', 'Items\ItemsController');
         Route::resource('categories', 'Items\CategoryController');
+
+        Route::group(['prefix' => 'categories/{category}', 'as' => 'categories.'], function () {
+            Route::post('/first', [CategoryController::class, 'first'])->name('first');
+            Route::post('/up', [CategoryController::class, 'up'])->name('up');
+            Route::post('/down', [CategoryController::class, 'down'])->name('down');
+            Route::post('/last', [CategoryController::class, 'last'])->name('last');
+        });
+
         Route::resource('orders', OrdersController::class);
         Route::resource('users', 'UsersController');
         Route::post('/users/{user}/verify', 'UsersController@verify')->name('users.verify');

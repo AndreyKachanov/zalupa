@@ -158,27 +158,41 @@
 
     <h2 class="text-center mt-3 mb-3"><strong>{{ $category->parent->title }}</strong></h2>
 
+    <section class="wrapper">
+        <header class="float">
+            <h4>Подкатегории</h4>
+        </header>
+        <div class="row">
+            <div class="col-12 mb-2">
+                <a href="{{ route('admin.subcategories.create', $category) }}" class="btn btn-sm btn-success">Добавить</a>
+            </div>
+            <div class="col-12">
+                @if($category->children()->exists())
+                    <div class="list-group d-flex flex-row flex-wrap">
+                        @foreach($category->children->sortBy('sorting') as $children)
+                            @php $children->loadCount('items'); @endphp
+                            <a href="{{ route('admin.subcategories.show', $children) }}" class="list-group-item w-50 list-group-item-action d-flex justify-content-between">
+                                <img
+                                    class="img-thumbnail"
+                                    style="width: 25%; height: 100%"
+                                    src="{{ is_null($children->img) ?  asset('/assets/no-image.png') : Storage::disk('uploads')->url($children->img) }}"
+                                    alt="{{ $children->title }}"
+                                >
+                                <div style="word-break: break-all">
+                                    {{--                                        <span class="mr-2">--}}
+                                    {{--                                            {{ $children->sorting }}--}}
+                                    {{--                                        </span>--}}
+                                    {{ $children->title }}
+                                </div>
+                                <div><strong>{{ $children->items_count }}</strong></div>
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+        </div>
+    </section>
 
-
-{{--    <div class="row">--}}
-{{--        <div class="col-12">--}}
-{{--            <h5 class="text-center">Список подкатегории</h5>--}}
-{{--            <div class="col-12 mb-2">--}}
-{{--                <a href="{{ route('admin.subcategories.create', $category) }}" class="btn btn-sm btn-success">Добавить</a>--}}
-{{--            </div>--}}
-{{--            @if($category->children()->exists())--}}
-{{--                <div class="list-group d-flex flex-row flex-wrap">--}}
-{{--                    @foreach($category->children as $children)--}}
-{{--                        <a href="{{ route('admin.subcategories.show', $children) }}" class="list-group-item w-50 list-group-item-action">--}}
-{{--                            {{ $children->title }}--}}
-{{--                        </a>--}}
-{{--                    @endforeach--}}
-{{--                </div>--}}
-{{--            @endif--}}
-{{--        </div>--}}
-{{--    </div>--}}
-
-{{--    <h5 class="text-center mt-3 mb-3">Подкатегория - <strong>{{ $category->title }}</strong></h5>--}}
     <div class="row mt-3">
         <div class="col-12">
             <h5 class="text-center mb-3">Подкатегория - <strong>{{ $category->title }}</strong></h5>

@@ -1,5 +1,6 @@
 @php
     /** @var \App\Models\Admin\Item\Category $category */
+    //dump($category->parent_id);
 @endphp
 
 @extends('layouts.app')
@@ -7,15 +8,23 @@
 @section('content')
     @include('admin.categories._nav')
 
-    <form method="POST" action="{{ route('admin.categories.update', $category) }}" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
+    <h2 class="text-center">Редактирование категории</h2>
+
+    {{ Form::open(['method' => 'put', 'route' => ['admin.categories.update', $category], 'files' => true]) }}
 
         <div class="form-group">
-            <label for="title" class="col-form-label">Название</label>
-            <input id="title" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ old('title', $category->title) }}" required>
+            {{ Form::label('title', 'Название категории*', ['class' => 'col-form-label']) }}
+            {{ Form::text('title', old('title', $category->title), ['class' => 'form-control' . setIsValidField('title', $errors), 'required' => true]) }}
             @if ($errors->has('title'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('title') }}</strong></span>
+                <span class="invalid-feedback">{!! $errors->first('title') !!}</span>
+            @endif
+        </div>
+
+        <div class="form-group">
+            {{ Form::label('parent', 'Родительская категория*', ['class' => 'control-label']) }}
+            {{ Form::select('parent', $categories, old('parent', $category->parent_id), ['class' => 'form-control' . setIsValidField('parent', $errors), 'id' => 'parent'])}}
+            @if ($errors->has('parent'))
+                <span class="invalid-feedback">{!! $errors->first('parent') !!}</span>
             @endif
         </div>
 
@@ -24,16 +33,24 @@
                 <img src="{{ is_null($category->img) ?  asset('/assets/no-image.png') : Storage::disk('uploads')->url($category->img) }}" alt="{{ $category->title }}">
             </div>
         </div>
+
         <div class="form-group">
-            <label for="img" class="col-form-label">Изображение (jpg,png,jpeg,gif,svg)</label>
-            <input type="file" name="img" class="form-control{{ $errors->has('img') ? ' is-invalid' : '' }}" id="img">
+            {{ Form::label('img', 'Фото (jpg, png, jpeg, gif, svg)', ['class' => 'control-label']) }}
+            {{ Form::file('img', [
+                                    'class' => 'form-control' . ($errors->has('img') ? ' is-invalid' : ''),
+                                    'id' => 'img',
+                                    'required' => false,
+                                    'accept' => '.jpg, .png, .jpeg, .gif, .svg'
+                                  ]
+                          )
+            }}
             @if ($errors->has('img'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('img') }}</strong></span>
+                <span class="invalid-feedback">{!! $errors->first('img') !!}</span>
             @endif
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-sm btn-primary">Сохранить</button>
+            {{ Form::submit('Сохранить', ['class' => 'btn btn-primary'])  }}
         </div>
-    </form>
+    {{ Form::close() }}
 @endsection

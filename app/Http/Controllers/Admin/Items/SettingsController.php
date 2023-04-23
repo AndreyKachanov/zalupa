@@ -7,6 +7,7 @@ use App\Http\Requests\Admin\Items\UpdateSettingsRequest;
 use App\Models\Admin\Setting;
 use Illuminate\Database\QueryException;
 use Exception;
+use Illuminate\Support\Str;
 
 class SettingsController extends Controller
 {
@@ -16,8 +17,14 @@ class SettingsController extends Controller
     public function index()
     {
         $settings = Setting::all();
-        //dd($settings);
-        return view('admin.settings.index', compact('settings'));
+        $request = new UpdateSettingsRequest();
+        $rules = $request->rules();
+        foreach ($rules as $fieldName => $fieldRules) {
+            //Str::contains($fieldRules, 'required') ? $requiredFields[] = $fieldName : '';
+            Str::contains($fieldRules, 'required') && $requiredFields[] = $fieldName;
+        }
+
+        return view('admin.settings.index', compact('settings', 'requiredFields'));
     }
 
     /**
@@ -36,6 +43,6 @@ class SettingsController extends Controller
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new Exception(response($errorMsg));
         }
-        return redirect()->route('admin.settings.index');
+        return redirect()->route('admin.settings.index')->with('success', 'Данные успешно сохранены');
     }
 }

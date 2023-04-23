@@ -3,6 +3,7 @@
 namespace App\Models\Admin\Item;
 
 use App\Models\Admin\Cart\CartItem;
+use App\Models\Admin\Cart\Order\Order;
 use App\Models\Admin\Setting;
 use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -63,6 +64,11 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereIsNew($value)
  * @property string|null $note
  * @method static \Illuminate\Database\Eloquent\Builder|Item whereNote($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
+ * @property-read int|null $orders_count
+ * @property-read Order|null $order
+ * @property-read \App\Models\Admin\Item\Category|null $category
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
  * @mixin \Eloquent
  */
 class Item extends Model
@@ -106,15 +112,25 @@ class Item extends Model
 
     //protected $appends = ['price'];
 
-    public function rCategory()
+    public function category()
     {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
+        return $this->belongsTo(Category::class);
     }
 
     public function rCartItems(): HasMany
     {
         return $this->hasMany(CartItem::class, 'item_id', 'id');
     }
+
+    //public function orders(): HasMany
+    //{
+    //    return $this->hasMany(Order::class, 'item_id', 'id');
+    //}
+    public function orders()
+    {
+        return $this->HasMany(Order::class);
+    }
+
 
     protected function price(): Attribute
     {
@@ -126,7 +142,7 @@ class Item extends Model
                     'price_increase',
                     fn() => Setting::firstWhere('prop_key', 'price_increase')->prop_value
                 );
-                return ($value / 100) * (int)$priceIncrease + $value;
+                return round( ($value / 100) * (int)$priceIncrease + $value);
             }
         );
     }

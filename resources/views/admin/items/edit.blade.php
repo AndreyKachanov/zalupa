@@ -1,196 +1,129 @@
 @php
     /** @var \App\Models\Admin\Item\Item $item */
-    /** @var \App\Models\Admin\Item\Category $category */
     /** @var \Illuminate\Database\Eloquent\Collection $categories */
 @endphp
+
 @extends('layouts.app')
+
+@section('custom_css')
+    <style>
+        .form-check {
+            margin-bottom: 1rem;
+        }
+
+        .form-check .custom-checkbox {
+            margin-right: 15px;
+        }
+
+        .form-check .custom-control-input.is-invalid:checked ~ .custom-control-label::before {
+            border-color: transparent !important;
+            color: transparent !important;
+            background-color: #007bff !important;
+            outline: none !important;
+        }
+
+        .form-check .custom-control-input.is-invalid:focus ~ .custom-control-label::before {
+            box-shadow: none !important;
+        }
+
+        span.invalid-feedback {
+            font-size: .95rem;
+        }
+    </style>
+@endsection
 
 @section('content')
     @include('admin.items._nav')
-    <form method="POST" action="{{ route('admin.items.update', $item) }}" enctype="multipart/form-data">
-        @csrf
-        @method('PUT')
 
-        <div class="form-group">
-            <label for="title" class="col-form-label">Название</label>
-            <input id="title" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ old('title', $item->title) }}" required>
-            @if ($errors->has('title'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('title') }}</strong></span>
-            @endif
-        </div>
-
-        <div class="form-group">
-            <label for="note" class="col-form-label">Примечание</label>
-            <input id="note" class="form-control{{ $errors->has('note') ? ' is-invalid' : '' }}" name="note" value="{{ old('note', $item->note) }}">
-            @if ($errors->has('note'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('note') }}</strong></span>
-            @endif
-        </div>
-
-        <div class="form-group">
-            <label for="article_number" class="col-form-label">Артикул</label>
-            <input id="article_number" class="form-control{{ $errors->has('article_number') ? ' is-invalid' : '' }}" name="article_number" value="{{ old('article_number', $item->article_number) }}" required>
-            @if ($errors->has('article_number'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('article_number') }}</strong></span>
-            @endif
-        </div>
-
-        <div class="form-group">
-            <label for="price" class="col-form-label">Цена оригинал</label>
-            <input id="price" class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" value="{{ old('price', $item->getRawOriginal('price')) }}" required>
-            @if ($errors->has('price'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('price') }}</strong></span>
-            @endif
-        </div>
-
-        <div class="form-check">
-            <label class="checkbox-inline" for="is_new" style="padding-left: 5px">
-                <input type="checkbox" style="margin-right: 5px" name="is_new" id="is_new" {{ $item->is_new ? 'checked' : '' }}>Новый товар
-            </label>
-            @if ($errors->has('is_new'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('is_new') }}</strong></span>
-            @endif
-
-            <label class="checkbox-inline" for="is_hit" style="padding-left: 5px">
-                <input type="checkbox" style="margin-right: 5px" name="is_hit" id="is_hit" {{ $item->is_hit ? 'checked' : '' }}>Хит
-            </label>
-            @if ($errors->has('is_hit'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('is_hit') }}</strong></span>
-            @endif
-
-            <label class="checkbox-inline" for="is_bestseller" style="padding-left: 5px">
-                <input type="checkbox" style="margin-right: 5px" name="is_bestseller" id="is_bestseller" {{  $item->is_bestseller ? 'checked' : '' }}>Бестселлер
-            </label>
-            @if ($errors->has('is_bestseller'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('is_bestseller') }}</strong></span>
-            @endif
-        </div>
-
-        @if(isset($item->rCategory))
-            <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
-                {{ Form::label('category_id', 'Категория*', ['class' => 'control-label']) }}
-                {{ Form::select(
-                    'category_id',
-                    $mainCategoriesArray,
-                    ( $item->rCategory->parent_id == null) ? $item->rCategory->id : $item->rCategory->parent_id,
-
-                        [
-                            'class' => 'form-control',
-                            'id' => 'selectCategory',
-                        ]
-                    ) }}
-            </div>
-
-            <div class="form-group">
-                {{ Form::label('sub_category_id', 'Подкатегория', ['class' => 'control-label']) }}
-                {{ Form::select(
-                    'sub_category_id',
-                    Session::get('edit_sub_categories')['arr'] ?? $subCategoriesArray,
-                    $item->rCategory->id ?? '',
-                        [
-                            'class' => 'form-control',
-                            'id' => 'subCategory',
-
-                            (isset(Session::get('edit_sub_categories')['arr'])
-                                ? count(Session::get('edit_sub_categories')['arr']
-                                    ? 'disabled'
-                                    : '')
-                                : (
-                                    count($subCategoriesArray) == 0
-                                    ? 'disabled'
-                                    : ''
-                                  )
-                            )
-                        ]
-                ) }}
-            </div>
-        @else
-
-            <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
-                {{ Form::label('category_id', 'Категория*', ['class' => 'control-label']) }}
-
-                {{ Form::select(
-                    'category_id',
-                    $mainCategoriesArray, 0,
-                        [
-                            'class' => 'form-control',
-                            'id' => 'selectCategory',
-                        ]
-                    ) }}
-            </div>
-
-            <div class="form-group">
-                {{ Form::label('sub_category_id', 'Подкатегория', ['class' => 'control-label']) }}
-                {{ Form::select(
-                    'sub_category_id', $subCategoriesArray, 0,
-                        [
-                            'class' => 'form-control',
-                            'id' => 'subCategory',
-                            count($subCategoriesArray) == 0 ? 'disabled' : ''
-                        ]
-                ) }}
-            </div>
+    <h2 class="text-center">Редактирование товара</h2>
+    {{ Form::open(['method' => 'put', 'route' => ['admin.items.update', $item], 'files' => true]) }}
+    <div class="form-group">
+        {{ Form::label('title', 'Название*', ['class' => 'col-form-label']) }}
+        {{ Form::text('title', old('title', $item->title), ['class' => 'form-control' . setIsValidField('title', $errors), 'required' => true]) }}
+        @if ($errors->has('title'))
+            <span class="invalid-feedback">{!! $errors->first('title') !!}</span>
         @endif
+    </div>
+
+    <div class="form-group">
+        {{ Form::label('note', 'Примечание', ['class' => 'col-form-label']) }}
+        {{ Form::text('note', old('note', $item->note), ['class' => 'form-control' . setIsValidField('note', $errors), 'required' => false]) }}
+        @if ($errors->has('note'))
+            <span class="invalid-feedback">{!! $errors->first('note') !!}</span>
+        @endif
+    </div>
+
+        <div class="form-group">
+            {{ Form::label('article_number', 'Артикул*', ['class' => 'col-form-label']) }}
+            {{ Form::text('article_number', old('article_number', $item->article_number), ['class' => 'form-control' . setIsValidField('article_number', $errors), 'required' => true]) }}
+            @if ($errors->has('article_number'))
+                <span class="invalid-feedback">{!! $errors->first('article_number') !!}</span>
+            @endif
+        </div>
+
+        <div class="form-group">
+            {{ Form::label('price', 'Цена (₽)*', ['class' => 'col-form-label']) }}
+            {{ Form::number('price', old('price', $item->price), ['class' => 'form-control' . setIsValidField('price', $errors), 'required' => true]) }}
+            @if ($errors->has('price'))
+                <span class="invalid-feedback">{!! $errors->first('price') !!}</span>
+            @endif
+        </div>
+
+        <div class="form-check d-flex justify-content-start">
+            <div class="custom-control custom-checkbox">
+                {{ Form::checkbox('is_new', null, old('is_new', $item->is_new), ['class' => 'custom-control-input' . setIsValidField('is_new', $errors), 'id' => 'is_new']) }}
+                {{ Form::label('is_new', 'Новый', ['class' => 'custom-control-label']) }}
+                @if ($errors->has('is_new'))
+                    <span class="invalid-feedback">{!! $errors->first('is_new') !!}</span>
+                @endif
+            </div>
+            <div class="custom-control custom-checkbox">
+                {{ Form::checkbox('is_hit', null, old('is_new', $item->is_hit), ['class' => 'custom-control-input' . setIsValidField('is_hit', $errors), 'id' => 'is_hit']) }}
+                {{ Form::label('is_hit', 'Хит', ['class' => 'custom-control-label']) }}
+                @if ($errors->has('is_hit'))
+                    <span class="invalid-feedback">{!! $errors->first('is_hit') !!}</span>
+                @endif
+            </div>
+            <div class="custom-control custom-checkbox">
+                {{ Form::checkbox('is_bestseller', null, old('is_new', $item->is_bestseller), ['class' => 'custom-control-input' . setIsValidField('is_bestseller', $errors), 'id' => 'is_bestseller']) }}
+                {{ Form::label('is_bestseller', 'Бестселлер', ['class' => 'custom-control-label']) }}
+                @if ($errors->has('is_bestseller'))
+                    <span class="invalid-feedback">{!! $errors->first('is_bestseller') !!}</span>
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group">
+            {{ Form::label('category', 'Категория*', ['class' => 'control-label']) }}
+            {{ Form::select('category', $categories, old('category', $item->category_id), ['class' => 'form-control' . setIsValidField('category', $errors), 'id' => 'category'])}}
+            @if ($errors->has('category'))
+                <span class="invalid-feedback">{!! $errors->first('category') !!}</span>
+            @endif
+        </div>
 
         <div class="row">
             <div style="margin: 20px auto;">
                 <img src="{{ Storage::disk('uploads')->url($item->img) }}" alt="" width="300" height="350">
             </div>
         </div>
+
         <div class="form-group">
-            <label for="img" class="col-form-label">Image (jpg,png,jpeg,gif,svg)</label>
-            <input type="file" name="img" class="form-control{{ $errors->has('img') ? ' is-invalid' : '' }}" id="img">
+            {{ Form::label('img', 'Фото (jpg, png, jpeg, gif, svg)*', ['class' => 'control-label']) }}
+            {{ Form::file('img', [
+                                    'class' => 'form-control' . ($errors->has('img') ? ' is-invalid' : ''),
+                                    'id' => 'img',
+                                    'required' => false,
+                                    'accept' => '.jpg, .png, .jpeg, .gif, .svg'
+                                  ]
+                          )
+            }}
             @if ($errors->has('img'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('img') }}</strong></span>
+                <span class="invalid-feedback">{!! $errors->first('img') !!}</span>
             @endif
         </div>
 
-        <div class="form-group">
-            <button type="submit" class="btn btn-sm btn-primary">Сохранить</button>
-        </div>
-    </form>
-@endsection
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-
-            $('#selectCategory').on('change', function () {
-                let idCategory =  $(this).find("option:selected").attr('value');
-                if (idCategory !== 0) {
-
-                    let getSubCategories = '{!!route('admin.get_subcategories', ['id' => 'J']) !!}';
-                    let url = getSubCategories.replace("J", idCategory);
-
-                    $.ajax({
-                        type: "get",
-                        url: url,
-                        success: function (result) {
-
-                            let items = result.sub_categories;
-
-                            if (items.length > 0) {
-
-                                $('#subCategory').children('option').remove();
-                                $('#subCategory').removeAttr('disabled');
-
-                                $('#subCategory').append("<option value='0'>Выберите подкатегорию</option>");
-                                $.each(items, function (i, item) {
-                                    $('#subCategory').append($('<option>', {
-                                        value: item.id,
-                                        text : item.title
-                                    }));
-                                });
-                            } else {
-                                $('#subCategory').attr('disabled','disabled');
-                                $('#subCategory').children('option').remove();
-                            }
-                        }
-                    });
-                } else {
-                    $('#subCategory').attr('disabled','disabled');
-                    $('#subCategory').children('option').remove();
-                }
-            });
-        });
-    </script>
+    <div class="form-group">
+        {{ Form::submit('Сохранить', ['class' => 'btn btn-primary'])  }}
+    </div>
+    {{ Form::close() }}
 @endsection

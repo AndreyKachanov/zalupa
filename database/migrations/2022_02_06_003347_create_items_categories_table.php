@@ -4,6 +4,7 @@ use App\Models\Admin\Item\Category;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Kalnoy\Nestedset\NestedSet;
 
 class CreateItemsCategoriesTable extends Migration
 {
@@ -24,10 +25,10 @@ class CreateItemsCategoriesTable extends Migration
         if (!Schema::hasTable($this->itemCategoryTableName)) {
             Schema::create($this->itemCategoryTableName, function (Blueprint $table) {
                 $table->smallIncrements('id');
-                $table->unsignedSmallInteger('sorting')->nullable();
                 $table->string('title')->nullable();
                 $table->string('img')->nullable();
-                $table->unsignedSmallInteger('parent_id')->nullable();
+                //$table->unsignedSmallInteger('parent_id')->nullable();
+                NestedSet::columns($table);
                 $table->string('slug', 1200)->nullable();
                 $table->softDeletes();
                 $table->timestamps();

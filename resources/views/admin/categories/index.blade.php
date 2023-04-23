@@ -4,102 +4,117 @@
 @endphp
 
 @extends('layouts.app')
-{{--@section('custom_css')--}}
-{{--    <style>--}}
-{{--        .test th, .test td {--}}
-{{--            vertical-align: middle;--}}
-{{--        }--}}
-{{--    </style>--}}
-{{--@endsection--}}
+
+@section('custom_css')
+    <style>
+        .truncate {
+            max-width: 80%;
+            white-space: nowrap; /* Текст не переносится */
+            overflow: hidden; /* Обрезаем всё за пределами блока */
+            text-overflow: ellipsis; /* Добавляем многоточие */
+        }
+        .row.striped {
+            border-top: 1px solid #ddd;
+            border-left: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            background-color: #f8f8f8;
+            color: #000;
+            padding: .5rem;
+            /*background: #90ea02;*/
+        }
+        .row.striped:last-child {
+            border-bottom: 1px solid #ddd;;
+        }
+
+        .row.striped:nth-child(odd){
+            /*background: #c6fe6e;*/
+        }
+
+        .row.striped:focus, .row.striped:hover{
+            /*background: #bcfd55;*/
+        }
+
+        @media screen and (max-width: 600px) {
+            .row.striped .btn-sm, .btn-group-sm > .btn {
+                padding: 0.2rem 0.35rem;
+                font-size: 0.6rem;
+                line-height: 1.5;
+            }
+            .row.striped a {
+                font-size: 12px;
+            }
+            .row.striped strong, .orders, .row.striped strong, .sort-header {
+                font-size: 13px;
+            }
+        }
+        .orders, .sort-header {
+            margin-right: 10px;
+            font-weight: bold;
+            /*border: 1px solid red;*/
+        }
+        .order-color {
+            color: red;
+        }
+    </style>
+@endsection
 
 @section('content')
     @include('admin.categories._nav')
 
-    <p><a href="{{ route('admin.categories.create') }}" class="btn btn-sm btn-success">Добавить</a></p>
+    <h2 class="text-center">Категории товаров</h2>
 
-{{--    <table class="table table-hover table-responsive table-responsive-sm">--}}
-{{--        <thead>--}}
-{{--        <tr>--}}
-{{--            <th>№ п/п</th>--}}
-{{--            <th>Название категории</th>--}}
-{{--            <th>Подкатегории</th>--}}
-{{--            <th>Все подкатегории</th>--}}
-{{--            <th>Товары</th>--}}
-{{--            <th>Товары из подкатегорий</th>--}}
-{{--        </tr>--}}
-{{--        </thead>--}}
-{{--        <tbody>--}}
-{{--            @foreach ($categories as $category)--}}
-{{--                <tr>--}}
-{{--                    <td>{{ $category->sorting }}</td>--}}
-{{--                    <td><a href="{{ route('admin.categories.show', $category) }}">{{ $category->title }}</a></td>--}}
-{{--                    <td>{{ $category->children_count }}</td>--}}
-{{--                    <td>{{ $category->descendants_count }}</td>--}}
-{{--                    <td>{{ $category->items_count }}</td>--}}
-{{--                    <td>{{ $category->recursive_items_count }}</td>--}}
-{{--                </tr>--}}
-{{--            @endforeach--}}
-{{--        </tbody>--}}
-{{--    </table>--}}
 
-    <table class="categories-table table table-sm">
-        <thead>
-            <tr>
-                <th scope="col">№</th>
-                <th scope="col">Имя</th>
-                <th scope="col">Дети</th>
-{{--                <th scope="col">Все подкатегории</th>--}}
-                <th scope="col">Товары</th>
-                <th scope="col">Товары с подкатегорий</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($categories as $category)
-                <tr>
-                    <th scope="row">{{ $category->sorting }}</th>
-                    <td><a href="{{ route('admin.categories.show', $category) }}">{{ $category->title }}</a></td>
-                    <td>{{ $category->children_count }}</td>
-{{--                    <td>{{ $category->descendants_count }}</td>--}}
-                    <td>{{ $category->items_count }}</td>
-{{--                    <td>{{ $category->recursive_items_count }}</td>--}}
-{{--                    <td>{{ dump($category->children->values()->get(0)->id) }}</td>--}}
-                    <td>{{ $category->children->sum(fn($category) => $category->items_count) }}</td>
-                </tr>
-            @endforeach
-{{--        <tr>--}}
-{{--            <th scope="row">1</th>--}}
-{{--            <td>Bootstrap 4 CDN and Starter Template</td>--}}
-{{--            <td>Cristina</td>--}}
-{{--            <td>913</td>--}}
-{{--            <td>2.846</td>--}}
-{{--        </tr>--}}
-{{--        <tr>--}}
-{{--            <th scope="row">2</th>--}}
-{{--            <td>Bootstrap Grid 4 Tutorial and Examples</td>--}}
-{{--            <td>Cristina</td>--}}
-{{--            <td>1.434</td>--}}
-{{--            <td>3.417</td>--}}
-{{--        </tr>--}}
+    <div class="container mb-2">
+        <div class="row pl-2 pr-0 pl-sm-3 pr-sm-3 d-flex align-items-center">
+            <div class="col-8 col-md-4 pl-0 pr-0">
+                <a href="{{ route('admin.categories.create') }}" class="btn btn-sm btn-success">Добавить</a>
+            </div>
+            <div class="col-4 col-md-8 pl-0 pr-0">
+                <div class="d-flex flex-row justify-content-end">
+                    <div class="orders order-color">Заказы</div>
+                    <div class="sort-header ml-1 mr-2">Сортировка</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        @foreach ($categories as $category)
+            <div class="row striped pl-2 pr-0 pl-sm-3 pr-sm-3 d-flex align-items-center">
+                <div class="col-8 col-md-4 pl-0 pr-0 d-flex align-items-center">
+                    <div class="truncate">
+                        <a href="{{ route('admin.categories.show', $category) }}">
+                            @for ($i = 0; $i < $category->depth; $i++) &mdash; @endfor
+                            {{ $category->title }}
+                        </a>&nbsp;
 
-{{--        <tr>--}}
-{{--            <th scope="row">3</th>--}}
-{{--            <td>Bootstrap Flexbox Tutorial and Examples</td>--}}
-{{--            <td>Cristina</td>--}}
-{{--            <td>1.877</td>--}}
-{{--            <td>1.234</td>--}}
-{{--        </tr>--}}
-        </tbody>
-    </table>
+                    </div>
+                    <strong>&nbsp;{{ $category->items_count }}</strong>
 
-    <div class="pagination justify-content-center">
-        {{ $categories->links() }}
+                </div>
+                <div class="col-4 col-md-8 pl-0 pr-0">
+                    <div class="d-flex flex-row justify-content-end align-items-center">
+                        <div class="orders order-color">
+                            {{ $category->orders_count }}
+                        </div>
+                        <form method="POST" action="{{ route('admin.categories.first', $category) }}" class="mr-1">
+                            @csrf
+                            <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-double-up"></span></button>
+                        </form>
+                        <form method="POST" action="{{ route('admin.categories.up', $category) }}" class="mr-1">
+                            @csrf
+                            <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-up"></span></button>
+                        </form>
+                        <form method="POST" action="{{ route('admin.categories.down', $category) }}" class="mr-1">
+                            @csrf
+                            <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-down"></span></button>
+                        </form>
+                        <form method="POST" action="{{ route('admin.categories.last', $category) }}" class="mr-1">
+                            @csrf
+                            <button class="btn btn-sm btn-outline-primary"><span class="fa fa-angle-double-down"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
 @endsection
-{{--@section('scripts')--}}
-{{--    <script>--}}
-{{--        $(document).ready(function() {--}}
-{{--            // $('tbody').sortable();--}}
-{{--            // $('tbody').disableSelection();--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--@endsection--}}

@@ -29,7 +29,7 @@ class ItemsSeeder extends Seeder
         //Переливаем данные из json в бд
         try {
             //папка с картинками
-            $dir = 'seeders/seeder_data/items_img_new';
+            $dir = 'seeders/seeder_data/items_img';
             if (!Storage::disk('database')->directoryExists($dir)) {
                 throw new Exception('Directory ' . $dir . ' not exists');
             }

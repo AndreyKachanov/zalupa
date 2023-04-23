@@ -198,6 +198,7 @@
                     <th scope="col">Цена</th>
                     <th scope="col">Кол-во</th>
                     <th scope="col">Сумма</th>
+                    <th scope="col">Категория</th>
                 </tr>
             </thead>
             <tbody>
@@ -217,18 +218,19 @@
                         {{ $ord->item->article_number }}
                     </td>
                     <td data-label="Цена">
-                        {{ $ord->item->price }} руб
+                        {{ $ord->item->price }} ₽
                     </td>
                     <td data-label="Кол-во">
                         {{ $ord->cnt }}
                     </td>
-                    <td data-label="Сумма">{{ $ord->item->price * $ord->cnt }} руб</td>
+                    <td data-label="Сумма">{{ $ord->item->price * $ord->cnt }} ₽</td>
+                    <td data-label="Категория">{{ $ord->item->category->title }}</td>
                 </tr>
             @endforeach
             <tr class="all_sum">
                 <td style="text-align: left">Всего:</td>
-                <td style="text-align: right;" colspan="5" >
-                    {{ $order->orders->sum(fn($item) => $item->item->price * $item->cnt) }} руб
+                <td style="text-align: right;" colspan="6" >
+                    {{ $order->orders->sum(fn($item) => $item->item->price * $item->cnt) }} ₽
                 </td>
             </tr>
             </tbody>

@@ -4,121 +4,85 @@ namespace App\Http\Controllers\Admin\Items;
 
 use App\Models\Admin\Item\Category;
 use App\Http\Requests\Admin\Items\CreateItemRequest;
-use App\Http\Requests\Admin\Items\UpdateItemRequest;
 use App\Models\Admin\Item\Item;
 use App\Services\ImageService;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ItemsController extends Controller
 {
-    private $service;
+    private ImageService $service;
 
     public function __construct(ImageService $service)
     {
         $this->service = $service;
     }
 
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @param Request $request
+     * @return Application|Factory|View|RedirectResponse
      */
     public function index(Request $request)
     {
         if (isset($request->find)) {
-            $request->validate([
-                'search_input' => 'required'
+            $max = 100;
+            $validator = Validator::make($request->all(), [
+                'radio_search_by' => 'required',
+                'search_input' => "required|string|max:$max"
+            ], [
+                'radio_search_by.required' => 'Выберите категорию поиска',
+                'search_input.max' => '<b>:attribute</b> не должна превышать :max ' .  Lang::choice('символ|символа|символов', $max) . ''
+            ], [
+                'search_input' => 'Строка поиска',
             ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->withInput()->withErrors($validator);
+            }
         }
-        $request->flashOnly([
-            'checkbox_title',
-            'checkbox_article_number',
-            'checkbox_category',
-            'search_input'
-        ]);
+
+        $oldRadioButton = isset($request->radio_search_by) ? $request->radio_search_by : 'title';
+        $oldSearchInput = $request->search_input;
 
         $query = Item::orderByDesc('created_at');
 
-        if (isset($request->checkbox_title)) {
+        if ($request->radio_search_by === 'title') {
             $query->where('title', 'LIKE', "%{$request->search_input}%");
         }
 
-        if (isset($request->checkbox_article_number)) {
+        if ($request->radio_search_by === 'article_number') {
             $query->where('article_number', 'LIKE', "%{$request->search_input}%");
         }
 
-        if (isset($request->checkbox_category)) {
+        if ($request->radio_search_by === 'category') {
             $ids = Category::where('title', 'LIKE', "%{$request->search_input}%")->pluck('id')->toArray();
             $query->whereIn('category_id', $ids);
         }
 
-        $items = $query->with('rCategory')->paginate(config('app.pagination_default_value'));
-        return view('admin.items.index', compact('items'));
+        $items = $query->with('category')->paginate(config('app.pagination_default_value'));
+        return view('admin.items.index', compact('items','oldSearchInput', 'oldRadioButton'));
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function create()
     {
-        $categories = Category::whereNull('parent_id')->orderBy('sorting')->get(['id', 'title']);
-        $categoryToView = [];
-        $subCategoryToView = [];
-        foreach ($categories as $category) {
-            $categoryToView[$category->id] = mb_substr($category->title, 0, 90);
-        }
-
-        $selectSubCategory = Category::select(['id', 'title'])
-            ->where('parent_id', key($categoryToView))
-            ->orderBy('sorting')
-            ->get();
-
-        if ($selectSubCategory->count() > 0) {
-            $subCategoryToView = [];
-            $subCategoryToView[0] = 'Выберите подкатегорию';
-
-            foreach ($selectSubCategory as $s) {
-                $subCategoryToView[$s->id] = mb_substr($s->title, 0, 90);
-            }
-        }
-
-        //dd($categoryToView);
-
-        return view('admin.items.create', [
-            'selectCategory'    => $categoryToView ?? null,
-            'selectSubCategory' => $subCategoryToView ?? [],
-        ]);
-    }
-
-    public function getSubCategories(Request $request, $id)
-    {
-        $subCategories = Category::select(['id', 'title'])
-            ->where('parent_id', $id)
-            ->orderBy('sorting')
-            ->get();
-
-        if ($subCategories->count() > 0) {
-            $subCategoriesToSession = [];
-            $subCategoriesToSession['0'] = 'Выберите подкатегорию';
-
-            foreach ($subCategories as $category) {
-                $subCategoriesToSession[$category->id] = $category->title;
-            }
-
-            $request->session()->put('create_sub_categories.arr', $subCategoriesToSession);
-            return response()->json(['sub_categories' => $subCategories], 200);
-        }
-
-        $request->session()->put('create_sub_categories.arr', []);
-        return response()->json(['sub_categories' => []], 200);
+        $categories = $this->getCategories();
+        return view('admin.items.create', compact('categories'));
     }
 
     /**
-     * @param  CreateItemRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param CreateItemRequest $request
+     * @return RedirectResponse
      */
     public function store(CreateItemRequest $request)
     {
@@ -132,103 +96,38 @@ class ItemsController extends Controller
         $item->is_hit = isset($request->is_hit);
         $item->is_bestseller = isset($request->is_bestseller);
         $item->img = $this->service->saveImageWithResize($filePath, 'items');
-        $item->category_id = (isset($request->sub_category_id) && $request->sub_category_id != '0')
-            ? $request->sub_category_id
-            : $request->category_id;
+        $item->category_id = $request->category;
         $item->save();
         $item->update(['article_number' => $item->id . '.' . $item->article_number]);
         return redirect()->route('admin.items.show', $item);
     }
 
     /**
-     * @param  Item  $item
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param Item $item
+     * @return Application|Factory|View
      */
     public function show(Item $item)
     {
-        $item->load('rCategory');
+        $item->load('category');
         return view('admin.items.show', compact('item'));
     }
 
     /**
-     * @param  Item  $item
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param Item $item
+     * @return Application|Factory|View
      */
     public function edit(Item $item)
     {
-        $mainCategories = Category::select(['id', 'title'])
-            ->whereNull('deleted_at')
-            ->whereNull('parent_id')
-            ->orderBy('sorting')
-            ->get();
-
-        $mainCategoriesArray = [];
-        $subCategoriesArray = [];
-
-        foreach ($mainCategories as $c) {
-            $mainCategoriesArray[$c->id] = mb_substr($c->title, 0, 90);
-        }
-
-        // id of parent category
-        if (isset($item->rCategory)) {
-            $parentCategoryId = $item->rCategory->parent_id;
-
-            // If the analysis has a category with parent_id = null
-            if ($parentCategoryId == null) {
-                $subCategories = Category::select(['id', 'title'])
-                    ->where('parent_id', $item->rCategory->id)
-                    ->orderBy('sorting')
-                    ->get();
-
-                // If this category has children
-                if ($subCategories->count() > 0) {
-                    $subCategoriesArray[0] = "Выберите подкатегорию";
-                }
-
-                // otherwise the array will be empty
-            } else {
-                // selects all subcategories from the main category where the analysis is located
-                $subCategories = Category::select(['id', 'title'])
-                    ->where('parent_id', $parentCategoryId)
-                    ->orderBy('sorting')
-                    ->get();
-
-                $subCategoriesArray = [];
-                $subCategoriesArray[0] = "Выберите подкатегорию";
-            }
-
-            foreach ($subCategories as $s) {
-                $subCategoriesArray[$s->id] = mb_substr($s->title, 0, 90);
-            }
-        } else {
-            // selects all subcategories from first main category
-            $subCategories = Category::select(['id', 'title'])
-                ->where('parent_id', $mainCategories[0]->id)
-                ->orderBy('sorting')
-                ->get();
-
-            $subCategoriesArray = [];
-            $subCategoriesArray[0] = "Выберите подкатегорию";
-
-            foreach ($subCategories as $s) {
-                $subCategoriesArray[$s->id] = mb_substr($s->title, 0, 90);
-            }
-        }
-
-        //$categories = Category::all();
-        return view('admin.items.edit', [
-            'item'             => $item,
-            'mainCategoriesArray' => $mainCategoriesArray ?? null,
-            'subCategoriesArray'  => $subCategoriesArray
-        ]);
+        $categories = $this->getCategories();
+        return view('admin.items.edit', compact('item', 'categories'));
     }
 
     /**
-     * @param  UpdateItemRequest  $request
-     * @param  Item  $item
-     * @return \Illuminate\Http\RedirectResponse
+     * @param CreateItemRequest $request
+     * @param Item $item
+     * @return RedirectResponse
      */
-    public function update(UpdateItemRequest $request, Item $item)
+    public function update(CreateItemRequest $request, Item $item)
     {
         if ($request->hasFile('img')) {
             $filePath = $request->file('img')->getRealpath();
@@ -242,23 +141,36 @@ class ItemsController extends Controller
         $item->is_new = isset($request->is_new);
         $item->is_hit = isset($request->is_hit);
         $item->is_bestseller = isset($request->is_bestseller);
-        //$item->category_id = $request->category_id;
-        $item->category_id = (isset($request->sub_category_id) && $request->sub_category_id != '0')
-            ? $request->sub_category_id
-            : $request->category_id;
+        $item->category_id = $request->category;
         $item->save();
         return redirect()->route('admin.items.show', compact('item'));
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Item $item
+     * @return RedirectResponse
      */
     public function destroy(Item $item)
     {
         $item->delete();
         return redirect()->route('admin.items.index');
+    }
+
+    /**
+     * @return array
+     */
+    private function getCategories(): array
+    {
+        $categories = Category::defaultOrder()->withDepth()->get()->each(
+            function (Category $category) {
+                $str = '';
+                for ($i = 0; $i < $category->depth; $i++) {
+                    $str .= html_entity_decode('&mdash; ', 0, "UTF-8");
+                }
+                $category->title = $str . $category->title;
+            }
+        );
+
+        return $categories->pluck('title', 'id')->toArray();
     }
 }

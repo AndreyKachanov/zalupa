@@ -14,19 +14,19 @@ export default {
         // parentsCategories: function (state) {
         //     return state.categories.filter(cat => cat.parent_id === null)
         // },
-        parentsCategories: state => state.categories.filter(cat => cat.parent_id === null).sort((a, b) => a.sorting > b.sorting ? 1 : -1),
+        parentsCategories: state => state.categories.filter(cat => cat.parent_id === null),
         // subCategories: function (state) {
         //     return function (parentCategory) {
         //         return state.categories.filter(cat => cat.parent_id === parentCategory)
         //     }
         // },
-        subCategories: state => (idCurrentCategory) => state.categories.filter(cat => cat.parent_id === idCurrentCategory).sort((a, b) => a.sorting > b.sorting ? 1 : -1)
+        subCategories: state => (idCurrentCategory) => state.categories.filter(cat => cat.parent_id === idCurrentCategory)
 
 
     },
     mutations: {
-        setParents(state, parents) {
-            state.categories = parents;
+        setCategories(state, categories) {
+            state.categories = categories;
         },
         setCacheUrls(state, slug) {
             state.cacheUrls.push(slug);
@@ -34,13 +34,10 @@ export default {
     },
     actions: {
         async loadCategories(store) {
-            // console.log(this.$router);
-           let parents = await makeRequest('/api/get-categories');
-            // console.log(items);
-            store.commit('setParents', parents.data);
+            let categories = await makeRequest('/api/get-categories');
+            store.commit('setCategories', categories.data);
         },
         setCacheUrls(store, slug) {
-            // console.log('test', slug);
             store.commit('setCacheUrls', slug);
         }
     }

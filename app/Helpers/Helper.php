@@ -15,6 +15,14 @@ if (!function_exists('myCacheFunction')) {
         if(isset($cache[$name])) return $cache[$name];
         return $cache[$name] = $callback();
     }
+
 }
 
-
+if (!function_exists('setIsValidField')) {
+    function setIsValidField(string $field, $errors): string
+    {
+        return $errors->has($field)
+            ? ' is-invalid'
+            : ($errors->count() > 0 ? ' is-valid' : '');
+    }
+}

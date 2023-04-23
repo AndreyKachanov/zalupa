@@ -3,28 +3,44 @@
 @section('content')
     @include('admin.categories._nav')
 
-    <form method="POST" action="{{ route('admin.categories.store') }}" enctype="multipart/form-data">
-        @csrf
-        <h3 class="text-center mb-3 mt-3">Создание категории</h3>
+    <h2 class="text-center">Создание категории</h2>
+
+    {{ Form::open(['method' => 'post', 'route' => ['admin.categories.store'], 'files' => true]) }}
+
         <div class="form-group">
-            <label for="title" class="col-form-label">Название</label>
-            <input id="title" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ old('title') }}" required>
+            {{ Form::label('title', 'Название категории*', ['class' => 'col-form-label']) }}
+            {{ Form::text('title', null, ['class' => 'form-control' . setIsValidField('title', $errors), 'required' => true]) }}
             @if ($errors->has('title'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('title') }}</strong></span>
+                <span class="invalid-feedback">{!! $errors->first('title') !!}</span>
             @endif
         </div>
 
         <div class="form-group">
-            <label for="img" class="col-form-label">Фото (jpg,png,jpeg,gif,svg)</label>
-            <input type="file" name="img" class="form-control{{ $errors->has('img') ? ' is-invalid' : '' }}" id="img">
+            {{ Form::label('parent', 'Родительская категория*', ['class' => 'control-label']) }}
+            {{ Form::select('parent', $categories, 0, ['class' => 'form-control' . setIsValidField('parent', $errors), 'id' => 'parent'])}}
+            @if ($errors->has('parent'))
+                <span class="invalid-feedback">{!! $errors->first('parent') !!}</span>
+            @endif
+        </div>
+
+        <div class="form-group">
+            {{ Form::label('img', 'Фото (jpg, png, jpeg, gif, svg)', ['class' => 'control-label']) }}
+            {{ Form::file('img', [
+                                    'class' => 'form-control' . ($errors->has('img') ? ' is-invalid' : ''),
+                                    'id' => 'img',
+                                    'required' => false,
+                                    'accept' => '.jpg, .png, .jpeg, .gif, .svg'
+                                  ]
+                          )
+            }}
             @if ($errors->has('img'))
-                <span class="invalid-feedback"><strong>{{ $errors->first('img') }}</strong></span>
+                <span class="invalid-feedback">{!! $errors->first('img') !!}</span>
             @endif
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Сохранить</button>
+            {{ Form::submit('Сохранить', ['class' => 'btn btn-primary'])  }}
         </div>
-
-    </form>
+    {{ Form::close() }}
+{{--    </form>--}}
 @endsection

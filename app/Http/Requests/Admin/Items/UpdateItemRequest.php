@@ -25,6 +25,7 @@ class UpdateItemRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
+            'note' => 'max:255',
             'article_number' => 'required|string|max:100',
             'price' => 'required|string|max:100',
 //            'img' => 'mimes:jpg,png,jpeg,gif,svg|max:1000|dimensions:min_width=100,min_height=100,max_width=500,max_height=500'

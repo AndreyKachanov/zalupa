@@ -6,95 +6,53 @@ use App\Models\Admin\Item\Category;
 use App\Http\Requests\Admin\Items\CreateCategoryRequest;
 use App\Http\Requests\Admin\Items\UpdateCategoryRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Item\Item;
 use App\Services\ImageService;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
-    private $service;
+    private ImageService $service;
 
     public function __construct(ImageService $service)
     {
         $this->service = $service;
     }
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
-        //$categories = Category::tree()->get()->toTree();
-        //dd(Category::all()[0]->recursiveItems);
-        //return view('admin.categories.test', compact('categories'));
-
-        //dd(Category::all()->descendants());
-        $categories = Category::whereParentId(null)
-        ->with(['children' => function ($query) {
-            $query->withCount('items');
-        }])
-        ->withCount([
-            'items',
-            //'recursiveItems',
-            //'descendants',
-            'children'
-        ])
-            //->orderBy('sorting')->get();
-            ->orderBy('sorting')
-            ->paginate(config('app.pagination_default_value'));
-        //dd($categories[0]->children[1]->items_count);
+        $categories = Category::defaultOrder()->withCount(['items', 'orders'])->withDepth()->get();
         return view('admin.categories.index', compact('categories'));
     }
 
-    public function indexSubCategories()
-    {
-        //$subCategories = Category::whereNotNull('parent_id')->orderByDesc('created_at')->paginate(100);
-        //return view('admin.subcategories.index', compact('subCategories'));
-        //$categories = Category::whereParentId(null)->paginate(15);
-        //$categories = Category::withCount('children')->paginate(15);
-        $categories = Category::whereParentId(null)->withCount(['children'])->paginate(15);
-        return view('admin.subcategories.index', compact('categories'));
-    }
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function create()
     {
-        return view('admin.categories.create');
-    }
-
-    public function createSubCategory(Category $category)
-    {
-
-        //dd($category);
-        //dd($request->all());
-        //$selectCategory = Category::select(['id', 'title'])->whereParentId(null)
-        //    ->orderBy('title')
-        //    ->get();
-        //
-        //$categoriesToView = [];
-        //
-        //foreach ($selectCategory as $category) {
-        //    $categoriesToView[$category->id] = mb_substr($category->title, 0, 60);
-        //}
-        return view('admin.subcategories.create', compact('category'));
+        $categories = $this->getCategories();
+        return view('admin.categories.create', compact('categories'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CreateCategoryRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(CreateCategoryRequest $request)
     {
         $filePath = $request->file('img') !== null ? $request->file('img')->getRealpath() : null;
         $category = new Category();
-        $category->sorting = Category::whereParentId(null)->max('sorting') + 1;
+        $category->parent_id = $request->parent;
         $category->title = $request->title;
         $category->img = is_null($filePath)
             ? null
@@ -103,106 +61,48 @@ class CategoryController extends Controller
         return redirect()->route('admin.categories.index');
     }
 
-    public function storeSubCategory(Category $category, CreateCategoryRequest $request)
-    {
-        $filePath = $request->file('img') !== null ? $request->file('img')->getRealpath() : null;
-        $childCategory = new Category();
-        $childCategory->sorting = Category::whereParentId($category->id)->max('sorting') + 1;
-        $childCategory->title = $request->title;
-        $childCategory->img = is_null($filePath)
-            ? null
-            : $this->service->saveImageWithResize($filePath, 'categories');
-        $childCategory->parent_id = $category->id;
-        $childCategory->save();
-
-        return redirect()->route('admin.categories.show', $category);
-
-        //Category::create([
-        //    'title' => $request->title,
-        //    'sorting' => Category::whereParentId($category->id)->max('sorting') + 1,
-        //    'parent_id' => $category->id
-        //]);
-
-        //return redirect()->route('admin.categories.show', $category);
-    }
-
-
+    /**
+     * @param Category $category
+     * @return Application|Factory|View
+     */
     public function show(Category $category)
-    {
-        //dd(1);
-        //dd($category->children->sortByDesc('sorting'));
-        $category->load(['children' => function ($query) {
-            $query->withCount('items');
-        }])->loadCount([
-            'items',
-            //'recursiveItems',
-            //'descendants',
-            'children'
-        ]);
-        //dd($category->children[0]->items_count);
-        return view('admin.categories.show', compact('category'));
-    }
-
-    public function showSubCategory(Category $category)
     {
         $category->loadCount([
             'items',
-            //'recursiveItems',
-            //'descendants',
             'children'
         ]);
-        return view('admin.subcategories.show', compact('category'));
+        $categories = $category->descendants()->pluck('id');
+        $categories[] = $category->getKey();
+        $countRelatedModels = Item::whereIn('category_id', $categories)->count();
+        return view('admin.categories.show', compact('category', 'countRelatedModels'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @param Category $category
+     * @return Application|Factory|View
      */
     public function edit(Category $category)
     {
-
-        return view('admin.categories.edit', compact('category'));
-    }
-
-    public function editSubCategory(Category $category)
-    {
-        //dd($category);
-        //dd($category);
-        $selectCategory = Category::select(['id', 'title'])->whereParentId(null)
-            ->orderBy('sorting')
-            ->get();
-        //
-        $categoriesToView = [];
-
-        foreach ($selectCategory as $cat) {
-            $categoriesToView[$cat->id] = mb_substr($cat->title, 0, 60);
-        }
-
-        return view('admin.subcategories.edit', compact('category', 'categoriesToView'));
+        $categories = $this->getCategories();
+        return view('admin.categories.edit', compact('category', 'categories'));
     }
 
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param CreateCategoryRequest $request
+     * @param Category $category
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(CreateCategoryRequest $request, Category $category)
     {
         if ($request->hasFile('img')) {
             $filePath = $request->file('img')->getRealpath();
             $category->img = $this->service->saveImageWithResize($filePath, 'categories');
         }
-
         $category->slug = null;
+        $category->parent_id = $request->parent;
         $category->title = $request->title;
         $category->save();
-        //$category->update($request->only(['title']));
-        //return redirect()->route('admin.categories.index');
         return redirect()->route('admin.categories.show', compact('category'));
     }
 
@@ -224,20 +124,14 @@ class CategoryController extends Controller
     /**
      * @param Category $category
      * @return \Illuminate\Http\RedirectResponse|void
-     * @throws Exception
      */
     public function destroy(Category $category)
     {
         try {
             $category->loadCount([
                 'items',
-                //'recursiveItems',
-                //'descendants',
                 'children'
             ]);
-            //dump($category->items_count);
-            //dump($category->children_count);
-            //dd($category->items_count > 0 || $category->children_count > 0);
 
             if ($category->items_count > 0 || $category->children_count > 0) {
                 return redirect()->back()->withErrors('Нельзя удалить категорию имеющую подкатегории или товары');
@@ -288,5 +182,55 @@ class CategoryController extends Controller
 
         //return redirect()->route('admin.subcategories.show', $category)->with('errors', 'Ошибка соединения с базой данных');
         //return redirect()->route('admin.subcategories.show', $category)->withErrors(["your_custom_error"=>"Your custom error message!"]);
+    }
+
+    public function first(Category $category)
+    {
+        if ($first = $category->siblings()->defaultOrder()->first()) {
+            $category->insertBeforeNode($first);
+        }
+
+        return redirect()->route('admin.categories.index');
+    }
+
+    public function up(Category $category)
+    {
+        $category->up();
+
+        return redirect()->route('admin.categories.index');
+    }
+
+    public function down(Category $category)
+    {
+        $category->down();
+
+        return redirect()->route('admin.categories.index');
+    }
+
+    public function last(Category $category)
+    {
+        if ($last = $category->siblings()->defaultOrder('desc')->first()) {
+            $category->insertAfterNode($last);
+        }
+
+        return redirect()->route('admin.categories.index');
+    }
+
+    /**
+     * @return array
+     */
+    private function getCategories(): array
+    {
+        $categories = Category::defaultOrder()->withDepth()->get()->each(
+            function (Category $category) {
+                $str = '';
+                for ($i = 0; $i < $category->depth; $i++) {
+                    $str .= html_entity_decode('&mdash; ', 0, "UTF-8");
+                }
+                $category->title = $str . $category->title;
+            }
+        )->pluck('title', 'id')->toArray();
+
+        return Arr::prepend($categories, '', '');
     }
 }
