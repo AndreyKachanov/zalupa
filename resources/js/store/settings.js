@@ -9,6 +9,11 @@ export default {
         allSettings: function (state) {
             return state.settings
         },
+        minOrderAmount: function (state) {
+            let obj = state.settings.find(item => item.prop_key === 'min_order_cost');
+            return obj.prop_value !== null ? parseInt(obj.prop_value) : null;
+            // return parseInt(obj.prop_value ?? null);
+        },
     },
     mutations: {
         setSettings(state, settings) {

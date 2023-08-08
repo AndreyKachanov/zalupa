@@ -12,6 +12,16 @@ export default {
         productsTemp: [
             // { id: 1, cnt: 5},
         ],
+        // testData: [
+        //     { name: 'name', value: '1' },
+        //     { name: 'phone', value: '2' },
+        //     { name: 'city', value: '3' },
+        //     { name: 'city', value: '4' },
+        //     { name: 'street', value: '5' },
+        //     { name: 'house_number', value: '6' },
+        //     { name: 'transport_company', value: '7' }
+        // ],
+        testData: 'test123',
         token: null,
         billNumber: null,
         flagOrderSent: false
@@ -21,6 +31,7 @@ export default {
         productsTemp: state => state.productsTemp,
         length: state=> state.products.length,
         billNumber: state=> state.products.length > 0 ? state.billNumber : null,
+        token: state => state.token,
         flagOrderSent: state=> state.flagOrderSent,
         // лежит товар в корзине или не лежит
         // параметрозованный геттер
@@ -60,7 +71,8 @@ export default {
 
         },
         // подсчет суммы товаров в корзине
-        total: (state, getters) => getters.productsDetailed.reduce( (t, pr) => t + pr.price * pr.cnt, 0)
+        total: (state, getters) => getters.productsDetailed.reduce( (t, pr) => t + pr.price * pr.cnt, 0),
+        getTestData: state => state.testData,
     },
     mutations: {
         add(state, id) {
@@ -104,7 +116,12 @@ export default {
         },
         setNewToken(state, token) {
             state.token = token;
-        }
+        },
+        setTestData(state, value) {
+            // console.log(value);
+            // state.testData[0].value = value;
+            state.testData = value;
+        },
     },
     actions: {
         async add({ state, getters, commit }, id) {
@@ -207,13 +224,14 @@ export default {
             let url = `/api/cart/load?token=${oldToken}`;
             let { needUpdate, cart, token, products } = await makeRequest(url);
 
+            //needUpdate = false - значит токена есть в бд
+            //needUpdate = true - значит токена нет в бд. Тогда записывает в localStorage новый токен, который получили с сервера
             if (needUpdate) {
                 localStorage.setItem('CART_TOKEN', token);
             }
 
+            // По номеру токена вытянуть из бд данные заказа (order) и записать в хранилище
             commit('setCart', { cart, token });
-            // console.log(rootGetters['products/all']);
-
             if (cart.length > 0) {
                 // console.log(cart);
                 // let itemIds = cart.map(item => item.id);
@@ -254,9 +272,10 @@ export default {
                 commit('setNewToken', new_token);
                 commit('setBillNumber', null)
                 localStorage.setItem('CART_TOKEN', new_token);
+                this.dispatch('order/clearOrder');
             } else {
                 console.log('sendOrderToStore - new_token != true');
             }
-        }
+        },
     }
 }

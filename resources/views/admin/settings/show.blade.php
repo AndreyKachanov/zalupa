@@ -5,11 +5,16 @@
 
 @extends('layouts.app')
 
+@section('custom_css')
+    <style>
+    </style>
+@endsection
+
 @section('content')
     @include('admin.orders._nav')
 
         <table class="table table-bordered table-striped">
-            <tbod>
+            <tbody>
                 <tr>
                     <td>№ заказа</td>
                     <td>{{ $order->token->invoice->bill_number }}</td>
@@ -38,7 +43,7 @@
                     <td>Транспортная компания</td>
                     <td>{{ $order->transport_company }}</td>
                 </tr>
-            </tbod>
+            </tbody>
         </table>
 
         <table class="table table-bordered table-striped table-image">

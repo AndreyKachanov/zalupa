@@ -32,8 +32,7 @@ let routes = [
     {
         name: 'checkout',
         path: '/order',
-        component: Checkout,
-        meta: { hidden: true }
+        component: Checkout
     },
     {
         name: 'category',

@@ -215,6 +215,7 @@
             <th scope="col">Артикул</th>
             <th scope="col">Цена оригинал</th>
             <th scope="col">{{ $th }}</th>
+            <th scope="col">Мин. заказ</th>
             <th scope="col">Новый</th>
             <th scope="col">Хит</th>
             <th scope="col">Бест</th>
@@ -247,6 +248,9 @@
                 </td>
                 <td data-label="{{ $th }}">
                     {{ $item->price }} ₽
+                </td>
+                <td data-label="Мин. заказ">
+                    {{ $item->min_order_amount }}
                 </td>
                 <td data-label="Новый">
                     {!! $item->is_new ? '&#x2705;' : '&nbsp;' !!}

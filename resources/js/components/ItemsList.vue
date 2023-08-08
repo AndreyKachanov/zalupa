@@ -17,6 +17,9 @@
                     <p v-if="item.note" class="text-muted" style="color: red">
                         <span style="color: red">Важно:</span> {{ item.note }}
                     </p>
+                    <p v-if="item.min_order_amount" class="text-muted" style="color: red">
+                        Мин. заказ <strong>{{ item.min_order_amount }}</strong> шт.
+                    </p>
 
                     <p class="d-flex justify-content-between mb-2 align-items-center">
                         <span style="font-size: 9px">Артикул:</span>

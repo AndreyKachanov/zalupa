@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Cart\CartLoadRequest;
 use App\Http\Requests\Cart\CheckTokenRequest;
 use App\Http\Requests\Cart\StoreOrderRequest;
+use App\Http\Requests\SetOrderInfoRequest;
 use App\Http\Resources\ItemResource;
 use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\SettingsResource;
@@ -26,6 +27,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
+use PDOException;
 
 class ApiController extends Controller
 {
@@ -68,9 +71,11 @@ class ApiController extends Controller
                     $newToken = $this->generateNewToken($request);
                 }
                 $json = [
+                    //needUpdate = false - значит токена есть в бд
+                    //needUpdate = true - значит токена нет в бд
                     'needUpdate' => !$issetToken,
                     'cart'       => $issetToken ? Token::firstWhere('token', $oldToken)->rCartItems()->whereHas('rItem')->get()->toArray() : [],
-                    'products' => $issetToken
+                    'products'   => $issetToken
                         ? ItemResource::collection(Item::find(Token::firstWhere('token', $oldToken)->rCartItems->modelKeys()))
                         : [],
                     'token'      => $issetToken ? $oldToken : $newToken->token
@@ -142,6 +147,21 @@ class ApiController extends Controller
         }
     }
 
+    /**
+     * @param SetOrderInfoRequest $request
+     * @return Application|ResponseFactory|Response
+     */
+    public function setOrderInfo(SetOrderInfoRequest $request)
+    {
+        $token = Token::firstWhere('token', $request->token);
+        return response(
+            $token->contact()->updateOrCreate([], [$request->field => $request->value])
+            ? 'true'
+            : 'false',
+            200);
+    }
+
+
     public function getBillNumber(CheckTokenRequest $request)
     {
         //Если приходит запрос на этот роут, значит токен по-любому есть в бд
@@ -167,19 +187,22 @@ class ApiController extends Controller
         //dd($request->all());
         $oldToken = Token::firstWhere('token', $request->token);
         $items = array_map(fn($item) => ['item_id' => $item['id'], 'cnt' => $item['cnt']], $request->items);
+        //dd($oldToken->contact);
+        //dd($items);
 
         DB::beginTransaction();
         try {
-            $contact = new Contact();
-            $contact->name = $request->name;
-            $contact->phone = $request->phone;
-            $contact->city = $request->city;
-            $contact->street = $request->street;
-            $contact->house_number = $request->house_number;
-            $contact->transport_company = $request->transport_company;
-            $contact->token()->associate($oldToken);
-            $contact->save();
-            $contact->orders()->createMany($items);
+            $oldToken->contact->orders()->createMany($items);
+            //$contact = new Contact();
+            //$contact->name = $request->name;
+            //$contact->phone = $request->phone;
+            //$contact->city = $request->city;
+            //$contact->street = $request->street;
+            //$contact->house_number = $request->house_number;
+            //$contact->transport_company = $request->transport_company;
+            //$contact->token()->associate($oldToken);
+            //$contact->save();
+            //$contact->orders()->createMany($items);
             DB::commit();
 
 
@@ -191,12 +214,11 @@ class ApiController extends Controller
             throw new HttpResponseException(response($errorMsg, 500));
         }
 
-        $this->sendOrderService->send($contact);
-        $this->sendOrderService->sendTelegramm($contact);
+        $this->sendOrderService->send($oldToken->contact);
+        $this->sendOrderService->sendTelegramm($oldToken->contact);
 
         return response()->json([
             'new_token' => $newToken->token,
-            //'new_bill_number' => $invoice->bill_number
         ]);
     }
 
@@ -218,7 +240,7 @@ class ApiController extends Controller
     {
         try {
             //return SettingsResource::collection(Setting::all()->except(Setting::firstWhere('prop_key', 'price_increase')->id));
-            return SettingsResource::collection(Setting::whereNotNull('prop_value')->whereIsIcon(true)-> get());
+            return SettingsResource::collection(Setting::whereNotNull('prop_value')->whereIsIcon(true)->orWhere('prop_key', 'min_order_cost')->get());
         } catch (QueryException $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new HttpResponseException(response($errorMsg, 500));
@@ -241,6 +263,24 @@ class ApiController extends Controller
             return ItemResource::collection($items);
 
             //return ItemResource::collection($category->children[0]->items);
+        } catch (QueryException $e) {
+            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
+            throw new HttpResponseException(response($errorMsg, 500));
+        }
+    }
+
+    /**
+     * @param CheckTokenRequest $request
+     * @return JsonResponse
+     */
+    public function loadOrder(CheckTokenRequest $request) {
+        try {
+            $token = Token::firstWhere('token', $request->token);
+            $existsContact = $token->contact()->exists();
+            $response = $existsContact
+                ? $token->contact->only(['name', 'phone', 'city', 'street', 'house_number', 'transport_company'])
+                : [];
+            return response()->json($response);
         } catch (QueryException $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new HttpResponseException(response($errorMsg, 500));

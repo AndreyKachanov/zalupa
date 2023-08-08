@@ -92,6 +92,7 @@ class ItemsController extends Controller
         $item->note = $request->note;
         $item->article_number = $request->article_number;
         $item->price = $request->price;
+        $item->min_order_amount = $request->min_order_amount;
         $item->is_new = isset($request->is_new);
         $item->is_hit = isset($request->is_hit);
         $item->is_bestseller = isset($request->is_bestseller);
@@ -138,6 +139,7 @@ class ItemsController extends Controller
         $item->note = $request->note;
         $item->article_number = $request->article_number;
         $item->price = $request->price;
+        $item->min_order_amount = $request->min_order_amount;
         $item->is_new = isset($request->is_new);
         $item->is_hit = isset($request->is_hit);
         $item->is_bestseller = isset($request->is_bestseller);

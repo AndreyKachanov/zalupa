@@ -24,7 +24,7 @@
                                         @endphp
                                         {{ Form::label($setting->prop_key, $labelTitle, ['class' => 'col-form-label']) }}
 
-                                        @php $methodName = $setting->prop_key == 'price_increase' ? 'number' : 'text'; @endphp
+                                        @php $methodName = $setting->prop_key == 'price_increase' || $setting->prop_key == 'min_order_cost' ? 'number' : 'text'; @endphp
                                         {{ Form::{$methodName}($setting->prop_key, old($setting->prop_key, $setting->prop_value),
                                                 [
                                                     'class' => 'form-control' . setIsValidField($setting->prop_key, $errors),

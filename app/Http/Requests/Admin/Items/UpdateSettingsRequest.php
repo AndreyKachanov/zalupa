@@ -25,14 +25,15 @@ class UpdateSettingsRequest extends FormRequest
     {
         return [
             'price_increase' => 'required|integer|min:0|max:1000',
-            'phone_number' => 'sometimes|max:255',
-            'instagram' => 'sometimes|max:255',
-            'whatsapp' => 'sometimes|max:255',
-            'site' => 'sometimes|max:255',
-            'viber' => 'sometimes|max:255',
-            'tiktok' => 'sometimes|max:255',
-            'youtube' => 'sometimes|max:255',
-            'custom_text' => 'sometimes|max:255'
+            'min_order_cost' => 'nullable|numeric|min:1|max:1000000',
+            'phone_number' => 'nullable|max:255',
+            'instagram' => 'nullable|max:255',
+            'whatsapp' => 'nullable|max:255',
+            'site' => 'nullable|max:255',
+            'viber' => 'nullable|max:255',
+            'tiktok' => 'nullable|max:255',
+            'youtube' => 'nullable|max:255',
+            'custom_text' => 'nullable|max:255'
         ];
     }
 }

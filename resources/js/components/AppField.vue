@@ -17,13 +17,12 @@
 
 
 <script>
+    import { library } from '@fortawesome/fontawesome-svg-core'
+    import { FontAwesomeIcon as FaIcon } from '@fortawesome/vue-fontawesome'
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon as FaIcon } from '@fortawesome/vue-fontawesome'
-
-import { faCircleExclamation, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
-// import { faFacebook, faTiktok, faStackOverflow, faSquareGit } from '@fortawesome/free-brands-svg-icons'
-library.add(faCircleExclamation, faCheckCircle)
+    import { faCircleExclamation, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+    // import { faFacebook, faTiktok, faStackOverflow, faSquareGit } from '@fortawesome/free-brands-svg-icons'
+    library.add(faCircleExclamation, faCheckCircle)
 
 export default  {
     name: "AppField",

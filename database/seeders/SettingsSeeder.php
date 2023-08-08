@@ -29,6 +29,12 @@ class SettingsSeeder extends Seeder
                 'prop_value' => '0'
             ]);
             Setting::create([
+                'title' => 'Сумма минимального заказа (₽). Если установлена, то минимальное кол-во товаров не проверяется',
+                'prop_key' => 'min_order_cost',
+                'prop_value' => 5001,
+                'is_icon' => false,
+            ]);
+            Setting::create([
                 'title' => 'Номер телефона',
                 'prop_key' => 'phone_number',
                 'prop_value' => '+79495468124',

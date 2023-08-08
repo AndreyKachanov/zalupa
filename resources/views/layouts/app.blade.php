@@ -111,7 +111,8 @@
             </footer>
         </div>
         <!-- Scripts -->
-        <script  src="{{ mix('js/app.js', (config('app.env') == 'local') ? 'build' : '') }}"></script>
+{{--        Для $pageWithVue подключаем app.js, для админки app_admin.js--}}
+        <script src="{{ mix('js/' . ($pageWithVue ? 'app.js' : 'app_admin.js'), (config('app.env') == 'local') ? 'build' : '') }}"></script>
 
         @yield('scripts')
 

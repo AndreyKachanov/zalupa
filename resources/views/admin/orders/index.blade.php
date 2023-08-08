@@ -52,9 +52,9 @@
             height: auto;
         }
 
-        table.bottom tr td:nth-child(2) {
-            text-align: left;
-        }
+        /*table.bottom tr td:nth-child(2) {*/
+        /*    text-align: left;*/
+        /*}*/
 
         tr.all_sum td:first-child {
             padding-left: 23px;
@@ -148,7 +148,7 @@
             <th scope="col">Сумма заказа</th>
             <th scope="col">Имя</th>
             <th scope="col">№ телефона</th>
-            <th scope="col">Ip адрес</th>
+{{--            <th scope="col">Ip адрес</th>--}}
         </tr>
         </thead>
         <tbody>
@@ -166,7 +166,7 @@
                 <td data-label="Сумма заказа">{{ $contact->orders->sum(fn($item) => $item->item->price * $item->cnt) }} ₽</td>
                 <td data-label="Имя">{{ $contact->name }}</td>
                 <td data-label="№ телефона">{{ $contact->phone }}</td>
-                <td data-label="Ip адрес">{{ $contact->token->ip }}</td>
+{{--                <td data-label="Ip адрес">{{ $contact->token->ip }}</td>--}}
             </tr>
         @endforeach
         </tbody>

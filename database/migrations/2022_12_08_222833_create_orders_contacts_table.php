@@ -25,12 +25,12 @@ return new class extends Migration
         if (!Schema::hasTable($this->tableName)) {
             Schema::create($this->tableName, function (Blueprint $table) {
                 $table->smallIncrements('id');
-                $table->string('name');
-                $table->string('phone');
-                $table->string('city');
-                $table->string('street');
-                $table->string('house_number');
-                $table->string('transport_company');
+                $table->string('name')->nullable();
+                $table->string('phone')->nullable();
+                $table->string('city')->nullable();
+                $table->string('street')->nullable();
+                $table->string('house_number')->nullable();
+                $table->string('transport_company')->nullable();
                 $table->unsignedSmallInteger('token_id')->unique();
                 $table->softDeletes();
                 $table->timestamps();

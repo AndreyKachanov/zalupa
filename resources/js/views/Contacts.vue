@@ -16,7 +16,6 @@
                     <div class="contact_info_content">
                         <div class="contact_info_title">{{ setting.title }}</div>
                         <div class="contact_info_text">
-<!--                            {{ this.isUrl(setting.prop_value) }}-->
                             <a v-if="this.isUrl(setting.prop_value)" target="_blank" :href="`${setting.prop_value}`">
                                 {{ setting.prop_value }}
                             </a>
@@ -34,85 +33,79 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from "vuex";
-export default {
-    name: "Contacts",
-    components: {
-    },
-    computed: {
-        ...mapGetters('settings', {
-            settings: 'allSettings'
-        }),
-    },
-    methods: {
-        isUrl(str) {
-            // console.log(str);
-            // let pattern = /^[a-zA-Z0-9]{2,30}$/;
-            // return pattern.test(str);
-            let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-            '(\\:\\d+)?(\\/[-a-z\\d%_.~+@]*)*'+ // port and path
-            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-            '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-            return !!pattern.test(str)
+    import { mapGetters } from "vuex";
+    export default {
+        name: "Contacts",
+        components: {
         },
+        computed: {
+            ...mapGetters('settings', {
+                allSettings: 'allSettings'
+            }),
+            settings() {
+                return this.allSettings.filter(item => item.fa_icon !== null);
+            }
+        },
+        methods: {
+            isUrl(str) {
+                let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+                '(\\:\\d+)?(\\/[-a-z\\d%_.~+@]*)*'+ // port and path
+                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+                '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+                return !!pattern.test(str)
+            },
+        }
     }
-}
 </script>
 
 <style lang="scss">
-
-.contact_info
-{
-    width: 100%;
-    padding-top: 70px;
-}
-.contact_info_item {
-    margin-bottom: 20px;
-    //@media (max-width: 768px) {
-    //    width: 100%;
-    //}
-
-    //width: calc((100% - 60px) / 3);
-    min-height: 100px;
-    border: solid 1px #e8e8e8;
-    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
-    padding-left: 25px;
-    padding-right: 15px;
-    background-color: #fff;
-
-}
-.contact_info_image
-{
-    width: 35px;
-    height: 35px;
-    text-align: center;
-    i {
-        //color: #c1034a;
-        color: red;
+    .contact_info
+    {
+        width: 100%;
+        padding-top: 70px;
     }
-}
-.contact_info_image img
-{
-    max-width: 100%;
-}
-.contact_info_content
-{
-    padding: 20px 0 20px 17px;
-}
-.contact_info_title
-{
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-.contact_info_text
-{
-    font-size: 12px;
-    color: rgba(0,0,0,0.5);
+    .contact_info_item {
+        margin-bottom: 20px;
+        min-height: 100px;
+        border: solid 1px #e8e8e8;
+        box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+        padding-left: 25px;
+        padding-right: 15px;
+        background-color: #fff;
 
-    span {
-        word-break: break-all;
     }
-}
+    .contact_info_image
+    {
+        width: 35px;
+        height: 35px;
+        text-align: center;
+        i {
+            //color: #c1034a;
+            color: red;
+        }
+    }
+    .contact_info_image img
+    {
+        max-width: 100%;
+    }
+    .contact_info_content
+    {
+        padding: 20px 0 20px 17px;
+    }
+    .contact_info_title
+    {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .contact_info_text
+    {
+        font-size: 12px;
+        color: rgba(0,0,0,0.5);
+
+        span {
+            word-break: break-all;
+        }
+    }
 </style>

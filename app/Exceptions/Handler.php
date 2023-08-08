@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -46,5 +47,18 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+    
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof QueryException) {
+            // Обработка исключения QueryException
+            return response()->json([
+                'success' => false,
+                'message' => 'Ошибка базы данных. Попробуйте позже.'
+            ], 500);
+        }
+
+        return parent::render($request, $exception);
     }
 }

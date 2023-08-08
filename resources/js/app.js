@@ -9,9 +9,7 @@ import 'vue-awesome-sidebar/dist/vue-awesome-sidebar.css'
 import store from './store/index';
 import router from './router/index';
 
-// console.log(window.location.pathname)
 let locationPath = window.location.pathname;
-// добавить в массив product/[0-9]
 // console.log(locationPath);
 
 
@@ -20,43 +18,29 @@ let locationPath = window.location.pathname;
 
 // console.log('res=', /^\/category\/[a-z\-0-1]+$/.test(locationPath)); // false
 let isSubCategoryPath = /^\/category\/[a-z0-9\-]*$/.test(locationPath);
-let isProductItem = /^\/product\/[a-z0-9\-]*$/.test(locationPath);
+let isProductItemPath = /^\/product\/[a-z0-9\-]*$/.test(locationPath);
 
-// let arrPath = ['/', '/cart', '/contacts', '/order', '/category/1-populyarnye-tovary', '/category/sub-1-main-1-populyarnye-tovary'];
+// Монтируем vue только на данных страницах
 let arrPath = ['/', '/cart', '/contacts', '/order', '/search'];
-if (arrPath.indexOf(locationPath) > -1 || isSubCategoryPath || isProductItem) {
+if (arrPath.indexOf(locationPath) > -1 || isSubCategoryPath || isProductItemPath) {
     // console.log('test');
     const app = createApp({});
 
-    app.component('app-component', App)
+    app.component('app-component', App);
 
     app.use(store);
     app.use(router);
-
-    // router.beforeEach((to, from, next) => {
-    //     if (to.name === 'category') {
-    //         let slug = to.params.slug;
-    //         // console.log(slug);
-    //         let cacheUrls = store.getters["categories/cacheUrls"];
-    //         if (!cacheUrls.includes(slug)) {
-    //             // console.log(1);
-    //             store.dispatch('products/getProductsFromCategory', slug);
-    //             store.dispatch('categories/setCacheUrls', slug);
-    //         }
-    //     }
-    //     next();
-    // });
-
 
     store.dispatch('categories/loadCategories');
     store.dispatch('cart/load');
     store.dispatch('settings/loadSettings');
 
     app.use(vueAwesomeSidebar);
-    // app.mount('#app-vue');
-    store.dispatch('products/load').then(() => {
-        app.mount('#app-vue');
-    });
 
+    store.dispatch('products/load').then(() => {
+        store.dispatch('order/load').then(() => {
+            app.mount('#app-vue');
+        });
+    });
 }
 

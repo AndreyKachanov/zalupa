@@ -23,6 +23,7 @@ class ItemResource extends JsonResource
             'note' => $this->note,
             'article_number' => $this->article_number,
             'price' => $this->price,
+            'min_order_amount' => $this->min_order_amount,
             'img' => Storage::disk('uploads')->url($this->img),
             'is_new' => $this->is_new,
             'is_hit' => $this->is_hit,

@@ -33,8 +33,10 @@
                 <th>Цена c {{ \App\Models\Admin\Setting::firstWhere('prop_key', 'price_increase')->prop_value }} % </th><td>{{ $item->price }} &#8381</td>
             </tr>
             <tr>
+                <th>Кол-во минимального заказа</th><td> {{ $item->min_order_amount }}</td>
+            </tr>
+            <tr>
                 <th>Новый</th><td>{!! $item->is_new ? '&#x2705;' : '&nbsp;' !!}</td>
-
             </tr>
             <tr>
                 <th>Хит</th><td>{!! $item->is_hit ? '&#x2705;' : '&nbsp;' !!}</td>

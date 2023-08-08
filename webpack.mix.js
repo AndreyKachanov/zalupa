@@ -26,6 +26,7 @@ mix
     .setPublicPath(publicPath)
     .setResourceRoot(resourceRoot)
     .js('resources/js/app.js', outputDir + 'js')
+    .js('resources/js/app_admin.js', outputDir + 'js')
     .sourceMaps(false, 'source-map')
     //fix error 404 on nginx - иначе шрифты на VPS не грузятся из папки vendor
     .copy('node_modules/@fortawesome/fontawesome-free/webfonts', publicPath + '/fonts')
@@ -67,6 +68,7 @@ if (env === 'local') {
         files: [
             'resources/views/**/*.php',
             'resources/js/app.js',
+            'resources/js/app_admin.js',
             'resources/js/components/*.vue',
             'public/js/**/*.js',
             'public/build/js/**/*.js',

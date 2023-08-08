@@ -29,6 +29,7 @@ class CreateItemsTable extends Migration
                 $table->string('slug', 1200)->nullable();
                 $table->string('article_number')->nullable();
                 $table->integer('price')->nullable();
+                $table->integer('min_order_amount')->nullable();
                 $table->string('img')->nullable();
                 $table->boolean('is_new')->default(false);
                 $table->boolean('is_hit')->default(false);

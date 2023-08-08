@@ -11,6 +11,7 @@
             class="pt-0 pb-0 form-control input-number"
             :value="countFromCart" style="text-align: center; height: auto"
             @change="onInput"
+            :class="{ 'styled-input': hasMinOrder }"
         >
         <span class="input-group-append">
              <button @click="$emit('setCnt', this.countFromCart + 1)" type="button" class="btn btn-outline-secondary btn-number">
@@ -24,7 +25,7 @@
 
 <script>
 export default {
-    props: ['countFromCart'],
+    props: ['countFromCart', 'hasMinOrder'],
     name: "CountCartItems",
     data: () => ({
 
@@ -42,6 +43,9 @@ export default {
 </script>
 
 <style lang="scss">
+    .styled-input {
+        box-shadow: inset 0 0 3px 1px rgb(255, 0, 0);
+    }
     .input-group {
         @include media-breakpoint-down(xs) {
 

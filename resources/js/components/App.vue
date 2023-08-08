@@ -20,8 +20,13 @@
         <div class="row">
             <div class="col-12 text-center">
                 <h5 class="mt-2 mb-2">
-                    <span>Количество: <strong>{{ cartCnt }}</strong>; Сумма: <strong>{{ cartTotal }}</strong> &#8381</span>
+                    <span>Кол-во: <strong>{{ cartCnt }}</strong> Сумма: <strong>{{ cartTotal }}</strong> &#8381</span>
                 </h5>
+            </div>
+            <div v-if="minOrderAmount !== null" class="col-12">
+                <p class="text-center mb-0" style="font-size: 17px; color: red;">
+                    Минимальный заказ {{ minOrderAmount }} ₽
+                </p>
             </div>
         </div>
     </div>
@@ -120,6 +125,9 @@ export default {
     computed: {
         ...mapGetters('cart', { cartCnt: 'length', cartTotal: 'total' }),
         ...mapGetters('categories', { allCategories: 'allCategories' }),
+        ...mapGetters('settings', {
+            minOrderAmount: 'minOrderAmount'
+        }),
         ismobile() {
             return this.screenWidth < 600;
         },
@@ -153,11 +161,11 @@ export default {
                 parent_id: item.parent_id,
                 collapseOnClick: !this.allCategories.some((element) => element.parent_id === item.id)
             }));
-            console.log(unflatten(arr));
+            // console.log(unflatten(arr));
             return unflatten(arr);
         },
         test234() {
-            console.log(this.collapsed);
+            // console.log(this.collapsed);
             return true;
         }
     },

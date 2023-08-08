@@ -46,10 +46,18 @@ Route::group(
         Route::post('set-cnt/{token:token}/{item}/{cnt}', [ApiController::class, 'setCnt'])
             ->name('set-cnt')
             ->missing($missing);
+        //Route::post('set-order-info/{token:token}/{field}/{value}', [ApiController::class, 'setOrderInfo'])
+        //    ->name('set-order-info')
+        //    ->missing($missing);
+        Route::post('set-order-info', [ApiController::class, 'setOrderInfo'])
+            ->name('set-order-info')
+            ->missing($missing);
         Route::get('invoice/load', [ApiController::class, 'getBillNumber'])->name('get-bill-number')
             ->missing($missing);
         Route::post('store', [ApiController::class, 'storeOrder'])->name('store-order')
             ->missing($missing);
+        Route::get('load-order', [ApiController::class, 'loadOrder'])->name('load-order')
+            ->middleware(['throttle:token'])->missing($missing);
     }
 );
 
