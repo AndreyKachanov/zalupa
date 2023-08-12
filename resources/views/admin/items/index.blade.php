@@ -250,7 +250,7 @@
                     {{ $item->price }} ₽
                 </td>
                 <td data-label="Мин. заказ">
-                    {{ $item->min_order_amount }}
+                    {!! is_null($item->min_order_amount) ? '&nbsp;' : $item->min_order_amount !!}
                 </td>
                 <td data-label="Новый">
                     {!! $item->is_new ? '&#x2705;' : '&nbsp;' !!}

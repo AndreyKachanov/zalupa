@@ -20,6 +20,7 @@ class OrdersController extends Controller
 
     public function show(Contact $order)
     {
+        //dd($order->orders[0]);
         return view('admin.orders.show', compact('order'));
     }
 

@@ -6,6 +6,7 @@ use App\Models\Admin\Item\Item;
 use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -45,11 +46,18 @@ class CartItem extends Model
     protected $guarded = ['id'];
     protected $casts = ['cnt' => 'integer'];
 
-    public function rToken()
+    /**
+     * @return BelongsTo
+     */
+    public function rToken(): BelongsTo
     {
         return $this->belongsTo(Token::class, 'token_id', 'id');
     }
-    public function rItem()
+
+    /**
+     * @return BelongsTo
+     */
+    public function rItem(): BelongsTo
     {
         return $this->belongsTo(Item::class, 'item_id', 'id');
     }

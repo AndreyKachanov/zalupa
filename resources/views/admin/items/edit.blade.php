@@ -70,7 +70,7 @@
         </div>
 
         <div class="form-group">
-            {{ Form::label('min_order_amount', 'Кол-во минимального заказа', ['class' => 'col-form-label']) }}
+            {{ Form::label('min_order_amount', 'Мин. заказ', ['class' => 'col-form-label']) }}
             {{ Form::number('min_order_amount', old('min_order_amount', $item->min_order_amount), ['class' => 'form-control' . setIsValidField('min_order_amount', $errors), 'required' => false, 'min' => 1, 'max' => 1000000000]) }}
             @if ($errors->has('min_order_amount'))
                 <span class="invalid-feedback">{!! $errors->first('min_order_amount') !!}</span>

@@ -1,5 +1,5 @@
 <template>
-    <h1 class="h1 text-center mb-4">Контактная информация</h1>
+    <h3 class="h text-center mb-4">Контактная информация</h3>
         <div class="row">
             <div
                 class="col-sm-10 offset-sm-1 offset-md-0 col-md-6 col-lg-4"

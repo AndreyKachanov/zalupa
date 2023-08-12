@@ -205,14 +205,28 @@
             @foreach ($order->orders as $ord)
                 <tr>
                     <td data-label="Фото">
-                        <img
-                            src="{{ Storage::disk('uploads')->url($ord->item->img) }}"
-                            class="img-thumbnail"
-                            alt="{{ $ord->item->title }}"
-                        >
+                        @if($ord->item->deleted_at)
+                            <img
+                                src="{{ Storage::disk('uploads')->url($ord->item->img) }}"
+                                class="img-thumbnail"
+                                alt="{{ $ord->item->title }}"
+                            >
+                        @else
+                            <a href="{{ route('admin.items.show', $ord->item) }}">
+                                <img
+                                    src="{{ Storage::disk('uploads')->url($ord->item->img) }}"
+                                    class="img-thumbnail"
+                                    alt="{{ $ord->item->title }}"
+                                >
+                            </a>
+                        @endif
                     </td>
                     <td data-label="Название">
-                        {{ $ord->item->title }}
+                        @if($ord->item->deleted_at)
+                            <p>{{ $ord->item->title }}</p>
+                        @else
+                            <a href="{{ route('admin.items.show', $ord->item) }}">{{ $ord->item->title }}</a>
+                        @endif
                     </td>
                     <td data-label="Артикул">
                         {{ $ord->item->article_number }}
@@ -230,7 +244,7 @@
             <tr class="all_sum">
                 <td style="text-align: left">Всего:</td>
                 <td style="text-align: right;" colspan="6" >
-                    {{ $order->orders->sum(fn($item) => $item->item->price * $item->cnt) }} ₽
+                    <strong>{{ $order->orders->sum(fn($item) => $item->item->price * $item->cnt) }} ₽</strong>
                 </td>
             </tr>
             </tbody>
