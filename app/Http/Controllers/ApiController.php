@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Cart\CartLoadRequest;
-use App\Http\Requests\Cart\CheckTokenRequest;
-use App\Http\Requests\Cart\StoreOrderRequest;
-use App\Http\Requests\SetOrderInfoRequest;
+use App\Exceptions\MyHttpResponseException;
 use App\Http\Resources\ItemResource;
 use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\SettingsResource;
 use App\Models\Admin\Cart\CartItem;
-use App\Models\Admin\Cart\Invoice;
 use App\Models\Admin\Cart\Order\Contact;
 use App\Models\Admin\Cart\Token;
 use App\Models\Admin\Item\Category;
@@ -18,20 +14,29 @@ use App\Models\Admin\Item\Item;
 use App\Models\Admin\Setting;
 use App\UseCases\ApiService;
 use App\UseCases\SendOrderService;
+use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
-use PDOException;
+use Illuminate\Validation\ValidationException;
 
+
+/**
+ * @property ApiService $service
+ * @property SendOrderService $sendOrderService
+ */
 class ApiController extends Controller
 {
+    /**
+     * @param ApiService $service
+     * @param SendOrderService $sendOrderService
+     */
     public function __construct(ApiService $service, SendOrderService $sendOrderService)
     {
         $this->service = $service;
@@ -39,187 +44,275 @@ class ApiController extends Controller
     }
 
     /**
-     * @return AnonymousResourceCollection
-     */
-    public function items()
-    {
-        try {
-                $items = ItemResource::collection(Item::orderByDesc('created_at')->get());
-                //$items = cache()->remember('items', 60*60*24, function () {
-                //    return ItemResource::collection(Item::orderByDesc('created_at')->get());
-                //});
-            return $items;
-            //return Item::paginate(11);
-        } catch (QueryException $e) {
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            throw new HttpResponseException(response($errorMsg, 500));
-        }
-    }
-
-    /**
-     * @param CartLoadRequest $request
+     * Метод возвращает товары добавленные в корзину.
+     * Принимаем token. Возвращаем json с информацией о товарах в корзине.
+     *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function cartLoad(CartLoadRequest $request)
+    public function cartLoad(Request $request)
     {
         try {
-            if ($request->filled('token')) {
-                $oldToken = $request->get('token');
-                $issetToken = Token::whereToken($oldToken)->exists();
-                //$issetToken ?: $newToken = Token::create(['token' => generateToken(), 'ip' => $request->ip()]);
-                if (!$issetToken) {
-                    $newToken = $this->generateNewToken($request);
-                }
-                $json = [
-                    //needUpdate = false - значит токена есть в бд
-                    //needUpdate = true - значит токена нет в бд
-                    'needUpdate' => !$issetToken,
-                    'cart'       => $issetToken ? Token::firstWhere('token', $oldToken)->rCartItems()->whereHas('rItem')->get()->toArray() : [],
-                    'products'   => $issetToken
-                        ? ItemResource::collection(Item::find(Token::firstWhere('token', $oldToken)->rCartItems->modelKeys()))
-                        : [],
-                    'token'      => $issetToken ? $oldToken : $newToken->token
-                ];
-                return response()->json($json);
+            $request->validate([
+                'token' => 'required',
+            ]);
+
+            $oldToken = $request->get('token');
+            //Токен может приходить 'null' или (32 символа + быть в бд)
+            if (!$this->service->isValidToken($oldToken)) {
+                throw new MyHttpResponseException(
+                    'Validation error',
+                    'Входящий token не равен null или его нет в бд',
+                    422
+                );
             }
-            throw new HttpResponseException(response("Input field 'token' not found", 422));
+
+            $tokenIsNull = $oldToken === 'null';
+            //Если $tokenIsNull === false, значит входящий токен уже существует в бд, иначе
+            //сработало бы исключение MyHttpResponseException
+
+            $json = [
+                //needUpdateToken = true - значит токена нет в бд.
+                //needUpdateToken = false - значит токен есть в бд
+                'needUpdateToken' => $tokenIsNull,
+                //возвращаем массив id, cnt товаров, добавленных в корзину
+                'cart' => !$tokenIsNull
+                    ? Token::firstWhere('token', $oldToken)->rCartItems()->whereHas('rItem')->get()->toArray()
+                    : [],
+                //возвращаем товары с полным описание для сохранения в Vuex
+                'products' => !$tokenIsNull
+                    ? ItemResource::collection(Item::find(Token::firstWhere('token', $oldToken)->rCartItems))
+                    : [],
+                //возвращаем старый или новый токен
+                'token' => !$tokenIsNull ? $oldToken : $this->service->generateNewToken($request),
+            ];
+            return response()->json($json);
+        } catch (ValidationException $e) {
+            throw new MyHttpResponseException($e->getMessage(), null, 422);
         } catch (QueryException $e) {
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            throw new HttpResponseException(response($errorMsg, 500));
+            throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
         }
     }
 
     /**
-     * @param Token $token
-     * @param Item $item
+     * @param Request $request
      * @return Application|ResponseFactory|Response
      */
-    public function addsItemsToCart(Token $token, Item $item, int $cnt)
+    public function addsItemsToCart(Request $request)
     {
-        //dd($cnt);
         try {
+            $request->validate([
+                'token' => 'required|size:32|exists:carts_tokens,token',
+                'id'    => 'required|exists:items,id',
+                'cnt'   => 'required|integer|min:1|max:65535',
+            ]);
+
+            $token = Token::firstWhere('token', $request->get('token'));
+            $item = Item::firstWhere('id', $request->get('id'));
+            $cnt = $request->get('cnt');
+
             $cartItem = new CartItem(['token_id' => $token->id, 'item_id' => $item->id, 'cnt' => $cnt]);
             return response($cartItem->save() ? 'true' : 'false', 200);
-        } catch (QueryException $e) {
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            throw new HttpResponseException(response($errorMsg, 500));
+        } catch (Exception $e) {
+            throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
         }
     }
 
     /**
-     * @param Token $token
-     * @param Item $item
+     * @param Request $request
      * @return Application|ResponseFactory|Response
      */
-    public function removeItemsFromCart(Token $token, Item $item)
+    public function removeItemsFromCart(Request $request)
     {
         try {
-            return response($token->rCartItems()->whereItemId($item->id)->delete() ? 'true' : 'false', 200);
-        } catch (QueryException $e) {
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            throw new HttpResponseException(response($errorMsg, 500));
+            $request->validate([
+                'token' => 'required|size:32|exists:carts_tokens,token',
+                'id'    => 'required|exists:items,id'
+            ]);
+            $token = Token::firstWhere('token', $request->get('token'));
+            $item = Item::firstWhere('id', $request->get('id'));
+            return response($token->rCartItems()->where('item_id', $item->id)->delete() ? 'true' : 'false', 200);
+        } catch (Exception $e) {
+            throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
         }
     }
 
     /**
-     * @param Token $token
-     * @param Item $item
-     * @param int $cnt
+     * @param Request $request
      * @return Application|ResponseFactory|Response
      */
-    public function setCnt(Token $token, Item $item, int $cnt)
+    public function setCnt(Request $request)
     {
-        if ($cnt < 1 || $cnt > 65535) {
-            throw new HttpResponseException(response()->json([
-                'success'   => false,
-                'message'   => 'Validation errors',
-                'data'      => 'Invalid count items.'
-            ])->setStatusCode(422));
-        }
-
+        //Используем валидацию + try catch в контроллере для отлова ошибок, возникающих с бд во
+        // время валидации (exists:carts_tokens и exists:items)
         try {
-            return response($token->rCartItems()
-                ->whereItemId($item->id)
-                ->update(['cnt' => $cnt]) ? 'true' : 'false', 200);
-        } catch (QueryException $e) {
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            throw new HttpResponseException(response($errorMsg, 500));
+            $request->validate([
+                'token' => 'required|size:32|exists:carts_tokens,token',
+                'id'    => 'required|exists:items,id',
+                'cnt'   => 'required|integer|min:1|max:65535',
+            ]);
+
+            $token = Token::firstWhere('token', $request->get('token'));
+            $result = $token->rCartItems()
+                ->where('item_id', $request->get('id'))
+                ->update(['cnt' => $request->get('cnt')]);
+
+            return response($result ? 'true' : 'false', 200);
+          //Обрабатывает ошибки валидации
+        } catch (ValidationException $e) {
+            throw new MyHttpResponseException($e->getMessage(), null, 422);
+        }
+          //Обрабатывает ошибки связанные с бд
+        catch (QueryException $e) {
+            throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
         }
     }
 
     /**
-     * @param SetOrderInfoRequest $request
+     * @param Request $request
      * @return Application|ResponseFactory|Response
      */
-    public function setOrderInfo(SetOrderInfoRequest $request)
+    public function setOrderInfo(Request $request)
     {
-        $token = Token::firstWhere('token', $request->token);
-        return response(
-            $token->contact()->updateOrCreate([], [$request->field => $request->value])
-            ? 'true'
-            : 'false',
-            200);
+        try {
+            $request->validate([
+                'token' => 'required|size:32|exists:carts_tokens,token',
+                'value'    => 'nullable|string:max:255',
+            ]);
+
+            // Проверка $request->get('field'). Должен быть равен имени колонки в order_contacts таблице
+            $tableName = Contact::getTableName();
+            $columnNames = Schema::getColumnListing($tableName);
+            $excludedColumns = ['id', 'token_id', 'created_at', 'updated_at', 'deleted_at'];
+            $filteredColumns = array_diff($columnNames, $excludedColumns);
+
+            if (!in_array($request->get('field'), $filteredColumns)) {
+                throw new MyHttpResponseException('Validation error', null, 422);
+            }
+
+            $token = Token::firstWhere('token', $request->get('token'));
+            return response(
+                $token->contact()->updateOrCreate([], [$request->get('field') => $request->get('value')])
+                    ? 'true'
+                    : 'false',
+                200);
+
+        } catch (ValidationException $e) {
+            throw new MyHttpResponseException($e->getMessage(), null, 422);
+        }
+        catch (QueryException $e) {
+            throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
+        }
     }
 
 
-    public function getBillNumber(CheckTokenRequest $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function getBillNumber(Request $request)
     {
-        //Если приходит запрос на этот роут, значит токен по-любому есть в бд
+        //Если приходит запрос на данный маршрут - значит токен по-любому есть в бд
         //Если токен есть в таблице invoice - вернуть старый bill_number, иначе новый
         try {
+            $request->validate([
+                'token' => 'required|size:32|exists:carts_tokens,token',
+            ]);
             $token = Token::firstWhere('token', $request->get('token'));
             //если у токена нет invoice, создаем новый, иначе возвращаем существующий
-            $invoice = $this->getInvoice($token);
-        } catch (QueryException $e) {
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            throw new HttpResponseException(response($errorMsg, 500));
+            $invoice = $this->service->getInvoice($token);
+            return response()->json(['bill_number' => $invoice->bill_number]);
+        } catch (ValidationException $e) {
+            throw new MyHttpResponseException($e->getMessage(), null, 422);
         }
-        return response()->json(['bill_number' => $invoice->bill_number]);
+        catch (QueryException $e) {
+            throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
+        }
     }
 
     /**
-     * @param StoreOrderRequest $request
+     * @param Request $request
      * @return JsonResponse
-     * @throws \Throwable
+     * @throws GuzzleException
      */
-    public function storeOrder(StoreOrderRequest $request)
+    public function storeOrder(Request $request)
     {
-        //dd($request->all());
-        $oldToken = Token::firstWhere('token', $request->token);
-        $items = array_map(fn($item) => ['item_id' => $item['id'], 'cnt' => $item['cnt']], $request->items);
-        //dd($oldToken->contact);
-        //dd($items);
-
-        DB::beginTransaction();
+        //Используем валидацию + try catch в контроллере для отлова ошибок, возникающих с бд во
+        // время валидации (exists:carts_tokens)
         try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'phone' => 'required|string|max:255',
+                'city' => 'required|string|max:255',
+                'street' => 'required|string|max:255',
+                'house_number' => 'required|string|max:255',
+                'transport_company' => 'required|string|max:255',
+                'token' => 'required|size:32|exists:carts_tokens,token',
+                'items' => 'required|array|min:1'
+            ]);
+
+            //Проверка, чтобы items из таблицы carts_items соответствовали тем что пришли с фронта для заказа
+
+            $oldToken = Token::firstWhere('token', $request->get('token'));
+            $dbArr = $oldToken->rCartItems->toArray();
+            $frontArr = $request->get('items');
+            //dd($dbArr, $frontArr);
+
+            if (count($dbArr) !== count($frontArr)) {
+                throw new MyHttpResponseException('Validation error', null, 422);
+            } else {
+                foreach ($dbArr as $k => $v) {
+                    if (!($dbArr[$k]['id'] === $frontArr[$k]['id'] && $dbArr[$k]['cnt'] === $frontArr[$k]['cnt'])) {
+                        throw new MyHttpResponseException('Validation error', null, 422);
+                    }
+                }
+            }
+
+            $items = array_map(fn($item) => ['item_id' => $item['id'], 'cnt' => $item['cnt']], $request->get('items'));
             $oldToken->contact->orders()->createMany($items);
-            //$contact = new Contact();
-            //$contact->name = $request->name;
-            //$contact->phone = $request->phone;
-            //$contact->city = $request->city;
-            //$contact->street = $request->street;
-            //$contact->house_number = $request->house_number;
-            //$contact->transport_company = $request->transport_company;
-            //$contact->token()->associate($oldToken);
-            //$contact->save();
-            //$contact->orders()->createMany($items);
-            DB::commit();
-
-
-            $newToken = $this->generateNewToken($request);
-            //$invoice = $this->getInvoice($newToken);
+            $newToken = $this->service->generateNewToken($request);
+            //Обрабатывает ошибки валидации
+        } catch (ValidationException $e) {
+            throw new MyHttpResponseException($e->getMessage(), null, 422);
         } catch (QueryException $e) {
-            DB::rollback();
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            throw new HttpResponseException(response($errorMsg, 500));
+            throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
+        } catch (Exception $e) {
+            throw new MyHttpResponseException('Error. See logs', $e->getMessage(), 500);
         }
 
-        $this->sendOrderService->send($oldToken->contact);
-        $this->sendOrderService->sendTelegramm($oldToken->contact);
+        $this->sendOrderService->sendTelegram($oldToken->contact);
+        $this->sendOrderService->sendEmail($oldToken->contact);
 
         return response()->json([
-            'new_token' => $newToken->token,
+            'new_token' => $newToken,
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function loadOrder(Request $request) {
+        try {
+            $request->validate([
+                'token' => 'required|size:32|exists:carts_tokens,token'
+            ]);
+            $token = Token::firstWhere('token', $request->get('token'));
+            $existsContact = $token->contact()->exists();
+            $response = $existsContact
+                ? $token->contact->only(['name', 'phone', 'city', 'street', 'house_number', 'transport_company'])
+                : [];
+            return response()->json($response);
+        } catch (ValidationException $e) {
+            throw new MyHttpResponseException(
+                'Validation error',
+                $e->getMessage() . "'token' => 'required|size:32|exists:carts_tokens,token'",
+                422
+            );
+        }
+        catch (QueryException $e) {
+            throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
+        }
     }
 
     /**
@@ -228,104 +321,38 @@ class ApiController extends Controller
     public function getCategories()
     {
         try {
-            //return ParentsCategoriesResource::collection(Category::whereParentId(null)->get());
             return CategoriesResource::collection(Category::defaultOrder()->get());
         } catch (QueryException $e) {
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            throw new HttpResponseException(response($errorMsg, 500));
+            throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
         }
     }
 
+    /**
+     * @return AnonymousResourceCollection
+     */
     public function getSettings()
     {
         try {
-            //return SettingsResource::collection(Setting::all()->except(Setting::firstWhere('prop_key', 'price_increase')->id));
-            return SettingsResource::collection(Setting::whereNotNull('prop_value')->whereIsIcon(true)->orWhere('prop_key', 'min_order_cost')->get());
+            return SettingsResource::collection(
+                Setting::whereNotNull('prop_value')
+                    ->whereIsIcon(true)
+                    ->orWhere('prop_key', 'min_order_cost')
+                    ->get()
+            );
         } catch (QueryException $e) {
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            throw new HttpResponseException(response($errorMsg, 500));
-        }
-    }
-
-    //Selection items from the category + from subcategories.
-    public function getItemsFromParentCategoryAndSubcategories(Category $category)
-    {
-        //dd($category->children[0]->items);
-        try {
-            $items = Item::whereHas('rCategory', function ($query) use ($category) {
-                /** @var Category $query */
-                $query->whereParentId($category->id)
-                    ->orWhere('id', $category->id);
-            })->paginate(config('app.pagination_default_value'));
-            //})->paginate(2);
-            //dd($items->pluck('category_id')->toArray());
-
-            return ItemResource::collection($items);
-
-            //return ItemResource::collection($category->children[0]->items);
-        } catch (QueryException $e) {
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            throw new HttpResponseException(response($errorMsg, 500));
+            throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
         }
     }
 
     /**
-     * @param CheckTokenRequest $request
-     * @return JsonResponse
-     */
-    public function loadOrder(CheckTokenRequest $request) {
-        try {
-            $token = Token::firstWhere('token', $request->token);
-            $existsContact = $token->contact()->exists();
-            $response = $existsContact
-                ? $token->contact->only(['name', 'phone', 'city', 'street', 'house_number', 'transport_company'])
-                : [];
-            return response()->json($response);
-        } catch (QueryException $e) {
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            throw new HttpResponseException(response($errorMsg, 500));
-        }
-    }
-
-    /**
-     * //Selection items from the category
-     * @param Category $category
      * @return AnonymousResourceCollection
      */
-    public function getItemsFromCategory(Category $category)
+    public function items()
     {
-        //dd(1);
-        //dd($request->page);
         try {
-            return ItemResource::collection(Item::whereCategoryId($category->id)->orderByDesc('created_at')
-                ->paginate(config('app.pagination_default_value')));
-            //->paginate(config('app.pagination_default_value'), ['*'], 'page', 4));
+            return ItemResource::collection(Item::orderByDesc('created_at')->get());
         } catch (QueryException $e) {
-            $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
-            throw new HttpResponseException(response($errorMsg, 500));
+            throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
         }
-    }
-
-    /**
-     * @param Request $request
-     * @return Token|\Illuminate\Database\Eloquent\Model
-     */
-    private function generateNewToken(Request $request): Token
-    {
-        return Token::create(['token' => generateToken(), 'ip' => $request->ip()]);
-    }
-
-    /**
-     * @param Token $token
-     * @return Invoice
-     */
-    private function getInvoice(Token $token): Invoice
-    {
-        return !$token->invoice
-            ? Invoice::create([
-                'bill_number' => $this->service->getInvoiceNumber(),
-                'token_id' => $token->id
-            ])
-            : $token->invoice;
     }
 }

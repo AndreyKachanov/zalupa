@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 
-class TestException extends Exception
+class TestException extends \RuntimeException
 {
     //
 }

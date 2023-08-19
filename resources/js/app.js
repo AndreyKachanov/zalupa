@@ -30,17 +30,18 @@ if (arrPath.indexOf(locationPath) > -1 || isSubCategoryPath || isProductItemPath
 
     app.use(store);
     app.use(router);
+    app.use(vueAwesomeSidebar);
 
     store.dispatch('categories/loadCategories');
-    store.dispatch('cart/load');
     store.dispatch('settings/loadSettings');
-
-    app.use(vueAwesomeSidebar);
 
     store.dispatch('products/load').then(() => {
         store.dispatch('order/load').then(() => {
             app.mount('#app-vue');
         });
     });
+
+    store.dispatch('cart/load');
+
 }
 

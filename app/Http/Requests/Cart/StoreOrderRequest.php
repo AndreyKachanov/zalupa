@@ -29,67 +29,40 @@ class StoreOrderRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-            'phone' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-            'city' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-            'street' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-            'house_number' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-            'transport_company' => [
-                'required',
-                'string',
-                'max:255'
-            ],
-            'token' => [
-                'required',
-                'string',
-                function ($attribute, $value, $fail) {
-                    //токен должен быть null или 32 символа и в бд
-                    if (!(Str::length($value) === 32 && Token::firstWhere('token', $value))) {
-                        $fail($attribute . ' not valid');
-                    }
-                }
-            ],
-            'items' => [
-                'required',
-                'array',
-                'min:1',
-                function ($attribute, $value, $fail) {
-                    $dbArr = Token::firstWhere('token', $this->token)->rCartItems->toArray();
-                    $frontArr = $value;
+        try {
+            return [
+                'name' => 'required|string|max:255',
+                'phone' => 'required|string|max:255',
+                'city' => 'required|string|max:255',
+                'street' => 'required|string|max:255',
+                'house_number' => 'required|string|max:255',
+                'transport_company' => 'required|string|max:255',
+                'token' => 'required|size:32|exists:carts_tokens,token',
+                'items' => [
+                    'required',
+                    'array',
+                    'min:1',
+                    //Сравниваем items переданные из корзины с items в бд
+                    function ($attribute, $value, $fail) {
+                        $dbArr = Token::firstWhere('token', $this->token)->rCartItems->toArray();
+                        $frontArr = $value;
 
-                    if (count($dbArr) !== count($frontArr)) {
-                        $fail('The length attribute `' . $attribute . '` !== length cart items in database');
-                    } else {
-                        foreach ($dbArr as $k => $v) {
-                            if (!($dbArr[$k]['id'] === $frontArr[$k]['id'] && $dbArr[$k]['cnt'] === $frontArr[$k]['cnt'])) {
-                                $fail('The attribute `' . $attribute . '` not equaled with database');
+                        if (count($dbArr) !== count($frontArr)) {
+                            $fail('The length attribute `' . $attribute . '` !== length cart items in database');
+                        } else {
+                            foreach ($dbArr as $k => $v) {
+                                if (!($dbArr[$k]['id'] === $frontArr[$k]['id'] && $dbArr[$k]['cnt'] === $frontArr[$k]['cnt'])) {
+                                    $fail('The attribute `' . $attribute . '` not equaled with database');
+                                }
                             }
                         }
                     }
-                }
-            ]
-        ];
+                ]
+            ];
+        } catch (QueryException $exception) {
+            dd($exception->getMessage());
+        }
+
     }
 
     public function messages()

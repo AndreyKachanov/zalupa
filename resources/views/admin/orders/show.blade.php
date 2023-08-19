@@ -161,7 +161,9 @@
                 </tr>
                 <tr>
                     <td>Номер телефона</td>
-                    <td>{{ $order->phone }}</td>
+                    <td>
+                        <a href="tel:{{ $order->phone }}"> {{ $order->phone }}</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>Город</td>
@@ -197,7 +199,7 @@
                     <th scope="col">Артикул</th>
                     <th scope="col">Цена</th>
                     <th scope="col">Кол-во</th>
-                    <th scope="col">Сумма</th>
+                    <th scope="col">Сумма (₽)</th>
                     <th scope="col">Категория</th>
                 </tr>
             </thead>
@@ -237,14 +239,14 @@
                     <td data-label="Кол-во">
                         {{ $ord->cnt }}
                     </td>
-                    <td data-label="Сумма">{{ $ord->item->price * $ord->cnt }} ₽</td>
+                    <td data-label="Сумма">{{ number_format($ord->item->price * $ord->cnt, 0, ',', ' ') }} ₽</td>
                     <td data-label="Категория">{{ $ord->item->category->title }}</td>
                 </tr>
             @endforeach
             <tr class="all_sum">
                 <td style="text-align: left">Всего:</td>
                 <td style="text-align: right;" colspan="6" >
-                    <strong>{{ $order->orders->sum(fn($item) => $item->item->price * $item->cnt) }} ₽</strong>
+                    <strong>{{ number_format($order->orders->sum(fn($item) => $item->item->price * $item->cnt), 0, ',', ' ') }} ₽</strong>
                 </td>
             </tr>
             </tbody>

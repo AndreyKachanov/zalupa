@@ -71,7 +71,7 @@
         methods: {
             ...mapActions('cart', {
                 addToCartNew: 'addNew',
-                addToCart: 'add',
+                // addToCart: 'add',
                 removeFromCart: 'remove',
                 setCnt: 'setCnt',
                 setTempCnt: 'setTempCnt'

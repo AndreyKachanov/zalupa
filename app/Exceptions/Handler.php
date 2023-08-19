@@ -48,17 +48,17 @@ class Handler extends ExceptionHandler
             //
         });
     }
-    
-    public function render($request, Throwable $exception)
-    {
-        if ($exception instanceof QueryException) {
-            // Обработка исключения QueryException
-            return response()->json([
-                'success' => false,
-                'message' => 'Ошибка базы данных. Попробуйте позже.'
-            ], 500);
-        }
 
-        return parent::render($request, $exception);
-    }
+    //public function render($request, Throwable $exception)
+    //{
+    //    if ($exception instanceof QueryException) {
+    //        // Обработка исключения QueryException
+    //        return response()->json([
+    //            'success' => false,
+    //            'message' => 'Ошибка базы данных. Попробуйте позже.'
+    //        ], 500);
+    //    }
+    //
+    //    return parent::render($request, $exception);
+    //}
 }

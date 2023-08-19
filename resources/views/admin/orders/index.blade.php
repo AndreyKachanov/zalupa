@@ -145,7 +145,7 @@
             <th scope="col">№ заказа</th>
             <th scope="col">Дата заказа</th>
             <th scope="col">Кол-во</th>
-            <th scope="col">Сумма заказа</th>
+            <th scope="col">Сумма заказа (₽)</th>
             <th scope="col">Имя</th>
             <th scope="col">№ телефона</th>
 {{--            <th scope="col">Ip адрес</th>--}}
@@ -163,9 +163,11 @@
                     {{ $contact->created_at->format('d.m.Y H:m') }}
                 </td>
                 <td data-label="Кол-во">{{ $contact->orders->sum(fn($item) => $item->cnt) }}</td>
-                <td data-label="Сумма заказа">{{ $contact->orders->sum(fn($item) => $item->item->price * $item->cnt) }} ₽</td>
+                <td data-label="Сумма заказа">{{ number_format($contact->orders->sum(fn($item) => $item->item->price * $item->cnt), 0, ',', ' ') }}</td>
                 <td data-label="Имя">{{ $contact->name }}</td>
-                <td data-label="№ телефона">{{ $contact->phone }}</td>
+                <td data-label="№ телефона">
+                    <a href="tel:{{ $contact->phone }}"> {{ $contact->phone }}</a>
+                </td>
 {{--                <td data-label="Ip адрес">{{ $contact->token->ip }}</td>--}}
             </tr>
         @endforeach

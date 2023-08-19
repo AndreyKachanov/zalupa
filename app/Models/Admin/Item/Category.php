@@ -112,6 +112,7 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
  * @method static \Kalnoy\Nestedset\QueryBuilder|Category whereRgt($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
  * @property-read int|null $orders_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
  * @mixin \Eloquent
  */
 class Category extends Model
