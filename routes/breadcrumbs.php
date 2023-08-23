@@ -73,6 +73,7 @@ Breadcrumbs::register('admin.categories.index', function (Crumbs $crumbs) {
     $crumbs->push('Категории', route('admin.categories.index'));
 });
 
+
 Breadcrumbs::register('admin.categories.create', function (Crumbs $crumbs) {
     $crumbs->parent('admin.categories.index');
     $crumbs->push('Создать', route('admin.categories.create'));
@@ -87,6 +88,13 @@ Breadcrumbs::register('admin.categories.edit', function (Crumbs $crumbs, Categor
     $crumbs->parent('admin.categories.show', $category);
     $crumbs->push('Изменить', route('admin.categories.edit', $category));
 });
+
+Breadcrumbs::register('admin.categories.test', function (Crumbs $crumbs, Category $category) {
+    $crumbs->parent('admin.categories.show', $category);
+    $crumbs->push('Список заказов', route('admin.categories.test', $category));
+});
+
+
 
 //Admin SubCategories
 Breadcrumbs::register('admin.subcategories.index', function (Crumbs $crumbs) {

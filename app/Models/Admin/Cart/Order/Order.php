@@ -4,6 +4,7 @@ namespace App\Models\Admin\Cart\Order;
 
 use App\Models\Admin\Item\Item;
 use App\Traits\EloquentGetTableNameTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -44,6 +45,10 @@ class Order extends Model
 
     protected $table = 'orders';
     protected $guarded = ['id'];
+    protected $casts = [
+        //'created_at'  => 'datetime:d.m.Y',
+        //'created_at'  => 'datetime:Y-m-d H:m',
+    ];
 
     public function contact()
     {

@@ -94,7 +94,9 @@
                 <div class="col-4 col-md-8 pl-0 pr-0">
                     <div class="d-flex flex-row justify-content-end align-items-center">
                         <div class="orders order-color">
-                            {{ $category->orders_count }}
+                            <a href="{{ route('admin.categories.test', $category) }}">
+                                {{ $category->orders_count }}
+                            </a>
                         </div>
                         <form method="POST" action="{{ route('admin.categories.first', $category) }}" class="mr-1">
                             @csrf

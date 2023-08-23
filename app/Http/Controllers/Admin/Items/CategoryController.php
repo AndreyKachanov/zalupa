@@ -31,7 +31,15 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::defaultOrder()->withCount(['items', 'orders'])->withDepth()->get();
+        //$categories = Category::defaultOrder()->withCount(['items', 'orders'])->withDepth()->get();
+        $categories = Category::defaultOrder()
+            ->withCount(['items', 'orders' => function ($query) {
+                $query->whereDoesntHave('contact', function ($subQuery) {
+                    $subQuery->onlyTrashed();
+                });
+            }])
+            ->withDepth()
+            ->get();
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -214,6 +222,24 @@ class CategoryController extends Controller
         }
 
         return redirect()->route('admin.categories.index');
+    }
+
+    public function test(Category $category)
+    {
+
+        //$category->load('orders.contact.token.invoice', 'orders.item');
+
+        $category->load([
+            'orders' => function ($query) {
+                // Загружаем только "orders", у которых не удалены "contact"
+                $query->whereDoesntHave('contact', function ($subQuery) {
+                    $subQuery->onlyTrashed();
+                })->orderBy('created_at');;
+            },
+            'orders.contact.token.invoice', // Загружаем связанные записи
+            'orders.item' // Загружаем "orders.item"
+        ]);
+        return view('admin.categories.test2', compact('category'));
     }
 
     /**

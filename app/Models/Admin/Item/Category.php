@@ -112,7 +112,6 @@ use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
  * @method static \Kalnoy\Nestedset\QueryBuilder|Category whereRgt($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
  * @property-read int|null $orders_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
  * @mixin \Eloquent
  */
 class Category extends Model
@@ -142,8 +141,10 @@ class Category extends Model
     protected $guarded = ['id'];
     protected $casts = [
         'parent_id' => 'integer',
-        'sorting' => 'integer'
+        'sorting' => 'integer',
+        'created_at'  => 'datetime:d.m.Y H:i:s',
     ];
+
 
     /**
      * @return \string[][]

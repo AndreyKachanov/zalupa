@@ -244,7 +244,7 @@
                 </tr>
             @endforeach
             <tr class="all_sum">
-                <td style="text-align: left">Всего:</td>
+                <td style="text-align: left"><strong>Всего:</strong></td>
                 <td style="text-align: right;" colspan="6" >
                     <strong>{{ number_format($order->orders->sum(fn($item) => $item->item->price * $item->cnt), 0, ',', ' ') }} ₽</strong>
                 </td>
