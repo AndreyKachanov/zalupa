@@ -8,6 +8,7 @@ use App\Models\Admin\Setting;
 use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -31,11 +32,11 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CartItem> $cartItems
+ * @property-read int|null $cart_items_count
  * @property-read \App\Models\Admin\Item\Category|null $category
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
  * @property-read int|null $orders_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, CartItem> $rCartItems
- * @property-read int|null $r_cart_items_count
  * @method static \Database\Factories\Admin\Item\ItemFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Item findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static \Illuminate\Database\Eloquent\Builder|Item newModelQuery()
@@ -70,8 +71,12 @@ class Item extends Model
     use Sluggable;
 
     protected $table = 'items';
-
     protected $guarded = ['id'];
+    protected $casts = [
+        'is_new' => 'boolean',
+        'is_hit' => 'boolean',
+        'is_bestseller' => 'boolean'
+    ];
 
     /**
      * @return \string[][]
@@ -85,39 +90,17 @@ class Item extends Model
         ];
     }
 
-    //public function resolveRouteBinding($value, $field = null)
-    //{
-    //    return $this->with('rCategory')->where($this->getRouteKeyName(), $value)->firstOrFail();
-    //}
-
-    //public function resolveRouteBinding($value, $field = null)
-    //{
-    //    return $this->with('rCategory')->where('name', $value)->firstOrFail();
-    //}
-
-    protected $casts = [
-        'is_new' => 'boolean',
-        'is_hit' => 'boolean',
-        'is_bestseller' => 'boolean'
-    ];
-
-    //protected $appends = ['price'];
-
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function rCartItems(): HasMany
+    public function cartItems(): HasMany
     {
         return $this->hasMany(CartItem::class, 'item_id', 'id');
     }
 
-    //public function orders(): HasMany
-    //{
-    //    return $this->hasMany(Order::class, 'item_id', 'id');
-    //}
-    public function orders()
+    public function orders(): HasMany
     {
         return $this->HasMany(Order::class);
     }

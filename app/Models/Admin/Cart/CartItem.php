@@ -9,31 +9,32 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 /**
- * App\Models\Admin\Cart\Cart
+ * App\Models\Admin\Cart\CartItem
  *
  * @property int $id
- * @property int|null $token_id
- * @property int|null $item_id
- * @property int|null $cnt Количество товара
+ * @property int $token_id
+ * @property int $item_id
+ * @property int $cnt Количество товара
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Admin\Cart\Token|null $rToken
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read Item $item
+ * @property-read \App\Models\Admin\Cart\Token $token
  * @method static \Illuminate\Database\Eloquent\Builder|CartItem newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CartItem newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|CartItem query()
  * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereCnt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereItemId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereTokenId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereUpdatedAt($value)
- * @property-read Item $rItem
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @method static \Illuminate\Database\Query\Builder|CartItem onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereDeletedAt($value)
- * @method static \Illuminate\Database\Query\Builder|CartItem withTrashed()
- * @method static \Illuminate\Database\Query\Builder|CartItem withoutTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|CartItem withoutTrashed()
  * @mixin \Eloquent
  */
 class CartItem extends Model
@@ -49,7 +50,7 @@ class CartItem extends Model
     /**
      * @return BelongsTo
      */
-    public function rToken(): BelongsTo
+    public function token(): BelongsTo
     {
         return $this->belongsTo(Token::class, 'token_id', 'id');
     }
@@ -57,7 +58,7 @@ class CartItem extends Model
     /**
      * @return BelongsTo
      */
-    public function rItem(): BelongsTo
+    public function item(): BelongsTo
     {
         return $this->belongsTo(Item::class, 'item_id', 'id');
     }

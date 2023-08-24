@@ -23,7 +23,7 @@ $missing = fn(Request $request) => response('Missing route. Not found111', 404);
 
 Route::post('test', fn(Request $request) => dd($request->all()))->name('api.test');
 
-Route::get('items', [ApiController::class, 'items'])->name('api.items');
+Route::get('items', [ApiController::class, 'getItems'])->name('api.items');
  Route::get('items/category/{category:slug}', [ApiController::class, 'getItemsFromParentCategoryAndSubcategories'])
      ->name('api.get-items-from-category');
 

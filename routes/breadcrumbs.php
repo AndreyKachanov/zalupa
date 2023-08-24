@@ -148,6 +148,11 @@ Breadcrumbs::register('admin.orders.index', function (Crumbs $crumbs) {
     $crumbs->push('Заказы', route('admin.orders.index'));
 });
 
+Breadcrumbs::register('admin.orders.incomplete', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Не заказы', route('admin.orders.incomplete'));
+});
+
 Breadcrumbs::register('admin.orders.show', function (Crumbs $crumbs, Contact $order) {
     $crumbs->parent('admin.orders.index');
     $crumbs->push($order->token->invoice->bill_number, route('admin.orders.show', $order));

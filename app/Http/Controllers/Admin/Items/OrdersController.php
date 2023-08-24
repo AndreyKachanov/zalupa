@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Items;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Cart\Order\Contact;
+use App\Models\Admin\Cart\Token;
 use Exception;
 
 class OrdersController extends Controller
@@ -36,5 +37,17 @@ class OrdersController extends Controller
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             dd($errorMsg);
         }
+    }
+
+    public function incomplete() {
+
+        $token = Token::whereToken('775cd324547d179a823e9f111da87482')
+            ->with('cartItems.rItem')
+            ->orderByDesc('created_at')
+            ->get();
+
+            //->paginate(config('app.pagination_default_value'));
+        dd($token);
+        return view('admin.orders.incomplete');
     }
 }

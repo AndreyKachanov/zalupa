@@ -5,6 +5,7 @@ namespace App\Models\Admin\Cart;
 use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * App\Models\Admin\Cart\Invoice
@@ -33,24 +34,7 @@ class Invoice extends Model
     protected $table = 'invoices';
     protected $guarded = ['id'];
 
-    //public static function boot()
-    //{
-    //    parent::boot();
-    //    static::creating(function ($invoice) {
-    //        dd(1);
-    //    });
-    //}
-    //public function token()
-    //{
-    //    return $this->belongsTo(Token::class, 'token_id', 'id');
-    //}
-
-    //public function invoice()
-    //{
-    //    return $this->hasOne(Invoice::class);
-    //}
-
-    public function token()
+    public function token(): BelongsTo
     {
         return $this->belongsTo(Token::class, 'token_id', 'id');
     }

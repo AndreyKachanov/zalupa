@@ -16,9 +16,9 @@ Route::get('/login/phone', [LoginController::class, 'phone'])->name('login.phone
 Route::post('/login/phone', [LoginController::class, 'verify']);
 Route::get('/verify/{token}', [RegisterController::class, 'verify'])->name('register.verify');
 
-Route::get('test123', function () {
-    dd('test123');
-});
+//Route::get('admin/orders/incomplete', function () {
+//    dd('test123');
+//});
 //Route::get('test', function () {
 //
 //    $maxId = Invoice::max('id');
@@ -69,7 +69,12 @@ Route::group(
         Route::get('/categories/{category}/orders', [CategoryController::class, 'test'])
             ->name('categories.test');
 
+        Route::get('orders/incomplete', [OrdersController::class, 'incomplete'])
+            ->name('orders.incomplete');
         Route::resource('orders', OrdersController::class);
+
+
+
         Route::resource('users', 'UsersController');
         Route::post('/users/{user}/verify', 'UsersController@verify')->name('users.verify');
         //Subcategories for sub menu in create and edit items
