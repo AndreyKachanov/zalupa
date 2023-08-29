@@ -48,9 +48,9 @@ export default {
             let url = `/api/cart/set-order-info`;
             try {
                 let res = await makeRequestPostJson(url, { token, value, field });
-                if (res) {
-                    console.log(`Поле ${field} удачно обновлено`);
-                }
+                // if (res) {
+                //     console.log(`Поле ${field} удачно обновлено`);
+                // }
             } catch (e) {
                 console.log(e);
             }

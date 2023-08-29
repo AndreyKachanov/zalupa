@@ -46,12 +46,22 @@ class CartTokensSeeder extends Seeder
             //});
             $tokens = Token::on('mysql_prod')->get();
             foreach ($tokens as $token) {
+                $token = $token->getAttributes();
                 DB::table(Token::getTableName())->insert([
-                    'id' => $token->id,
-                    'token' => $token->token,
-                    'ip' => $token->ip,
-                    'created_at' => $token->created_at,
-                    'updated_at' => $token->updated_at,
+                    'id' => $token['id'],
+                    'token' => $token['token'],
+                    'ip' => $token['ip'],
+                    'ip_info' => $token['ip_info'],
+                    'browser' => $token['browser'],
+                    'platform' => $token['platform'],
+                    'device' => $token['device'],
+                    'device_version' => $token['device_version'],
+                    'is_mobile' => $token['is_mobile'],
+                    'is_tablet' => $token['is_tablet'],
+                    'is_desktop' => $token['is_desktop'],
+                    'is_robot' => $token['is_robot'],
+                    'created_at' => $token['created_at'],
+                    'updated_at' => $token['updated_at'],
                 ]);
             }
             //$this->command->info('Таблица ' . $newTableName . ' удачно создана и наполнена');

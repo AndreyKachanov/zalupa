@@ -39,8 +39,7 @@
         </div>
 
         <div class="form-group">
-            {{ Form::submit('Сохранить', ['class' => 'btn btn-primary'])  }}
+            {{ Form::submit('Сохранить', ['class' => 'btn btn-primary']) }}
         </div>
     {{ Form::close() }}
-{{--    </form>--}}
 @endsection

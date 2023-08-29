@@ -5,7 +5,6 @@ namespace App\Models\Admin\Item;
 use App\Models\Admin\Cart\Order\Order;
 use App\Traits\EloquentGetTableNameTrait;
 use Cviebrock\EloquentSluggable\Services\SlugService;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,7 +13,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Kalnoy\Nestedset\NodeTrait;
-use Staudenmeir\LaravelAdjacencyList\Eloquent\HasRecursiveRelationships;
 
 /**
  * App\Models\Admin\Item\Category

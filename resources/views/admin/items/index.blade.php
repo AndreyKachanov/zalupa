@@ -238,10 +238,10 @@
                     <a href="{{ route('admin.items.show', $item) }}">{{ $item->title }}</a>
                 </td>
                 <td data-label="Примечание">
-                    {{ $item->note }}
+                    {!! $item->note ?? '&nbsp;' !!}
                 </td>
                 <td data-label="Артикул">
-                    {{ $item->article_number }}
+                    {!! $item->article_number ?? '&nbsp;' !!}
                 </td>
                 <td data-label="Цена оригинал">
                     {{ $item->getRawOriginal('price') }} ₽
@@ -250,7 +250,7 @@
                     {{ $item->price }} ₽
                 </td>
                 <td data-label="Мин. заказ">
-                    {!! is_null($item->min_order_amount) ? '&nbsp;' : $item->min_order_amount !!}
+                    {!! $item->min_order_amount  ?? '&nbsp;' !!}
                 </td>
                 <td data-label="Новый">
                     {!! $item->is_new ? '&#x2705;' : '&nbsp;' !!}

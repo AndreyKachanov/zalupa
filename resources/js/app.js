@@ -36,12 +36,16 @@ if (arrPath.indexOf(locationPath) > -1 || isSubCategoryPath || isProductItemPath
     store.dispatch('settings/loadSettings');
 
     store.dispatch('products/load').then(() => {
+        // store.dispatch('order/load').then(() => {
+        //     app.mount('#app-vue');
+        // });
+    });
+
+    store.dispatch('cart/load').then(() => {
         store.dispatch('order/load').then(() => {
             app.mount('#app-vue');
         });
     });
-
-    store.dispatch('cart/load');
 
 }
 

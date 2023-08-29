@@ -47,6 +47,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|Contact withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Contact withoutTrashed()
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\Order\Order> $orders
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\Order\Order> $orders
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\Order\Order> $orders
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\Order\Order> $orders
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\Order\Order> $orders
  * @mixin \Eloquent
  */
 class Contact extends Model

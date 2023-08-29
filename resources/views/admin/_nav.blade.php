@@ -5,7 +5,8 @@
         <li class="nav-item"><a class="nav-link{{ $page === 'categories' ? ' active' : '' }}" href="{{ route('admin.categories.index') }}">Категории</a></li>
 {{--        <li class="nav-item"><a class="nav-link{{ $page === 'subcategories' ? ' active' : '' }}" href="{{ route('admin.subcategories.index') }}">Подкатегории</a></li>--}}
         <li class="nav-item"><a class="nav-link{{ $page === 'orders' ? ' active' : '' }}" href="{{ route('admin.orders.index') }}">Заказы</a></li>
-        <li class="nav-item"><a class="nav-link{{ $page === 'incomplete' ? ' active' : '' }}" href="{{ route('admin.orders.incomplete') }}">Не заказы</a></li>
+        <li class="nav-item"><a class="nav-link{{ $page === 'incomplete' ? ' active' : '' }}" href="{{ route('admin.orders.incomplete') }}">Не заказанные</a></li>
+        <li class="nav-item"><a class="nav-link{{ $page === 'visitors' ? ' active' : '' }}" href="{{ route('admin.visitors.index') }}">Посетители</a></li>
         <li class="nav-item"><a class="nav-link{{ $page === 'settings' ? ' active' : '' }}" href="{{ route('admin.settings.index') }}">Настройки</a></li>
 {{--        <li class="nav-item"><a class="nav-link{{ $page === 'users' ? ' active' : '' }}" href="{{ route('admin.users.index') }}">Users</a></li>--}}
 {{--    @endcan--}}

@@ -23,6 +23,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\ValidationException;
 
@@ -62,7 +63,7 @@ class ApiController extends Controller
             if (!$this->service->isValidToken($oldTokenString)) {
                 throw new MyHttpResponseException(
                     'Validation error',
-                    'Входящий token не равен null или его нет в бд',
+                    'Попытка зайди с "левым" токеном! Входящий token не равен null или его нет в бд',
                     422
                 );
             }
@@ -72,8 +73,23 @@ class ApiController extends Controller
             //Если токен есть
             if (!$tokenIsNull) {
                 $oldToken = Token::with([
+                    'contact.orders',
                     'cartItems' => fn ($query /** @var CartItem $query */) => $query->select(['token_id', 'item_id as id', 'cnt'])->whereHas('item'),
                 ])->firstWhere('token', $oldTokenString);
+
+                //DB::enableQueryLog();
+
+                //Если заказ уже выполнен - кидаем исключение, чтобы не "подсмотрели" заказ через адресную строку
+                if ($oldToken->contact !== null && $oldToken->contact->orders->isNotEmpty()) {
+                    throw new MyHttpResponseException(
+                        'Validation error',
+                        '$oldToken->contact !== null && $oldToken->contact->orders->isNotEmpty()',
+                        422
+                    );
+                    //dd(DB::getQueryLog(), $res);
+                }
+                //dd(DB::getQueryLog());
+                //dd($oldToken);
             }
 
             //Если $tokenIsNull === false, значит входящий токен уже существует в бд, иначе

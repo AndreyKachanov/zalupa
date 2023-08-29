@@ -9,20 +9,17 @@ class MyHttpResponseException extends HttpResponseException
 {
     public function __construct(string $message, string $errorText = null, int $code)
     {
+        $backtrace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
+        $callingFile = $backtrace[0]['file'];
+        $callingLine = $backtrace[0]['line'];
+        $callingMethod = $backtrace[1]['function'];
+
         if ($code === 422) {
-            $backtrace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
-            $callingFile = $backtrace[0]['file'];
-            $callingLine = $backtrace[0]['line'];
-            $callingMethod = $backtrace[1]['function'];
             $errorMsg = sprintf("Error in %s, method %s, line %d. %s. %s", $callingFile, $callingMethod, $callingLine, $message, $errorText);
             Log::info('[Validation error] ' .  $errorMsg);
         }
 
         if ($code === 500) {
-            $backtrace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 2);
-            $callingFile = $backtrace[0]['file'];
-            $callingLine = $backtrace[0]['line'];
-            $callingMethod = $backtrace[1]['function'];
             $errorMsg = sprintf("Error in %s, method %s, line %d. %s", $callingFile, $callingMethod, $callingLine, $errorText);
             Log::error($errorMsg);
         }

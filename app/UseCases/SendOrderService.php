@@ -2,13 +2,11 @@
 
 namespace App\UseCases;
 
-use App\Exceptions\MyHttpResponseException;
 use App\Mail\SendOrder;
 use App\Models\Admin\Cart\Order\Contact;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\Mail\Mailer as MailerInterface;
 use Illuminate\Support\Facades\Log;
-use Symfony\Component\Mailer\Exception\TransportException;
 use GuzzleHttp\Client;
 use Exception;
 
@@ -27,7 +25,7 @@ class SendOrderService
      * @param Contact $contact
      * @return void
      */
-    public function sendEmail(Contact $contact)
+    public function sendEmail(Contact $contact): void
     {
         try {
             $this->mailer->to([config('mail.to')])->send(new SendOrder($contact));
@@ -43,7 +41,7 @@ class SendOrderService
      * @return void
      * @throws GuzzleException
      */
-    public function sendTelegram(Contact $contact)
+    public function sendTelegram(Contact $contact): void
     {
         $sum = $contact->orders->sum(fn($item) => $item->item->price * $item->cnt);
         $url = route('admin.orders.show', $contact);
@@ -72,6 +70,41 @@ class SendOrderService
         } catch (Exception $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             Log::error($errorMsg);
+        }
+    }
+
+    /**
+     * @param string $ip
+     * @return false[]
+     * @throws GuzzleException
+     */
+    public function getIpAddressInfo(string $ipAddress): array
+    {
+        //$ipAddress = '82.144.223.30';
+        $url = "https://ipwho.is/$ipAddress";
+        try {
+            $response = $this->client->request('GET', $url, [
+                'objects' => 'type,city,flag,region,country,country_code',
+                'output' => 'json'
+            ]);
+            $responseData = json_decode($response->getBody(), true);
+            if ($responseData && isset($responseData['success']) && $responseData['success'] === true) {
+                return [
+                    'type' => $responseData['type'],
+                    'city' => $responseData['city'],
+                    'flag' => $responseData['flag'],
+                    'region' => $responseData['region'],
+                    'country' => $responseData['country'],
+                    'country_code' => $responseData['country_code'],
+                ];
+                //Log::info('Message "' . $message . '" sent to telegram');
+            } else {
+                return ['success' => false];
+            }
+        } catch (Exception $e) {
+            dd($e->getMessage());
+            //$errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
+            //Log::error($errorMsg);
         }
     }
 }

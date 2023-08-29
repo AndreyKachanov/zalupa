@@ -31,6 +31,25 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|Token whereToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Token whereUpdatedAt($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\CartItem> $cartItems
+ * @property string|null $browser
+ * @property string|null $platform
+ * @property string|null $device
+ * @property string|null $device_version
+ * @property int $is_mobile
+ * @property int $is_tablet
+ * @property int $is_desktop
+ * @property int $is_robot
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereBrowser($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereDevice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereDeviceVersion($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereIsDesktop($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereIsMobile($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereIsRobot($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereIsTablet($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Token wherePlatform($value)
+ * @property mixed|null $ip_info
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereIpInfo($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\CartItem> $cartItems
  * @mixin \Eloquent
  */
 class Token extends Model
@@ -40,6 +59,18 @@ class Token extends Model
 
     protected $table = 'carts_tokens';
     protected $guarded = ['id'];
+
+    /**
+     * @param $value
+     * @return mixed
+     */
+    public function getIpInfoAttribute($value)
+    {
+        //dump($value);
+        if ($value !== null) {
+            return unserialize($value);
+        }
+    }
 
     /**
      * @return HasMany

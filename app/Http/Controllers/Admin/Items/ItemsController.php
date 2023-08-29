@@ -77,6 +77,7 @@ class ItemsController extends Controller
     public function create()
     {
         $categories = $this->getCategories();
+        //dd($categories);
         return view('admin.items.create', compact('categories'));
     }
 

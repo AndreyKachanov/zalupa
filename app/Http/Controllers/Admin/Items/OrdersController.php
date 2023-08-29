@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Cart\Order\Contact;
 use App\Models\Admin\Cart\Token;
 use Exception;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller
 {
@@ -40,14 +43,52 @@ class OrdersController extends Controller
     }
 
     public function incomplete() {
+        try {
 
-        $token = Token::whereToken('775cd324547d179a823e9f111da87482')
-            ->with('cartItems.rItem')
-            ->orderByDesc('created_at')
-            ->get();
+            //$tokens = Token::with(['cartItems.item', 'invoice', 'contact.orders'])
+            //    ->when(function ($query ) {
+            //        $query->whereDoesntHave('contact.orders');
+            //    });
+            //
+            //$tokens->orderByDesc('created_at')->paginate(config('app.pagination_default_value'));
+            //dd($tokens);
+            //DB::enableQueryLog();
+            $tokens = Token::with(['cartItems.item', 'contact', 'invoice'])
+                ->whereHas('cartItems')
+                ->whereDoesntHave('contact.orders')
+                ->orderByDesc('created_at')
+                //->get();
+            //dd($tokens[0]);
+                ->paginate(config('app.pagination_default_value'));
+            //dd(DB::getQueryLog());
+            //$tokens = Token::with(['cartItems', 'invoice', 'contact.orders'])
+            //    ->when(function ($query ) {
+            //        $query->whereDoesntHave('contact.orders')->whereHas('cartItems.item', function ($subQuery) {
+            //            $subQuery->whereNotNull('price');
+            //        });;
+            //    })
+            //    ->orderByDesc('created_at')
+            //    ->paginate(config('app.pagination_default_value'));
+        } catch (QueryException $exception) {
+            dd($exception->getMessage());
+        }
+
 
             //->paginate(config('app.pagination_default_value'));
-        dd($token);
-        return view('admin.orders.incomplete');
+        //dump($token[0]);
+        return view('admin.orders.incomplete', compact('tokens'));
+    }
+
+    public function showIncomplete(Token $token)
+    {
+        try {
+            $token->load('cartItems.item', 'contact');
+            if ($token->contact !== null && $token->contact->orders->isNotEmpty()) {
+                return redirect()->route('admin.orders.index');
+            }
+        } catch (Exception $exception) {
+            dd($exception->getMessage());
+        }
+        return view('admin.orders.show_incomplete', compact('token'));
     }
 }

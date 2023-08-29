@@ -26,6 +26,15 @@ return new class extends Migration
                 $table->smallIncrements('id');
                 $table->string('token', 64)->unique();
                 $table->ipAddress('ip')->nullable();
+                $table->text('ip_info')->nullable()->comment('Текстовый столбец для хранения сериализованного массива');
+                $table->string('browser')->nullable();
+                $table->string('platform')->nullable();
+                $table->string('device')->nullable();
+                $table->string('device_version')->nullable();
+                $table->boolean('is_mobile')->default(false);
+                $table->boolean('is_tablet')->default(false);
+                $table->boolean('is_desktop')->default(false);
+                $table->boolean('is_robot')->default(false);
                 $table->timestamps();
             });
         }

@@ -94,7 +94,7 @@
                 <div class="col-4 col-md-8 pl-0 pr-0">
                     <div class="d-flex flex-row justify-content-end align-items-center">
                         <div class="orders order-color">
-                            <a href="{{ route('admin.categories.test', $category) }}">
+                            <a href="{{ route('admin.categories.show_orders', $category) }}" style="text-decoration: underline">
                                 {{ $category->orders_count }}
                             </a>
                         </div>

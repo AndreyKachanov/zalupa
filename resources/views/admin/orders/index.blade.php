@@ -148,7 +148,7 @@
             <th scope="col">Сумма заказа (₽)</th>
             <th scope="col">Имя</th>
             <th scope="col">№ телефона</th>
-{{--            <th scope="col">Ip адрес</th>--}}
+            <th scope="col">Ip адрес</th>
         </tr>
         </thead>
         <tbody>
@@ -168,7 +168,7 @@
                 <td data-label="№ телефона">
                     <a href="tel:{{ $contact->phone }}"> {{ $contact->phone }}</a>
                 </td>
-{{--                <td data-label="Ip адрес">{{ $contact->token->ip }}</td>--}}
+                <td data-label="Ip адрес">{{ $contact->token->ip }}</td>
             </tr>
         @endforeach
         </tbody>

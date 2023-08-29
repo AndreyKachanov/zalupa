@@ -61,6 +61,16 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @method static \Illuminate\Database\Eloquent\Builder|Item withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|Item withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
  * @method static \Illuminate\Database\Eloquent\Builder|Item withoutTrashed()
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CartItem> $cartItems
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CartItem> $cartItems
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CartItem> $cartItems
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CartItem> $cartItems
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, CartItem> $cartItems
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
  * @mixin \Eloquent
  */
 class Item extends Model

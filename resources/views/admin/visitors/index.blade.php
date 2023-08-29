@@ -135,33 +135,54 @@
 @endsection
 
 @section('content')
-    @include('admin.orders._nav_incomplete')
+    @include('admin.visitors._nav')
 
     <table class="bottom">
-        <caption><h2 class="text-center">Не заказанные товары</h2></caption>
+        <caption><h2 class="text-center">Посетители</h2></caption>
         <thead>
         <tr>
-            <th scope="col">№ заказа</th>
             <th scope="col">Дата первого входа</th>
-            <th scope="col">Кол-во позиций</th>
-            <th scope="col">Сумма заказа (₽)</th>
+            <th scope="col">Робот</th>
             <th scope="col">Ip адрес</th>
+            <th scope="col">Город</th>
+            <th scope="col">Девайс</th>
+            <th scope="col">Версия девайса</th>
+            <th scope="col">Платформа</th>
+            <th scope="col">Браузер</th>
+            <th scope="col">Мобильник</th>
+            <th scope="col">Планшет</th>
+            <th scope="col">Десктоп</th>
         </tr>
         </thead>
         <tbody>
         @foreach ($tokens as $token)
             <tr>
-                <td data-label="№ заказа">
-                    <a href="{{ route('admin.orders.incomplete.show', $token) }}">
-                        {{ $token->invoice->bill_number ?? null }}
-                    </a>
-                </td>
                 <td data-label="Дата первого входа"> {{ $token->created_at->format('d.m.Y H:i') }}</td>
-                <td data-label="Кол-во позиций"> {{ $token->cartItems->count() }}</td>
-                <td data-label="Сумма заказа (₽)"> {{ number_format($token->cartItems->sum(fn ($cartItem) =>  $cartItem->cnt * $cartItem->item?->price), 0, ',', ' ') }} ₽</td>
+                <td data-label="Робот">{!! $token->is_robot ? '&#x2705;' : '&nbsp;' !!}</td>
                 <td data-label="Ip адрес">
                     {{ filter_var($token->ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? 'ipv6' : $token->ip }}
                 </td>
+                <td data-label="Город">
+                    @if(isset($token->ip_info['flag']))
+                        <img style="width: 15px" src="{{ $token->ip_info['flag']['img'] }}" alt="Flag" class="flag-icon">
+                    @endif
+                    {!! is_null($token->ip_info) ? '&nbsp;' : $token->ip_info['city'] ?? '' !!}
+                </td>
+                <td data-label="Девайс">
+                    {!! is_null($token->device) ? '&nbsp;' : $token->device !!}
+                </td>
+                <td data-label="Версия девайса">
+                    {!! is_null($token->device_version) ? '&nbsp;' : $token->device_version !!}
+                </td>
+                <td data-label="Платформа">
+                    {!! is_null($token->platform) ? '&nbsp;' : $token->platform !!}
+                </td>
+                <td data-label="Браузер">
+                    {!! is_null($token->browser) ? '&nbsp;' : $token->browser !!}
+                </td>
+                <td data-label="Мобильник">{!! $token->is_mobile ? '&#x2705;' : '&nbsp;' !!}</td>
+                <td data-label="Планшет">{!! $token->is_tablet ? '&#x2705;' : '&nbsp;' !!}</td>
+                <td data-label="Десктоп">{!! $token->is_desktop ? '&#x2705;' : '&nbsp;' !!}</td>
             </tr>
         @endforeach
         </tbody>

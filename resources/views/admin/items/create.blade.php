@@ -100,6 +100,10 @@
             </div>
         </div>
 
+{{--        <div class="form-group">--}}
+{{--            <nested-select :categories="{{ json_encode($categories) }}"></nested-select>--}}
+{{--        </div>--}}
+
         <div class="form-group">
             {{ Form::label('category', 'Категория*', ['class' => 'control-label']) }}
             {{ Form::select('category', $categories, 0, ['class' => 'form-control' . setIsValidField('category', $errors), 'id' => 'category'])}}

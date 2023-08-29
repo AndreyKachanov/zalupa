@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Admin\Cart\Token;
 use App\Models\Admin\Item\Category;
 use App\Models\Admin\Item\Item;
 use App\Models\Admin\Cart\Order\Contact;
@@ -89,38 +90,11 @@ Breadcrumbs::register('admin.categories.edit', function (Crumbs $crumbs, Categor
     $crumbs->push('Изменить', route('admin.categories.edit', $category));
 });
 
-Breadcrumbs::register('admin.categories.test', function (Crumbs $crumbs, Category $category) {
+Breadcrumbs::register('admin.categories.show_orders', function (Crumbs $crumbs, Category $category) {
     $crumbs->parent('admin.categories.show', $category);
-    $crumbs->push('Список заказов', route('admin.categories.test', $category));
+    $crumbs->push('Список заказов', route('admin.categories.show_orders', $category));
 });
 
-
-
-//Admin SubCategories
-Breadcrumbs::register('admin.subcategories.index', function (Crumbs $crumbs) {
-    $crumbs->parent('admin.home');
-    $crumbs->push('Подкатегории', route('admin.subcategories.index'));
-});
-
-Breadcrumbs::register('admin.subcategories.create', function (Crumbs $crumbs, Category $category) {
-    $crumbs->parent('admin.categories.show', $category);
-    $crumbs->push('Создать подкатегорию', route('admin.subcategories.create', $category));
-});
-
-Breadcrumbs::register('admin.subcategories.show', function (Crumbs $crumbs, Category $category) {
-    if ($parent = $category->parent) {
-        $crumbs->parent('admin.subcategories.show', $parent);
-    } else {
-        $crumbs->parent('admin.categories.index');
-    }
-    //$crumbs->parent('admin.categories.show', $category->parent);
-    $crumbs->push($category->title, route('admin.subcategories.show', $category));
-});
-
-Breadcrumbs::register('admin.subcategories.edit', function (Crumbs $crumbs, Category $category) {
-    $crumbs->parent('admin.subcategories.show', $category);
-    $crumbs->push('Изменить', route('admin.subcategories.edit', $category));
-});
 //Admin Items
 Breadcrumbs::register('admin.items.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
@@ -153,6 +127,11 @@ Breadcrumbs::register('admin.orders.incomplete', function (Crumbs $crumbs) {
     $crumbs->push('Не заказы', route('admin.orders.incomplete'));
 });
 
+Breadcrumbs::register('admin.orders.incomplete.show', function (Crumbs $crumbs, Token $token) {
+    $crumbs->parent('admin.orders.incomplete');
+    $crumbs->push($token->invoice->bill_number, route('admin.orders.incomplete.show', $token));
+});
+
 Breadcrumbs::register('admin.orders.show', function (Crumbs $crumbs, Contact $order) {
     $crumbs->parent('admin.orders.index');
     $crumbs->push($order->token->invoice->bill_number, route('admin.orders.show', $order));
@@ -168,6 +147,13 @@ Breadcrumbs::register('admin.settings.edit-price', function (Crumbs $crumbs) {
     $crumbs->parent('admin.settings.index');
     $crumbs->push('Редактирование цены', route('admin.settings.edit-price'));
 });
+
+//Visitors
+Breadcrumbs::register('admin.visitors.index', function (Crumbs $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push('Посетители', route('admin.visitors.index'));
+});
+
 
 ////Admin Parser
 //Breadcrumbs::register('admin.parser.index', function (Crumbs $crumbs) {

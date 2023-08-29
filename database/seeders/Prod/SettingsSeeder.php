@@ -31,16 +31,16 @@ class SettingsSeeder extends Seeder
                     'updated_at' => $setting['updated_at'],
                 ];
             }
-            $newSetting = [
-                'title' => 'Сумма минимального заказа (₽). Если установлена, то минимальное кол-во товаров не проверяется',
-                'prop_key' => 'min_order_cost',
-                'prop_value' => null,
-                'is_icon' => false,
-                'fa_icon' => null,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
-            ];
-            array_splice($settings, 1, 0, [$newSetting]);
+            //$newSetting = [
+            //    'title' => 'Сумма минимального заказа (₽). Если установлена, то минимальное кол-во товаров не проверяется',
+            //    'prop_key' => 'min_order_cost',
+            //    'prop_value' => null,
+            //    'is_icon' => false,
+            //    'fa_icon' => null,
+            //    'created_at' => Carbon::now(),
+            //    'updated_at' => Carbon::now(),
+            //];
+            //array_splice($settings, 1, 0, [$newSetting]);
             DB::table(Setting::getTableName())->insert($settings);
         } catch (Exception $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
