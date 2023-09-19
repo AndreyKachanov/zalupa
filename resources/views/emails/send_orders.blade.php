@@ -1,8 +1,8 @@
 @php
-    /** @var \App\Models\Admin\Cart\Order\Contact $contact */
-    /** @var \App\Models\Admin\Cart\Order\Order $order */
+    /** @var \App\Models\Admin\Cart\Order\Order $contact */
+    /** @var \App\Models\Admin\Cart\Order\OrderItem $order */
 @endphp
-<!doctype html>
+    <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,9 +15,11 @@
             font-family: Arial, sans-serif;
             font-size: 14px;
         }
+
         table {
             border-collapse: collapse;
         }
+
         table td, th {
             border: 1px solid #000;
             padding: 5px 10px;
@@ -25,13 +27,16 @@
     </style>
 </head>
 <body>
-<div style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">У вас новый заказ № {{ $contact->token->invoice->bill_number }}:</div>
+<div style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">У вас новый заказ
+    № {{ $contact->token->invoice->bill_number }}:
+</div>
 <p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Имя: {{ $contact->name }}</p>
 <p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Телефон: {{ $contact->phone }}</p>
 <p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Город: {{ $contact->city }}</p>
 <p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Улица: {{ $contact->street }}</p>
 <p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Номер дома: {{ $contact->house_number }}</p>
-<p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Транспортная компания: {{ $contact->transport_company }}</p>
+<p style="font-size: 14px; font-family: 'Helvetica', 'Arial', sans-serif;">Транспортная
+    компания: {{ $contact->transport_company }}</p>
 
 <div class="table-responsive">
     <table class="table">

@@ -2,12 +2,17 @@
 
 namespace App\Models\Admin\Cart;
 
+use App\Models\Admin\Cart\Order\OrderItem;
 use App\Models\Admin\Item\Item;
 use App\Traits\EloquentGetTableNameTrait;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 
 /**
@@ -17,25 +22,26 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int $token_id
  * @property int $item_id
  * @property int $cnt Количество товара
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property Carbon|null $deleted_at
  * @property-read Item $item
- * @property-read \App\Models\Admin\Cart\Token $token
- * @method static \Illuminate\Database\Eloquent\Builder|CartItem newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CartItem newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|CartItem onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|CartItem query()
- * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereCnt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereItemId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereTokenId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CartItem whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|CartItem withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|CartItem withoutTrashed()
- * @mixin \Eloquent
+ * @property-read Token $token
+ * @method static Builder|CartItem newModelQuery()
+ * @method static Builder|CartItem newQuery()
+ * @method static Builder|CartItem onlyTrashed()
+ * @method static Builder|CartItem query()
+ * @method static Builder|CartItem whereCnt($value)
+ * @method static Builder|CartItem whereCreatedAt($value)
+ * @method static Builder|CartItem whereDeletedAt($value)
+ * @method static Builder|CartItem whereId($value)
+ * @method static Builder|CartItem whereItemId($value)
+ * @method static Builder|CartItem whereTokenId($value)
+ * @method static Builder|CartItem whereUpdatedAt($value)
+ * @method static Builder|CartItem withTrashed()
+ * @method static Builder|CartItem withoutTrashed()
+ * @property-read OrderItem|null $orderItem
+ * @mixin Eloquent
  */
 class CartItem extends Model
 {
@@ -43,7 +49,7 @@ class CartItem extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $table = 'carts_items';
+    protected $table = 'cart_items';
     protected $guarded = ['id'];
     protected $casts = ['cnt' => 'integer'];
 
@@ -61,5 +67,13 @@ class CartItem extends Model
     public function item(): BelongsTo
     {
         return $this->belongsTo(Item::class, 'item_id', 'id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function orderItem(): HasOne
+    {
+        return $this->hasOne(OrderItem::class, 'cart_item_id');
     }
 }

@@ -20,10 +20,13 @@ class ItemsCategorySeeder extends Seeder
     public function run(): void
     {
         try {
-            $categories = Category::on('mysql_prod')->withTrashed()->get();
+            //$categories = Category::on('mysql_prod')->withTrashed()->get();
+            $result = DB::connection('mysql_prod')->select('SELECT * FROM `items_categories`');
+            $categories = json_decode(json_encode($result), true);
+
             $data = [];
             foreach ($categories as $category) {
-                $category = $category->getAttributes();
+                //$category = $category->getAttributes();
                    $arr['id'] = $category['id'];
                    $arr['title'] =  $category['title'];
                    $arr['img'] = $category['img'];

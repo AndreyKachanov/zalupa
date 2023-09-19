@@ -3,7 +3,7 @@
 use App\Models\Admin\Cart\Token;
 use App\Models\Admin\Item\Category;
 use App\Models\Admin\Item\Item;
-use App\Models\Admin\Cart\Order\Contact;
+use App\Models\Admin\Cart\Order\Order;
 use App\Models\User\User;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Crumbs;
 
@@ -74,7 +74,6 @@ Breadcrumbs::register('admin.categories.index', function (Crumbs $crumbs) {
     $crumbs->push('Категории', route('admin.categories.index'));
 });
 
-
 Breadcrumbs::register('admin.categories.create', function (Crumbs $crumbs) {
     $crumbs->parent('admin.categories.index');
     $crumbs->push('Создать', route('admin.categories.create'));
@@ -93,6 +92,11 @@ Breadcrumbs::register('admin.categories.edit', function (Crumbs $crumbs, Categor
 Breadcrumbs::register('admin.categories.show_orders', function (Crumbs $crumbs, Category $category) {
     $crumbs->parent('admin.categories.show', $category);
     $crumbs->push('Список заказов', route('admin.categories.show_orders', $category));
+});
+
+Breadcrumbs::register('admin.categories.show_items', function (Crumbs $crumbs, Category $category) {
+    $crumbs->parent('admin.categories.show', $category);
+    $crumbs->push('Список заказов', route('admin.categories.show_items', $category));
 });
 
 //Admin Items
@@ -116,7 +120,7 @@ Breadcrumbs::register('admin.items.edit', function (Crumbs $crumbs, Item $item) 
     $crumbs->push('Изменить', route('admin.items.edit', $item));
 });
 
-//Orders-Contacts
+//Orders
 Breadcrumbs::register('admin.orders.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
     $crumbs->push('Заказы', route('admin.orders.index'));
@@ -132,7 +136,7 @@ Breadcrumbs::register('admin.orders.incomplete.show', function (Crumbs $crumbs, 
     $crumbs->push($token->invoice->bill_number, route('admin.orders.incomplete.show', $token));
 });
 
-Breadcrumbs::register('admin.orders.show', function (Crumbs $crumbs, Contact $order) {
+Breadcrumbs::register('admin.orders.show', function (Crumbs $crumbs, Order $order) {
     $crumbs->parent('admin.orders.index');
     $crumbs->push($order->token->invoice->bill_number, route('admin.orders.show', $order));
 });
@@ -153,10 +157,3 @@ Breadcrumbs::register('admin.visitors.index', function (Crumbs $crumbs) {
     $crumbs->parent('admin.home');
     $crumbs->push('Посетители', route('admin.visitors.index'));
 });
-
-
-////Admin Parser
-//Breadcrumbs::register('admin.parser.index', function (Crumbs $crumbs) {
-//    $crumbs->parent('admin.home');
-//    $crumbs->push('Parser', route('admin.parser.index'));
-//});

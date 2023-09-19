@@ -1,17 +1,20 @@
 <?php
 
+use App\Models\Admin\Cart\Order\Order;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Admin\Cart\Order\Order;
+use App\Models\Admin\Cart\Order\OrderItem;
 
 return new class extends Migration
 {
     private $tableName;
+    private $orderTableName;
 
     public function __construct()
     {
-        $this->tableName = Order::getTableName();
+        $this->tableName = OrderItem::getTableName();
+        $this->orderTableName = Order::getTableName();
     }
     /**
      * Run the migrations.
@@ -21,13 +24,13 @@ return new class extends Migration
     public function up()
     {
         Schema::table($this->tableName, function (Blueprint $table) {
-            //создаем  индекс для contact_id
-            $table->index(['contact_id'], 'idx_contact_id');
+            //создаем  индекс для order_id
+            $table->index(['order_id'], 'idx_order_id');
 
             //создаем внешний ключ для item_id поля
-            $table->foreign(['contact_id'], 'fk_order_contact')
+            $table->foreign(['order_id'], 'fk_order')
                 ->references('id')
-                ->on('orders_contacts')
+                ->on($this->orderTableName)
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
         });
@@ -41,9 +44,9 @@ return new class extends Migration
     public function down()
     {
         Schema::table($this->tableName, function (Blueprint $table) {
-            if (Schema::hasColumn($this->tableName, 'contact_id')) {
-                $table->dropForeign('fk_order_contact');
-                $table->dropIndex('idx_contact_id');
+            if (Schema::hasColumn($this->tableName, 'order_id')) {
+                $table->dropForeign('fk_order');
+                $table->dropIndex('idx_order_id');
             }
         });
     }

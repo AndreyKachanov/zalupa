@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Admin\Cart\Order\Contact;
+use App\Models\Admin\Cart\Order\Order;
 use App\Models\Admin\Cart\Token;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -39,7 +39,7 @@ class SetOrderInfoRequest extends FormRequest
                 }
             ],
             'field' => function ($attribute, $value, $fail) {
-                $tableName = Contact::getTableName();
+                $tableName = Order::getTableName();
                 $columnNames = Schema::getColumnListing($tableName);
                 $excludedColumns = ['id', 'token_id', 'created_at', 'updated_at', 'deleted_at'];
                 $filteredColumns = array_diff($columnNames, $excludedColumns);

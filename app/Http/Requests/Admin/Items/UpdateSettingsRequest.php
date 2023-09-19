@@ -25,6 +25,7 @@ class UpdateSettingsRequest extends FormRequest
     {
         return [
             'price_increase' => 'required|integer|min:0|max:1000',
+            'price_increase2' => 'required|integer|min:-100|max:100',
             'min_order_cost' => 'nullable|numeric|min:1|max:1000000',
             'phone_number' => 'nullable|max:255',
             'instagram' => 'nullable|max:255',

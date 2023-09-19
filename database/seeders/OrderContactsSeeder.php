@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin\Cart\Order\Contact;
 use App\Models\Admin\Cart\Order\Order;
+use App\Models\Admin\Cart\Order\OrderItem;
 use App\Models\Admin\Cart\Token;
 use App\UseCases\ApiService;
 use Exception;
@@ -21,15 +21,15 @@ class OrderContactsSeeder extends Seeder
      */
     public function run()
     {
-        if (Contact::count() != 0) {
-            throw new Exception(Contact::getTableName() . ' table is not empty. Stop all seeds!!!');
+        if (Order::count() != 0) {
+            throw new Exception(Order::getTableName() . ' table is not empty. Stop all seeds!!!');
         }
 
         try {
             for ($i = 1; $i <= 100; $i++) {
                 $ordersCnt = rand(1, 10);
                 $token = Token::factory()->create();
-                Contact::factory()->hasOrders($ordersCnt)->for($token)->count(1)->create();
+                Order::factory()->hasOrders($ordersCnt)->for($token)->count(1)->create();
             }
             //Contact::factory()
             //    ->hasOrders(5)

@@ -2,7 +2,7 @@
 
 namespace App\Models\Admin\Cart;
 
-use App\Models\Admin\Cart\Order\Contact;
+use App\Models\Admin\Cart\Order\Order;
 use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read int|null $cart_items_count
- * @property-read Contact|null $contact
+ * @property-read Order|null $contact
  * @property-read \App\Models\Admin\Cart\Invoice|null $invoice
  * @method static \Database\Factories\Admin\Cart\TokenFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Token newModelQuery()
@@ -50,6 +50,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property mixed|null $ip_info
  * @method static \Illuminate\Database\Eloquent\Builder|Token whereIpInfo($value)
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\CartItem> $cartItems
+ * @property-read Order|null $order
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\CartItem> $cartItems
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\CartItem> $cartItems
  * @mixin \Eloquent
  */
 class Token extends Model
@@ -57,7 +60,7 @@ class Token extends Model
     use EloquentGetTableNameTrait;
     use HasFactory;
 
-    protected $table = 'carts_tokens';
+    protected $table = 'cart_tokens';
     protected $guarded = ['id'];
 
     /**
@@ -91,8 +94,8 @@ class Token extends Model
     /**
      * @return HasOne
      */
-    public function contact(): HasOne
+    public function order(): HasOne
     {
-        return $this->hasOne(Contact::class, 'token_id', 'id');
+        return $this->hasOne(Order::class, 'token_id', 'id');
     }
 }

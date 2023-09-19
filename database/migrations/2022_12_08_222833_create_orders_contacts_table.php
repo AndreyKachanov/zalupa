@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Admin\Cart\Order\Contact;
+use App\Models\Admin\Cart\Order\Order;
 
 return new class extends Migration
 {
@@ -12,7 +12,7 @@ return new class extends Migration
 
     public function __construct()
     {
-        $this->tableName = Contact::getTableName();
+        $this->tableName = Order::getTableName();
     }
 
     /**

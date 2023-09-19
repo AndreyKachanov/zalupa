@@ -6,7 +6,7 @@ use App\Models\Admin\Item\Item;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Admin\Cart\Order\Order>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Admin\Cart\Order\OrderItem>
  */
 class OrderFactory extends Factory
 {

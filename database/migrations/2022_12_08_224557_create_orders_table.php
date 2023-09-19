@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Admin\Cart\Order\Order;
+use App\Models\Admin\Cart\Order\OrderItem;
 
 return new class extends Migration
 {
@@ -11,7 +11,7 @@ return new class extends Migration
 
     public function __construct()
     {
-        $this->tableName = Order::getTableName();
+        $this->tableName = OrderItem::getTableName();
     }
     /**
      * Run the migrations.
@@ -24,8 +24,9 @@ return new class extends Migration
             Schema::create($this->tableName, function (Blueprint $table) {
                 $table->smallIncrements('id');
                 $table->unsignedSmallInteger('item_id');
+                $table->unsignedSmallInteger('cart_item_id')->nullable();
                 $table->unsignedSmallInteger('cnt')->comment('Количество товара');
-                $table->unsignedSmallInteger('contact_id');
+                $table->unsignedSmallInteger('order_id');
                 $table->softDeletes();
                 $table->timestamps();
             });

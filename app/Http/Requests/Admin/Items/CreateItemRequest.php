@@ -2,15 +2,31 @@
 
 namespace App\Http\Requests\Admin\Items;
 
+use App\Models\Admin\Item\Category;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateItemRequest extends FormRequest
 {
+    private $itemCategoriesTableName;
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
+    public function __construct(
+        array $query = [],
+        array $request = [],
+        array $attributes = [],
+        array $cookies = [],
+        array $files = [],
+        array $server = [],
+        $content = null
+    ) {
+
+        $this->itemCategoriesTableName = Category::getTableName();
+        parent::__construct($query, $request, $attributes, $cookies, $files, $server, $content);
+    }
+
     public function authorize()
     {
         return true;
@@ -32,7 +48,7 @@ class CreateItemRequest extends FormRequest
             //'is_new' => 'required',
             //'is_hit' => 'required',
             //'is_bestseller' => 'required',
-            'category' => 'required|integer|exists:items_categories,id',
+            'category' => "required|integer|exists:$this->itemCategoriesTableName,id",
             //            'img' => 'mimes:jpg,png,jpeg,gif,svg|max:1000|dimensions:min_width=100,min_height=100,max_width=500,max_height=500'
             'img' => 'required|mimes:jpg,png,jpeg,gif,svg'
         ];

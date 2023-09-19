@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User\Role;
 use App\Models\User\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -8,10 +9,12 @@ use Illuminate\Support\Facades\Schema;
 class AddsForeingKeyRoleIdForUsersTable extends Migration
 {
     private $usersTableName;
+    private $rolesTableName;
 
     public function __construct()
     {
         $this->usersTableName = User::getTableName();
+        $this->rolesTableName = Role::getTableName();
     }
 
     /**
@@ -28,7 +31,7 @@ class AddsForeingKeyRoleIdForUsersTable extends Migration
             //создаем внешний ключ для role_id поля
             $table->foreign(['role_id'], 'fk_role')
                 ->references('id')
-                ->on('roles')
+                ->on($this->rolesTableName)
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });

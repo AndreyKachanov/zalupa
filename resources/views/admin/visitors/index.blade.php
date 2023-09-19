@@ -18,13 +18,33 @@
 
 
         caption {
-            font-size: 1.8rem;
-            font-weight: 500;
-            /*margin-bottom: .5rem;*/
             padding: 0 !important;
             caption-side: top;
-            text-align: center;
+        }
+
+        caption h2 {
             color: #000;
+        }
+
+        caption p {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        fieldset {
+            /*width: max-content;*/
+            margin-bottom: 10px;
+            padding: 0px 10px 0 10px;
+            border: 1px solid #cdcdcd;
+        }
+
+        legend {
+            padding: 0 10px;
+            text-align: center;
+            width: auto;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 0;
         }
 
         table.bottom tr {
@@ -92,9 +112,9 @@
                 text-align: right;
             }
 
-            caption {
-                font-size: 1.3em;
-            }
+            /*caption {*/
+            /*    font-size: 1.3em;*/
+            /*}*/
 
             table.bottom thead {
                 border: none;
@@ -138,7 +158,20 @@
     @include('admin.visitors._nav')
 
     <table class="bottom">
-        <caption><h2 class="text-center">Посетители</h2></caption>
+        <caption>
+            <h2 class="text-center">Посетители</h2>
+            @isset($minDate)
+                <fieldset>
+                    <legend>
+                        С {{ $minDate->format('d.m.Y') }}. За {{ $diffInDays . ' ' . Lang::choice('день|дня|дней', $diffInDays) }}
+                    </legend>
+                    <p>Мобильник - <strong>{{ $countMobileUsers }}</strong></p>
+                    <p>Десктоп - <strong>{{ $countDesktopUsers }}</strong></p>
+                </fieldset>
+            @endisset
+            <p>Всего - <strong>{{$countAllUsers }}</strong></p>
+        </caption>
+
         <thead>
         <tr>
             <th scope="col">Дата первого входа</th>

@@ -58,6 +58,7 @@
         tr.all_sum td:first-child {
             padding-left: 23px;
         }
+
         tr.all_sum td:last-child {
             padding-right: 34px;
         }
@@ -67,6 +68,7 @@
             tr.all_sum td:first-child {
                 padding-left: 0;
             }
+
             tr.all_sum td:last-child {
                 padding-right: 0;
             }
@@ -153,12 +155,14 @@
             <tr>
                 <td data-label="№ заказа">
                     <a href="{{ route('admin.orders.incomplete.show', $token) }}">
-                        {{ $token->invoice->bill_number ?? null }}
+                        {{ $token->invoice->bill_number ?? '' }}
                     </a>
                 </td>
                 <td data-label="Дата первого входа"> {{ $token->created_at->format('d.m.Y H:i') }}</td>
                 <td data-label="Кол-во позиций"> {{ $token->cartItems->count() }}</td>
-                <td data-label="Сумма заказа (₽)"> {{ number_format($token->cartItems->sum(fn ($cartItem) =>  $cartItem->cnt * $cartItem->item?->price), 0, ',', ' ') }} ₽</td>
+                <td data-label="Сумма заказа (₽)"> {{ number_format($token->cartItems->sum(fn ($cartItem) =>  $cartItem->cnt * $cartItem->item?->price), 0, ',', ' ') }}
+                    ₽
+                </td>
                 <td data-label="Ip адрес">
                     {{ filter_var($token->ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? 'ipv6' : $token->ip }}
                 </td>

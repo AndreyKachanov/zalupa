@@ -7,7 +7,7 @@ use App\Http\Resources\ItemResource;
 use App\Http\Resources\CategoriesResource;
 use App\Http\Resources\SettingsResource;
 use App\Models\Admin\Cart\CartItem;
-use App\Models\Admin\Cart\Order\Contact;
+use App\Models\Admin\Cart\Order\Order;
 use App\Models\Admin\Cart\Token;
 use App\Models\Admin\Item\Category;
 use App\Models\Admin\Item\Item;
@@ -23,7 +23,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\ValidationException;
 
@@ -34,6 +33,8 @@ use Illuminate\Validation\ValidationException;
  */
 class ApiController extends Controller
 {
+    private $cartTokensTableName;
+
     /**
      * @param ApiService $service
      * @param SendOrderService $sendOrderService
@@ -42,6 +43,7 @@ class ApiController extends Controller
     {
         $this->service = $service;
         $this->sendOrderService = $sendOrderService;
+        $this->cartTokensTableName = Token::getTableName();
     }
 
     /**
@@ -73,7 +75,7 @@ class ApiController extends Controller
             //Если токен есть
             if (!$tokenIsNull) {
                 $oldToken = Token::with([
-                    'contact.orders',
+                    'order.orderItems',
                     'cartItems' => fn ($query /** @var CartItem $query */) => $query->select(['token_id', 'item_id as id', 'cnt'])->whereHas('item'),
                 ])->firstWhere('token', $oldTokenString);
 
@@ -133,8 +135,8 @@ class ApiController extends Controller
     {
         try {
             $request->validate([
-                'token' => 'required|size:32|exists:carts_tokens,token',
-                'id'    => 'required|exists:items,id',
+                'token' => "required|size:32|exists:$this->cartTokensTableName,token",
+                'id'    => "required|exists:items,id",
                 'cnt'   => 'required|integer|min:1|max:65535',
             ]);
 
@@ -157,7 +159,7 @@ class ApiController extends Controller
     {
         try {
             $request->validate([
-                'token' => 'required|size:32|exists:carts_tokens,token',
+                'token' => "required|size:32|exists:$this->cartTokensTableName,token",
                 'id'    => 'required|exists:items,id'
             ]);
             $token = Token::firstWhere('token', $request->get('token'));
@@ -178,7 +180,7 @@ class ApiController extends Controller
         // время валидации (exists:carts_tokens и exists:items)
         try {
             $request->validate([
-                'token' => 'required|size:32|exists:carts_tokens,token',
+                'token' => "required|size:32|exists:$this->cartTokensTableName,token",
                 'id'    => 'required|exists:items,id',
                 'cnt'   => 'required|integer|min:1|max:65535',
             ]);
@@ -207,12 +209,12 @@ class ApiController extends Controller
     {
         try {
             $request->validate([
-                'token' => 'required|size:32|exists:carts_tokens,token',
+                'token' => "required|size:32|exists:$this->cartTokensTableName,token",
                 'value'    => 'nullable|string:max:255',
             ]);
 
             // Проверка $request->get('field'). Должен быть равен имени колонки в order_contacts таблице
-            $tableName = Contact::getTableName();
+            $tableName = Order::getTableName();
             $columnNames = Schema::getColumnListing($tableName);
             $excludedColumns = ['id', 'token_id', 'created_at', 'updated_at', 'deleted_at'];
             $filteredColumns = array_diff($columnNames, $excludedColumns);
@@ -223,7 +225,7 @@ class ApiController extends Controller
 
             $token = Token::firstWhere('token', $request->get('token'));
             return response(
-                $token->contact()->updateOrCreate([], [$request->get('field') => $request->get('value')])
+                $token->order()->updateOrCreate([], [$request->get('field') => $request->get('value')])
                     ? 'true'
                     : 'false',
                 200);
@@ -247,7 +249,7 @@ class ApiController extends Controller
         //Если токен есть в таблице invoice - вернуть старый bill_number, иначе новый
         try {
             $request->validate([
-                'token' => 'required|size:32|exists:carts_tokens,token',
+                'token' => "required|size:32|exists:$this->cartTokensTableName,token",
             ]);
             $token = Token::firstWhere('token', $request->get('token'));
             //если у токена нет invoice, создаем новый, иначе возвращаем существующий
@@ -278,7 +280,7 @@ class ApiController extends Controller
                 'street' => 'required|string|max:255',
                 'house_number' => 'required|string|max:255',
                 'transport_company' => 'required|string|max:255',
-                'token' => 'required|size:32|exists:carts_tokens,token',
+                'token' => "required|size:32|exists:$this->cartTokensTableName,token",
                 'items' => 'required|array|min:1'
             ]);
 
@@ -295,14 +297,16 @@ class ApiController extends Controller
             //])->firstWhere('token', $request->get('token'));
 
             $oldToken = Token::with([
-                'cartItems' => fn ($query /** @var CartItem $query */) => $query->select(['token_id', 'item_id as id', 'cnt']),
-                'contact'
+                'cartItems' => function ($query) {
+                    $query->select(['id as cart_item_id', 'token_id', 'item_id as id', 'cnt', ])->whereHas('item');
+                },
+                'order'
             ])->firstWhere('token', $request->get('token'));
             $dbArr = $oldToken->cartItems->toArray();
 
             //dd(DB::getQueryLog(), $dbArr, $oldToken->contact);
             $frontArr = $request->get('items');
-            //dd($dbArr, $frontArr);
+            //dump($dbArr, $frontArr);
 
             if (count($dbArr) !== count($frontArr)) {
                 throw new MyHttpResponseException('Validation error', 'count($dbArr) !== count($frontArr)', 422);
@@ -314,9 +318,16 @@ class ApiController extends Controller
                 }
             }
 
-            $items = array_map(fn($item) => ['item_id' => $item['id'], 'cnt' => $item['cnt']], $request->get('items'));
-            //dd($items);
-            $oldToken->contact->orders()->createMany($items);
+            //$items = array_map(fn($item) => ['item_id' => $item['id'], 'cnt' => $item['cnt']], $frontArr);
+            $items = array_map(function($item) {
+                return [
+                    'item_id' => $item['id'],
+                    'cnt' => $item['cnt'],
+                    'cart_item_id' => $item['cart_item_id']
+                ];
+            }, $dbArr);
+            //dd($dbArr, $frontArr, $items);
+            $oldToken->order->orderItems()->createMany($items);
             $newToken = $this->service->generateNewToken($request);
             //dd(DB::getQueryLog(), $dbArr);
             //Обрабатывает ошибки валидации
@@ -326,8 +337,8 @@ class ApiController extends Controller
             throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
         }
 
-        $this->sendOrderService->sendTelegram($oldToken->contact);
-        $this->sendOrderService->sendEmail($oldToken->contact);
+        $this->sendOrderService->sendTelegram($oldToken->order);
+        $this->sendOrderService->sendEmail($oldToken->order);
 
         //dd(DB::getQueryLog());
 
@@ -343,18 +354,18 @@ class ApiController extends Controller
     public function loadOrder(Request $request) {
         try {
             $request->validate([
-                'token' => 'required|size:32|exists:carts_tokens,token'
+                'token' => "required|size:32|exists:$this->cartTokensTableName,token"
             ]);
             $token = Token::firstWhere('token', $request->get('token'));
-            $existsContact = $token->contact()->exists();
-            $response = $existsContact
-                ? $token->contact->only(['name', 'phone', 'city', 'street', 'house_number', 'transport_company'])
+            $existsOrder = $token->order()->exists();
+            $response = $existsOrder
+                ? $token->order->only(['name', 'phone', 'city', 'street', 'house_number', 'transport_company'])
                 : [];
             return response()->json($response);
         } catch (ValidationException $e) {
             throw new MyHttpResponseException(
                 'Validation error',
-                $e->getMessage() . "'token' => 'required|size:32|exists:carts_tokens,token'",
+                $e->getMessage(),
                 422
             );
         }

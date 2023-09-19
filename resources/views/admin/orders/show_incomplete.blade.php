@@ -66,6 +66,7 @@
         tr.all_sum td:first-child {
             padding-left: 23px;
         }
+
         tr.all_sum td:last-child {
             padding-right: 34px;
         }
@@ -75,6 +76,7 @@
             tr.all_sum td:first-child {
                 padding-left: 0;
             }
+
             tr.all_sum td:last-child {
                 padding-right: 0;
             }
@@ -147,49 +149,44 @@
 @endsection
 
 @section('content')
+
     @include('admin.orders._nav_incomplete')
+
     <table class="table table-bordered table-striped">
-        <caption style="caption-side: top; text-align: center; color: #000">Заказ № {{ $token->invoice->bill_number }}</caption>
-            <tbody>
-                <tr>
-                    <td>№ заказа</td>
-                    <td>{{ $token->invoice->bill_number }}</td>
-                </tr>
-                <tr>
-                    <td>Имя</td>
-                    <td>{{ $token->contact?->name }}</td>
-                </tr>
-                <tr>
-                    <td>Номер телефона</td>
-                    <td>
-                        <a href="tel:{{ $token->contact?->phone }}"> {{ $token->contact?->phone }}</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Город</td>
-                    <td>{{ $token->contact?->city }}</td>
-                </tr>
-                <tr>
-                    <td>Улица</td>
-                    <td>{{ $token->contact?->street }}</td>
-                </tr>
-                <tr>
-                    <td>Дом</td>
-                    <td>{{ $token->contact?->house_number }}</td>
-                </tr>
-                <tr>
-                    <td>Транспортная компания</td>
-                    <td>{{ $token->contact?->transport_company }}</td>
-                </tr>
-            </tbody>
-        </table>
-{{--    <div class="col-12 d-flex justify-content-start mt-3">--}}
-{{--        <form method="POST" action="{{ route('admin.orders.destroy', $order) }}" class="ml-5">--}}
-{{--            @csrf--}}
-{{--            @method('DELETE')--}}
-{{--            <button class="btn btn-sm btn-danger pl-4 pr-4">Удалить</button>--}}
-{{--        </form>--}}
-{{--    </div>--}}
+        <caption style="caption-side: top; text-align: center; color: #000">Заказ
+            № {{ $token->invoice->bill_number }}</caption>
+        <tbody>
+        <tr>
+            <td>№ заказа</td>
+            <td>{{ $token->invoice->bill_number }}</td>
+        </tr>
+        <tr>
+            <td>Имя</td>
+            <td>{{ $token?->order->name ?? '' }}</td>
+        </tr>
+        <tr>
+            <td>Номер телефона</td>
+            <td>{{ $token?->order->phone ?? '' }}</td>
+        </tr>
+        <tr>
+            <td>Город</td>
+            <td>{{ $token?->order->city ?? '' }}</td>
+        </tr>
+        <tr>
+            <td>Улица</td>
+            <td>{{ $token?->order->street ?? '' }}</td>
+        </tr>
+        <tr>
+            <td>Дом</td>
+            <td>{{ $token?->order->house_number ?? '' }}</td>
+        </tr>
+        <tr>
+            <td>Транспортная компания</td>
+            <td>{{ $token?->order->transport_company ?? '' }}</td>
+        </tr>
+        </tbody>
+    </table>
+
     @if($token->cartItems->count())
         <table class="bottom">
             <caption style="caption-side: top; text-align: center; color: #000">Список товаров</caption>
@@ -208,7 +205,7 @@
             <tbody>
             @foreach ($token->cartItems as $cartItem)
                 <tr>
-                    @if($cartItem->item)
+{{--                    @if($cartItem->item)--}}
                         <td data-label="Дата изменения">
                             {{ date_format($cartItem->updated_at, 'd.m.Y H:i:s') }}
                         </td>
@@ -231,7 +228,7 @@
                         </td>
                         <td data-label="Название">
                             @if($cartItem->item->deleted_at)
-                                <p>{{ $cartItem->item->title }}</p>
+                                <p style="color: red;">{{ $cartItem->item->title }} (удален {{ $cartItem->item->deleted_at->format('d.m.Y') }})</p>
                             @else
                                 <a href="{{ route('admin.items.show', $cartItem->item) }}">{{ $cartItem->item->title }}</a>
                             @endif
@@ -245,25 +242,25 @@
                         <td data-label="Кол-во">
                             {{ $cartItem->cnt }}
                         </td>
-                        <td data-label="Сумма">{{ number_format($cartItem->item->price * $cartItem->cnt, 0, ',', ' ') }} ₽</td>
-                        <td data-label="Категория">{{ $cartItem->item->category->title }}</td>
-                    @else
-                        <td data-label="Фото">
-                            <img
-                                src="{{ asset('/assets/no-image.png')}}"
-                                class="img-thumbnail"
-                                alt=""
-                            >
+                        <td data-label="Сумма">{{ number_format($cartItem->item->price * $cartItem->cnt, 0, ',', ' ') }}
+                            ₽
                         </td>
-                        <td colspan="7" style="text-align: center;">$cartItem->item == null</td>
-                    @endif
+                        <td data-label="Категория">
+                            @if($cartItem->item->category->deleted_at)
+                                <span style="color: red;">{{ $cartItem->item->category->title }} (удалена {{ $cartItem->item->category->deleted_at->format('d.m.Y') }})</span>
+                            @else
+                                {{ $cartItem->item->category->title }}
+                            @endif
+                        </td>
                 </tr>
             @endforeach
             <tr class="all_sum">
                 <td style="text-align: left"><strong>Всего:</strong></td>
-                <td style="text-align: right;" colspan="7" >
-                    <strong> {{ number_format($token->cartItems->sum(fn ($cartItem) =>  $cartItem->cnt * $cartItem->item?->price), 0, ',', ' ') }} ₽</strong>
-                    {{--                    <strong> {{ $token->cartItems->count() }} </strong>--}}
+                <td style="text-align: right;" colspan="7">
+                    <strong>
+                        {{ number_format($token->cartItems->sum(fn ($cartItem) =>  $cartItem->cnt * $cartItem->item?->price), 0, ',', ' ') }}
+                        ₽
+                    </strong>
                 </td>
             </tr>
             </tbody>

@@ -1,6 +1,6 @@
 @php
-    /** @var \App\Models\Admin\Cart\Order\Contact $order */
-    /** @var \App\Models\Admin\Cart\Order\Order $ord */
+    /** @var \App\Models\Admin\Cart\Order\Order $order */
+    /** @var \App\Models\Admin\Cart\Order\OrderItem $ord */
 @endphp
 
 @extends('layouts.app')
@@ -66,6 +66,7 @@
         tr.all_sum td:first-child {
             padding-left: 23px;
         }
+
         tr.all_sum td:last-child {
             padding-right: 34px;
         }
@@ -75,6 +76,7 @@
             tr.all_sum td:first-child {
                 padding-left: 0;
             }
+
             tr.all_sum td:last-child {
                 padding-right: 0;
             }
@@ -149,40 +151,41 @@
 @section('content')
     @include('admin.orders._nav')
     <table class="table table-bordered table-striped">
-        <caption style="caption-side: top; text-align: center; color: #000">Заказ № {{ $order->token->invoice->bill_number }}</caption>
-            <tbody>
-                <tr>
-                    <td>№ заказа</td>
-                    <td>{{ $order->token->invoice->bill_number }}</td>
-                </tr>
-                <tr>
-                    <td>Имя</td>
-                    <td>{{ $order->name }}</td>
-                </tr>
-                <tr>
-                    <td>Номер телефона</td>
-                    <td>
-                        <a href="tel:{{ $order->phone }}"> {{ $order->phone }}</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Город</td>
-                    <td>{{ $order->city }}</td>
-                </tr>
-                <tr>
-                    <td>Улица</td>
-                    <td>{{ $order->street }}</td>
-                </tr>
-                <tr>
-                    <td>Дом</td>
-                    <td>{{ $order->house_number }}</td>
-                </tr>
-                <tr>
-                    <td>Транспортная компания</td>
-                    <td>{{ $order->transport_company }}</td>
-                </tr>
-            </tbody>
-        </table>
+        <caption style="caption-side: top; text-align: center; color: #000">Заказ
+            № {{ $order->token->invoice->bill_number }}</caption>
+        <tbody>
+        <tr>
+            <td>№ заказа</td>
+            <td>{{ $order->token->invoice->bill_number }}</td>
+        </tr>
+        <tr>
+            <td>Имя</td>
+            <td>{{ $order->name }}</td>
+        </tr>
+        <tr>
+            <td>Номер телефона</td>
+            <td>
+                <a href="tel:{{ $order->phone }}"> {{ $order->phone }}</a>
+            </td>
+        </tr>
+        <tr>
+            <td>Город</td>
+            <td>{{ $order->city }}</td>
+        </tr>
+        <tr>
+            <td>Улица</td>
+            <td>{{ $order->street }}</td>
+        </tr>
+        <tr>
+            <td>Дом</td>
+            <td>{{ $order->house_number }}</td>
+        </tr>
+        <tr>
+            <td>Транспортная компания</td>
+            <td>{{ $order->transport_company }}</td>
+        </tr>
+        </tbody>
+    </table>
     <div class="col-12 d-flex justify-content-start mt-3">
         <form method="POST" action="{{ route('admin.orders.destroy', $order) }}" class="ml-5">
             @csrf
@@ -191,64 +194,65 @@
         </form>
     </div>
     <table class="bottom">
-            <caption style="caption-side: top; text-align: center; color: #000">Список товаров</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Фото</th>
-                    <th scope="col">Название</th>
-                    <th scope="col">Артикул</th>
-                    <th scope="col">Цена</th>
-                    <th scope="col">Кол-во</th>
-                    <th scope="col">Сумма (₽)</th>
-                    <th scope="col">Категория</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach ($order->orders as $ord)
-                <tr>
-                    <td data-label="Фото">
-                        @if($ord->item->deleted_at)
+        <caption style="caption-side: top; text-align: center; color: #000">Список товаров</caption>
+        <thead>
+        <tr>
+            <th scope="col">Фото</th>
+            <th scope="col">Название</th>
+            <th scope="col">Артикул</th>
+            <th scope="col">Цена</th>
+            <th scope="col">Кол-во</th>
+            <th scope="col">Сумма (₽)</th>
+            <th scope="col">Категория</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach ($order->orders as $ord)
+            <tr>
+                <td data-label="Фото">
+                    @if($ord->item->deleted_at)
+                        <img
+                            src="{{ Storage::disk('uploads')->url($ord->item->img) }}"
+                            class="img-thumbnail"
+                            alt="{{ $ord->item->title }}"
+                        >
+                    @else
+                        <a href="{{ route('admin.items.show', $ord->item) }}">
                             <img
                                 src="{{ Storage::disk('uploads')->url($ord->item->img) }}"
                                 class="img-thumbnail"
                                 alt="{{ $ord->item->title }}"
                             >
-                        @else
-                            <a href="{{ route('admin.items.show', $ord->item) }}">
-                                <img
-                                    src="{{ Storage::disk('uploads')->url($ord->item->img) }}"
-                                    class="img-thumbnail"
-                                    alt="{{ $ord->item->title }}"
-                                >
-                            </a>
-                        @endif
-                    </td>
-                    <td data-label="Название">
-                        @if($ord->item->deleted_at)
-                            <p>{{ $ord->item->title }}</p>
-                        @else
-                            <a href="{{ route('admin.items.show', $ord->item) }}">{{ $ord->item->title }}</a>
-                        @endif
-                    </td>
-                    <td data-label="Артикул">
-                        {{ $ord->item->article_number }}
-                    </td>
-                    <td data-label="Цена">
-                        {{ $ord->item->price }} ₽
-                    </td>
-                    <td data-label="Кол-во">
-                        {{ $ord->cnt }}
-                    </td>
-                    <td data-label="Сумма">{{ number_format($ord->item->price * $ord->cnt, 0, ',', ' ') }} ₽</td>
-                    <td data-label="Категория">{{ $ord->item->category->title }}</td>
-                </tr>
-            @endforeach
-            <tr class="all_sum">
-                <td style="text-align: left"><strong>Всего:</strong></td>
-                <td style="text-align: right;" colspan="6" >
-                    <strong>{{ number_format($order->orders->sum(fn($item) => $item->item->price * $item->cnt), 0, ',', ' ') }} ₽</strong>
+                        </a>
+                    @endif
                 </td>
+                <td data-label="Название">
+                    @if($ord->item->deleted_at)
+                        <p>{{ $ord->item->title }}</p>
+                    @else
+                        <a href="{{ route('admin.items.show', $ord->item) }}">{{ $ord->item->title }}</a>
+                    @endif
+                </td>
+                <td data-label="Артикул">
+                    {{ $ord->item->article_number }}
+                </td>
+                <td data-label="Цена">
+                    {{ $ord->item->price }} ₽
+                </td>
+                <td data-label="Кол-во">
+                    {{ $ord->cnt }}
+                </td>
+                <td data-label="Сумма">{{ number_format($ord->item->price * $ord->cnt, 0, ',', ' ') }} ₽</td>
+                <td data-label="Категория">{{ $ord->item->category->title }}</td>
             </tr>
-            </tbody>
-        </table>
+        @endforeach
+        <tr class="all_sum">
+            <td style="text-align: left"><strong>Всего:</strong></td>
+            <td style="text-align: right;" colspan="6">
+                <strong>{{ number_format($order->orders->sum(fn($item) => $item->item->price * $item->cnt), 0, ',', ' ') }}
+                    ₽</strong>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 @endsection

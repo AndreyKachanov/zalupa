@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\Admin\Cart\Order\Contact;
+use App\Models\Admin\Cart\Order\Order;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
@@ -11,7 +11,7 @@ class SendOrder extends Mailable
     use SerializesModels;
 
     public $contact;
-    public function __construct(Contact $contact)
+    public function __construct(Order $contact)
     {
         $this->contact = $contact;
     }

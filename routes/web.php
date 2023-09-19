@@ -38,6 +38,9 @@ Route::group(
         });
 
         //Товары
+        //Проверка наличие товаров в корзине перед удалением
+        Route::get('items/check-before-remove/{item}', [ItemsController::class, 'checkBeforeRemove'])
+            ->name('items.check-before-remove');
         Route::resource('items', ItemsController::class);
 
         //Категории
@@ -50,11 +53,13 @@ Route::group(
         });
         Route::get('/categories/{category}/orders', [CategoryController::class, 'showOrders'])
             ->name('categories.show_orders');
+        Route::get('/categories/{category}/items', [CategoryController::class, 'showItems'])
+            ->name('categories.show_items');
 
         //Заказы
-        Route::get('orders/incomplete', [OrdersController::class, 'incomplete'])
+        Route::get('orders/incomplete', [OrdersController::class, 'incompleteOrders'])
             ->name('orders.incomplete');
-        Route::get('orders/incomplete/{token}', [OrdersController::class, 'showIncomplete'])
+        Route::get('orders/incomplete/{token}', [OrdersController::class, 'showIncompleteOrder'])
             ->name('orders.incomplete.show');
         Route::resource('orders', OrdersController::class);
 

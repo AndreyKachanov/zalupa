@@ -1,17 +1,20 @@
 <?php
 
+use App\Models\Admin\Item\Item;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\Admin\Cart\Order\Order;
+use App\Models\Admin\Cart\Order\OrderItem;
 
 return new class extends Migration
 {
     private $tableName;
+    private $itemsTableName;
 
     public function __construct()
     {
-        $this->tableName = Order::getTableName();
+        $this->tableName = OrderItem::getTableName();
+        $this->itemsTableName = Item::getTableName();
     }
     /**
      * Run the migrations.
@@ -27,7 +30,7 @@ return new class extends Migration
             //создаем внешний ключ для item_id поля
             $table->foreign(['item_id'], 'fk_item_items')
                 ->references('id')
-                ->on('items')
+                ->on($this->itemsTableName)
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
         });

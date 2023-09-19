@@ -1,6 +1,7 @@
 <?php
 
-use App\Models\Admin\Cart\Order\Contact;
+use App\Models\Admin\Cart\Order\Order;
+use App\Models\Admin\Cart\Token;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,10 +9,13 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     private $tableName;
+    private $cartTokensTableName;
 
     public function __construct()
     {
-        $this->tableName = Contact::getTableName();
+        $this->tableName = Order::getTableName();
+        $this->cartTokensTableName = Token::getTableName();
+
     }
     /**
      * Run the migrations.
@@ -25,9 +29,9 @@ return new class extends Migration
             $table->index(['token_id'], 'idx_token_id');
 
             //создаем внешний ключ для token_id поля
-            $table->foreign(['token_id'], 'fk_token_orders_contacts')
+            $table->foreign(['token_id'], 'fk_token_orders')
                 ->references('id')
-                ->on('carts_tokens')
+                ->on($this->cartTokensTableName)
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -42,7 +46,7 @@ return new class extends Migration
     {
         Schema::table($this->tableName, function (Blueprint $table) {
             if (Schema::hasColumn($this->tableName, 'token_id')) {
-                $table->dropForeign('fk_token_orders_contacts');
+                $table->dropForeign('fk_token_orders');
                 $table->dropIndex('idx_token_id');
             }
         });

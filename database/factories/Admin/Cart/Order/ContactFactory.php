@@ -7,7 +7,7 @@ use Database\Factories\Admin\Cart\TokenFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Admin\Cart\Order\Contact>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Admin\Cart\Order\Order>
  */
 class ContactFactory extends Factory
 {

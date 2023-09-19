@@ -1,8 +1,8 @@
 @php
-    /** @var \App\Models\Admin\Cart\Order\Contact $contact */
-    /** @var \App\Models\Admin\Cart\Order\Order $order */
+    /** @var \App\Models\Admin\Cart\Order\Order $contact */
+    /** @var \App\Models\Admin\Cart\Order\OrderItem $order */
 @endphp
-<!doctype html>
+    <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,6 +15,7 @@
             font-family: Arial, sans-serif;
             font-size: 14px;
         }
+
         .top table {
             border: 1px solid #dee2e6;
             width: 100%;
@@ -96,6 +97,7 @@
         tr.all_sum td:first-child {
             padding-left: 23px;
         }
+
         tr.all_sum td:last-child {
             padding-right: 34px;
         }
@@ -105,6 +107,7 @@
             tr.all_sum td:first-child {
                 padding-left: 0;
             }
+
             tr.all_sum td:last-child {
                 padding-right: 0;
             }
@@ -192,30 +195,30 @@
     <table>
         <caption>Заказ № {{ $contact->token->invoice->bill_number }}</caption>
         <tbody>
-            <tr>
-                <td>Имя</td>
-                <td>{{ $contact->name }}</td>
-            </tr>
-            <tr>
-                <td>Номер телефона</td>
-                <td>{{ $contact->phone }}</td>
-            </tr>
-            <tr>
-                <td>Город</td>
-                <td>{{ $contact->city }}</td>
-            </tr>
-            <tr>
-                <td>Улица</td>
-                <td>{{ $contact->street }}</td>
-            </tr>
-            <tr>
-                <td>Дом</td>
-                <td>{{ $contact->house_number }}</td>
-            </tr>
-            <tr>
-                <td>Транспортная компания</td>
-                <td>{{ $contact->transport_company }}</td>
-            </tr>
+        <tr>
+            <td>Имя</td>
+            <td>{{ $contact->name }}</td>
+        </tr>
+        <tr>
+            <td>Номер телефона</td>
+            <td>{{ $contact->phone }}</td>
+        </tr>
+        <tr>
+            <td>Город</td>
+            <td>{{ $contact->city }}</td>
+        </tr>
+        <tr>
+            <td>Улица</td>
+            <td>{{ $contact->street }}</td>
+        </tr>
+        <tr>
+            <td>Дом</td>
+            <td>{{ $contact->house_number }}</td>
+        </tr>
+        <tr>
+            <td>Транспортная компания</td>
+            <td>{{ $contact->transport_company }}</td>
+        </tr>
         </tbody>
     </table>
 </div>
@@ -223,46 +226,46 @@
 <table class="bottom">
     <caption>Список товаров</caption>
     <thead>
-        <tr>
-            <th scope="col">Фото</th>
-            <th scope="col">Название</th>
-            <th scope="col">Артикул</th>
-            <th scope="col">Цена</th>
-            <th scope="col">Кол-во</th>
-            <th scope="col">Сумма</th>
-        </tr>
+    <tr>
+        <th scope="col">Фото</th>
+        <th scope="col">Название</th>
+        <th scope="col">Артикул</th>
+        <th scope="col">Цена</th>
+        <th scope="col">Кол-во</th>
+        <th scope="col">Сумма</th>
+    </tr>
     </thead>
     <tbody>
-        @foreach ($contact->orders as $ord)
-            <tr>
-                <td data-label="Фото">
-                    <img
-                        src="{{ Storage::disk('uploads')->url($ord->item->img) }}"
-                        class="img-thumbnail"
-                        alt="{{ $ord->item->title }}"
-                    >
-                </td>
-                <td data-label="Название">
-                    {{ $ord->item->title }}
-                </td>
-                <td data-label="Артикул">
-                    {{ $ord->item->article_number }}
-                </td>
-                <td data-label="Цена">
-                    {{ $ord->item->price }} руб
-                </td>
-                <td data-label="Кол-во">
-                    {{ $ord->cnt }}
-                </td>
-                <td data-label="Сумма">{{ $ord->item->price * $ord->cnt }} руб</td>
-            </tr>
-        @endforeach
-        <tr class="all_sum">
-            <td style="text-align: left">Всего:</td>
-            <td style="text-align: right;" colspan="5" >
-                {{ $contact->orders->sum(fn($item) => $item->item->price * $item->cnt) }} руб
+    @foreach ($contact->orders as $ord)
+        <tr>
+            <td data-label="Фото">
+                <img
+                    src="{{ Storage::disk('uploads')->url($ord->item->img) }}"
+                    class="img-thumbnail"
+                    alt="{{ $ord->item->title }}"
+                >
             </td>
+            <td data-label="Название">
+                {{ $ord->item->title }}
+            </td>
+            <td data-label="Артикул">
+                {{ $ord->item->article_number }}
+            </td>
+            <td data-label="Цена">
+                {{ $ord->item->price }} руб
+            </td>
+            <td data-label="Кол-во">
+                {{ $ord->cnt }}
+            </td>
+            <td data-label="Сумма">{{ $ord->item->price * $ord->cnt }} руб</td>
         </tr>
+    @endforeach
+    <tr class="all_sum">
+        <td style="text-align: left">Всего:</td>
+        <td style="text-align: right;" colspan="5">
+            {{ $contact->orders->sum(fn($item) => $item->item->price * $item->cnt) }} руб
+        </td>
+    </tr>
     </tbody>
 </table>
 

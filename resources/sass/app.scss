@@ -276,3 +276,24 @@ table#table-transition-example .flip-list-move {
         }
     }
 }
+
+.alert {
+    @include media-breakpoint-down(sm) {
+        padding-left: 0;
+        padding-right: 0;
+        ul {
+            padding-left: 27px;
+            padding-right: 20px;
+        }
+    }
+}
+
+.form-control.is-invalid {
+    @include media-breakpoint-down(sm) {
+        background-image: none;
+        padding-right: 7px !important;
+    }
+    &::-webkit-search-cancel-button {
+        margin-left: 10px;
+    }
+}

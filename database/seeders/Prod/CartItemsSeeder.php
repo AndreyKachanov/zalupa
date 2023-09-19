@@ -52,9 +52,12 @@ class CartItemsSeeder extends Seeder
             //        ->onUpdate('restrict');
             //});
 
-            $cartItems = CartItem::on('mysql_prod')->withTrashed()->get();
+            //$cartItems = CartItem::on('mysql_prod')->withTrashed()->get();
+            $result = DB::connection('mysql_prod')->select('SELECT * FROM `carts_items`');
+            $cartItems = json_decode(json_encode($result), true);
+
             foreach ($cartItems as $cartItem) {
-                $cartItem = $cartItem->getAttributes();
+                //$cartItem = $cartItem->getAttributes();
                 DB::table(CartItem::getTableName())->insert([
                     'id' => $cartItem['id'],
                     'token_id' => $cartItem['token_id'],

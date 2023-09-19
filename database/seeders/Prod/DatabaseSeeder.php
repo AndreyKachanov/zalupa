@@ -28,9 +28,10 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemsCategorySeeder::class);
         $this->call(ItemsSeeder::class);
         $this->call(OrderContactsSeeder::class);
-        $this->call(OrdersSeeder::class);
         $this->call(CartItemsSeeder::class);
-        $this->call(SettingsSeeder::class);
+        $this->call(OrdersSeeder::class);
+        //$this->call(SettingsSeeder::class);
+        $this->call(\Database\Seeders\SettingsSeeder::class);
         $this->call(UsersSeeder::class);
         //Retrieves images from hosting
         $this->call(ImagesSeeder::class);

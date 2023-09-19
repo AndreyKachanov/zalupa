@@ -1,16 +1,9 @@
 @php
     /** @var \App\Models\Admin\Item\Item $item */
     /** @var \Illuminate\Pagination\LengthAwarePaginator $items */
-    $priceIncrease = \App\Models\Admin\Setting::firstWhere('prop_key', 'price_increase')->prop_value;
-    $th = 'Цена + ' . $priceIncrease . ' %';
 
-    //dump('old radio_search_by = ' . old('radio_search_by'));
-    //dump('old search_input = ' . old('search_input'));
-    //
-    //dump('$oldRadioButton = ' . $oldRadioButton);
-    //dump('$oldSearchInput = ' . $oldSearchInput);
-
-
+    $th = 'Наценка + ' . $priceIncrease . ' %';
+    $th2 = "Регулировка $priceIncrease2 %";
 @endphp
 
 @extends('layouts.app')
@@ -176,15 +169,15 @@
             {{ Form::open(['method' => 'GET', 'route' => ['admin.items.index']]) }}
                 <div class="mb-1 radio-block d-flex justify-content-center">
                     <div class="form-check-inline custom-control custom-radio">
-                        {{ Form::radio('radio_search_by', 'title', $oldRadioButton === 'title', ['class'=>'custom-control-input', 'id' => 'title', 'required' => true]) }}
+                        {{ Form::radio('radio_search_by', 'title', $radioButton === 'title', ['class'=>'custom-control-input', 'id' => 'title', 'required' => true]) }}
                         {{ Form::label('title', 'Название', ['class' => 'custom-control-label']) }}
                     </div>
                     <div class="form-check-inline custom-control custom-radio">
-                        {{ Form::radio('radio_search_by', 'article_number', $oldRadioButton === 'article_number', ['class'=>'custom-control-input', 'id' => 'article_number']) }}
+                        {{ Form::radio('radio_search_by', 'article_number', $radioButton === 'article_number', ['class'=>'custom-control-input', 'id' => 'article_number']) }}
                         {{ Form::label('article_number', 'Артикул', ['class' => 'custom-control-label']) }}
                     </div>
                     <div class="form-check-inline custom-control custom-radio mr-0">
-                        {{ Form::radio('radio_search_by', 'category', $oldRadioButton === 'category', ['class'=>'custom-control-input', 'id' => 'category']) }}
+                        {{ Form::radio('radio_search_by', 'category', $radioButton === 'category', ['class'=>'custom-control-input', 'id' => 'category']) }}
                         {{ Form::label('category', 'Категория', ['class' => 'custom-control-label']) }}
                     </div>
                 </div>
@@ -194,8 +187,13 @@
                     </div>
                 @endif
                 <div class="input-block mt-3">
-                    {{ Form::search('search_input', old('search_input', $oldSearchInput), ['class' => 'form-control' . setIsValidField('search_input', $errors), 'id' => 'search', 'required' => true]) }}
-                    {{ Form::submit('Поиск', ['class' => 'btn btn-sm btn-primary', 'name' => 'find', 'value' => 'Find']) }}
+                    {{ Form::search('search_input', old('search_input', $searchInput), [
+                            'class' => 'form-control' . setIsValidField('search_input', $errors),
+                            'id' => 'search',
+                            'required' => false
+                        ])
+                    }}
+                    {{ Form::submit('Поиск', ['class' => 'btn btn-sm btn-primary', 'name' => 'find']) }}
                     @if ($errors->has('search_input'))
                         <span class="invalid-feedback">{!! $errors->first('search_input') !!}</span>
                     @endif
@@ -203,72 +201,100 @@
             {!! Form::close() !!}
         </div>
     </div>
+    @if($items->count() > 0)
     <div class="container mb-2">
         <a href="{{ route('admin.items.create') }}" class="btn btn-sm btn-success">Добавить</a>
     </div>
-    <table class="category-info">
-        <thead>
-        <tr>
-            <th scope="col">Фото</th>
-            <th scope="col">Название</th>
-            <th scope="col">Примечание</th>
-            <th scope="col">Артикул</th>
-            <th scope="col">Цена оригинал</th>
-            <th scope="col">{{ $th }}</th>
-            <th scope="col">Мин. заказ</th>
-            <th scope="col">Новый</th>
-            <th scope="col">Хит</th>
-            <th scope="col">Бест</th>
-            <th scope="col">Категория</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach ($items as $item)
+
+        <table class="category-info">
+            <thead>
             <tr>
-                <td data-label="Фото">
-                    <a href="{{ route('admin.items.show', $item) }}">
-                        <img
-                            src="{{ Storage::disk('uploads')->url($item->img) }}"
-                            class="img-thumbnail"
-                            alt="{{ $item->title }}"
-                        >
-                    </a>
-                </td>
-                <td data-label="Название">
-                    <a href="{{ route('admin.items.show', $item) }}">{{ $item->title }}</a>
-                </td>
-                <td data-label="Примечание">
-                    {!! $item->note ?? '&nbsp;' !!}
-                </td>
-                <td data-label="Артикул">
-                    {!! $item->article_number ?? '&nbsp;' !!}
-                </td>
-                <td data-label="Цена оригинал">
-                    {{ $item->getRawOriginal('price') }} ₽
-                </td>
-                <td data-label="{{ $th }}">
-                    {{ $item->price }} ₽
-                </td>
-                <td data-label="Мин. заказ">
-                    {!! $item->min_order_amount  ?? '&nbsp;' !!}
-                </td>
-                <td data-label="Новый">
-                    {!! $item->is_new ? '&#x2705;' : '&nbsp;' !!}
-                </td>
-                <td data-label="Хит">
-                    {!! $item->is_hit ? '&#x2705;' : '&nbsp;' !!}
-                </td>
-                <td data-label="Бест">
-                    {!! $item->is_bestseller ? '&#x2705;' : '&nbsp;' !!}
-                </td>
-                <td data-label="Категория">
-                    {{ $item->category->title }}
-                </td>
+                <th scope="col">Фото</th>
+                <th scope="col">Название</th>
+                <th scope="col">Примечание</th>
+                <th scope="col">Артикул</th>
+                <th scope="col">Цена закупки</th>
+                <th scope="col">{{ $th }}</th>
+                <th scope="col">{{ $th2 }}</th>
+                <th scope="col">Мин. заказ</th>
+                <th scope="col">Новый</th>
+                <th scope="col">Хит</th>
+                <th scope="col">Бест</th>
+                <th scope="col">Категория</th>
+                <th scope="col">Заказано</th>
+                <th scope="col">В корзине</th>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
-    <div class="pagination justify-content-center mt-3">
-        {{ $items->appends(request()->except('page'))->links() }}
-    </div>
+            </thead>
+            <tbody>
+            @foreach ($items as $item)
+                <tr>
+                    <td data-label="Фото">
+                        <a href="{{ route('admin.items.show', $item) }}">
+                            <img
+                                src="{{ Storage::disk('uploads')->url($item->img) }}"
+                                class="img-thumbnail"
+                                alt="{{ $item->title }}"
+                            >
+                        </a>
+                    </td>
+                    <td data-label="Название">
+                        <a href="{{ route('admin.items.show', $item) }}">{{ $item->title }}</a>
+                    </td>
+                    <td data-label="Примечание">
+                        {!! $item->note ?? '&nbsp;' !!}
+                    </td>
+                    <td data-label="Артикул">
+                        {!! $item->article_number ?? '&nbsp;' !!}
+                    </td>
+                    <td data-label="Цена закупки">
+                        {{ $item->getRawOriginal('price') }} ₽
+                    </td>
+{{--                    <td data-label="Цена закупки">--}}
+{{--                        {{ round(($item->getRawOriginal('price') / 100) * $priceIncrease + $item->getRawOriginal('price')) }} ₽--}}
+{{--                    </td>--}}
+                    <td data-label="{{ $th }}">
+                        {{ round(($item->getRawOriginal('price') / 100) * $priceIncrease + $item->getRawOriginal('price')) }} ₽
+                    </td>
+                    <td data-label="{{ $th2 }}">
+                        {{ $item->price }} ₽
+                    </td>
+                    <td data-label="Мин. заказ">
+                        {!! $item->min_order_amount  ?? '&nbsp;' !!}
+                    </td>
+                    <td data-label="Новый">
+                        {!! $item->is_new ? '&#x2705;' : '&nbsp;' !!}
+                    </td>
+                    <td data-label="Хит">
+                        {!! $item->is_hit ? '&#x2705;' : '&nbsp;' !!}
+                    </td>
+                    <td data-label="Бест">
+                        {!! $item->is_bestseller ? '&#x2705;' : '&nbsp;' !!}
+                    </td>
+                    <td data-label="Категория">
+                        @if($item->category)
+                            @if($item->category->deleted_at)
+                                <span style="color: red;">{{ $item->category->title }} (удалена {{ $item->category->deleted_at->format('d.m.Y') }})</span>
+                            @else
+                                <a href="{{ route('admin.categories.show', $item->category) }}">
+                                    {{ $item->category->title }}
+                                </a>
+                            @endif
+                        @endif
+                    </td>
+                    <td data-label="Заказано">
+                        {{ $item->order_items_count }}
+                    </td>
+                    <td data-label="В корзине">
+                        {{ $item->not_ordered_count }}
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+        <div class="pagination justify-content-center mt-3">
+            {{ $items->appends(request()->except('page'))->links() }}
+        </div>
+    @else
+        <p class="text-center">Нет данных для отображения.</p>
+    @endif
 @endsection

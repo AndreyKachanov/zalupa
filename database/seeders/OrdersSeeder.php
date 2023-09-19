@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin\Cart\Order\Contact;
 use App\Models\Admin\Cart\Order\Order;
+use App\Models\Admin\Cart\Order\OrderItem;
 use App\Models\Admin\Item\Item;
 use Exception;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -18,13 +18,13 @@ class OrdersSeeder extends Seeder
      */
     public function run()
     {
-        if (Order::count() != 0) {
-            throw new Exception(Order::getTableName() . ' table is not empty. Stop all seeds!!!');
+        if (OrderItem::count() != 0) {
+            throw new Exception(OrderItem::getTableName() . ' table is not empty. Stop all seeds!!!');
         }
 
-        foreach (Contact::all() as $contact) {
+        foreach (Order::all() as $contact) {
             for ($i = 0; $i <= rand(3, 10); $i++) {
-                Order::create([
+                OrderItem::create([
                     'item_id' => Item::inRandomOrder()->first()->id,
                     'cnt' => rand(1, 5),
                     'contact_id' => $contact->id

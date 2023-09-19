@@ -47,6 +47,7 @@ return new class extends Migration
      */
     public function down()
     {
+        //dd($this->tableName);
         Schema::dropIfExists($this->tableName);
     }
 };

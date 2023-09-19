@@ -3,16 +3,23 @@
 namespace App\Models\Admin\Item;
 
 use App\Models\Admin\Cart\CartItem;
-use App\Models\Admin\Cart\Order\Order;
+use App\Models\Admin\Cart\Order\OrderItem;
 use App\Models\Admin\Setting;
+use App\Services\SettingsService;
 use App\Traits\EloquentGetTableNameTrait;
+use Database\Factories\Admin\Item\ItemFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Admin\Item\Item
@@ -29,49 +36,41 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
  * @property bool $is_hit
  * @property bool $is_bestseller
  * @property int|null $category_id
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, CartItem> $cartItems
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection<int, CartItem> $cartItems
  * @property-read int|null $cart_items_count
- * @property-read \App\Models\Admin\Item\Category|null $category
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
- * @property-read int|null $orders_count
- * @method static \Database\Factories\Admin\Item\ItemFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Item findSimilarSlugs(string $attribute, array $config, string $slug)
- * @method static \Illuminate\Database\Eloquent\Builder|Item newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Item newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Item onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Item query()
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereArticleNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereCategoryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereImg($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereIsBestseller($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereIsHit($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereIsNew($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereMinOrderAmount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereNote($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Item withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Item withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
- * @method static \Illuminate\Database\Eloquent\Builder|Item withoutTrashed()
- * @property-read \Illuminate\Database\Eloquent\Collection<int, CartItem> $cartItems
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
- * @property-read \Illuminate\Database\Eloquent\Collection<int, CartItem> $cartItems
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
- * @property-read \Illuminate\Database\Eloquent\Collection<int, CartItem> $cartItems
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
- * @property-read \Illuminate\Database\Eloquent\Collection<int, CartItem> $cartItems
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
- * @property-read \Illuminate\Database\Eloquent\Collection<int, CartItem> $cartItems
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Order> $orders
- * @mixin \Eloquent
+ * @property-read Category|null $category
+ * @property-read Collection<int, OrderItem> $orderItems
+ * @property-read int|null $order_items_count
+ * @method static ItemFactory factory($count = null, $state = [])
+ * @method static Builder|Item findSimilarSlugs(string $attribute, array $config, string $slug)
+ * @method static Builder|Item newModelQuery()
+ * @method static Builder|Item newQuery()
+ * @method static Builder|Item onlyTrashed()
+ * @method static Builder|Item query()
+ * @method static Builder|Item whereArticleNumber($value)
+ * @method static Builder|Item whereCategoryId($value)
+ * @method static Builder|Item whereCreatedAt($value)
+ * @method static Builder|Item whereDeletedAt($value)
+ * @method static Builder|Item whereId($value)
+ * @method static Builder|Item whereImg($value)
+ * @method static Builder|Item whereIsBestseller($value)
+ * @method static Builder|Item whereIsHit($value)
+ * @method static Builder|Item whereIsNew($value)
+ * @method static Builder|Item whereMinOrderAmount($value)
+ * @method static Builder|Item whereNote($value)
+ * @method static Builder|Item wherePrice($value)
+ * @method static Builder|Item whereSlug($value)
+ * @method static Builder|Item whereTitle($value)
+ * @method static Builder|Item whereUpdatedAt($value)
+ * @method static Builder|Item withTrashed()
+ * @method static Builder|Item withUniqueSlugConstraints(Model $model, string $attribute, array $config, string $slug)
+ * @method static Builder|Item withoutTrashed()
+ * @property-read Collection<int, CartItem> $cartItems
+ * @property-read Collection<int, OrderItem> $orderItems
+ * @mixin Eloquent
  */
 class Item extends Model
 {
@@ -89,7 +88,7 @@ class Item extends Model
     ];
 
     /**
-     * @return \string[][]
+     * @return array[]
      */
     public function sluggable(): array
     {
@@ -100,33 +99,55 @@ class Item extends Model
         ];
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function cartItems(): HasMany
     {
-        return $this->hasMany(CartItem::class, 'item_id', 'id');
+        return $this->hasMany(CartItem::class);
     }
 
-    public function orders(): HasMany
+    /**
+     * @return HasManyThrough
+     */
+    public function orderItems(): HasManyThrough
     {
-        return $this->HasMany(Order::class);
+        return $this->hasManyThrough(OrderItem::class, CartItem::class);
     }
 
 
+    /**
+     * @return Attribute
+     */
     protected function price(): Attribute
     {
         return Attribute::make(
-            //get: fn ($value) => ($value / 100) * (int)Setting::firstWhere('prop_key', 'price_increase')->prop_value + $value
             get: function ($value) {
-                //myCacheFunction - функция кеширования, чтобы не дергалась бд много раз.
-                $priceIncrease = myCacheFunction(
-                    'price_increase',
-                    fn() => Setting::firstWhere('prop_key', 'price_increase')->prop_value
-                );
-                return round( ($value / 100) * (int)$priceIncrease + $value);
+                $priceIncrease = SettingsService::getPriceIncrease();
+                $priceIncrease2 = SettingsService::getPriceIncrease2();
+
+                //if ($priceIncrease2 !== 0 && $priceIncrease > 0) {
+                //    $operation = ($priceIncrease2 > 0) ? '+' : '-';
+                //
+                //    if ($operation === '+') {
+                //        $result = ($value / 100) * $priceIncrease + $value : $value;
+                //    }
+                //}
+
+                $result = ($value / 100) * $priceIncrease + $value;
+                //if ($priceIncrease2 > 0) {
+                    $result = ($result / 100) * $priceIncrease2 + $result;
+                //}
+                return round($result);
+                //return round( ($value / 100) * $priceIncrease + $value);
             }
         );
     }

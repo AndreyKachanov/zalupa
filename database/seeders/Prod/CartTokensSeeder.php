@@ -44,9 +44,14 @@ class CartTokensSeeder extends Seeder
             //    $table->ipAddress('ip')->nullable();
             //    $table->timestamps();
             //});
-            $tokens = Token::on('mysql_prod')->get();
+
+            $result = DB::connection('mysql_prod')->select('SELECT * FROM `carts_tokens`');
+            $tokens = json_decode(json_encode($result), true);
+            //dd($tokens[0]);
+            //$tokens = Token::on('mysql_prod')->get();
+
             foreach ($tokens as $token) {
-                $token = $token->getAttributes();
+                //$token = $token->getAttributes();
                 DB::table(Token::getTableName())->insert([
                     'id' => $token['id'],
                     'token' => $token['token'],

@@ -88,14 +88,16 @@
                         </a>&nbsp;
 
                     </div>
-                    <strong>&nbsp;{{ $category->items_count }}</strong>
+                    <a href="{{ route('admin.categories.show_items', $category) }}">
+                        <strong>&nbsp;{{ $category->items_count }}</strong>
+                    </a>
 
                 </div>
                 <div class="col-4 col-md-8 pl-0 pr-0">
                     <div class="d-flex flex-row justify-content-end align-items-center">
                         <div class="orders order-color">
-                            <a href="{{ route('admin.categories.show_orders', $category) }}" style="text-decoration: underline">
-                                {{ $category->orders_count }}
+                            <a href="{{ route('admin.categories.show_orders', $category) }}">
+                                {{ $category->order_items_count }}
                             </a>
                         </div>
                         <form method="POST" action="{{ route('admin.categories.first', $category) }}" class="mr-1">

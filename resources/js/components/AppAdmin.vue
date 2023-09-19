@@ -61,16 +61,18 @@ export default {
     }),
     computed: {
         rows() {
-            return this.category.orders.map((order, index) => {
-                const { item, contact } = order;
+            // console.log(this.category);
+            return this.category.order_items.map((element, index) => {
+                // console.log(element);
+                const { item, order } = element;
                 return {
-                    'createdAt': order.created_at,
+                    'createdAt': element.created_at,
                     'itemTitle': item.title,
                     'itemPrice': item.price,
-                    'itemCnt': order.cnt,
-                    'orderTotal': item.price * order.cnt,
-                    'contactName': contact ? contact.name : '',
-                    'contactPhone': contact ? contact.phone : ''
+                    'itemCnt': element.cnt,
+                    'orderTotal': item.price * element.cnt,
+                    'contactName': order ? order.name : '',
+                    'contactPhone': order ? order.phone : ''
                 };
             });
         },

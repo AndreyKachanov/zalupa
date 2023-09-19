@@ -144,8 +144,8 @@
                     <tr>
                         <th scope="col">Фото</th>
                         <th scope="col">Название</th>
-                        <th scope="col">Все подкатегории</th>
-                        <th scope="col">Все товары</th>
+                        <th scope="col">Кол-во подкатегорий</th>
+                        <th scope="col">Товары</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -160,20 +160,26 @@
                             <td data-label="Название">
                                 {{ $category->title }}
                             </td>
-                            <td data-label="Все подкатегории">
-                                {{ $category->descendants->count() }}
+{{--                            <td data-label="Все подкатегории">--}}
+{{--                                {{ $category->descendants->count() }}--}}
+{{--                            </td>                            --}}
+                            <td data-label="Кол-во подкатегорий">
+                                {{ $category->children_count }}
                             </td>
-                            <td data-label="Все товары">
-                                {{ $countRelatedModels }}
+                            <td data-label="Товары">
+                                <a href="{{ route('admin.categories.show_items', $category) }}">
+                                    {{ $category->items_count }}
+                                </a>
                             </td>
                         </tr>
                     </tbody>
                 </table>
         </div>
         <div class="col-12 d-flex justify-content-center mt-3">
-            <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-sm btn-primary mr-1 pl-4 pr-4">Изменить</a>
-            {{ Form::open(['method' => 'delete', 'route' => ['admin.categories.destroy', $category], 'class' => 'ml-5']) }}
-                {{ Form::submit('Удалить', ['class' => 'btn btn-sm btn-danger pl-4 pr-4'])  }}
+            <a href="{{ route('admin.items.create', ['category' => $category]) }}" class="btn btn-sm btn-success pl-3 pr-3">+ Товар</a>
+            <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-sm btn-primary mr-1 ml-3 pl-3 pr-3">Изменить</a>
+            {{ Form::open(['method' => 'delete', 'route' => ['admin.categories.destroy', $category], 'class' => 'ml-3']) }}
+                {{ Form::submit('Удалить', ['class' => 'btn btn-sm btn-danger pl-3 pr-3'])  }}
             {{ Form::close() }}
         </div>
     </div>

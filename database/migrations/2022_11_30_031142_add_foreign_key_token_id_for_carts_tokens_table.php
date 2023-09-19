@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Admin\Cart\Invoice;
+use App\Models\Admin\Cart\Token;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -8,10 +9,12 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     private $tableName;
+    private $cartTokensTableName;
 
     public function __construct()
     {
         $this->tableName = Invoice::getTableName();
+        $this->cartTokensTableName = Token::getTableName();
     }
     /**
      * Run the migrations.
@@ -27,7 +30,7 @@ return new class extends Migration
             //создаем внешний ключ для token_id поля
             $table->foreign(['token_id'], 'fk_token_invoice')
                 ->references('id')
-                ->on('carts_tokens')
+                ->on($this->cartTokensTableName)
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });

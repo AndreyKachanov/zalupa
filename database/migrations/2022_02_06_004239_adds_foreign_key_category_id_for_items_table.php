@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Admin\Item\Item;
+use App\Models\Admin\Item\Category;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -8,10 +9,12 @@ use Illuminate\Database\Migrations\Migration;
 class AddsForeignKeyCategoryIdForItemsTable extends Migration
 {
     private $itemsTableName;
+    private $itemCategoriesTableName;
 
     public function __construct()
     {
         $this->itemsTableName = Item::getTableName();
+        $this->itemCategoriesTableName = Category::getTableName();
     }
 
     /**
@@ -28,7 +31,7 @@ class AddsForeignKeyCategoryIdForItemsTable extends Migration
             //создаем внешний ключ для role_id поля
             $table->foreign(['category_id'], 'fk_category')
                 ->references('id')
-                ->on('items_categories')
+                ->on($this->itemCategoriesTableName)
                 ->onDelete('set null')
                 ->onUpdate('set null');
         });

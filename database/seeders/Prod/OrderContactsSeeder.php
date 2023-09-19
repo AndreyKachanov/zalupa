@@ -3,7 +3,7 @@
 namespace Database\Seeders\Prod;
 
 use App\Models\Admin\Cart\Invoice;
-use App\Models\Admin\Cart\Order\Contact;
+use App\Models\Admin\Cart\Order\Order;
 use Exception;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Schema\Blueprint;
@@ -46,10 +46,13 @@ class OrderContactsSeeder extends Seeder
             //        ->onUpdate('cascade');
             //});
 
-            $contacts = Contact::on('mysql_prod')->withTrashed()->get();
+            //$contacts = Contact::on('mysql_prod')->withTrashed()->get();
+            $result = DB::connection('mysql_prod')->select('SELECT * FROM `orders_contacts`');
+            $contacts = json_decode(json_encode($result), true);
+
             foreach ($contacts as $contact) {
-                $contact = $contact->getAttributes();
-                DB::table(Contact::getTableName())->insert([
+                //$contact = $contact->getAttributes();
+                DB::table(Order::getTableName())->insert([
                     'id' => $contact['id'],
                     'name' => $contact['name'],
                     'phone' => $contact['phone'],

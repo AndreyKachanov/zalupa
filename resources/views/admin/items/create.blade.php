@@ -61,7 +61,7 @@
         </div>
 
         <div class="form-group">
-            {{ Form::label('price', 'Цена (₽)*', ['class' => 'col-form-label']) }}
+            {{ Form::label('price', 'Цена закупки (₽)*', ['class' => 'col-form-label']) }}
             {{ Form::number('price', null, ['class' => 'form-control' . setIsValidField('price', $errors), 'required' => true]) }}
             @if ($errors->has('price'))
                 <span class="invalid-feedback">{!! $errors->first('price') !!}</span>
@@ -100,13 +100,9 @@
             </div>
         </div>
 
-{{--        <div class="form-group">--}}
-{{--            <nested-select :categories="{{ json_encode($categories) }}"></nested-select>--}}
-{{--        </div>--}}
-
         <div class="form-group">
             {{ Form::label('category', 'Категория*', ['class' => 'control-label']) }}
-            {{ Form::select('category', $categories, 0, ['class' => 'form-control' . setIsValidField('category', $errors), 'id' => 'category'])}}
+            {{ Form::select('category', $categories, isset($category) ? $category->id : 0, ['class' => 'form-control' . setIsValidField('category', $errors), 'id' => 'category'])}}
             @if ($errors->has('category'))
                 <span class="invalid-feedback">{!! $errors->first('category') !!}</span>
             @endif
@@ -130,5 +126,8 @@
         <div class="form-group">
             {{ Form::submit('Сохранить', ['class' => 'btn btn-primary'])  }}
         </div>
+        @if($category)
+            {!! Form::hidden('redirect_to_category', $category->id) !!}
+        @endif
     {{ Form::close() }}
 @endsection

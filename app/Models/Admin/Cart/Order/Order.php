@@ -2,41 +2,60 @@
 
 namespace App\Models\Admin\Cart\Order;
 
-use App\Models\Admin\Item\Item;
+use App\Models\Admin\Cart\Token;
 use App\Traits\EloquentGetTableNameTrait;
+use Database\Factories\Admin\Cart\Order\ContactFactory;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Carbon;
 
 
 /**
- * App\Models\Admin\Cart\Order\Order
+ * App\Models\Admin\Cart\Order\Contact
  *
  * @property int $id
- * @property int $item_id
- * @property int $cnt Количество товара
- * @property int $contact_id
- * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Admin\Cart\Order\Contact $contact
- * @property-read Item $item
- * @method static \Database\Factories\Admin\Cart\Order\OrderFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Order onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Order query()
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereCnt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereContactId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereItemId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order withTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|Order withoutTrashed()
- * @mixin \Eloquent
+ * @property string|null $name
+ * @property string|null $phone
+ * @property string|null $city
+ * @property string|null $street
+ * @property string|null $house_number
+ * @property string|null $transport_company
+ * @property int $token_id
+ * @property Carbon|null $deleted_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection<int, OrderItem> $orders
+ * @property-read int|null $orders_count
+ * @property-read Token $token
+ * @method static ContactFactory factory($count = null, $state = [])
+ * @method static Builder|Order newModelQuery()
+ * @method static Builder|Order newQuery()
+ * @method static Builder|Order onlyTrashed()
+ * @method static Builder|Order query()
+ * @method static Builder|Order whereCity($value)
+ * @method static Builder|Order whereCreatedAt($value)
+ * @method static Builder|Order whereDeletedAt($value)
+ * @method static Builder|Order whereHouseNumber($value)
+ * @method static Builder|Order whereId($value)
+ * @method static Builder|Order whereName($value)
+ * @method static Builder|Order wherePhone($value)
+ * @method static Builder|Order whereStreet($value)
+ * @method static Builder|Order whereTokenId($value)
+ * @method static Builder|Order whereTransportCompany($value)
+ * @method static Builder|Order whereUpdatedAt($value)
+ * @method static Builder|Order withTrashed()
+ * @method static Builder|Order withoutTrashed()
+ * @property-read Collection<int, \App\Models\Admin\Cart\Order\OrderItem> $orderItems
+ * @property-read int|null $order_items_count
+ * @property-read Collection<int, \App\Models\Admin\Cart\Order\OrderItem> $orderItems
+ * @property-read Collection<int, \App\Models\Admin\Cart\Order\OrderItem> $orderItems
+ * @mixin Eloquent
  */
 class Order extends Model
 {
@@ -46,18 +65,17 @@ class Order extends Model
 
     protected $table = 'orders';
     protected $guarded = ['id'];
-    protected $casts = [
-        //'created_at'  => 'datetime:d.m.Y',
-        //'created_at'  => 'datetime:Y-m-d H:m',
-    ];
 
-    public function contact(): BelongsTo
+    /**
+     * @return HasMany
+     */
+    public function orderItems(): HasMany
     {
-        return $this->belongsTo(Contact::class, 'contact_id', 'id');
+        return $this->hasMany(OrderItem::class, 'order_id', 'id');
     }
 
-    public function item(): BelongsTo
+    public function token(): BelongsTo
     {
-        return $this->belongsTo(Item::class)->withTrashed();
+        return $this->belongsTo(Token::class, 'token_id', 'id');
     }
 }

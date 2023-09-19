@@ -17,15 +17,20 @@
                         {{ Form::open(['method' => 'post', 'route' => ['admin.settings.update'], 'files' => false, 'class' => 'container']) }}
                             @foreach($settings as $setting)
                                 <div class="form-group">
+                                        @php
+                                            $isRequired = in_array($setting->prop_key, $requiredFieldsArr);
+                                            $labelTitleWithStarSymbol = $setting->title . ($isRequired ? '*' : '');
+                                        @endphp
+                                        {{ Form::label($setting->prop_key, $labelTitleWithStarSymbol, ['class' => 'col-form-label']) }}
 
                                         @php
-                                            $isRequired = in_array($setting->prop_key, $requiredFields);
-                                            $labelTitle = $setting->title . ($isRequired ? '*' : '');
+                                            $validInputTypes = ['price_increase', 'price_increase2', 'min_order_cost'];
+                                            $inputType = in_array($setting->prop_key, $validInputTypes) ? 'number' : 'text';
+                                            //$inputType = $setting->prop_key == 'price_increase' || $setting->prop_key == 'price_increase2' || $setting->prop_key == 'min_order_cost'
+                                            //? 'number'
+                                            //: 'text';
                                         @endphp
-                                        {{ Form::label($setting->prop_key, $labelTitle, ['class' => 'col-form-label']) }}
-
-                                        @php $methodName = $setting->prop_key == 'price_increase' || $setting->prop_key == 'min_order_cost' ? 'number' : 'text'; @endphp
-                                        {{ Form::{$methodName}($setting->prop_key, old($setting->prop_key, $setting->prop_value),
+                                        {{ Form::{$inputType}($setting->prop_key, old($setting->prop_key, $setting->prop_value),
                                                 [
                                                     'class' => 'form-control' . setIsValidField($setting->prop_key, $errors),
                                                     'id' => $setting->prop_key,

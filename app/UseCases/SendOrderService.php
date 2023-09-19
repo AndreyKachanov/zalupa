@@ -3,7 +3,7 @@
 namespace App\UseCases;
 
 use App\Mail\SendOrder;
-use App\Models\Admin\Cart\Order\Contact;
+use App\Models\Admin\Cart\Order\Order;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\Mail\Mailer as MailerInterface;
 use Illuminate\Support\Facades\Log;
@@ -21,14 +21,14 @@ class SendOrderService
         $this->client = $client;
     }
 
-    /**
-     * @param Contact $contact
+    /***
+     * @param Order $order
      * @return void
      */
-    public function sendEmail(Contact $contact): void
+    public function sendEmail(Order $order): void
     {
         try {
-            $this->mailer->to([config('mail.to')])->send(new SendOrder($contact));
+            $this->mailer->to([config('mail.to')])->send(new SendOrder($order));
             Log::info('Order email successfully sent to ' . config('mail.to'));
         } catch (Exception $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
@@ -36,16 +36,17 @@ class SendOrderService
         }
     }
 
+
     /**
-     * @param Contact $contact
+     * @param Order $order
      * @return void
      * @throws GuzzleException
      */
-    public function sendTelegram(Contact $contact): void
+    public function sendTelegram(Order $order): void
     {
-        $sum = $contact->orders->sum(fn($item) => $item->item->price * $item->cnt);
-        $url = route('admin.orders.show', $contact);
-        $message = 'Заказ № ' . $contact->token->invoice->bill_number . ' с сайта ' . config('app.site_short') . ' на общую сумму ' . $sum . ' руб. ' . $url;
+        $sum = $order->orderItems->sum(fn($item) => $item->item->price * $item->cnt);
+        $url = route('admin.orders.show', $order);
+        $message = 'Заказ № ' . $order->token->invoice->bill_number . ' с сайта ' . config('app.site_short') . ' на общую сумму ' . $sum . ' руб. ' . $url;
         $chatId = config('app.telegram_chat_id');
         $botToken = config('app.telegram_bot_token');
         $url = "https://api.telegram.org/bot$botToken/sendMessage";

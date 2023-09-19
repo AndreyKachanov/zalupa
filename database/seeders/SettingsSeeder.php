@@ -23,8 +23,14 @@ class SettingsSeeder extends Seeder
 
         try {
             Setting::create([
-                'title' => 'Увеличить цену на %',
+                'title' => 'Наценка (%)',
                 'prop_key' => 'price_increase',
+                'is_icon' => false,
+                'prop_value' => '0'
+            ]);
+            Setting::create([
+                'title' => 'Регулирование наценки (%)',
+                'prop_key' => 'price_increase2',
                 'is_icon' => false,
                 'prop_value' => '0'
             ]);

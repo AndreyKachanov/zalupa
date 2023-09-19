@@ -1,36 +1,35 @@
 <?php
 
 use App\Models\Admin\Cart\CartItem;
-use App\Models\Admin\Item\Item;
+use App\Models\Admin\Cart\Order\OrderItem;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+
 return new class extends Migration
 {
     private $tableName;
-    private $itemsTableName;
+    private $cartItemsTableName;
 
     public function __construct()
     {
-        $this->tableName = CartItem::getTableName();
-        $this->itemsTableName = Item::getTableName();
+        $this->tableName = OrderItem::getTableName();
+        $this->cartItemsTableName = CartItem::getTableName();
     }
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table($this->tableName, function (Blueprint $table) {
-            //создаем  индекс для item_id
-            $table->index(['item_id'], 'idx_item_id');
+            //создаем  индекс для order_id
+            $table->index(['cart_item_id'], 'idx_cart_item_id');
 
             //создаем внешний ключ для item_id поля
-            $table->foreign(['item_id'], 'fk_item')
+            $table->foreign(['cart_item_id'], 'fk_cart_item')
                 ->references('id')
-                ->on($this->itemsTableName)
+                ->on($this->cartItemsTableName)
                 ->onDelete('restrict')
                 ->onUpdate('restrict');
         });
@@ -38,15 +37,13 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table($this->tableName, function (Blueprint $table) {
-            if (Schema::hasColumn($this->tableName, 'item_id')) {
-                $table->dropForeign('fk_item');
-                $table->dropIndex('idx_item_id');
+            if (Schema::hasColumn($this->tableName, 'order_id')) {
+                $table->dropForeign('fk_cart_item');
+                $table->dropIndex('idx_cart_item_id');
             }
         });
     }
