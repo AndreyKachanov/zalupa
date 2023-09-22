@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin\Cart\Invoice;
 use App\Models\Admin\Cart\Token;
+use App\UseCases\ApiService;
 use Exception;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,21 +16,19 @@ class TokensSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(ApiService $service)
     {
         if (Token::count() != 0) {
             throw new Exception(Token::getTableName() . ' table is not empty. Stop all seeds!!!');
         }
         try {
-            Token::factory()
-                ->count(100)
-                ->create();
-            //for ( $i = 0; $i <= 50; $i++ ) {
-            //    $token = new Token();
-            //    $token->ip = '127.0.0.1';
-            //    $token->token = generateToken();
-            //    $token->save();
-            //}
+            //Category::factory()->count(2)->hasChildren(3)->hasItems(1)->create();
+            Token::factory()->count(5)->create();
+            Token::all()
+                ->each(fn($token) => Invoice::create([
+                    'bill_number' => $service->generateInvoiceNumber(),
+                    'token_id' => $token->id
+                ]));
         } catch (Exception $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new Exception($errorMsg);

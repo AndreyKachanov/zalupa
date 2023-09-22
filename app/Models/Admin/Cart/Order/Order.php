@@ -4,7 +4,7 @@ namespace App\Models\Admin\Cart\Order;
 
 use App\Models\Admin\Cart\Token;
 use App\Traits\EloquentGetTableNameTrait;
-use Database\Factories\Admin\Cart\Order\ContactFactory;
+use Database\Factories\Admin\Cart\Order\OrderFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -33,7 +33,7 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, OrderItem> $orders
  * @property-read int|null $orders_count
  * @property-read Token $token
- * @method static ContactFactory factory($count = null, $state = [])
+ * @method static OrderFactory factory($count = null, $state = [])
  * @method static Builder|Order newModelQuery()
  * @method static Builder|Order newQuery()
  * @method static Builder|Order onlyTrashed()
@@ -53,6 +53,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Order withoutTrashed()
  * @property-read Collection<int, \App\Models\Admin\Cart\Order\OrderItem> $orderItems
  * @property-read int|null $order_items_count
+ * @property-read Collection<int, \App\Models\Admin\Cart\Order\OrderItem> $orderItems
  * @property-read Collection<int, \App\Models\Admin\Cart\Order\OrderItem> $orderItems
  * @property-read Collection<int, \App\Models\Admin\Cart\Order\OrderItem> $orderItems
  * @mixin Eloquent

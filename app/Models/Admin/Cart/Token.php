@@ -53,6 +53,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read Order|null $order
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\CartItem> $cartItems
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\CartItem> $cartItems
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\CartItem> $cartItems
  * @mixin \Eloquent
  */
 class Token extends Model

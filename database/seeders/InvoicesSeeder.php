@@ -28,7 +28,7 @@ class InvoicesSeeder extends Seeder
         try {
             Token::all()
                 ->each(fn($token) => Invoice::create([
-                    'bill_number' => $this->service->getInvoiceNumber(),
+                    'bill_number' => $this->service->generateInvoiceNumber(),
                     'token_id' => $token->id
                 ]));
         } catch (Exception $e) {

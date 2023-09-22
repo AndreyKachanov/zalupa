@@ -7,6 +7,7 @@ use App\Traits\EloquentGetTableNameTrait;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -18,6 +19,7 @@ use Illuminate\Support\Carbon;
 use Kalnoy\Nestedset\Collection;
 use Kalnoy\Nestedset\NodeTrait;
 use Kalnoy\Nestedset\QueryBuilder;
+
 
 /**
  * App\Models\Admin\Item\Category
@@ -34,14 +36,16 @@ use Kalnoy\Nestedset\QueryBuilder;
  * @property Carbon|null $updated_at
  * @property-read Collection<int, Category> $children
  * @property-read int|null $children_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, Item> $items
+ * @property-read Collection<int, Category> $childrens
+ * @property-read int|null $childrens_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Item\Item> $items
  * @property-read int|null $items_count
- * @property-read Item|null $latestContact
- * @property-read Item|null $mostPrice
- * @property-read Item|null $mostPriceArticleNumber
- * @property-read Item|null $oldestContact
- * @property-read \Illuminate\Database\Eloquent\Collection<int, OrderItem> $orders
- * @property-read int|null $orders_count
+ * @property-read \App\Models\Admin\Item\Item|null $latestContact
+ * @property-read \App\Models\Admin\Item\Item|null $mostPrice
+ * @property-read \App\Models\Admin\Item\Item|null $mostPriceArticleNumber
+ * @property-read \App\Models\Admin\Item\Item|null $oldestContact
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, OrderItem> $orderItems
+ * @property-read int|null $order_items_count
  * @property-read Category|null $parent
  * @method static Collection<int, static> all($columns = ['*'])
  * @method static QueryBuilder|Category ancestorsAndSelf($id, array $columns = [])
@@ -52,6 +56,7 @@ use Kalnoy\Nestedset\QueryBuilder;
  * @method static QueryBuilder|Category defaultOrder(string $dir = 'asc')
  * @method static QueryBuilder|Category descendantsAndSelf($id, array $columns = [])
  * @method static QueryBuilder|Category descendantsOf($id, array $columns = [], $andSelf = false)
+ * @method static \Database\Factories\Admin\Item\CategoryFactory factory($count = null, $state = [])
  * @method static QueryBuilder|Category findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static QueryBuilder|Category fixSubtree($root)
  * @method static QueryBuilder|Category fixTree($root = null)
@@ -99,41 +104,16 @@ use Kalnoy\Nestedset\QueryBuilder;
  * @method static QueryBuilder|Category whereUpdatedAt($value)
  * @method static QueryBuilder|Category withDepth(string $as = 'depth')
  * @method static Builder|Category withTrashed()
- * @method static QueryBuilder|Category withUniqueSlugConstraints(Model $model, string $attribute, array $config, string $slug)
+ * @method static QueryBuilder|Category withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
  * @method static QueryBuilder|Category withoutRoot()
  * @method static Builder|Category withoutTrashed()
- * @property-read Collection<int, Category> $children
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Item\Item> $items
- * @property-read \Illuminate\Database\Eloquent\Collection<int, OrderItem> $orderItems
- * @property-read int|null $order_items_count
- * @method static Collection<int, static> all($columns = ['*'])
- * @method static Collection<int, static> get($columns = ['*'])
- * @property-read Collection<int, Category> $children
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Item\Item> $items
- * @property-read \Illuminate\Database\Eloquent\Collection<int, OrderItem> $orderItems
- * @method static Collection<int, static> all($columns = ['*'])
- * @method static Collection<int, static> get($columns = ['*'])
- * @property-read Collection<int, Category> $children
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Item\Item> $items
- * @property-read \Illuminate\Database\Eloquent\Collection<int, OrderItem> $orderItems
- * @method static Collection<int, static> all($columns = ['*'])
- * @method static Collection<int, static> get($columns = ['*'])
- * @property-read Collection<int, Category> $children
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Item\Item> $items
- * @property-read \Illuminate\Database\Eloquent\Collection<int, OrderItem> $orderItems
- * @method static Collection<int, static> all($columns = ['*'])
- * @method static Collection<int, static> get($columns = ['*'])
- * @property-read Collection<int, Category> $children
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Item\Item> $items
- * @property-read \Illuminate\Database\Eloquent\Collection<int, OrderItem> $orderItems
- * @method static Collection<int, static> all($columns = ['*'])
- * @method static Collection<int, static> get($columns = ['*'])
  * @mixin Eloquent
  */
 class Category extends Model
 {
     use EloquentGetTableNameTrait;
     use SoftDeletes;
+    use HasFactory;
     //use Sluggable;
     //use HasRecursiveRelationships;
     //use NodeTrait;

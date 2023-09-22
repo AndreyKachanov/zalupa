@@ -24,8 +24,8 @@ return new class extends Migration
         if (!Schema::hasTable($this->tableName)) {
             Schema::create($this->tableName, function (Blueprint $table) {
                 $table->smallIncrements('id');
-                $table->unsignedSmallInteger('token_id');
-                $table->unsignedSmallInteger('item_id');
+                $table->unsignedSmallInteger('token_id')->nullable();
+                $table->unsignedSmallInteger('item_id')->nullable();
                 $table->unsignedSmallInteger('cnt')->comment('Количество товара');
                 $table->timestamps();
                 $table->softDeletes();

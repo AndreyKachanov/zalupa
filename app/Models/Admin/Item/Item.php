@@ -70,6 +70,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Item withoutTrashed()
  * @property-read Collection<int, CartItem> $cartItems
  * @property-read Collection<int, OrderItem> $orderItems
+ * @property-read Collection<int, CartItem> $cartItems
+ * @property-read Collection<int, OrderItem> $orderItems
  * @mixin Eloquent
  */
 class Item extends Model

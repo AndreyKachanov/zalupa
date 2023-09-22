@@ -231,10 +231,19 @@
                     <td data-label="Фото">
                         <a href="{{ route('admin.items.show', $item) }}">
                             <img
-                                src="{{ Storage::disk('uploads')->url($item->img) }}"
-                                class="img-thumbnail"
+                                style="width: 60px;"
+                                src="{{ is_null($item->img)
+                                            ?  asset('/assets/no-image.png')
+                                            : Storage::disk('uploads')->url($item->img)
+                                      }}"
                                 alt="{{ $item->title }}"
+                                title="{{ is_null($item->img) ? 'no-image' : $item->title }}"
                             >
+{{--                            <img--}}
+{{--                                src="{{ Storage::disk('uploads')->url($item->img) }}"--}}
+{{--                                class="img-thumbnail"--}}
+{{--                                alt="{{ $item->title }}"--}}
+{{--                            >--}}
                         </a>
                     </td>
                     <td data-label="Название">

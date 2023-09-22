@@ -22,12 +22,12 @@ class OrdersSeeder extends Seeder
             throw new Exception(OrderItem::getTableName() . ' table is not empty. Stop all seeds!!!');
         }
 
-        foreach (Order::all() as $contact) {
+        foreach (Order::all() as $order) {
             for ($i = 0; $i <= rand(3, 10); $i++) {
                 OrderItem::create([
                     'item_id' => Item::inRandomOrder()->first()->id,
                     'cnt' => rand(1, 5),
-                    'contact_id' => $contact->id
+                    'order_id' => $order->id
                 ]);
             }
         }

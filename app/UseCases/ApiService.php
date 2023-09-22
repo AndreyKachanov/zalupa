@@ -19,7 +19,7 @@ class ApiService
     /**
      * @return string
      */
-    public function getInvoiceNumber(): string
+    public function generateInvoiceNumber(): string
     {
         return date('Y') . '-' . str_pad(Invoice::max('id') * 33, 6, '0', STR_PAD_LEFT);
     }
@@ -73,7 +73,7 @@ class ApiService
     {
         return !$token->invoice
             ? Invoice::create([
-                'bill_number' => $this->getInvoiceNumber(),
+                'bill_number' => $this->generateInvoiceNumber(),
                 'token_id' => $token->id
             ])
             : $token->invoice;

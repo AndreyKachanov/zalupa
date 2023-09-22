@@ -26,11 +26,14 @@ class OrderContactsSeeder extends Seeder
         }
 
         try {
-            for ($i = 1; $i <= 100; $i++) {
-                $ordersCnt = rand(1, 10);
-                $token = Token::factory()->create();
-                Order::factory()->hasOrders($ordersCnt)->for($token)->count(1)->create();
-            }
+
+            //Token::factory()->count(10)->create();
+
+            //for ($i = 1; $i <= 100; $i++) {
+                //$ordersCnt = rand(1, 10);
+                Token::factory()->count(1000)->create();
+                //Order::factory()->for($token)->count(1)->create();
+            //}
             //Contact::factory()
             //    ->hasOrders(5)
             //    //->for($token)

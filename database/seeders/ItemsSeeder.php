@@ -47,6 +47,7 @@ class ItemsSeeder extends Seeder
                         'slug' => $item->slug,
                         'article_number' => $item->article_number,
                         'price' => $item->price,
+                        'min_order_amount' => $item->min_order_amount,
                         'img' => $item->img,
                         'is_new' => $item->is_new,
                         'is_hit' => $item->is_hit,

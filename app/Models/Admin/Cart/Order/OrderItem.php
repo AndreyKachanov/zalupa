@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Admin\Cart\Order\Order $contact
  * @property-read Item $item
- * @method static \Database\Factories\Admin\Cart\Order\OrderFactory factory($count = null, $state = [])
+ * @method static \Database\Factories\Admin\Cart\Order\OrderItemFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|OrderItem onlyTrashed()

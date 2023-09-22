@@ -28,15 +28,22 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionsTableSeeder::class);
         $this->call(PermissionRolesTableSeeder::class);
         //
-        $this->call(ItemsCategorySeeder::class);
+        //$this->call(ItemsCategorySeeder::class);
+        $this->call(SettingsSeeder::class);
+        $this->call(ItemsCategorySeederFactory::class);
+        //$this->call(TokensSeeder::class);
+
+
         //$this->call(ItemsSeederNew::class);
-        $this->call(ItemsSeeder::class);
+
+        //$this->call(ItemsSeeder::class);
 
 
         $this->call(OrderContactsSeeder::class);
-        $this->call(InvoicesSeeder::class);
 
-        $this->call(SettingsSeeder::class);
+        //$this->call(OrdersSeeder::class);
+        //$this->call(InvoicesSeeder::class);
+
 
     }
 }
