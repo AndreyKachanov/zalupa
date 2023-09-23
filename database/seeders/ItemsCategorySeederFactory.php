@@ -6,6 +6,7 @@ use App\Models\Admin\Item\Category;
 use App\Models\Admin\Item\Item;
 use Exception;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class ItemsCategorySeederFactory extends Seeder
 {
@@ -18,13 +19,18 @@ class ItemsCategorySeederFactory extends Seeder
             throw new Exception(Category::getTableName() . ' table is not empty. Stop all seeds!!!');
         }
 
+        Storage::disk('uploads')->deleteDirectory('categories');
+        Storage::disk('uploads')->deleteDirectory('items');
+        Storage::disk('uploads')->createDirectory('categories');
+        Storage::disk('uploads')->createDirectory('items');
+
         try {
             //Category::factory()->count(2)->hasChildren(3)->hasItems(1)->create();
 
             // Создаем родительскую категорию и дочерние категории
             $randomCount = random_int(3, 7);
             //Category::factory()->count(10)->hasChildren(2)->create();
-            Category::factory()->count(10)->hasChildren(1)->create()->each(function ($parentCategory) {
+            Category::factory()->count(30)->hasChildren($randomCount)->create()->each(function ($parentCategory) {
 
                 // Создаем элементы items для родительской категории
                 Item::factory()->count(5)->create([
@@ -33,7 +39,7 @@ class ItemsCategorySeederFactory extends Seeder
                 //
                 // Создаем элементы items для дочерних категорий
                 $parentCategory->children()->each(function ($childCategory) {
-                    Item::factory()->count(2)->create([
+                    Item::factory()->count(20)->create([
                         'category_id' => $childCategory->id,
                     ]);
                 });
