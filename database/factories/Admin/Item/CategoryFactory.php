@@ -300,18 +300,11 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        //dump($this->categories);
-        if (count($this->categories) === 0) {
-            dd('!stop Категории закончились');
-        }
 
         // Выберите случайное название из массива
         $randomIndex = array_rand($this->categories);
         $title = $this->categories[$randomIndex];
 
-        // Удалите выбранное название из массива
-        unset($this->categories[$randomIndex]);
-        $this->categories = array_values($this->categories); // Переиндексируйте массив
 
         //$randomCount = random_int(2, 3);
         return [

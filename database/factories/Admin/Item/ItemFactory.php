@@ -410,19 +410,9 @@ class ItemFactory extends Factory
      */
     public function definition()
     {
-        //dump($this->items);
-        if (count($this->items) === 0) {
-            dd('!stop Items закончились');
-        }
-
         // Выберите случайное название из массива
         $randomIndex = array_rand($this->items);
         $title = $this->items[$randomIndex];
-
-        // Удалите выбранное название из массива
-        unset($this->items[$randomIndex]);
-        $this->items = array_values($this->items); // Переиндексируйте массив
-
 
         $randomCountSymbols = random_int(10, 40);
         return [

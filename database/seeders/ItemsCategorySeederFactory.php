@@ -21,6 +21,7 @@ class ItemsCategorySeederFactory extends Seeder
 
         Storage::disk('uploads')->deleteDirectory('categories');
         Storage::disk('uploads')->deleteDirectory('items');
+        
         Storage::disk('uploads')->createDirectory('categories');
         Storage::disk('uploads')->createDirectory('items');
 
@@ -30,16 +31,17 @@ class ItemsCategorySeederFactory extends Seeder
             // Создаем родительскую категорию и дочерние категории
             $randomCount = random_int(3, 7);
             //Category::factory()->count(10)->hasChildren(2)->create();
-            Category::factory()->count(30)->hasChildren($randomCount)->create()->each(function ($parentCategory) {
+            Category::factory()->count(10)->hasChildren($randomCount)->create()->each(function ($parentCategory) {
 
                 // Создаем элементы items для родительской категории
-                Item::factory()->count(5)->create([
+                Item::factory()->count(10)->create([
                     'category_id' => $parentCategory->id,
                 ]);
+                dump('new');
                 //
                 // Создаем элементы items для дочерних категорий
                 $parentCategory->children()->each(function ($childCategory) {
-                    Item::factory()->count(20)->create([
+                    Item::factory()->count(15)->create([
                         'category_id' => $childCategory->id,
                     ]);
                 });

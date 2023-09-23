@@ -59,11 +59,10 @@ class TokenFactory extends Factory
 
             //if ($this->faker->boolean(30)) { // 30% вероятность создания CartItem
             if ($this->faker->boolean(30)) {
-                $randomCount = random_int(1, 10);
+                $randomCount = random_int(1, 30);
                 CartItem::factory()
                     ->count($randomCount)
                     ->create(['token_id' => $token->id]);
-
 
                 // Случайным образом определяем, создавать ли Order
                 if ($this->faker->boolean(50)) { // 50% вероятность создания Order
@@ -72,8 +71,6 @@ class TokenFactory extends Factory
                         ->create(['token_id' => $token->id]);
                 }
             }
-
-
         });
     }
 }
