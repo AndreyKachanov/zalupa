@@ -21,7 +21,7 @@ class ItemsCategorySeederFactory extends Seeder
 
         Storage::disk('uploads')->deleteDirectory('categories');
         Storage::disk('uploads')->deleteDirectory('items');
-        
+
         Storage::disk('uploads')->createDirectory('categories');
         Storage::disk('uploads')->createDirectory('items');
 
