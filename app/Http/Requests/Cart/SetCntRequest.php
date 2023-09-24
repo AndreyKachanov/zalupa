@@ -32,9 +32,12 @@ class SetCntRequest extends FormRequest
      */
     public function rules(): array
     {
+        $cartTokensTableName = Token::getTableName();
+        $itemsTableName = Item::getTableName();
+
         return [
-            'token' => 'required|size:32|exists:carts_tokens,token',
-            'id' => 'required|exists:items,id',
+            'token' => "required|size:32|exists:$cartTokensTableName,token",
+            'id' => "required|exists:$itemsTableName,id",
             'cnt' => 'required|integer|min:1|max:65535',
         ];
     }

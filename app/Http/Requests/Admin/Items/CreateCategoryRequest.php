@@ -25,9 +25,10 @@ class CreateCategoryRequest extends FormRequest
      */
     public function rules()
     {
+        $itemCategoriesTableName = Category::getTableName();
         $rules = [
             'title' => 'required|string|max:255',
-            'parent' => 'nullable|exists:items_categories,id',
+            'parent' => "nullable|exists:$itemCategoriesTableName,id",
             'img' => 'mimes:jpg,png,jpeg,gif,svg'
         ];
 
@@ -35,7 +36,7 @@ class CreateCategoryRequest extends FormRequest
         if ($this->getMethod() === 'PUT') {
             $rules['parent'] = [
                 'nullable',
-                'exists:items_categories,id',
+                "exists:$itemCategoriesTableName,id",
                 function ($attribute, $value, $fail) {
                     $currentCat = $this->route('category');
                     $selectCat = Category::find($value);

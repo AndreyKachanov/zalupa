@@ -30,6 +30,8 @@ class StoreOrderRequest extends FormRequest
     public function rules()
     {
         try {
+            $cartTokensTableName = Token::getTableName();
+
             return [
                 'name' => 'required|string|max:255',
                 'phone' => 'required|string|max:255',
@@ -37,7 +39,7 @@ class StoreOrderRequest extends FormRequest
                 'street' => 'required|string|max:255',
                 'house_number' => 'required|string|max:255',
                 'transport_company' => 'required|string|max:255',
-                'token' => 'required|size:32|exists:carts_tokens,token',
+                'token' => "required|size:32|exists:$cartTokensTableName,token",
                 'items' => [
                     'required',
                     'array',

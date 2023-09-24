@@ -44,6 +44,7 @@ class ApiController extends Controller
         $this->service = $service;
         $this->sendOrderService = $sendOrderService;
         $this->cartTokensTableName = Token::getTableName();
+        $this->itemsTableName = Item::getTableName();
     }
 
     /**
@@ -136,7 +137,7 @@ class ApiController extends Controller
         try {
             $request->validate([
                 'token' => "required|size:32|exists:$this->cartTokensTableName,token",
-                'id'    => "required|exists:items,id",
+                'id'    => "required|exists:$this->itemsTableName,id",
                 'cnt'   => 'required|integer|min:1|max:65535',
             ]);
 
@@ -160,7 +161,7 @@ class ApiController extends Controller
         try {
             $request->validate([
                 'token' => "required|size:32|exists:$this->cartTokensTableName,token",
-                'id'    => 'required|exists:items,id'
+                'id'    => "required|exists:$this->itemsTableName,id"
             ]);
             $token = Token::firstWhere('token', $request->get('token'));
             $item = Item::firstWhere('id', $request->get('id'));
@@ -181,7 +182,7 @@ class ApiController extends Controller
         try {
             $request->validate([
                 'token' => "required|size:32|exists:$this->cartTokensTableName,token",
-                'id'    => 'required|exists:items,id',
+                'id'    => "required|exists:$this->itemsTableName,id",
                 'cnt'   => 'required|integer|min:1|max:65535',
             ]);
 
