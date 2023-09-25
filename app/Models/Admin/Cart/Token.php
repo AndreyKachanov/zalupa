@@ -74,6 +74,19 @@ class Token extends Model
         'last_visit' => 'datetime',
     ];
 
+
+    /**
+     * @param $value
+     * @return mixed
+     */
+    public function getIpInfoAttribute($value)
+    {
+        //dump($value);
+        if ($value !== null) {
+            return unserialize($value);
+        }
+    }
+
     /**
      * @return HasMany
      */

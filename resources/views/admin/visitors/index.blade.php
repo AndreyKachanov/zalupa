@@ -191,11 +191,10 @@
         </thead>
         <tbody>
         @foreach ($tokens as $token)
-{{--            @dd($token->created_at, $token->last_visit->format('d.m.Y H:i'))--}}
             <tr>
                 <td data-label="Дата первого входа"> {{ $token->created_at->format('d.m.Y H:i:s') }}</td>
                 <td data-label="Дата последнего входа">
-                    {!! is_null($token->last_visit) ? '&nbsp;' : $token->last_visit->format('d.m.Y H:i:s') !!}
+                    {!! is_null($token->last_visit) ? '&nbsp;' : $token->last_visit !!}
                 </td>
                 <td data-label="Кол-во посещений">
                     {!! is_null($token->visits_count) ? '&nbsp;' : $token->visits_count !!}
@@ -207,10 +206,8 @@
                 <td data-label="Город">
                     @if(isset($token->ip_info['flag']))
                         <img style="width: 15px" src="{{ $token->ip_info['flag']['img'] }}" alt="Flag" class="flag-icon">
-                        {!! is_null($token->ip_info) ? '&nbsp;' : $token->ip_info['city'] ?? '' !!}
-                    @else
-                        {!! '&nbsp;' !!}
                     @endif
+                    {!! is_null($token->ip_info) ? '&nbsp;' : $token->ip_info['city'] ?? '&nbsp;' !!}
                 </td>
                 <td data-label="Девайс">
                     {!! is_null($token->device) ? '&nbsp;' : $token->device !!}
