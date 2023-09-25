@@ -41,6 +41,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder|CartItem withTrashed()
  * @method static Builder|CartItem withoutTrashed()
  * @property-read OrderItem|null $orderItem
+ * @method static \Database\Factories\Admin\Cart\CartItemFactory factory($count = null, $state = [])
  * @mixin Eloquent
  */
 class CartItem extends Model

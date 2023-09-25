@@ -107,6 +107,8 @@ use Kalnoy\Nestedset\QueryBuilder;
  * @method static QueryBuilder|Category withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
  * @method static QueryBuilder|Category withoutRoot()
  * @method static Builder|Category withoutTrashed()
+ * @method static Collection<int, static> all($columns = ['*'])
+ * @method static Collection<int, static> get($columns = ['*'])
  * @mixin Eloquent
  */
 class Category extends Model

@@ -23,6 +23,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\ValidationException;
 
@@ -76,17 +78,19 @@ class ApiController extends Controller
             //Если токен есть
             if (!$tokenIsNull) {
                 $oldToken = Token::with([
-                    'order.orderItems',
+                    'orderItems',
                     'cartItems' => fn ($query /** @var CartItem $query */) => $query->select(['token_id', 'item_id as id', 'cnt'])->whereHas('item'),
                 ])->firstWhere('token', $oldTokenString);
+
+                //$oldToken->increment('visits_count');
 
                 //DB::enableQueryLog();
 
                 //Если заказ уже выполнен - кидаем исключение, чтобы не "подсмотрели" заказ через адресную строку
-                if ($oldToken->contact !== null && $oldToken->contact->orders->isNotEmpty()) {
+                if ($oldToken->orderItems()->count() > 0) {
                     throw new MyHttpResponseException(
                         'Validation error',
-                        '$oldToken->contact !== null && $oldToken->contact->orders->isNotEmpty()',
+                        '$oldToken->order !== null && $oldToken->order->orderItems->isNotEmpty()',
                         422
                     );
                     //dd(DB::getQueryLog(), $res);
@@ -118,6 +122,13 @@ class ApiController extends Controller
                 //возвращаем старый или новый токен
                 'token' => !$tokenIsNull ? $oldTokenString : $this->service->generateNewToken($request),
             ];
+
+            //Обновляем 'время последнего визита и кол-во посещений'
+
+            $token = Token::firstWhere('token', $json['token']);
+            $token->update(['last_visit' => Carbon::now()]);
+            $token->increment('visits_count');
+
             //dd(DB::getQueryLog());
 
             return response()->json($json);

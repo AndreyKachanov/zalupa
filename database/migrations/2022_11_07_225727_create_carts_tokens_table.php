@@ -35,6 +35,8 @@ return new class extends Migration
                 $table->boolean('is_tablet')->default(false);
                 $table->boolean('is_desktop')->default(false);
                 $table->boolean('is_robot')->default(false);
+                $table->integer('visits_count')->default(0);
+                $table->timestamp('last_visit')->nullable();
                 $table->timestamps();
             });
         }

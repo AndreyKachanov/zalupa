@@ -175,6 +175,8 @@
         <thead>
         <tr>
             <th scope="col">Дата первого входа</th>
+            <th scope="col">Дата последнего входа</th>
+            <th scope="col">Кол-во посещений</th>
             <th scope="col">Робот</th>
             <th scope="col">Ip адрес</th>
             <th scope="col">Город</th>
@@ -189,8 +191,15 @@
         </thead>
         <tbody>
         @foreach ($tokens as $token)
+{{--            @dd($token->created_at, $token->last_visit->format('d.m.Y H:i'))--}}
             <tr>
-                <td data-label="Дата первого входа"> {{ $token->created_at->format('d.m.Y H:i') }}</td>
+                <td data-label="Дата первого входа"> {{ $token->created_at->format('d.m.Y H:i:s') }}</td>
+                <td data-label="Дата последнего входа">
+                    {!! is_null($token->last_visit) ? '&nbsp;' : $token->last_visit->format('d.m.Y H:i:s') !!}
+                </td>
+                <td data-label="Кол-во посещений">
+                    {!! is_null($token->visits_count) ? '&nbsp;' : $token->visits_count !!}
+                </td>
                 <td data-label="Робот">{!! $token->is_robot ? '&#x2705;' : '&nbsp;' !!}</td>
                 <td data-label="Ip адрес">
                     {{ filter_var($token->ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) ? 'ipv6' : $token->ip }}
@@ -198,8 +207,10 @@
                 <td data-label="Город">
                     @if(isset($token->ip_info['flag']))
                         <img style="width: 15px" src="{{ $token->ip_info['flag']['img'] }}" alt="Flag" class="flag-icon">
+                        {!! is_null($token->ip_info) ? '&nbsp;' : $token->ip_info['city'] ?? '' !!}
+                    @else
+                        {!! '&nbsp;' !!}
                     @endif
-                    {!! is_null($token->ip_info) ? '&nbsp;' : $token->ip_info['city'] ?? '' !!}
                 </td>
                 <td data-label="Девайс">
                     {!! is_null($token->device) ? '&nbsp;' : $token->device !!}

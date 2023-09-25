@@ -3,6 +3,7 @@
 namespace App\Models\Admin\Cart;
 
 use App\Models\Admin\Cart\Order\Order;
+use App\Models\Admin\Cart\Order\OrderItem;
 use App\Traits\EloquentGetTableNameTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -54,6 +55,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\CartItem> $cartItems
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\CartItem> $cartItems
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Admin\Cart\CartItem> $cartItems
+ * @property int $visits_count
+ * @property \Illuminate\Support\Carbon|null $last_visit
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, OrderItem> $orderItems
+ * @property-read int|null $order_items_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereLastVisit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Token whereVisitsCount($value)
  * @mixin \Eloquent
  */
 class Token extends Model
@@ -63,18 +70,9 @@ class Token extends Model
 
     protected $table = 'cart_tokens';
     protected $guarded = ['id'];
-
-    /**
-     * @param $value
-     * @return mixed
-     */
-    public function getIpInfoAttribute($value)
-    {
-        //dump($value);
-        if ($value !== null) {
-            return unserialize($value);
-        }
-    }
+    protected $casts = [
+        'last_visit' => 'datetime',
+    ];
 
     /**
      * @return HasMany
@@ -98,5 +96,13 @@ class Token extends Model
     public function order(): HasOne
     {
         return $this->hasOne(Order::class, 'token_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function orderItems()
+    {
+        return $this->hasManyThrough(OrderItem::class, CartItem::class);
     }
 }
