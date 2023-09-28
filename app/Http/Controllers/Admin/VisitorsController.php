@@ -18,22 +18,9 @@ class VisitorsController extends Controller
     {
         $tokens = Token::orderByDesc('created_at')
             ->paginate(config('app.pagination_default_value'));
-
         $countAllUsers = Token::count();
-        $minDate = Token::select('created_at')->where('is_mobile', true)
-            ->orWhere('is_desktop', true)
-            ->orderBy('created_at')
-            ->value('created_at');
-
-        if ($minDate !== null) {
-            $countMobileUsers = Token::where('is_mobile', true)->count();
-            $countDesktopUsers = Token::where('is_desktop', true)->count();
-            $diffInDays = Carbon::now()->diffInDays($minDate);
-            $data = compact('tokens', 'countMobileUsers', 'countDesktopUsers', 'countAllUsers', 'minDate', 'diffInDays');
-        } else {
-            $data = compact('tokens', 'countAllUsers');
-        }
-
-        return view('admin.visitors.index', $data);
+        $countMobileUsers = Token::where('is_mobile', true)->count();
+        $countDesktopUsers = Token::where('is_desktop', true)->count();
+        return view('admin.visitors.index', compact('tokens', 'countMobileUsers', 'countDesktopUsers', 'countAllUsers'));
     }
 }

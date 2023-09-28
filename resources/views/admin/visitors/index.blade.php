@@ -159,17 +159,17 @@
 
     <table class="bottom">
         <caption>
-            <h2 class="text-center">Посетители</h2>
-            @isset($minDate)
+{{--            <h2 class="text-center">Посетители</h2>--}}
+{{--            @isset($minDate)--}}
                 <fieldset>
                     <legend>
-                        С {{ $minDate->format('d.m.Y') }}. За {{ $diffInDays . ' ' . Lang::choice('день|дня|дней', $diffInDays) }}
+                        <h2>Посетители</h2>
                     </legend>
                     <p>Мобильник - <strong>{{ $countMobileUsers }}</strong></p>
                     <p>Десктоп - <strong>{{ $countDesktopUsers }}</strong></p>
                 </fieldset>
-            @endisset
-            <p>Всего - <strong>{{$countAllUsers }}</strong></p>
+{{--            @endisset--}}
+            <p>Всего - <strong>{{ $countAllUsers }}</strong></p>
         </caption>
 
         <thead>
@@ -194,7 +194,7 @@
             <tr>
                 <td data-label="Дата первого входа"> {{ $token->created_at->format('d.m.Y H:i:s') }}</td>
                 <td data-label="Дата последнего входа">
-                    {!! is_null($token->last_visit) ? '&nbsp;' : $token->last_visit !!}
+                    {!! is_null($token->last_visit) ? '&nbsp;' : $token->last_visit->format('d.m.Y H:i:s') !!}
                 </td>
                 <td data-label="Кол-во посещений">
                     {!! is_null($token->visits_count) ? '&nbsp;' : $token->visits_count !!}
