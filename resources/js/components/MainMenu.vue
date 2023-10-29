@@ -89,7 +89,7 @@
                     border-radius: 12px;
                     text-align: center;
                     color: #000;
-                    padding: 5px;
+                    padding: 15px 15px 5px 15px;
 
                     &:hover {
                         text-decoration: none;
@@ -110,13 +110,14 @@
                             }
 
                             @include media-breakpoint-down(sm) {
-                                width: 97px;
+                                width: 75px;
                             }
                         }
 
                     }
 
                     .label-block {
+                        margin-top: 5px;
                         display: flex;
                         height: inherit;
                         align-items: center;
@@ -132,7 +133,7 @@
                         font-weight: bold;
                         margin-bottom: 0;
                         @include media-breakpoint-down(xs) {
-                            font-size: 13px;
+                            font-size: 11px;
                         }
                         &:hover {
                             color: #1b1e21;
