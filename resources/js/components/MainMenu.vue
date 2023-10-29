@@ -59,7 +59,7 @@
             padding: 0;
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-around;
             //align-items: stretch;
             gap: .5rem;
 
@@ -89,7 +89,7 @@
                     border-radius: 12px;
                     text-align: center;
                     color: #000;
-                    padding: 15px 15px 5px 15px;
+                    padding: 15px 13px 5px 13px;
 
                     &:hover {
                         text-decoration: none;
@@ -110,7 +110,7 @@
                             }
 
                             @include media-breakpoint-down(sm) {
-                                width: 75px;
+                                width: 81px;
                             }
                         }
 
