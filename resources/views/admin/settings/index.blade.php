@@ -24,7 +24,7 @@
                                         {{ Form::label($setting->prop_key, $labelTitleWithStarSymbol, ['class' => 'col-form-label']) }}
 
                                         @php
-                                            $validInputTypes = ['price_increase', 'price_increase2', 'min_order_cost'];
+                                            $validInputTypes = ['price_increase', 'min_order_cost'];
                                             $inputType = in_array($setting->prop_key, $validInputTypes) ? 'number' : 'text';
                                             //$inputType = $setting->prop_key == 'price_increase' || $setting->prop_key == 'price_increase2' || $setting->prop_key == 'min_order_cost'
                                             //? 'number'

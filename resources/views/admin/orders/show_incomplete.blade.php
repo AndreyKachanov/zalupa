@@ -249,7 +249,9 @@
                             @if($cartItem->item->category->deleted_at)
                                 <span style="color: red;">{{ $cartItem->item->category->title }} (удалена {{ $cartItem->item->category->deleted_at->format('d.m.Y') }})</span>
                             @else
-                                {{ $cartItem->item->category->title }}
+                                <a href="{{ route('admin.categories.show', $cartItem->item->category) }}">
+                                    {{ $cartItem->item->category->title }}
+                                </a>
                             @endif
                         </td>
                 </tr>

@@ -253,7 +253,9 @@
                         @if($orderItem->item->category->deleted_at)
                             <span style="color: red;">{{ $orderItem->item->category->title }} (удалена {{ $orderItem->item->category->deleted_at->format('d.m.Y') }})</span>
                         @else
-                            {{ $orderItem->item->category->title }}
+                            <a href="{{ route('admin.categories.show', $orderItem->item->category) }}">
+                                {{ $orderItem->item->category->title }}
+                            </a>
                         @endif
                     </td>
                 </tr>

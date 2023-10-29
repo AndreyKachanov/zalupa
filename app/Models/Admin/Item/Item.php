@@ -125,7 +125,6 @@ class Item extends Model
         return $this->hasManyThrough(OrderItem::class, CartItem::class);
     }
 
-
     /**
      * @return Attribute
      */
@@ -134,22 +133,8 @@ class Item extends Model
         return Attribute::make(
             get: function ($value) {
                 $priceIncrease = SettingsService::getPriceIncrease();
-                $priceIncrease2 = SettingsService::getPriceIncrease2();
-
-                //if ($priceIncrease2 !== 0 && $priceIncrease > 0) {
-                //    $operation = ($priceIncrease2 > 0) ? '+' : '-';
-                //
-                //    if ($operation === '+') {
-                //        $result = ($value / 100) * $priceIncrease + $value : $value;
-                //    }
-                //}
-
-                $result = ($value / 100) * $priceIncrease + $value;
-                //if ($priceIncrease2 > 0) {
-                    $result = ($result / 100) * $priceIncrease2 + $result;
-                //}
-                return round($result);
-                //return round( ($value / 100) * $priceIncrease + $value);
+                $result = round( ($value / 100) * $priceIncrease + $value);
+                return $result;
             }
         );
     }

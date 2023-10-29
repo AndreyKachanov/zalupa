@@ -18,7 +18,9 @@
                         <div class="img-container">
                             <img :src="getImg(category)" class="img-responsive" alt="">
                         </div>
-                        <label>{{ category.title }}</label>
+                        <div class="label-block">
+                            <label>{{ category.title }}</label>
+                        </div>
                     </a>
                 </li>
             </router-link>
@@ -67,33 +69,38 @@
                 //    flex: 0 0 calc(40% - 20px);
                 //}
                 list-style: none;
-                height: 260px;
+                //height: 260px;
                 @include media-breakpoint-down(md) {
-                    height: 210px;
+                    //height: 210px;
                 }
                 @include media-breakpoint-down(sm) {
-                    height: 200px;
+                    //height: 200px;
                 }
                 @include media-breakpoint-down(xs) {
-                    height: 195px;
+                    //height: 195px;
                 }
                 a {
                     display: flex;
                     flex-direction: column;
-                    justify-content: space-between;
+                    justify-content: flex-start;
                     height: 100%;
                     margin: 0 auto;
                     background: #fff;
                     border-radius: 12px;
                     text-align: center;
                     color: #000;
+                    padding: 5px;
 
                     &:hover {
                         text-decoration: none;
                     }
 
                     .img-container {
-                        padding: 13px 20px 0 20px;
+                        //padding: 13px 20px 0 20px;
+                        @include media-breakpoint-down(sm) {
+                            //padding-left: 10px;
+                            //padding-right: 10px;
+                        }
                         img {
 
                             width: 160px;
@@ -102,21 +109,28 @@
                                 width: 110px;
                             }
 
-                            //@include media-breakpoint-down(sm) {
-                            //    width: 120px;
-                            //}
-                            @include media-breakpoint-down(xs) {
-                                width: 110px;
+                            @include media-breakpoint-down(sm) {
+                                width: 97px;
                             }
                         }
 
                     }
 
+                    .label-block {
+                        display: flex;
+                        height: inherit;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
                     label {
-                        margin-top: 10px;
-                        padding: 0 6px;
+                        text-align: center;
+                        word-break: break-word;
+                        //margin-top: 10px;
+                        //padding: 6px;
                         font-size: 14px;
                         font-weight: bold;
+                        margin-bottom: 0;
                         @include media-breakpoint-down(xs) {
                             font-size: 13px;
                         }

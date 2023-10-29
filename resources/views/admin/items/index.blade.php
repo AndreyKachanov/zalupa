@@ -3,7 +3,7 @@
     /** @var \Illuminate\Pagination\LengthAwarePaginator $items */
 
     $th = 'Наценка + ' . $priceIncrease . ' %';
-    $th2 = "Регулировка $priceIncrease2 %";
+    //$th2 = "Регулировка $priceIncrease2 %";
 @endphp
 
 @extends('layouts.app')
@@ -215,7 +215,7 @@
                 <th scope="col">Артикул</th>
                 <th scope="col">Цена закупки</th>
                 <th scope="col">{{ $th }}</th>
-                <th scope="col">{{ $th2 }}</th>
+{{--                <th scope="col">{{ $th2 }}</th>--}}
                 <th scope="col">Мин. заказ</th>
                 <th scope="col">Новый</th>
                 <th scope="col">Хит</th>
@@ -264,9 +264,9 @@
                     <td data-label="{{ $th }}">
                         {{ round(($item->getRawOriginal('price') / 100) * $priceIncrease + $item->getRawOriginal('price')) }} ₽
                     </td>
-                    <td data-label="{{ $th2 }}">
-                        {{ $item->price }} ₽
-                    </td>
+{{--                    <td data-label="{{ $th2 }}">--}}
+{{--                        {{ $item->price }} ₽--}}
+{{--                    </td>--}}
                     <td data-label="Мин. заказ">
                         {!! $item->min_order_amount  ?? '&nbsp;' !!}
                     </td>

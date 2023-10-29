@@ -69,8 +69,8 @@ class ItemsController extends Controller
             ])
             ->paginate(config('app.pagination_default_value'));
         $priceIncrease = SettingsService::getPriceIncrease();
-        $priceIncrease2 = SettingsService::getPriceIncrease2();
-        return view('admin.items.index', compact('items','searchInput', 'radioButton', 'priceIncrease', 'priceIncrease2'));
+        //$priceIncrease2 = SettingsService::getPriceIncrease2();
+        return view('admin.items.index', compact('items','searchInput', 'radioButton', 'priceIncrease'));
     }
 
     /**
