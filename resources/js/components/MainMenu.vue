@@ -59,15 +59,23 @@
             padding: 0;
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around;
+            justify-content: center;
             //align-items: stretch;
             gap: .5rem;
 
+            @include media-breakpoint-down(sm) {
+                margin-left: -15px;
+                margin-right: -15px;
+            }
+
             li {
                 flex: 0 0 calc(16.66% - 20px);
-                //@include media-breakpoint-down(xs) {
-                //    flex: 0 0 calc(40% - 20px);
-                //}
+                @include media-breakpoint-down(md) {
+                    flex: 0 0 calc(20% - 20px);
+                }
+                @include media-breakpoint-down(sm) {
+                    flex: 0 0 31%;
+                }
                 list-style: none;
                 //height: 260px;
                 @include media-breakpoint-down(md) {
@@ -90,6 +98,9 @@
                     text-align: center;
                     color: #000;
                     padding: 15px 13px 5px 13px;
+                    @include media-breakpoint-down(sm) {
+                        padding: 9px 25px 12px 25px;
+                    }
 
                     &:hover {
                         text-decoration: none;
@@ -102,15 +113,16 @@
                             //padding-right: 10px;
                         }
                         img {
-
-                            width: 160px;
+                            max-width: 100%;
+                            //width: 160px;
+                            //width: auto;
 
                             @include media-breakpoint-down(md) {
-                                width: 110px;
+                                //width: 110px;
                             }
 
                             @include media-breakpoint-down(sm) {
-                                width: 81px;
+                                //max-width: 100%;
                             }
                         }
 
@@ -132,8 +144,8 @@
                         font-size: 14px;
                         font-weight: bold;
                         margin-bottom: 0;
-                        @include media-breakpoint-down(xs) {
-                            font-size: 11px;
+                        @include media-breakpoint-down(sm) {
+                            font-size: 10px;
                         }
                         &:hover {
                             color: #1b1e21;
