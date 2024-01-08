@@ -15,35 +15,37 @@
                 <div class="card">
                     <div class="card-body">
                         {{ Form::open(['method' => 'post', 'route' => ['admin.settings.update'], 'files' => false, 'class' => 'container']) }}
-                            @foreach($settings as $setting)
-                                <div class="form-group">
-                                        @php
-                                            $isRequired = in_array($setting->prop_key, $requiredFieldsArr);
-                                            $labelTitleWithStarSymbol = $setting->title . ($isRequired ? '*' : '');
-                                        @endphp
-                                        {{ Form::label($setting->prop_key, $labelTitleWithStarSymbol, ['class' => 'col-form-label']) }}
+                        @foreach($settings as $setting)
+                            <div class="form-group">
+                                @php
+                                    $propKey = $setting->prop_key;
+                                    $isRequired = in_array($propKey, $requiredFieldsArr);
+                                    $labelTitleWithStarSymbol = $setting->title . ($isRequired ? '*' : '');
+                                @endphp
+                                {{ Form::label($propKey, $labelTitleWithStarSymbol, ['class' => 'col-form-label']) }}
 
-                                        @php
-                                            $validInputTypes = ['price_increase', 'min_order_cost'];
-                                            $inputType = in_array($setting->prop_key, $validInputTypes) ? 'number' : 'text';
-                                            //$inputType = $setting->prop_key == 'price_increase' || $setting->prop_key == 'price_increase2' || $setting->prop_key == 'min_order_cost'
-                                            //? 'number'
-                                            //: 'text';
-                                        @endphp
-                                        {{ Form::{$inputType}($setting->prop_key, old($setting->prop_key, $setting->prop_value),
-                                                [
-                                                    'class' => 'form-control' . setIsValidField($setting->prop_key, $errors),
-                                                    'id' => $setting->prop_key,
-                                                    'required' => $isRequired
-                                                ])  }}
-                                        @if ($errors->has($setting->prop_key))
-                                            <span class="invalid-feedback">{!! $errors->first($setting->prop_key) !!}</span>
-                                        @endif
-                                </div>
-                            @endforeach
-                            <div class="form-group mb-0">
-                                {{ Form::submit('Сохранить', ['class' => 'btn btn-sm btn-primary'])  }}
+                                @php
+                                    $numberInputTypes = ['price_increase', 'min_order_cost'];
+                                    $textAreaType = ['custom_text'];
+                                    $fieldType = in_array($propKey, $numberInputTypes)
+                                    ? 'number'
+                                    : (in_array($propKey, $textAreaType) ? 'textarea' : 'text');
+                                @endphp
+                                {{ Form::{$fieldType}($propKey, old($propKey, $setting->prop_value),
+                                        [
+                                            'class' => 'form-control' . setIsValidField($propKey, $errors),
+                                            'id' => $propKey,
+                                            'required' => $isRequired,
+                                            in_array($propKey, $textAreaType) && strlen($setting->prop_value) > 100 ? 'rows=8' : 'rows=4'
+                                        ])  }}
+                                @if ($errors->has($propKey))
+                                    <span class="invalid-feedback">{!! $errors->first($propKey) !!}</span>
+                                @endif
                             </div>
+                        @endforeach
+                        <div class="form-group mb-0">
+                            {{ Form::submit('Сохранить', ['class' => 'btn btn-sm btn-primary'])  }}
+                        </div>
                         {{ Form::close() }}
                     </div>
                 </div>

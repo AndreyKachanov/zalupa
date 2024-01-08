@@ -16,7 +16,11 @@
                     <div class="contact_info_content">
                         <div class="contact_info_title">{{ setting.title }}</div>
                         <div class="contact_info_text">
-                            <a v-if="this.isUrl(setting.prop_value)" target="_blank" :href="`${setting.prop_value}`">
+                            <a
+                                v-if="this.isValidUrl(setting.prop_value)"
+                                target="_blank"
+                                :href="`${setting.prop_value}`"
+                            >
                                 {{ setting.prop_value }}
                             </a>
                             <a v-else-if="setting.prop_key === 'phone_number'"
@@ -24,7 +28,9 @@
                             >
                                 {{ setting.prop_value }}
                             </a>
-                            <span v-else>{{ setting.prop_value }}</span>
+                            <span v-else>
+                                {{ setting.prop_value }}
+                           </span>
                         </div>
                     </div>
                 </div>
@@ -47,14 +53,13 @@
             }
         },
         methods: {
-            isUrl(str) {
-                let pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
-                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
-                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-                '(\\:\\d+)?(\\/[-a-z\\d%_.~+@]*)*'+ // port and path
-                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-                '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
-                return !!pattern.test(str)
+            isValidUrl(str) {
+                try {
+                    new URL(str);
+                    return true;
+                } catch (error) {
+                    return false;
+                }
             },
         }
     }

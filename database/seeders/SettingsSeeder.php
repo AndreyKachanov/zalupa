@@ -28,12 +28,6 @@ class SettingsSeeder extends Seeder
                 'is_icon' => false,
                 'prop_value' => '0'
             ]);
-            //Setting::create([
-            //    'title' => 'Регулирование наценки (%)',
-            //    'prop_key' => 'price_increase2',
-            //    'is_icon' => false,
-            //    'prop_value' => '0'
-            //]);
             Setting::create([
                 'title' => 'Сумма минимального заказа (₽). Если установлена, то минимальное кол-во товаров не проверяется',
                 'prop_key' => 'min_order_cost',
