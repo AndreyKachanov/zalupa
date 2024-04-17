@@ -41,5 +41,17 @@ if (!function_exists('writeErrorToFile')) {
         Log::error($errorMsg);
     }
 }
+if (!function_exists('formatPrice')) {
+    function formatPrice($price, $label): string
+    {
+        return $price !== 0 ? $label . " <span style='color:red;'>" . ($price > 0 ? ' +' : ' ') . $price . ' %</span>' : $label . ' ' . $price . ' %';
+    }
+
+}if (!function_exists('formatPriceToDataAttribute')) {
+    function formatPriceToDataAttribute($price, $label): string
+    {
+        return $price !== 0 ? $label . ($price > 0 ? ' +' : ' ') . $price : $label . ' ' . $price . ' %';
+    }
+}
 
 

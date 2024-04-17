@@ -29,19 +29,20 @@ class ItemsCategorySeederFactory extends Seeder
             //Category::factory()->count(2)->hasChildren(3)->hasItems(1)->create();
 
             // Создаем родительскую категорию и дочерние категории
-            $randomCount = random_int(3, 7);
+            //$randomCount = random_int(3, 7);
+            $randomCount = random_int(1, 2);
             //Category::factory()->count(10)->hasChildren(2)->create();
-            Category::factory()->count(10)->hasChildren($randomCount)->create()->each(function ($parentCategory) {
+            Category::factory()->count(1)->hasChildren($randomCount)->create()->each(function ($parentCategory) {
 
                 // Создаем элементы items для родительской категории
-                Item::factory()->count(10)->create([
+                Item::factory()->count(1)->create([
                     'category_id' => $parentCategory->id,
                 ]);
                 dump('new');
                 //
                 // Создаем элементы items для дочерних категорий
                 $parentCategory->children()->each(function ($childCategory) {
-                    Item::factory()->count(15)->create([
+                    Item::factory()->count(1)->create([
                         'category_id' => $childCategory->id,
                     ]);
                 });

@@ -15,6 +15,8 @@ yarn-error.log
 /.vscode
 bootstrap/cache/config.php
 
+database/seeders/seeder_data/*
+
 #custom
 /public/build
 /public/uploads
@@ -22,3 +24,4 @@ database.sql
 1.zip
 _ide_helper.php
 .phpstorm.meta.php
+_.git

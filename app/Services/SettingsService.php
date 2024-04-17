@@ -6,10 +6,10 @@ use App\Models\Admin\Setting;
 
 class SettingsService
 {
-    private static $priceIncrease = null;
-    private static $priceIncrease2 = null;
+    private static ?int $priceIncrease = null;
+    private static ?int $priceRegulation = null;
 
-    public static function getPriceIncrease()
+    public static function getPriceIncrease(): ?int
     {
         if (self::$priceIncrease === null) {
             self::$priceIncrease = (int)Setting::firstWhere('prop_key', 'price_increase')->prop_value;
@@ -17,11 +17,11 @@ class SettingsService
         return self::$priceIncrease;
     }
 
-    public static function getPriceIncrease2()
+    public static function getPriceRegulation(): ?int
     {
-        if (self::$priceIncrease2 === null) {
-            self::$priceIncrease2 = (int)Setting::firstWhere('prop_key', 'price_increase2')->prop_value;
+        if (self::$priceRegulation === null) {
+            self::$priceRegulation = (int)Setting::firstWhere('prop_key', 'price_regulation')->prop_value;
         }
-        return self::$priceIncrease2;
+        return self::$priceRegulation;
     }
 }

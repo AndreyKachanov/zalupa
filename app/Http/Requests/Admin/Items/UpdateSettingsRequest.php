@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Admin\Items;
 
+use App\Models\Admin\Item\Item;
+use App\Services\SettingsService;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateSettingsRequest extends FormRequest
@@ -25,7 +27,21 @@ class UpdateSettingsRequest extends FormRequest
     {
         return [
             'price_increase' => 'required|integer|min:0|max:1000',
-            //'price_increase2' => 'required|integer|min:-100|max:100',
+            'price_regulation' => [
+                'required',
+                'integer',
+                'min:-1000',
+                'max:1000',
+                function ($attribute, $value, $fail) {
+                    Item::all()->each(function ($item) use ($value, $fail) {
+                        $result = ($item->price / 100) * (int)$value + $item->price;
+                        if ($result <= 0) {
+                            //$fail('Сильно много ебанул в минус! В итоге будут товары с ценой <= 0');
+                            $fail('Нельзя так много! Будут товары с отрицательной ценой!');
+                        }
+                    });
+                }
+            ],
             'min_order_cost' => 'nullable|numeric|min:1|max:1000000',
             'phone_number' => 'nullable|max:255',
             'instagram' => 'nullable|max:255',

@@ -118,7 +118,7 @@ export default {
         collapsed: true,
         menuType: 'simple',
         miniMenu: false,
-        width: '300px',
+        width: '370px',
         search: '',
         test111: true
     }),

@@ -15,11 +15,7 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
-$missing = fn(Request $request) => response('Missing route. Not found111', 404);
+$missing = fn(Request $request) => response('Missing route. Not found', 404);
 
 Route::post('test', fn(Request $request) => dd($request->all()))->name('api.test');
 

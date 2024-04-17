@@ -35,7 +35,7 @@ class ItemsController extends Controller
         // Если зашли после redirect, т.е. после неудачной валидации
         if (session('redirected_after_fail')) {
             $items = new LengthAwarePaginator([], 0, config('app.pagination_default_value'));
-            return view('admin.items.index', compact('items','searchInput', 'radioButton'));
+            return view('admin.items.index', compact('items', 'searchInput', 'radioButton'));
         }
 
         $query = Item::orderByDesc('created_at');
@@ -68,9 +68,8 @@ class ItemsController extends Controller
                 'cartItems as not_ordered_count' => fn(/**@var CartItem $query*/ $query) => $query->doesntHave('orderItem'),
             ])
             ->paginate(config('app.pagination_default_value'));
-        $priceIncrease = SettingsService::getPriceIncrease();
-        //$priceIncrease2 = SettingsService::getPriceIncrease2();
-        return view('admin.items.index', compact('items','searchInput', 'radioButton', 'priceIncrease'));
+
+        return view('admin.items.index', compact('items', 'searchInput', 'radioButton'));
     }
 
     /**
@@ -108,7 +107,7 @@ class ItemsController extends Controller
 
             $item->update(['article_number' => $item->id . '.' . $item->article_number]);
             return redirect()->route('admin.items.show', $item);
-    } catch (Exception $exception) {
+        } catch (Exception $exception) {
             writeErrorToFile($exception->getMessage());
             return redirect()
             ->back()
@@ -167,7 +166,6 @@ class ItemsController extends Controller
                 ->withInput()
                 ->withErrors('Ошибка обновления товара. См. лог.');
         }
-
     }
 
     /**
@@ -217,5 +215,17 @@ class ItemsController extends Controller
         return $request->only([
             'title', 'note', 'article_number', 'price', 'min_order_amount'
         ]);
+    }
+
+    /**
+     * Создаем строку с соответствующим стилем в случае, если цена не равна 0
+     *
+     * @param $price
+     * @param $label
+     * @return string
+     */
+    private function formatPrice($price, $label): string
+    {
+        return $price !== 0 ? $label . ' <span style="color:red;">' . ($price > 0 ? ' +' : ' ') . $price . ' %</span>' : $label . ' ' . $price . ' %';
     }
 }

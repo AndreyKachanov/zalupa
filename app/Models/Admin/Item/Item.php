@@ -4,7 +4,6 @@ namespace App\Models\Admin\Item;
 
 use App\Models\Admin\Cart\CartItem;
 use App\Models\Admin\Cart\Order\OrderItem;
-use App\Models\Admin\Setting;
 use App\Services\SettingsService;
 use App\Traits\EloquentGetTableNameTrait;
 use Database\Factories\Admin\Item\ItemFactory;
@@ -39,10 +38,8 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $deleted_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection<int, CartItem> $cartItems
  * @property-read int|null $cart_items_count
  * @property-read Category|null $category
- * @property-read Collection<int, OrderItem> $orderItems
  * @property-read int|null $order_items_count
  * @method static ItemFactory factory($count = null, $state = [])
  * @method static Builder|Item findSimilarSlugs(string $attribute, array $config, string $slug)
@@ -70,8 +67,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Item withoutTrashed()
  * @property-read Collection<int, CartItem> $cartItems
  * @property-read Collection<int, OrderItem> $orderItems
- * @property-read Collection<int, CartItem> $cartItems
- * @property-read Collection<int, OrderItem> $orderItems
  * @mixin Eloquent
  */
 class Item extends Model
@@ -81,6 +76,7 @@ class Item extends Model
     use SoftDeletes;
     use Sluggable;
 
+    protected $appends = ['priceIncrease'];
     protected $table = 'items';
     protected $guarded = ['id'];
     protected $casts = [
@@ -130,12 +126,44 @@ class Item extends Model
      */
     protected function price(): Attribute
     {
+        // нужно, чтобы так работало
+        // 100р + 10% = 110р + 21% = 133,1р
+        // как сейчас работает:
+        // 100р + 31% = 131р
+
         return Attribute::make(
             get: function ($value) {
                 $priceIncrease = SettingsService::getPriceIncrease();
-                $result = round( ($value / 100) * $priceIncrease + $value);
-                return $result;
+                $priceRegulation = SettingsService::getPriceRegulation();
+
+                // Увеличиваем цену на первый процент
+                $firstIncreasedPrice = ($value / 100) * $priceIncrease + $value;
+
+                // Увеличиваем цену на второй процент от уже увеличенной цены
+                $finalPrice = ($firstIncreasedPrice / 100) * $priceRegulation + $firstIncreasedPrice;
+                //dd($finalPrice);
+                return round($finalPrice); // Округляем до целого числа
             }
         );
+    }
+
+    //public function calculateIntermediatePrice(): float
+    //{
+    //    $priceIncrease = SettingsService::getPriceIncrease();
+    //    $currentPrice = $this->getRawOriginal('price');
+    //
+    //    // Рассчитываем промежуточную цену, увеличивая текущую цену на процент
+    //    $intermediatePrice = ($currentPrice / 100) * $priceIncrease + $currentPrice;
+    //
+    //    return round($intermediatePrice, 2); // Округляем до двух знаков после запятой
+    //}
+
+    public function getPriceIncreaseAttribute(): float
+    {
+        $priceIncrease = SettingsService::getPriceIncrease();
+        $currentPrice = $this->getRawOriginal('price');
+
+        // Рассчитываем промежуточную цену и возвращаем её
+        return round(($currentPrice / 100) * $priceIncrease + $currentPrice);
     }
 }
