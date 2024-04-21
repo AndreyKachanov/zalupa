@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Carbon;
 
-
 /**
  * App\Models\Admin\Cart\CartItem
  *

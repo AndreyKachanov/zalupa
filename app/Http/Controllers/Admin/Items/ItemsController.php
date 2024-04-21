@@ -8,7 +8,6 @@ use App\Http\Requests\Admin\Items\CreateItemRequest;
 use App\Models\Admin\Item\Item;
 use App\Services\ImageService;
 use App\Http\Controllers\Controller;
-use App\Services\SettingsService;
 use App\UseCases\Categories\CategoryService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -122,8 +121,11 @@ class ItemsController extends Controller
      */
     public function show(Item $item)
     {
-        $item->load(['category' => fn(/**@var Category $query*/ $query) => $query->withTrashed()])
-            ->loadCount(['cartItems as not_ordered_count' => fn(/**@var CartItem $query*/ $query) => $query->doesntHave('orderItem')]);
+        $item->load(['category' => fn(/**@var Category $query */ $query) => $query->withTrashed()])
+            ->loadCount([
+                'cartItems as not_ordered_count' => fn(/**@var CartItem $query */ $query
+                ) => $query->doesntHave('orderItem')
+            ]);
         return view('admin.items.show', compact('item'));
     }
 
@@ -215,17 +217,5 @@ class ItemsController extends Controller
         return $request->only([
             'title', 'note', 'article_number', 'price', 'min_order_amount'
         ]);
-    }
-
-    /**
-     * Создаем строку с соответствующим стилем в случае, если цена не равна 0
-     *
-     * @param $price
-     * @param $label
-     * @return string
-     */
-    private function formatPrice($price, $label): string
-    {
-        return $price !== 0 ? $label . ' <span style="color:red;">' . ($price > 0 ? ' +' : ' ') . $price . ' %</span>' : $label . ' ' . $price . ' %';
     }
 }

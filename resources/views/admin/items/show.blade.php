@@ -30,11 +30,7 @@
                 <td>{{ $item->getRawOriginal('price') }} &#8381</td>
             </tr>
             <tr>
-                <th>{!! formatPrice(\App\Services\SettingsService::getPriceIncrease(), 'Наценка') !!}</th>
-                <td>{{ $item->priceIncrease }} &#8381</td>
-            </tr>
-            <tr>
-                <th>{!! formatPrice(\App\Services\SettingsService::getPriceRegulation(), 'Регулировка') !!}</th>
+                <th>{!! formatPrice(\App\Services\SettingsService::getPriceIncrease(), 'Наценка'); !!}</th>
                 <td>{{ $item->price }} &#8381</td>
             </tr>
             <tr>

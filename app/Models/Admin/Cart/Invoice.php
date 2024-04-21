@@ -39,6 +39,9 @@ class Invoice extends Model
     protected $table = 'invoices';
     protected $guarded = ['id'];
 
+    /**
+     * @return BelongsTo
+     */
     public function token(): BelongsTo
     {
         return $this->belongsTo(Token::class, 'token_id', 'id');

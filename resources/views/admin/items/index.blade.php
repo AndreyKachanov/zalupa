@@ -1,10 +1,6 @@
 @php
     /** @var \App\Models\Admin\Item\Item $item */
     /** @var \Illuminate\Pagination\LengthAwarePaginator $items */
-    //$thPriceIncrease = formatPrice(\App\Services\SettingsService::getPriceIncrease(), 'Наценка');
-    //$thPriceRegulation = formatPrice(\App\Services\SettingsService::getPriceRegulation(), 'Регулировка');
-
-
 @endphp
 
 @extends('layouts.app')
@@ -216,7 +212,6 @@
                 <th scope="col">Артикул</th>
                 <th scope="col">Цена закупки</th>
                 <th scope="col">{!! formatPrice(\App\Services\SettingsService::getPriceIncrease(), 'Наценка'); !!}</th>
-                <th scope="col">{!! formatPrice(\App\Services\SettingsService::getPriceRegulation(), 'Регулировка'); !!}</th>
                 <th scope="col">Мин. заказ</th>
                 <th scope="col">Новый</th>
                 <th scope="col">Хит</th>
@@ -255,9 +250,6 @@
                         {{ $item->getRawOriginal('price') }} ₽
                     </td>
                     <td data-label="{{ formatPriceToDataAttribute(\App\Services\SettingsService::getPriceIncrease(), 'Наценка') }}">
-                        {{ $item->priceIncrease }} ₽
-                    </td>
-                    <td data-label="{{ formatPriceToDataAttribute(\App\Services\SettingsService::getPriceRegulation(), 'Регулировка') }}">
                         {{ $item->price }} ₽
                     </td>
                     <td data-label="Мин. заказ">

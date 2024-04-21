@@ -27,14 +27,16 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Validation\ValidationException;
 
-
 /**
  * @property ApiService $service
  * @property SendOrderService $sendOrderService
  */
 class ApiController extends Controller
 {
-    private $cartTokensTableName;
+    private string $cartTokensTableName;
+    private string $itemsTableName;
+    private ApiService $service;
+    private SendOrderService $sendOrderService;
 
     /**
      * @param ApiService $service
@@ -54,6 +56,7 @@ class ApiController extends Controller
      *
      * @param Request $request
      * @return JsonResponse
+     * @throws GuzzleException
      */
     public function cartLoad(Request $request)
     {
@@ -73,14 +76,16 @@ class ApiController extends Controller
             }
 
             $tokenIsNull = $oldTokenString === 'null';
-
             //Если токен есть
             if (!$tokenIsNull) {
                 $oldToken = Token::with([
                     'orderItems',
-                    'cartItems' => fn ($query /** @var CartItem $query */) => $query->select(['token_id', 'item_id as id', 'cnt'])->whereHas('item'),
+                    'cartItems' => fn($query/** @var CartItem $query */) => $query->select([
+                        'token_id',
+                        'item_id as id',
+                        'cnt'
+                    ])->whereHas('item'),
                 ])->firstWhere('token', $oldTokenString);
-
                 //Если заказ уже выполнен - кидаем исключение, чтобы не "подсмотрели" заказ через адресную строку
                 if ($oldToken->orderItems()->count() > 0) {
                     throw new MyHttpResponseException(
@@ -90,10 +95,8 @@ class ApiController extends Controller
                     );
                 }
             }
-
             //Если $tokenIsNull === false, значит входящий токен уже существует в бд, иначе
             //сработало бы исключение MyHttpResponseException
-
             $json = [
                 //needUpdateToken = true - значит токена нет в бд.
                 //needUpdateToken = false - значит токен есть в бд
@@ -113,7 +116,6 @@ class ApiController extends Controller
             ];
 
             //Обновляем 'время последнего визита и кол-во посещений'
-
             $token = Token::firstWhere('token', $json['token']);
             $token->update(['last_visit' => Carbon::now()]);
             $token->increment('visits_count');
@@ -192,9 +194,7 @@ class ApiController extends Controller
           //Обрабатывает ошибки валидации
         } catch (ValidationException $e) {
             throw new MyHttpResponseException($e->getMessage(), null, 422);
-        }
-          //Обрабатывает ошибки связанные с бд
-        catch (QueryException $e) {
+        } catch (QueryException $e) { // Обрабатывает ошибки связанные с бд
             throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
         }
     }
@@ -226,12 +226,11 @@ class ApiController extends Controller
                 $token->order()->updateOrCreate([], [$request->get('field') => $request->get('value')])
                     ? 'true'
                     : 'false',
-                200);
-
+                200
+            );
         } catch (ValidationException $e) {
             throw new MyHttpResponseException($e->getMessage(), null, 422);
-        }
-        catch (QueryException $e) {
+        } catch (QueryException $e) {
             throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
         }
     }
@@ -255,8 +254,7 @@ class ApiController extends Controller
             return response()->json(['bill_number' => $invoice->bill_number]);
         } catch (ValidationException $e) {
             throw new MyHttpResponseException($e->getMessage(), null, 422);
-        }
-        catch (QueryException $e) {
+        } catch (QueryException $e) {
             throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
         }
     }
@@ -293,15 +291,19 @@ class ApiController extends Controller
 
             if (count($dbArr) !== count($frontArr)) {
                 throw new MyHttpResponseException('Validation error', 'count($dbArr) !== count($frontArr)', 422);
-            } else {
-                foreach ($dbArr as $k => $v) {
-                    if (!($dbArr[$k]['id'] === $frontArr[$k]['id'] && $dbArr[$k]['cnt'] === $frontArr[$k]['cnt'])) {
-                        throw new MyHttpResponseException('Validation error', 'id и cnt из бд не соответствуют id и cnt с фронта', 422);
-                    }
+            }
+
+            foreach ($dbArr as $k => $v) {
+                if (!($dbArr[$k]['id'] === $frontArr[$k]['id'] && $dbArr[$k]['cnt'] === $frontArr[$k]['cnt'])) {
+                    throw new MyHttpResponseException(
+                        'Validation error',
+                        'id и cnt из бд не соответствуют id и cnt с фронта',
+                        422
+                    );
                 }
             }
 
-            $items = array_map(function($item) {
+            $items = array_map(function ($item) {
                 return [
                     'item_id' => $item['id'],
                     'cnt' => $item['cnt'],
@@ -329,7 +331,8 @@ class ApiController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function loadOrder(Request $request) {
+    public function loadOrder(Request $request)
+    {
         try {
             $request->validate([
                 'token' => "required|size:32|exists:$this->cartTokensTableName,token"
@@ -346,8 +349,7 @@ class ApiController extends Controller
                 $e->getMessage(),
                 422
             );
-        }
-        catch (QueryException $e) {
+        } catch (QueryException $e) {
             throw new MyHttpResponseException('Database Error. See logs', $e->getMessage(), 500);
         }
     }

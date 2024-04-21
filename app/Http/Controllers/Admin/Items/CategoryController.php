@@ -211,7 +211,8 @@ class CategoryController extends Controller
      * @param Category $category
      * @return RedirectResponse
      */
-    public function showItems(Category $category) {
+    public function showItems(Category $category)
+    {
         return redirect()->action([ItemsController::class, 'index'], [
             'radio_search_by' => 'category',
             'search_input' => $category->title,

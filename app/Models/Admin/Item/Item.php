@@ -9,6 +9,7 @@ use App\Traits\EloquentGetTableNameTrait;
 use Database\Factories\Admin\Item\ItemFactory;
 use Eloquent;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +18,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Carbon;
 
 /**
@@ -76,7 +76,6 @@ class Item extends Model
     use SoftDeletes;
     use Sluggable;
 
-    protected $appends = ['priceIncrease'];
     protected $table = 'items';
     protected $guarded = ['id'];
     protected $casts = [
@@ -126,44 +125,12 @@ class Item extends Model
      */
     protected function price(): Attribute
     {
-        // нужно, чтобы так работало
-        // 100р + 10% = 110р + 21% = 133,1р
-        // как сейчас работает:
-        // 100р + 31% = 131р
-
         return Attribute::make(
             get: function ($value) {
                 $priceIncrease = SettingsService::getPriceIncrease();
-                $priceRegulation = SettingsService::getPriceRegulation();
-
-                // Увеличиваем цену на первый процент
-                $firstIncreasedPrice = ($value / 100) * $priceIncrease + $value;
-
-                // Увеличиваем цену на второй процент от уже увеличенной цены
-                $finalPrice = ($firstIncreasedPrice / 100) * $priceRegulation + $firstIncreasedPrice;
-                //dd($finalPrice);
-                return round($finalPrice); // Округляем до целого числа
+                $price = ($value / 100) * $priceIncrease + $value;
+                return round($price); // Округляем до целого числа
             }
         );
-    }
-
-    //public function calculateIntermediatePrice(): float
-    //{
-    //    $priceIncrease = SettingsService::getPriceIncrease();
-    //    $currentPrice = $this->getRawOriginal('price');
-    //
-    //    // Рассчитываем промежуточную цену, увеличивая текущую цену на процент
-    //    $intermediatePrice = ($currentPrice / 100) * $priceIncrease + $currentPrice;
-    //
-    //    return round($intermediatePrice, 2); // Округляем до двух знаков после запятой
-    //}
-
-    public function getPriceIncreaseAttribute(): float
-    {
-        $priceIncrease = SettingsService::getPriceIncrease();
-        $currentPrice = $this->getRawOriginal('price');
-
-        // Рассчитываем промежуточную цену и возвращаем её
-        return round(($currentPrice / 100) * $priceIncrease + $currentPrice);
     }
 }

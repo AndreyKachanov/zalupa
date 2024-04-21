@@ -146,6 +146,5 @@
 @endsection
 
 @section('content')
-{{--    @include('admin.categories._nav')--}}
     <app-component :category="{{ json_encode($category) }}"></app-component>
 @endsection

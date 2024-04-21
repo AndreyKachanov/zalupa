@@ -1,7 +1,6 @@
 @php
     $pageWithVue = in_array(Route::currentRouteName(), ['home', 'any']);
     $notShowBreadcrumbs = in_array(Route::currentRouteName(), ['admin.home', 'login', 'password.request', 'password.reset', ]);
-    //dump(Route::currentRouteName(), $pageWithVue);
 @endphp
 
 <!DOCTYPE html>

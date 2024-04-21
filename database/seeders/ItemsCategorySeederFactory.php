@@ -7,11 +7,14 @@ use App\Models\Admin\Item\Item;
 use Exception;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
+use League\Flysystem\FilesystemException;
 
 class ItemsCategorySeederFactory extends Seeder
 {
     /**
-     * Run the database seeds.
+     * @return void
+     * @throws FilesystemException
+     * @throws Exception
      */
     public function run(): void
     {
@@ -26,20 +29,15 @@ class ItemsCategorySeederFactory extends Seeder
         Storage::disk('uploads')->createDirectory('items');
 
         try {
-            //Category::factory()->count(2)->hasChildren(3)->hasItems(1)->create();
-
             // Создаем родительскую категорию и дочерние категории
             //$randomCount = random_int(3, 7);
             $randomCount = random_int(1, 2);
-            //Category::factory()->count(10)->hasChildren(2)->create();
             Category::factory()->count(1)->hasChildren($randomCount)->create()->each(function ($parentCategory) {
 
                 // Создаем элементы items для родительской категории
                 Item::factory()->count(1)->create([
                     'category_id' => $parentCategory->id,
                 ]);
-                dump('new');
-                //
                 // Создаем элементы items для дочерних категорий
                 $parentCategory->children()->each(function ($childCategory) {
                     Item::factory()->count(1)->create([
@@ -47,7 +45,6 @@ class ItemsCategorySeederFactory extends Seeder
                     ]);
                 });
             });
-
         } catch (Exception $e) {
             $errorMsg = sprintf("Error in %s, line %d. %s", __METHOD__, __LINE__, $e->getMessage());
             throw new Exception($errorMsg);

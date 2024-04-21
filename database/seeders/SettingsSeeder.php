@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Admin\Setting;
 use Exception;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SettingsSeeder extends Seeder
@@ -15,7 +14,7 @@ class SettingsSeeder extends Seeder
      * @return void
      * @throws Exception
      */
-    public function run()
+    public function run(): void
     {
         if (Setting::count() != 0) {
             throw new Exception(Setting::getTableName() . ' table is not empty. Stop all seeds!!!');

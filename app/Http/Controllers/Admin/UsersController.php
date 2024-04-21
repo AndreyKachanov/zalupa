@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    private $register;
+    private RegisterService $register;
 
     public function __construct(RegisterService $register)
     {
