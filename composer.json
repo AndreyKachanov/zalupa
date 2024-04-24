@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.1",
         "ext-pdo": "*",
         "ext-ssh2": "*",
         "cviebrock/eloquent-sluggable": "^10.0",
@@ -17,8 +17,7 @@
         "laravel/framework": "^10.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
-        "laravelcollective/html": "^6.3",
-        "staudenmeir/laravel-adjacency-list": "^1.0"
+        "laravelcollective/html": "^6.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

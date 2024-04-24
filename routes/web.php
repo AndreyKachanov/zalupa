@@ -33,10 +33,10 @@ Route::group(
             Route::post('/', [SettingsController::class, 'update'])->name('update');
         });
 
-        //Товары
         //Проверка наличие товаров в корзине перед удалением
         Route::get('items/check-before-remove/{item}', [ItemsController::class, 'checkBeforeRemove'])
             ->name('items.check-before-remove');
+        //Товары
         Route::resource('items', ItemsController::class);
 
         //Категории
